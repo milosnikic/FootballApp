@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data;
 using FootballApp.API.Data.Users;
+using FootballApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,10 +41,7 @@ namespace FootballApp.API
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddAutoMapper();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My FootballApp API", Version = "v1" });
-            });
+            services.AddSwaggerDocumentation();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -62,6 +60,7 @@ namespace FootballApp.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,11 +72,7 @@ namespace FootballApp.API
 
             // app.UseHttpsRedirection();
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My FootballApp API V1");
-                c.RoutePrefix = string.Empty;
-            });
+            app.UseSwaggerDocumentation();
             app.UseAuthentication();
             app.UseMvc();
             
