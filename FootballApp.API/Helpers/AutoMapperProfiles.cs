@@ -10,6 +10,7 @@ namespace FootballApp.API.Helpers
         {
             CreateMap<UserForRegisterDto, User>();
             CreateMap<User, UserToReturnDto>();
+            CreateMap<GroupForCreationDto, Group>();
         }
     }
 }

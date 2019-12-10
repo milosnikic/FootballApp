@@ -12,8 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FootballApp.API.Controllers
 {
-    [ApiController]
+    
     [Route("api/[controller]")]
+    [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
