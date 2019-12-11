@@ -12,6 +12,12 @@ namespace FootballApp.API.Dtos
 
         [Required]
         public string Password { get; set; }
+        public bool IsActive { get; set; }
+
+        public UserForRegisterDto()
+        {
+            IsActive = true;
+        }
 
     }
 }

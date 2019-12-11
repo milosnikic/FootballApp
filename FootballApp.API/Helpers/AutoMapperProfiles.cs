@@ -11,6 +11,11 @@ namespace FootballApp.API.Helpers
             CreateMap<UserForRegisterDto, User>();
             CreateMap<User, UserToReturnDto>();
             CreateMap<GroupForCreationDto, Group>();
+            CreateMap<Group, GroupToReturnDto>()
+                .ForMember(dest => dest.Username, opt =>
+                {
+                    opt.MapFrom(src => src.User.Username);
+                });
         }
     }
 }

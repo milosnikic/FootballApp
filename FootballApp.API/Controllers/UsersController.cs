@@ -31,22 +31,17 @@ namespace FootballApp.API.Controllers
         {
             var userFromRepo = await _usersRepository.GetUser(id);
 
+            if (userFromRepo == null)
+                return BadRequest("Specified user does not exist");
+
             var userToReturn = _mapper.Map<UserToReturnDto>(userFromRepo);
+
             return Ok(userToReturn);
         }
 
-        [HttpGet("{id}/groups")]
-        public async Task<IActionResult> GetUserGroups(int id)
-        {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
+        
 
-            var userFromRepo = await _usersRepository.GetUser(id);
-
-            return Ok(userFromRepo.Groups);
-        }
-
-        [HttpPost("{id}/groups/create")]
+        [HttpPost("{id}/createGroup")]
         public async Task<IActionResult> CreateGroup(int id, GroupForCreationDto groupForCreationDto)
         {
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
