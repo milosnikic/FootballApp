@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FootballApp.API.Migrations
 {
-    public partial class AddedGroupEntity : Migration
+    public partial class CreatedEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,21 +61,38 @@ namespace FootballApp.API.Migrations
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Group",
+                name: "Groups",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    IsActive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Group", x => x.Id);
+                    table.PrimaryKey("PK_Groups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Memberships",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false),
+                    GroupId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Memberships", x => new { x.UserId, x.GroupId });
                     table.ForeignKey(
-                        name: "FK_Group_Users_UserId",
+                        name: "FK_Memberships_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Memberships_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -83,15 +100,18 @@ namespace FootballApp.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Group_UserId",
-                table: "Group",
-                column: "UserId");
+                name: "IX_Memberships_GroupId",
+                table: "Memberships",
+                column: "GroupId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Group");
+                name: "Memberships");
+
+            migrationBuilder.DropTable(
+                name: "Groups");
 
             migrationBuilder.DropColumn(
                 name: "City",

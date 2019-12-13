@@ -15,9 +15,10 @@ namespace FootballApp.API.Data.Groups
         }
         public async Task<Group> GetGroup(int id)
         {
-            var group = await _context.Groups.Include(g => g.User).FirstOrDefaultAsync(g => g.Id == id);
+            // var group = await _context.Groups.Include(g => g.User).FirstOrDefaultAsync(g => g.Id == id);
 
-            return group;
+            // return group;
+            throw new System.Exception();
         }
 
         public async Task<IEnumerable<Group>> GetGroups()
@@ -29,9 +30,9 @@ namespace FootballApp.API.Data.Groups
 
         public async Task<IEnumerable<Group>> GetGroupsForUser(int userId)
         {
-            var groups = await _context.Groups.Include(g => g.User).Where(u => u.UserId == userId).ToListAsync();
+            // var groups = await _context.Groups.Include(g => g.Users).Where(u => u.UserId == userId).ToListAsync();
 
-            return groups;
+            throw new System.Exception();
         }
     }
 }

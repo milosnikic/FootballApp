@@ -51,10 +51,10 @@ namespace FootballApp.API.Controllers
 
             var group = _mapper.Map<Group>(groupForCreationDto);
 
-            group.User = user;
-            group.UserId = user.Id;
+            // group.User = user;
+            // group.UserId = user.Id;
 
-            user.Groups.Add(group);
+            // user.Groups.Add(group);
 
             if(await _repo.SaveAll())
                 return Ok(user);

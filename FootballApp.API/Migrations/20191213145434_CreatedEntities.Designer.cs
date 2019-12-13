@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191210141759_AddedGroupEntity")]
-    partial class AddedGroupEntity
+    [Migration("20191213145434_CreatedEntities")]
+    partial class CreatedEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,13 +29,22 @@ namespace FootballApp.API.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.ToTable("Groups");
+                });
 
-                    b.ToTable("Group");
+            modelBuilder.Entity("FootballApp.API.Models.Membership", b =>
+                {
+                    b.Property<int>("UserId");
+
+                    b.Property<int>("GroupId");
+
+                    b.HasKey("UserId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("Memberships");
                 });
 
             modelBuilder.Entity("FootballApp.API.Models.User", b =>
@@ -74,10 +83,15 @@ namespace FootballApp.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FootballApp.API.Models.Group", b =>
+            modelBuilder.Entity("FootballApp.API.Models.Membership", b =>
                 {
+                    b.HasOne("FootballApp.API.Models.Group", "Group")
+                        .WithMany("Memberships")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("FootballApp.API.Models.User", "User")
-                        .WithMany("Groups")
+                        .WithMany("Memberships")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
