@@ -36,11 +36,13 @@ namespace FootballApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddCors();
             services.AddMvc()
                 .AddJsonOptions(opt =>
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
@@ -79,6 +81,11 @@ namespace FootballApp.API
             app.UseSwagger();
             app.UseSwaggerDocumentation();
             app.UseAuthentication();
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
             app.UseMvc();
 
         }

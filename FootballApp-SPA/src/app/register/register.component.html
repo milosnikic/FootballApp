@@ -1,36 +1,28 @@
 <div class="container">
-  <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4 mt-5">
-      <form #registerForm="ngForm">
+  <div class="row ">
+    <div class="col-md-8 mt-5 text-center">
+      <h1>Welcome to our football app</h1>
+      <h3 class="text-muted mt-5">Register for free!</h3>
+      <i class="fab fa-500px"></i>
+    </div>
+    <div class="col-md-4 mt-5">
+      <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="exampleInputEmail1">Username</label>
-          <input
-            type="email"
-            class="form-control"
-            placeholder="Enter username"
-            name="username"
-            [(ngModel)]="user.username"
-          />
+          <label>Username</label>
+          <input type="email" class="form-control" placeholder="Enter username" name="username" [(ngModel)]="user.username"/>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
-            [(ngModel)]="user.password"
-            name="password"
-            required
-          />
+          <input type="password" class="form-control"  placeholder="Password" [(ngModel)]="user.password" name="password" required/>
           <small id="emailHelp" class="form-text text-muted"
             >Never share your password with anyone else.</small
           >
         </div>
-        <!-- <button type="submit" class="btn btn-primary float-right" (ngSubmit)="onSubmit()">
-          Submit
-        </button> -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   </div>

@@ -16,7 +16,7 @@ namespace FootballApp.API.Data.Users
         }
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.IsActive == true);
+            var user = await _context.Users.Include(m => m.Memberships).FirstOrDefaultAsync(u => u.Id == id && u.IsActive == true);
 
             return user;
         }

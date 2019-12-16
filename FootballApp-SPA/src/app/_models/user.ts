@@ -1,6 +1,6 @@
 import { Group } from './group';
 
-export interface User {
+export class User {
     username: string;
     password: string;
     firstname: string;
@@ -12,5 +12,5 @@ export interface User {
     gender: string;
     city: string;
     country: string;
-    groups: Group[];
+    groups?: Group[];
 }

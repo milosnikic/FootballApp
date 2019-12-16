@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -39,7 +40,6 @@ namespace FootballApp.API.Controllers
             return Ok(userToReturn);
         }
 
-        
 
         [HttpPost("{id}/createGroup")]
         public async Task<IActionResult> CreateGroup(int id, GroupForCreationDto groupForCreationDto)
@@ -49,15 +49,18 @@ namespace FootballApp.API.Controllers
 
             var user = await _usersRepository.GetUser(id);
 
+
             var group = _mapper.Map<Group>(groupForCreationDto);
 
-            // group.User = user;
-            // group.UserId = user.Id;
+            _repo.Add(group);
 
-            // user.Groups.Add(group);
+            var membership = new Membership { UserId = user.Id, GroupId = group.Id,  DateSent = DateTime.Now, Role = Role.Owner, Accepted = true, DateAccepted = DateTime.Now};
 
-            if(await _repo.SaveAll())
-                return Ok(user);
+            _repo.Add(membership);
+            
+            var userToReturn = _mapper.Map<UserToReturnDto>(user);
+            if (await _repo.SaveAll())
+                return Ok(userToReturn);
 
             return BadRequest("Could not create group");
         }

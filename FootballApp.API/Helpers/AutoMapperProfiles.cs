@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using FootballApp.API.Dtos;
 using FootballApp.API.Models;
@@ -11,11 +12,19 @@ namespace FootballApp.API.Helpers
             CreateMap<UserForRegisterDto, User>();
             CreateMap<User, UserToReturnDto>();
             CreateMap<GroupForCreationDto, Group>();
-            // CreateMap<Group, GroupToReturnDto>();
-                // .ForMember(dest => dest.Username, opt =>
-                // {
-                //     opt.MapFrom(src => src.User.Username);
-                // });
+            CreateMap<Group, GroupToReturnDto>()
+                .ForMember(
+                 dest => dest.UserId,
+                 opt =>
+                {
+                    opt.MapFrom(src => src.Memberships.Where(m => m.GroupId == src.Id).FirstOrDefault().User.Id);
+                })
+                .ForMember(
+                 dest => dest.Username,
+                 opt =>
+                {
+                    opt.MapFrom(src => src.Memberships.Where(m => m.GroupId == src.Id).FirstOrDefault().User.Username);
+                });
         }
     }
 }

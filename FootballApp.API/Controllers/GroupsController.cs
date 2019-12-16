@@ -47,7 +47,7 @@ namespace FootballApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetGroupsCreatedByUser(int userId)
+        public async Task<IActionResult> GetGroupsForUser(int userId)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
