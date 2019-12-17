@@ -8,12 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthService } from './_services/auth.service';
 
 
 @NgModule({
    declarations: [
       AppComponent,
       RegisterComponent,
+      DashboardComponent
    ],
    imports: [
       HttpClientModule,
@@ -22,7 +25,9 @@ import { RegisterComponent } from './register/register.component';
       MatSliderModule,
       FormsModule
    ],
-   providers: [],
+   providers: [
+      AuthService
+   ],
    bootstrap: [
       AppComponent
    ]

@@ -7,14 +7,14 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AuthService {
 
-baseUrl : string = "http://localhost:5000/api/auth";
+baseUrl = 'http://localhost:5000/api/auth';
 
 constructor(private http: HttpClient) { }
 
-login(user: any){
-
+login(user: any) {
+  return this.http.post(this.baseUrl + '/login', user);
 }
-register(user:any){
+register(user: any) {
   return this.http.post(this.baseUrl + '/register', user);
 }
 }

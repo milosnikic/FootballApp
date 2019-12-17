@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace FootballApp.API.Dtos
@@ -12,11 +13,28 @@ namespace FootballApp.API.Dtos
 
         [Required]
         public string Password { get; set; }
+        [Required]
+        public string Firstname { get; set; }
+        [Required]
+        public string Lastname { get; set; }
+        [Required]
+        public string City { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Country { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime LastActive { get; set; }
+        [Required]
+        public string Gender { get; set; }
         public bool IsActive { get; set; }
 
         public UserForRegisterDto()
         {
             IsActive = true;
+            Created = DateTime.Now;
+            LastActive = DateTime.Now;
         }
 
     }

@@ -1,13 +1,32 @@
-.col-md-8 {
+.col-md-9 {
     background-image: url('https://cdn.dodowallpaper.com/full/536/football-hd-wallpapers-1080p-26.jpg');
 }
 
 .vertical {
     margin-top: 10%;
+    
 }
-h1 {
+h1, h3 {
     color:white;
+    letter-spacing: 3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
+.login {
+    margin-top:10%;
+    width:200px;
+    letter-spacing: 5px;
+}
 
+.register-form{
+    width:70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-form {
+    width:70%;
+    margin-left: auto;
+    margin-right: auto;
+}

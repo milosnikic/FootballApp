@@ -1,12 +1,28 @@
 <div class="container-fluid h-100">
   <div class="row h-100">
-    <div class="col-md-8 pt-5 text-center">
+    <div class="col-md-9 pt-5 text-center">
       <h1 class="vertical">Welcome to our football app</h1>
-      <h3 class="text-muted">Register for free!</h3>
-      <!-- <i class="fab fa-500px"></i> -->
+      <h3 class="text-muted">
+        <a href="#" class="text-decoration-none" (click)="changeState(0)"
+          >Register</a
+        >
+        for free!
+      </h3>
+      <a
+        href="#"
+        class="btn btn-outline-secondary btn-lg login"
+        (click)="changeState(1)"
+      >
+        LOGIN
+      </a>
     </div>
-    <div class="col-md-3 mt-5">
-      <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="state == 0; else loginTemplate" class="col-md-3 mt-5">
+      <h2 class="text-center">Register here!</h2>
+      <form
+        class="register-form"
+        #registerForm="ngForm"
+        (ngSubmit)="register()"
+      >
         <div class="form-group">
           <label>Username</label>
           <input
@@ -15,6 +31,7 @@
             placeholder="Enter username"
             name="username"
             [(ngModel)]="user.username"
+            required
           />
         </div>
         <div class="form-group">
@@ -39,6 +56,7 @@
             placeholder="Enter firstname"
             name="firstname"
             [(ngModel)]="user.firstname"
+            required
           />
         </div>
         <div class="form-group">
@@ -49,6 +67,7 @@
             placeholder="Enter lastname"
             name="lastname"
             [(ngModel)]="user.lastname"
+            required
           />
         </div>
         <div class="form-group">
@@ -59,6 +78,7 @@
             placeholder="Enter city"
             name="city"
             [(ngModel)]="user.city"
+            required
           />
         </div>
         <div class="form-group">
@@ -69,6 +89,7 @@
             placeholder="Enter country"
             name="country"
             [(ngModel)]="user.country"
+            required
           />
         </div>
         <div class="form-group">
@@ -79,6 +100,7 @@
             placeholder="Enter email"
             name="email"
             [(ngModel)]="user.email"
+            required
           />
         </div>
         <div class="form-group">
@@ -96,7 +118,13 @@
             >I am a:
           </label>
           <label class="radio-inline">
-            <input class="mr-3" type="radio" value="male" name="gender" />Male
+            <input
+              class="mr-3"
+              type="radio"
+              value="male"
+              name="gender"
+              [(ngModel)]="user.gender"
+            />Male
           </label>
           <label class="radio-inline ml-3">
             <input
@@ -104,15 +132,61 @@
               type="radio"
               value="female"
               name="gender"
+              [(ngModel)]="user.gender"
             />Female
           </label>
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary">
-            Submit
+          <button
+            [disabled]="!registerForm.valid"
+            type="submit"
+            class="btn btn-primary"
+          >
+            Register
           </button>
         </div>
       </form>
     </div>
+    <ng-template #loginTemplate>
+      <div class="col-md-3 mt-5">
+        <h2 class="text-center">Login here!</h2>
+        <form class="login-form" #loginForm="ngForm" (ngSubmit)="login()">
+          <div class="form-group">
+            <label>Username</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter username"
+              name="username"
+              [(ngModel)]="user.username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              [(ngModel)]="user.password"
+              name="password"
+              required
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >Never share your password with anyone else.</small
+            >
+          </div>
+          <div class="text-center">
+            <button
+              [disabled]="!loginForm.valid"
+              type="submit"
+              class="btn btn-success"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </ng-template>
   </div>
 </div>
