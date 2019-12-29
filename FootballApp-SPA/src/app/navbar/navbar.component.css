@@ -1,0 +1,51 @@
+.navbar {
+  z-index: 2;
+  /* background-color: #242528;*/
+  background: #212322;
+}
+
+.search{
+  margin-left: 155px;
+  background-color: unset;
+  border: none;
+  color:white;
+}
+
+.form-control.search{
+  border: 0;
+  box-shadow: none;
+}
+
+.search:hover,.search:focus {
+  background-color:rgb(55, 57, 61) ;
+}
+
+.navbar a{
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn {
+  background-color: unset;
+  border: none;
+}
+
+.btn:hover{
+  color:  rgb(161, 161, 161);
+}
+
+.clear {
+  position: absolute;
+  margin-left: -45px;
+  margin-top:2px;
+  z-index: 3;
+}
+
+
+ .clear:active, .clear:focus {
+  color: #ffffff !important;
+  background-color: #212322 !important;
+  border-color: #212322 !important;
+  box-shadow: unset !important;
+}

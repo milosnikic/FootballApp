@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
 
+  itemToDisplay = 'groups';
   constructor() { }
 
   ngOnInit() {
+  }
+
+  switchTo(event){
+    this.itemToDisplay = event;
   }
 
 }

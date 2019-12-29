@@ -1,0 +1,74 @@
+/* The sidebar menu */
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 300px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px;
+    background-image: url('../../assets/sidebar-background-image.jpg');
+    background-size: cover;
+    background-position: top;
+  }
+
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 8px 8px 6px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #dddddd;
+    border-left: 3px solid #205efa;
+    transition: .2s;
+    background-color:#dce2f105;
+  }
+
+  .sidenav .selected{
+    color: #dddddd;
+    border-left: 3px solid #205efa;
+    background-color: #dce2f105;
+    
+  }
+  
+  .sidenav-info {
+    color: white;
+    font-size: 22px;
+    padding-left: 16px;
+  }
+ 
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  .fa-users {
+    margin-right: 20px;
+  }
+
+  .fa-chart-line {
+    margin-right: 20px;
+  }
+  .fa-envelope {
+    margin-right: 20px;
+  }
+  .fa-layer-group {
+    margin-right: 20px;
+  }
+  .fa-history {
+    margin-right: 20px;
+  }
+
+  .fa-futbol {
+    margin-right: 20px;
+  }
+  
+  

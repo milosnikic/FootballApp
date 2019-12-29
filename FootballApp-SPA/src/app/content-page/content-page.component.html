@@ -1,0 +1,7 @@
+<div class="main">
+    <div *ngIf="pageToDisplay === 'dashboard'" class="jumbotron">
+        <h1>Dashboard</h1>
+        <hr>
+    </div>
+    <app-groups *ngIf="pageToDisplay === 'groups'"></app-groups>
+</div>
