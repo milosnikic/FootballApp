@@ -1,9 +1,29 @@
 .img-wrapper {
-    width: 200px;
-    height: 200px;
-    background-image: url('../../../assets/user.jpg');
-    background-size:cover;
-    border-radius: 50%;
-    border: 1px groove #2123227e;
-    margin:auto;
+  width: 200px;
+  height: 200px;
+  background-image: url("../../../assets/user.jpg");
+  background-size: cover;
+  border-radius: 50%;
+  border: 1px groove #2123227e;
+  margin: auto;
+}
+
+.img-wrapper:hover {
+  cursor: pointer;
+  border: 2px solid red;
+}
+
+td,
+th {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  text-align: center;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  height: 100%;
 }

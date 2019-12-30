@@ -1,5 +1,5 @@
 <div class="main">
-    <div *ngIf="pageToDisplay === 'dashboard'" class="jumbotron">
+    <div *ngIf="pageToDisplay === 'dashboard'" class="container.fluid">
         <app-user-detail></app-user-detail>
     </div>
     <app-groups *ngIf="pageToDisplay === 'groups'"></app-groups>

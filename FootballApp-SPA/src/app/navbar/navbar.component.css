@@ -1,7 +1,9 @@
 .navbar {
   z-index: 2;
-  /* background-color: #242528;*/
   background: #212322;
+  position: fixed;
+  top: 0px;
+  width: 100%;
 }
 
 .search{
