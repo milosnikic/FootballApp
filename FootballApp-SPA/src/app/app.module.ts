@@ -5,7 +5,7 @@ import {MatTabsModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -15,6 +15,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ContentPageComponent } from './content-page/content-page.component';
 import { GroupsComponent } from './groups/groups.component';
+import { UserDetailComponent } from './content-page/user-detail/user-detail.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { GroupsComponent } from './groups/groups.component';
       NavbarComponent,
       SidebarComponent,
       ContentPageComponent,
-      GroupsComponent
+      GroupsComponent,
+      UserDetailComponent
    ],
    imports: [
       HttpClientModule,
@@ -33,7 +35,16 @@ import { GroupsComponent } from './groups/groups.component';
       BrowserAnimationsModule,
       MatSliderModule,
       MatTabsModule,
-      FormsModule
+      FormsModule,
+      NgCircleProgressModule.forRoot({
+         // set defaults here
+         radius: 100,
+         outerStrokeWidth: 16,
+         innerStrokeWidth: 8,
+         outerStrokeColor: "#78C000",
+         innerStrokeColor: "#C7E596",
+         animationDuration: 300,
+       })
    ],
    providers: [
       AuthService

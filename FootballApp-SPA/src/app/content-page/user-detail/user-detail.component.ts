@@ -1,0 +1,30 @@
+import { User } from './../../_models/user';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/_services/auth.service';
+
+@Component({
+  selector: 'app-user-detail',
+  templateUrl: './user-detail.component.html',
+  styleUrls: ['./user-detail.component.css']
+})
+export class UserDetailComponent implements OnInit {
+  user: User = {
+    username: 'kicni',
+    firstname: 'Milos',
+    lastname: 'Nikic',
+    email: 'milos.nikic@gmail.com',
+    dateOfBirth: new Date('1996-12-31T00:00:00'),
+    lastActive: new Date('0001-01-01T00:00:00'),
+    created: new Date('2019-12-17T12:48:12.1652862'),
+    gender: 'male',
+    city: 'Beograd',
+    country: 'Srbija',
+    // memberships: []
+};
+
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
+  }
+
+}

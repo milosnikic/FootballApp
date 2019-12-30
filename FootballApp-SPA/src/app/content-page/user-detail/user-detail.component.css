@@ -1,0 +1,9 @@
+.img-wrapper {
+    width: 200px;
+    height: 200px;
+    background-image: url('../../../assets/user.jpg');
+    background-size:cover;
+    border-radius: 50%;
+    border: 1px groove #2123227e;
+    margin:auto;
+}

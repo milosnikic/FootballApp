@@ -1,0 +1,100 @@
+<h1>Dashboard</h1>
+<hr />
+<div class="row">
+  <div class="col col-sm-2">
+    <h3 class="text-center">{{ user.username }} <img src="../../../assets/sr.png" alt="sr flag" /></h3>
+    <div class="img-wrapper">
+    </div>
+  </div>
+  <div class="col-sm-10">
+    <div class="row">
+      <div class="col-sm-12">
+        {{ user.created }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <circle-progress
+          [subtitle]="'Win rate'"
+          [subtitleFontSize]="'15'"
+          [percent]="55"
+          [radius]="80"
+          [outerStrokeWidth]="10"
+          [innerStrokeWidth]="6"
+          [outerStrokeColor]="'#205efa'"
+          [innerStrokeColor]="'#5e8bfcbb'"
+          [animation]="true"
+          [animationDuration]="1000"
+        ></circle-progress>
+      </div>
+      <div class="col-md-2">
+        <circle-progress
+          [percent]="35"
+          [radius]="80"
+          [outerStrokeWidth]="10"
+          [innerStrokeWidth]="6"
+          [outerStrokeColor]="'#205eaf'"
+          [innerStrokeColor]="'#5e8bfaab'"
+          [animation]="true"
+          [animationDuration]="200"
+        ></circle-progress>
+      </div>
+      <div class="col-md-2">
+        <circle-progress
+          [percent]="35"
+          [radius]="80"
+          [outerStrokeWidth]="10"
+          [innerStrokeWidth]="6"
+          [outerStrokeColor]="'#205eaf'"
+          [innerStrokeColor]="'#5e8bfaab'"
+          [animation]="true"
+          [animationDuration]="300"
+        ></circle-progress>
+      </div> 
+      <div class="col-md-6">
+        <div class="container">
+          Last 5 matches
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <circle-progress
+          [percent]="45"
+          [radius]="80"
+          [outerStrokeWidth]="10"
+          [innerStrokeWidth]="6"
+          [outerStrokeColor]="'red'"
+          [innerStrokeColor]="'blue'"
+          [animation]="true"
+          [animationDuration]="500"
+        ></circle-progress>
+      </div>
+      <div class="col-md-2">
+        <circle-progress
+          [percent]="55"
+          [radius]="80"
+          [outerStrokeWidth]="10"
+          [innerStrokeWidth]="6"
+          [outerStrokeColor]="'red'"
+          [innerStrokeColor]="'blue'"
+          [animation]="true"
+          [animationDuration]="1200"
+        ></circle-progress>
+      </div>
+      <div class="col-md-2">
+        <circle-progress
+          [percent]="89"
+          [radius]="80"
+          [outerStrokeWidth]="10"
+          [innerStrokeWidth]="6"
+          [outerStrokeColor]="'red'"
+          [innerStrokeColor]="'blue'"
+          [animation]="true"
+          [animationDuration]="800"
+        ></circle-progress>
+      </div>
+    </div> 
+  </div>
+</div>

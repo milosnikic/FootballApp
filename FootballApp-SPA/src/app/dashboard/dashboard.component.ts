@@ -7,7 +7,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  itemToDisplay = 'groups';
+  itemToDisplay = 'dashboard';
   constructor() { }
 
   ngOnInit() {
