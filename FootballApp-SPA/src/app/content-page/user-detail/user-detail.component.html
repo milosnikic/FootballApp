@@ -1,8 +1,6 @@
 <div class="container-fluid">
-  <h1>Dashboard</h1>
-  <hr />
   <div class="row">
-    <div class="col col-sm-2">
+    <div class="col-sm-3" style="background-color: #7979792d;border:1px solid black;">
       <h3 class="text-center">
         {{ user.username }} <img src="../../../assets/sr.png" alt="sr flag" />
       </h3>
@@ -12,19 +10,74 @@
           Member since {{ user.created | date: "d LLLL y" }}
         </div>
       </div>
-      <div class=" ">
-        <ul class="">
-          <li class=""><a href="#">Friends</a></li>
-          <li class=""><a href="#">Groups</a></li>
-          <li class=""><a href="#">All matches</a></li>
-          <li class=""><a href="#">Full Stats</a></li>
+      <div class="">
+        <ul class="group-items">
+          <a href="#"><li class="group-item">Friends</li></a>
+          <a href="#"><li class="group-item">Groups</li></a>
+          <a href="#"><li class="group-item">All matches</li></a>
+          <a href="#"><li class="group-item">Full Stats</li></a>
         </ul>
       </div>
     </div>
-    <div class="col-sm-10">
+
+    <div class="col-sm-9" style="background-color: #7979792d;border:1px solid black;margin-left: unset;">
+      <div class="container">
+        <h3 class="text-center" style="width:80%">Last 5 matches</h3>
+      </div>
+      <table class="mt-2">
+        <tr>
+          <th>Date</th>
+          <th>Team Home</th>
+          <th>Team Away</th>
+          <th>Place</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td>12/5/2019</td>
+          <td>Jelovac</td>
+          <td>Zemun</td>
+          <td>Altina</td>
+          <td>W</td>
+        </tr>
+        <tr>
+          <td>12/5/2019</td>
+          <td>Jelovac</td>
+          <td>Zemun</td>
+          <td>Altina</td>
+          <td>W</td>
+        </tr>
+        <tr>
+          <td>12/5/2019</td>
+          <td>Jelovac</td>
+          <td>Zemun</td>
+          <td>Altina</td>
+          <td>W</td>
+        </tr>
+        <tr>
+          <td>12/5/2019</td>
+          <td>Jelovac</td>
+          <td>Zemun</td>
+          <td>Altina</td>
+          <td>W</td>
+        </tr>
+        <tr>
+          <td>12/5/2019</td>
+          <td>Jelovac</td>
+          <td>Zemun</td>
+          <td>Altina</td>
+          <td>W</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <h1 class="text-center">Statistics</h1>
+    </div>
+    <div class="col-md-9 text-center circles">
       <div class="row">
-        <div class="col-md-2">
-          <circle-progress
+        <div class="col-md-3">
+          <circle-progress 
             [subtitle]="'Win rate'"
             [subtitleFontSize]="'15'"
             [percent]="55"
@@ -37,7 +90,7 @@
             [animationDuration]="1000"
           ></circle-progress>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <circle-progress
             [percent]="35"
             [radius]="80"
@@ -49,7 +102,7 @@
             [animationDuration]="200"
           ></circle-progress>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <circle-progress
             [percent]="35"
             [radius]="80"
@@ -61,52 +114,9 @@
             [animationDuration]="300"
           ></circle-progress>
         </div>
-        <div class="col-md-6">
-          <div class="container">
-            <h3 class="text-center">Last 5 matches</h3>
-          </div>
-          <table>
-            <tr>
-              <th>Date</th>
-              <th>Teams</th>
-              <th>Place</th>
-              <th>Result</th>
-            </tr>
-            <tr>
-              <td>12/5/2019</td>
-              <td>Jelovac - Zemun</td>
-              <td>Altina</td>
-              <td>W</td>
-            </tr>
-            <tr>
-              <td>12/5/2019</td>
-              <td>Jelovac - Zemun</td>
-              <td>Altina</td>
-              <td>W</td>
-            </tr>
-            <tr>
-              <td>12/5/2019</td>
-              <td>Jelovac - Zemun</td>
-              <td>Altina</td>
-              <td>W</td>
-            </tr>
-            <tr>
-              <td>12/5/2019</td>
-              <td>Jelovac - Zemun</td>
-              <td>Altina</td>
-              <td>W</td>
-            </tr>
-            <tr>
-              <td>12/5/2019</td>
-              <td>Jelovac - Zemun</td>
-              <td>Altina</td>
-              <td>W</td>
-            </tr>
-          </table>
-        </div>
       </div>
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
           <circle-progress
             [percent]="45"
             [radius]="80"
@@ -118,7 +128,7 @@
             [animationDuration]="500"
           ></circle-progress>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <circle-progress
             [percent]="55"
             [radius]="80"
@@ -130,7 +140,7 @@
             [animationDuration]="1200"
           ></circle-progress>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <circle-progress
             [percent]="89"
             [radius]="80"

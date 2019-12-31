@@ -1,6 +1,8 @@
 <div class="main">
-    <div *ngIf="pageToDisplay === 'dashboard'" class="container.fluid">
-        <app-user-detail></app-user-detail>
-    </div>
+  <div class="container.fluid">
+    <h1>{{ pageToDisplay.replace('-', ' ') | titlecase}}</h1>
+    <hr />
+    <app-user-detail *ngIf="pageToDisplay === 'dashboard'"></app-user-detail>
     <app-groups *ngIf="pageToDisplay === 'groups'"></app-groups>
+  </div>
 </div>
