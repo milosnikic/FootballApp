@@ -1,6 +1,7 @@
 import { User } from './../../_models/user';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth.service';
+import { ActivatedRoute, Data } from '@angular/router';
 
 @Component({
   selector: 'app-user-detail',
@@ -22,9 +23,15 @@ export class UserDetailComponent implements OnInit {
     // memberships: []
 };
 
-  constructor(private authService: AuthService) { }
+  titleToDisplay: string;
 
+  constructor(private route: ActivatedRoute,
+              private authService: AuthService) {}
+  
   ngOnInit() {
+    this.route.data.subscribe((data: Data) => {
+        this.titleToDisplay = data["title"];
+        console.log(data['title']);
+      });
   }
-
 }

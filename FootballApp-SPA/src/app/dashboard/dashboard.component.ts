@@ -7,14 +7,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  itemToDisplay = 'dashboard';
   constructor() { }
 
   ngOnInit() {
   }
 
-  switchTo(event){
-    this.itemToDisplay = event;
-  }
-
+ 
 }

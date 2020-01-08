@@ -3,6 +3,7 @@ import { Group } from './group';
 export class User {
     username: string;
     firstname: string;
+    password?: string;
     lastname: string;
     email: string;
     dateOfBirth: Date;

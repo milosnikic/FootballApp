@@ -1,6 +1,11 @@
+<h1>{{ titleToDisplay }}</h1>
+<hr />
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3" style="background-color: #7979792d;border:1px solid black;">
+    <div
+      class="col-sm-3"
+      style="background-color: #7979792d;border:1px solid black;"
+    >
       <h3 class="text-center">
         {{ user.username }} <img src="../../../assets/sr.png" alt="sr flag" />
       </h3>
@@ -20,7 +25,10 @@
       </div>
     </div>
 
-    <div class="col-sm-9" style="background-color: #7979792d;border:1px solid black;margin-left: unset;">
+    <div
+      class="col-sm-9"
+      style="background-color: #7979792d;border:1px solid black;margin-left: unset;"
+    >
       <div class="container">
         <h3 class="text-center" style="width:80%">Last 5 matches</h3>
       </div>
@@ -77,7 +85,7 @@
     <div class="col-md-9 text-center circles">
       <div class="row">
         <div class="col-md-3">
-          <circle-progress 
+          <circle-progress
             [subtitle]="'Win rate'"
             [subtitleFontSize]="'15'"
             [percent]="55"

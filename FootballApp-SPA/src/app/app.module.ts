@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
@@ -14,7 +15,7 @@ import { AuthService } from './_services/auth.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ContentPageComponent } from './content-page/content-page.component';
-import { GroupsComponent } from './groups/groups.component';
+import { GroupsComponent } from './content-page/groups/groups.component';
 import { UserDetailComponent } from './content-page/user-detail/user-detail.component';
 
 
@@ -27,13 +28,12 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
       SidebarComponent,
       ContentPageComponent,
       GroupsComponent,
-      UserDetailComponent
+      UserDetailComponent,
    ],
    imports: [
       HttpClientModule,
       BrowserModule,
       BrowserAnimationsModule,
-      MatSliderModule,
       MatTabsModule,
       FormsModule,
       NgCircleProgressModule.forRoot({
@@ -44,7 +44,8 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
          outerStrokeColor: "#78C000",
          innerStrokeColor: "#C7E596",
          animationDuration: 300,
-       })
+       }),
+       AppRoutingModule
    ],
    providers: [
       AuthService

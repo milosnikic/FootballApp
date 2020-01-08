@@ -1,12 +1,13 @@
 <!-- Side navigation -->
 <div class="sidenav">
     <span class="sidenav-info">Users info</span>  
-    <a href="#" [ngClass]="{selected : selectedItem === 'dashboard'}" (click)="onSelect('dashboard')"><i class="fas fa-chart-line"></i> Dashboard</a>
-    <a href="#" [ngClass]="{selected : selectedItem === 'friends'}" (click)="onSelect('friends')"><i class="fa fa-users"></i> Friends</a>
-    <a href="#" [ngClass]="{selected : selectedItem === 'messages'}" (click)="onSelect('messages')"><i class="fa fa-envelope"></i> Messages</a>
+    <a [routerLink]="['/dashboard']" routerLinkActive="selected"><i class="fas fa-chart-line"></i> Dashboard</a>
+    <a [routerLink]="['/friends']" routerLinkActive="selected"><i class="fa fa-users"></i> Friends</a>
+    <a [routerLink]="['/messages']" routerLinkActive="selected"><i class="fa fa-envelope"></i> Messages</a>
     <span class="sidenav-info">Users groups</span>
-    <a href="#" [ngClass]="{selected : selectedItem === 'groups'}" (click)="onSelect('groups')"><i class="fa fa-layer-group"></i> Groups</a>
+    <a [routerLink]="['/groups']" routerLinkActive="selected"><i class="fa fa-layer-group"></i> Groups</a>
     <span class="sidenav-info">Matches</span>
-    <a href="#" [ngClass]="{selected : selectedItem === 'available-matches'}" (click)="onSelect('available-matches')"><i class="far fa-futbol"></i> Available matches</a>
-    <a href="#" [ngClass]="{selected : selectedItem === 'match-history'}" (click)="onSelect('match-history')"><i class="fas fa-history"></i> Match history</a>
+    <a [routerLink]="['/available-matches']" routerLinkActive="selected"><i class="far fa-futbol"></i> Available matches</a>
+    <a [routerLink]="['/match-history']" routerLinkActive="selected"><i class="fas fa-history"></i> Match history</a>
   </div>
+  <!-- <router-outlet></router-outlet> -->
