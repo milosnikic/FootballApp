@@ -1,8 +1,12 @@
+import { UserCommentsComponent } from './content-page/user-detail/user-comments/user-comments.component';
+import { UserStatisticsComponent } from './content-page/user-detail/user-statistics/user-statistics.component';
+import { UserLatestMatchesComponent } from './content-page/user-detail/user-latest-matches/user-latest-matches.component';
+import { UserProfileComponent } from './content-page/user-detail/user-profile/user-profile.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
-import {MatTabsModule} from '@angular/material';
+import {MatTabsModule, MatCardModule, MatButtonModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,12 +33,17 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
       ContentPageComponent,
       GroupsComponent,
       UserDetailComponent,
+      UserProfileComponent,
+      UserLatestMatchesComponent,
+      UserStatisticsComponent,
+      UserCommentsComponent
    ],
    imports: [
       HttpClientModule,
       BrowserModule,
       BrowserAnimationsModule,
       MatTabsModule,
+      MatCardModule,
       FormsModule,
       NgCircleProgressModule.forRoot({
          // set defaults here

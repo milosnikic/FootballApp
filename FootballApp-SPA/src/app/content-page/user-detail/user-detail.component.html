@@ -2,7 +2,39 @@
 <hr />
 <div class="container-fluid">
   <div class="row">
-    <div
+    <div class="col-sm-12">
+      <mat-tab-group [selectedIndex]="1" animationDuration="500ms">
+        <mat-tab isActive="false">
+          <ng-template mat-tab-label>
+            Profile
+            <i class="fas ml-2 fa-user"></i>
+          </ng-template>
+        <app-user-profile></app-user-profile>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Latest 5 Matches
+            <i class="fas ml-2 fa-trophy"></i>
+          </ng-template>
+          <app-user-latest-matches></app-user-latest-matches>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Statistics
+            <i class="fas ml-2 fa-poll"></i>
+          </ng-template>
+          <app-user-statistics></app-user-statistics>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Comments
+            <i class="fas ml-2 fa-comments"></i>
+          </ng-template>
+          <app-user-comments></app-user-comments>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <!-- <div
       class="col-sm-3"
       style="background-color: #7979792d;border:1px solid black;"
     >
@@ -161,6 +193,6 @@
           ></circle-progress>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

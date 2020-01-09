@@ -1,0 +1,61 @@
+.example-card {
+  width:300px;
+}
+
+
+button {
+  outline: none;
+}
+
+.status {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.status:hover {
+  color: rgb(71, 71, 71);
+  transition: 0.1s;
+}
+
+.percentage{
+  margin-top:8px;
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.flag{
+    width: 20px;
+    border: 1px solid black;
+}
+
+.nickname {
+    padding-top: 5px;
+    padding-left: 10px;
+    color: grey;
+}
+.btn.btn-light {
+  width: 100%;
+}
+
+.achievement{
+  border: 1px solid #d1d5da;
+  width:100%;
+  padding:16px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  display:flex;
+}
+.achievement.locked{
+  opacity:50%;
+}
+.achievement:hover{
+  background-color: rgba(128, 128, 128, 0.192);
+}
+.icon {
+  font-size: 30px;
+}
+.achievement-text{
+  padding-left: 15px;
+  text-align: center;
+}
