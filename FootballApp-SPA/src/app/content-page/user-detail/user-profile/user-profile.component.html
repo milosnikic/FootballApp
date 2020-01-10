@@ -9,14 +9,14 @@
           src="../../../../assets/mn.jpg"
           alt="Photo of a Shiba Inu"
         />
-        <a class="status">
+        <a class="status" (click)="onEditProfile()">
           <mat-card-content>
             <i class="far fa-lg fa-smile mr-4"></i> Set your status
           </mat-card-content>
         </a>
         Descrption
         <mat-card-actions>
-          <button class="btn btn-light">Edit Profile</button>
+          <button class="btn btn-light" (click)="onEditProfile()">Edit Profile</button>
         </mat-card-actions>
       </mat-card>
     </div>

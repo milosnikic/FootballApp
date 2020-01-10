@@ -27,6 +27,7 @@ export class UserDetailComponent implements OnInit {
 
   titleToDisplay: string;
 
+  @ViewChild('tabs',{static:true}) tabs: MatTabGroup;
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService
@@ -37,5 +38,9 @@ export class UserDetailComponent implements OnInit {
       this.titleToDisplay = data['title'];
       // console.log(data['title']);
     });
+  }
+
+  changeTabToEditProfile(event){
+    this.tabs.selectedIndex = event;
   }
 }

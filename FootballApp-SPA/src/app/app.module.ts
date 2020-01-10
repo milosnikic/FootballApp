@@ -1,3 +1,9 @@
+import { MatchHistoryComponent } from './content-page/match-history/match-history.component';
+import { AvailableMatchesComponent } from './content-page/available-matches/available-matches.component';
+import { MessagesComponent } from './content-page/messages/messages.component';
+import { FriendsComponent } from './content-page/friends/friends.component';
+import { UserPhotosComponent } from './content-page/user-detail/user-photos/user-photos.component';
+import { UserSettingsComponent } from './content-page/user-detail/user-settings/user-settings.component';
 import { UserCommentsComponent } from './content-page/user-detail/user-comments/user-comments.component';
 import { UserStatisticsComponent } from './content-page/user-detail/user-statistics/user-statistics.component';
 import { UserLatestMatchesComponent } from './content-page/user-detail/user-latest-matches/user-latest-matches.component';
@@ -36,7 +42,13 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
       UserProfileComponent,
       UserLatestMatchesComponent,
       UserStatisticsComponent,
-      UserCommentsComponent
+      UserCommentsComponent,
+      UserSettingsComponent,
+      UserPhotosComponent,
+      FriendsComponent,
+      MessagesComponent,
+      AvailableMatchesComponent,
+      MatchHistoryComponent
    ],
    imports: [
       HttpClientModule,

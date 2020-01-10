@@ -12,11 +12,20 @@ h1, h3 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.register-link{
+    cursor: pointer;
+    color:rgb(0, 153, 255);
+}
+
+.register-link:hover{
+    color:rgba(0, 0, 255, 0.616);
+}
 
 .login {
     margin-top:10%;
     width:200px;
     letter-spacing: 5px;
+    color:rgb(190, 190, 190);
 }
 
 .register-form{

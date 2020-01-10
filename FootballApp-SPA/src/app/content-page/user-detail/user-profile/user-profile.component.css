@@ -38,6 +38,11 @@ button {
   width: 100%;
 }
 
+.btn.btn-light:hover{
+  border:1px solid black;
+  background-color: #d1d5da85;
+}
+
 .achievement{
   border: 1px solid #d1d5da;
   width:100%;

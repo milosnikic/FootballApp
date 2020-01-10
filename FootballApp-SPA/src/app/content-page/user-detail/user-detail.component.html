@@ -3,13 +3,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
-      <mat-tab-group [selectedIndex]="1" animationDuration="500ms">
+      <mat-tab-group [selectedIndex]="4" #tabs animationDuration="500ms">
         <mat-tab isActive="false">
           <ng-template mat-tab-label>
             Profile
             <i class="fas ml-2 fa-user"></i>
           </ng-template>
-        <app-user-profile></app-user-profile>
+        <app-user-profile (editProfile)="changeTabToEditProfile($event)"></app-user-profile>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -30,7 +30,7 @@
             Photos
             <i class="fas ml-2 fa-images"></i>
           </ng-template>
-          <app-user-comments></app-user-comments>
+          <app-user-photos></app-user-photos>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -44,7 +44,7 @@
             Settings
             <i class="fas ml-2 fa-cogs"></i>
           </ng-template>
-          <app-user-comments></app-user-comments>
+          <app-user-settings></app-user-settings>
         </mat-tab>
       </mat-tab-group>
     </div>
