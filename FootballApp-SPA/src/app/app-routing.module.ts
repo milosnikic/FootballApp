@@ -1,3 +1,4 @@
+import { FriendsListComponent } from './content-page/friends/friends-list/friends-list.component';
 import { MatchHistoryComponent } from './content-page/match-history/match-history.component';
 import { AvailableMatchesComponent } from './content-page/available-matches/available-matches.component';
 import { MessagesComponent } from './content-page/messages/messages.component';
@@ -14,10 +15,13 @@ const appRoutes: Route[] = [
     {path: '', component: DashboardComponent, children: [
         {path: 'dashboard', component: UserDetailComponent, data: {title: 'Dashboard'}},
         {path: 'groups', component: GroupsComponent, data: {title: 'Groups'}},
-        {path: 'friends', component: FriendsComponent, data: {title: 'Friends'}},
+        {path: 'friends', component: FriendsComponent, data: {title: 'Friends'}, children:[
+            {path:'users/:id', component: UserDetailComponent},
+        ]},
         {path: 'messages', component: MessagesComponent, data: {title: 'Messages'}},
         {path: 'available-matches', component: AvailableMatchesComponent, data: {title: 'Available Matches'}},
         {path: 'match-history', component: MatchHistoryComponent, data: {title: 'Match History'}},
+        
 
     ]},
     {path: 'register', component: RegisterComponent},

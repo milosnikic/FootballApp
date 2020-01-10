@@ -1,5 +1,16 @@
-<h1>{{ titleToDisplay }}</h1>
-<hr />
-<div class="container-fluid">
-  <div class="row"></div>
-</div>
+<h1 *ngIf="!displayUserDetail">{{ titleToDisplay }}</h1>
+<hr *ngIf="!displayUserDetail">
+<app-friends-list
+  (event)="showUserDetails($event)"
+  *ngIf="!displayUserDetail"
+></app-friends-list>
+<router-outlet *ngIf="displayUserDetail">
+  <button
+    [routerLink]="['/friends']"
+    class="btn btn-primary btn-lg"
+    *ngIf="displayUserDetail"
+    (click)="displayUserDetail = !displayUserDetail"
+  >
+    Go back
+  </button></router-outlet
+>

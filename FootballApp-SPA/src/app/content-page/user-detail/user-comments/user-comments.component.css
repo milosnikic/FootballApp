@@ -4,7 +4,6 @@
 .comment{
     width:65vw;
     padding: 16px;
-    /* height: min-content; */
     overflow: hidden;
     border: 1px solid #d1d5da;
     margin-bottom: 10px;
@@ -72,4 +71,16 @@ a:hover{
     display:inline-block;
     color:grey;
     padding-left: 10px;
+}
+
+
+.comment-box{
+    width:65vw;
+    padding: 16px;
+    border: 1px solid #d1d5da;
+    overflow: hidden;
+}
+
+.post{
+    margin-left: 55px;
 }

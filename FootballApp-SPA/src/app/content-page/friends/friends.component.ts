@@ -7,10 +7,9 @@ import { ActivatedRoute, Data } from '@angular/router';
   styleUrls: ['./friends.component.css']
 })
 export class FriendsComponent implements OnInit {
-
  
   titleToDisplay: string;
-  
+  displayUserDetail: boolean = false;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -20,5 +19,9 @@ export class FriendsComponent implements OnInit {
           this.titleToDisplay = data['title'];
         }
       );
+  }
+
+  showUserDetails(event){
+    this.displayUserDetail = event;
   }
 }
