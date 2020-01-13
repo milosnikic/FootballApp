@@ -3,13 +3,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <mat-tab-group animationDuration="500ms"> 
+            <mat-tab-group animationDuration="500ms" [selectedIndex]="4"> 
                 <mat-tab>
                     <ng-template mat-tab-label>
                         All groups
                         <i class="fas fa-globe-europe ml-2"></i>
                     </ng-template>
-                    Content 1 
+                    <app-groups-list></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
@@ -37,7 +37,7 @@
                         Create group
                         <i class="fas fa-plus-circle ml-2"></i>
                     </ng-template>
-                    Content 3
+                    <app-create-group></app-create-group>
                 </mat-tab>
               </mat-tab-group>
         </div>

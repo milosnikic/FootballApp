@@ -1,0 +1,38 @@
+<mat-card class="example-card">
+  <img
+    mat-card-image
+    src="../../../../../assets/mn.jpg"
+    
+    alt="Photo of a Shiba Inu"
+  />
+  Descrption
+  <mat-card-actions class="text-center">
+    <button
+      *ngIf="buttonDisplay === 'addFriend'"
+      (click)="addFriend()"
+      class="btn btn-primary"
+    >
+      <i class="fas fa-plus mr-1"></i>Add Friend
+    </button>
+    <button
+      *ngIf="buttonDisplay === 'requestSent'"
+      (click)="remove()"
+      class="btn btn-outline-warning"
+    >
+      <i class="fas fa-times mr-1"></i>Cancel Request
+    </button>
+    <button
+      *ngIf="buttonDisplay === 'removeFriend'"
+      (click)="remove()"
+      class="btn btn-outline-danger"
+    >
+      <i class="fas fa-times mr-1"></i>Remove
+    </button>
+    <button class="btn btn-outline-secondary ml-1">Visit Profile</button>
+    <a href="" *ngIf="buttonDisplay === 'removeFriend'"
+      ><i
+        class="far fa-heart fa-lg ml-2"
+      ></i
+    ></a>
+  </mat-card-actions>
+</mat-card>

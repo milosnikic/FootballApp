@@ -1,0 +1,15 @@
+.example-card {
+  width: 280px;
+}
+
+.example-card img{
+  object-fit: cover;
+  height: 280px;
+  width: 280px;
+}
+
+
+.fa-heart:hover{
+  color: red;
+  transition: 0.5s;
+}

@@ -1,2 +1,38 @@
-Friends list component
-<a [routerLink]="['users',1]" (click)="onShowDetails()">Go to user 1</a>
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control mr-1"
+          placeholder="Search for friends"
+        />
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary ml-1">
+            Search <i class="fa fa-search"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 ml-4 mr-2 mt-3">
+      <app-friend-detail [buttonDisplay]="'addFriend'"></app-friend-detail>
+    </div>
+    <div class="col-md-2 ml-4 mr-2 mt-3">
+      <app-friend-detail [buttonDisplay]="'requestSent'"></app-friend-detail>
+    </div>
+    <div class="col-md-2 ml-4 mr-2 mt-3">
+      <app-friend-detail [buttonDisplay]="'addFriend'"></app-friend-detail>
+    </div>
+    <div class="col-md-2 ml-4 mr-2 mt-3">
+      <app-friend-detail [buttonDisplay]="'removeFriend'"></app-friend-detail>
+    </div>
+    <div class="col-md-2 ml-4 mr-2 mt-3">
+      <app-friend-detail [buttonDisplay]="'removeFriend'"></app-friend-detail>
+    </div>
+    <div class="col-md-2 ml-4 mr-2 mt-3">
+      <app-friend-detail [buttonDisplay]="'removeFriend'"></app-friend-detail>
+    </div>
+  </div>
+</div>

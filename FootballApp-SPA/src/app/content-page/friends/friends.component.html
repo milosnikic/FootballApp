@@ -1,9 +1,31 @@
 <h1 *ngIf="!displayUserDetail">{{ titleToDisplay }}</h1>
-<hr *ngIf="!displayUserDetail">
-<app-friends-list
-  (event)="showUserDetails($event)"
-  *ngIf="!displayUserDetail"
-></app-friends-list>
+<hr *ngIf="!displayUserDetail" />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-tab-group animationDuration="500ms">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Explore
+            <i class="fas fa-globe-europe ml-2"></i>
+          </ng-template>
+          <app-friends-list
+            (event)="showUserDetails($event)"
+            *ngIf="!displayUserDetail"
+          ></app-friends-list>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Your friends
+            <i class="fas fa-futbol ml-2"></i>
+          </ng-template>
+          Content 1
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
+
 <router-outlet *ngIf="displayUserDetail">
   <button
     [routerLink]="['/friends']"

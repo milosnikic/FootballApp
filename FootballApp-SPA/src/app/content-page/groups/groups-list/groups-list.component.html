@@ -1,0 +1,26 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Date Created</th>
+        <th>Number of members</th>
+      </tr>
+        <tr class="group" *ngFor="let group of groups">
+          <td>
+            <img
+              src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+              alt="Group image"
+              class="rounded"
+            />
+          </td>
+          <td>{{ group.name }}</td>
+          <td>{{ group.description }}</td>
+          <td>{{ group.dateCreated | date }}</td>
+          <td>{{ group.numberOfMembers }}</td>
+        </tr>
+    </table>
+  </div>
+</div>

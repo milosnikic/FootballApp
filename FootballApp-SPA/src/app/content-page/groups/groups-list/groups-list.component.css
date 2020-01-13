@@ -1,0 +1,27 @@
+table{
+    width: 100%;
+    overflow-y: scroll;
+}
+.row{
+    overflow: hidden !important;
+}
+
+tr td, th {
+    margin: 5px;
+    padding: 16px;
+    border-bottom: 1px solid #d1d5da;
+}
+
+.group{
+    cursor: pointer;
+}
+
+.group:hover{
+    background-color: #d1d5da;
+}
+
+td>img{
+    object-fit: cover;
+    width: 35px;
+    height: 35px;
+}

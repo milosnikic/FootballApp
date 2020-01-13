@@ -2,6 +2,12 @@
   width:300px;
 }
 
+.example-card img{
+  object-fit: cover;
+  height: 300px;
+  width: 300px;
+}
+
 /* .mat-card img:hover{
   opacity:90%;
   transition: 0.3s;

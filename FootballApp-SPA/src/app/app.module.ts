@@ -1,3 +1,7 @@
+import { CreateGroupComponent } from './content-page/groups/create-group/create-group.component';
+import { GroupsItemComponent } from './content-page/groups/groups-list/groups-item/groups-item.component';
+import { GroupsListComponent } from './content-page/groups/groups-list/groups-list.component';
+import { FriendDetailComponent } from './content-page/friends/friends-list/friend-detail/friend-detail.component';
 import { FriendsListComponent } from './content-page/friends/friends-list/friends-list.component';
 import { MatchHistoryComponent } from './content-page/match-history/match-history.component';
 import { AvailableMatchesComponent } from './content-page/available-matches/available-matches.component';
@@ -39,6 +43,9 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
       SidebarComponent,
       ContentPageComponent,
       GroupsComponent,
+      GroupsListComponent,
+      GroupsItemComponent,
+      CreateGroupComponent,
       UserDetailComponent,
       UserProfileComponent,
       UserLatestMatchesComponent,
@@ -50,7 +57,8 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
       MessagesComponent,
       AvailableMatchesComponent,
       MatchHistoryComponent,
-      FriendsListComponent
+      FriendsListComponent,
+      FriendDetailComponent,
    ],
    imports: [
       HttpClientModule,

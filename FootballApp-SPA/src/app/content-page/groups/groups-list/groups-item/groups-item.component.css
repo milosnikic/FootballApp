@@ -1,0 +1,12 @@
+img {
+    width: 35px;
+}
+
+ul{
+    list-style: none;
+    display: inline-flex;
+}
+
+ul > li {
+    margin: 16px;
+}
