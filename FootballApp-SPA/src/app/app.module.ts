@@ -1,5 +1,4 @@
 import { CreateGroupComponent } from './content-page/groups/create-group/create-group.component';
-import { GroupsItemComponent } from './content-page/groups/groups-list/groups-item/groups-item.component';
 import { GroupsListComponent } from './content-page/groups/groups-list/groups-list.component';
 import { FriendDetailComponent } from './content-page/friends/friends-list/friend-detail/friend-detail.component';
 import { FriendsListComponent } from './content-page/friends/friends-list/friends-list.component';
@@ -16,8 +15,7 @@ import { UserProfileComponent } from './content-page/user-detail/user-profile/us
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatSliderModule } from '@angular/material/slider';
-import {MatTabsModule, MatCardModule, MatButtonModule} from '@angular/material';
+import {MatTabsModule, MatCardModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,7 +42,6 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
       ContentPageComponent,
       GroupsComponent,
       GroupsListComponent,
-      GroupsItemComponent,
       CreateGroupComponent,
       UserDetailComponent,
       UserProfileComponent,

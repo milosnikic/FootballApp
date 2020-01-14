@@ -5,16 +5,16 @@
         <!-- src="https://material.angular.io/assets/img/examples/shiba2.jpg" -->
         <img
           mat-card-image
-          src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+          src="{{user.photos[0].path}}"
           
-          alt="Photo of a Shiba Inu"
+          alt="User profile picture"
         />
         <a class="status" (click)="onEditProfile()">
           <mat-card-content>
             <i class="far fa-lg fa-smile mr-4"></i> Set your status
           </mat-card-content>
         </a>
-        Descrption
+        {{user.photos[0].description}}
         <mat-card-actions>
           <button class="btn btn-light" (click)="onEditProfile()">Edit Profile</button>
         </mat-card-actions>
@@ -22,8 +22,8 @@
     </div>
     <div class="col col-sm-9">
       <div class="row">
-        <h2>Milos Nikic</h2>
-        <h4 class="nickname">(kicni)</h4>
+      <h2>{{user.firstname}} {{user.lastname}}</h2>
+        <h4 class="nickname">({{user.username}})</h4>
       </div>
       <div class="row">
         <h5 class="text-muted mt-0">
@@ -32,7 +32,8 @@
         </h5>        
       </div>
       <div class="row">
-        <h5>23 years old</h5>
+        <h5>{{user.dateOfBirth}}</h5>
+        <!-- 23 years old -->
       </div>
       <div class="row">
         <h3>Achievements</h3> <h4 class="text-muted percentage">(4/5) {{4/5 * 100}} %</h4>

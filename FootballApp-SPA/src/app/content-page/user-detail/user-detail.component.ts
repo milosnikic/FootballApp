@@ -21,13 +21,24 @@ export class UserDetailComponent implements OnInit {
     created: new Date('2019-12-17T12:48:12.1652862'),
     gender: 'male',
     city: 'Beograd',
-    country: 'Srbija'
+    country: 'Srbija',
+    photos: [
+      {
+        id: 1,
+        path:
+          'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+        description: 'It student at Faculty of Organizational Sciences',
+        dateAdded: new Date(),
+        isMain: true
+      }
+    ]
     // memberships: []
   };
 
   titleToDisplay: string;
 
-  @ViewChild('tabs',{static:true}) tabs: MatTabGroup;
+  @ViewChild('tabs', { static: true }) tabs: MatTabGroup;
+
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService
@@ -40,7 +51,7 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
-  changeTabToEditProfile(event){
+  changeTabToEditProfile(event) {
     this.tabs.selectedIndex = event;
   }
 }

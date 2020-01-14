@@ -1,4 +1,5 @@
 import { Group } from './group';
+import { Photo } from './photo';
 
 export class User {
     username: string;
@@ -12,5 +13,6 @@ export class User {
     gender: string;
     city: string;
     country: string;
+    photos?: Photo[];
     groups?: Group[];
 }

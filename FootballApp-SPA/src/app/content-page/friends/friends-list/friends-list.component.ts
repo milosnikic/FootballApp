@@ -6,13 +6,9 @@ import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@ang
   styleUrls: ['./friends-list.component.css'],
 })
 export class FriendsListComponent implements OnInit {
-  @Output() event = new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit() {
   }
 
-  onShowDetails(){
-    this.event.emit(true);
-  }
 }

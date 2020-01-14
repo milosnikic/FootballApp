@@ -10,8 +10,6 @@
             <i class="fas fa-globe-europe ml-2"></i>
           </ng-template>
           <app-friends-list
-            (event)="showUserDetails($event)"
-            *ngIf="!displayUserDetail"
           ></app-friends-list>
         </mat-tab>
         <mat-tab>
@@ -26,7 +24,7 @@
   </div>
 </div>
 
-<router-outlet *ngIf="displayUserDetail">
+<!-- <router-outlet *ngIf="displayUserDetail">
   <button
     [routerLink]="['/friends']"
     class="btn btn-primary btn-lg"
@@ -35,4 +33,4 @@
   >
     Go back
   </button></router-outlet
->
+> -->

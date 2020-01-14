@@ -3,13 +3,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
-      <mat-tab-group [selectedIndex]="4" #tabs animationDuration="500ms">
+      <mat-tab-group [selectedIndex]="5" #tabs animationDuration="500ms">
         <mat-tab isActive="false">
           <ng-template mat-tab-label>
             Profile
             <i class="fas ml-2 fa-user"></i>
           </ng-template>
-        <app-user-profile (editProfile)="changeTabToEditProfile($event)"></app-user-profile>
+        <app-user-profile [user]="user"  (editProfile)="changeTabToEditProfile($event)"></app-user-profile>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
