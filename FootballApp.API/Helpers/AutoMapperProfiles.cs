@@ -10,7 +10,11 @@ namespace FootballApp.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<UserForRegisterDto, User>();
-            CreateMap<User, UserToReturnDto>();
+            CreateMap<User, UserToReturnDto>()
+                .ForMember(dest => dest.Age,
+                    opt => {
+                        opt.MapFrom(src => src.DateOfBirth.CalculateAge());
+                    });
             CreateMap<GroupForCreationDto, Group>();
             CreateMap<Group, GroupToReturnDto>()
                 .ForMember(

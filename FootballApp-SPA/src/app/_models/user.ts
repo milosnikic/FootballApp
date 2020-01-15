@@ -7,7 +7,7 @@ export class User {
     password?: string;
     lastname: string;
     email: string;
-    dateOfBirth: Date;
+    age: number;
     lastActive: Date;
     created: Date;
     gender: string;

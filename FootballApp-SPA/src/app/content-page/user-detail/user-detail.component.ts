@@ -16,7 +16,7 @@ export class UserDetailComponent implements OnInit {
     firstname: 'Milos',
     lastname: 'Nikic',
     email: 'milos.nikic@gmail.com',
-    dateOfBirth: new Date('1996-12-31T00:00:00'),
+    age: 23,
     lastActive: new Date('0001-01-01T00:00:00'),
     created: new Date('2019-12-17T12:48:12.1652862'),
     gender: 'male',
@@ -36,6 +36,7 @@ export class UserDetailComponent implements OnInit {
   };
 
   titleToDisplay: string;
+  
 
   @ViewChild('tabs', { static: true }) tabs: MatTabGroup;
 

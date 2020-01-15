@@ -6,6 +6,7 @@
         <th>Name</th>
         <th>Description</th>
         <th>Date Created</th>
+        <th></th>
         <th>Number of members</th>
       </tr>
         <tr class="group" *ngFor="let group of groups">
@@ -19,6 +20,7 @@
           <td>{{ group.name }}</td>
           <td>{{ group.description }}</td>
           <td>{{ group.dateCreated | date }}</td>
+          <td><i class="far fa-heart fa-lg"></i></td>
           <td>{{ group.numberOfMembers }}</td>
         </tr>
     </table>

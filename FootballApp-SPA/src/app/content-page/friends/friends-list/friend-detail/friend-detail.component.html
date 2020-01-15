@@ -28,7 +28,7 @@
     >
       <i class="fas fa-times mr-1"></i>Remove
     </button>
-    <button class="btn btn-outline-secondary ml-1">Visit Profile</button>
+    <button class="btn btn-outline-secondary ml-1" [routerLink]="['/users',1]">Visit Profile</button>
     <a href="" *ngIf="buttonDisplay === 'removeFriend'"
       ><i
         class="far fa-heart fa-lg ml-2"

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -34,6 +35,14 @@ namespace FootballApp.API.Helpers
 
             });
             return app;
+        }
+
+        public static int CalculateAge(this DateTime date){
+            int age = DateTime.Now.Year - date.Year;
+            if(date.AddYears(age) > DateTime.Today){
+                age--;
+            }
+            return age;
         }
     }
 }
