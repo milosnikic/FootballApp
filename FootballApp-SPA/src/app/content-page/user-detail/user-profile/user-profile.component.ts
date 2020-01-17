@@ -8,6 +8,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
   @Input() user: User;
+  @Input() editable: boolean;
   @Output() editProfile = new EventEmitter<number>();
   constructor() { }
 

@@ -75,3 +75,23 @@ button {
   padding-left: 15px;
   text-align: center;
 }
+
+.achievement-wrapper{
+  border: 1px solid #d1d5da;
+  padding: 16px;
+  background-color:rgb(255, 255, 255);
+}
+
+.latest-visitors{
+  width:300px;
+  font-size: 14px;
+  margin-top: 15px;
+  border: 1px solid #d1d5da;
+  padding: 16px;
+  background-color:rgb(255, 255, 255);
+}
+
+.latest-visitors table{
+  width:100%;
+}
+

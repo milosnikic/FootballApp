@@ -8,20 +8,25 @@
         <th>Date Created</th>
         <th></th>
         <th>Number of members</th>
+        <th>Status</th>
       </tr>
         <tr class="group" *ngFor="let group of groups">
-          <td>
+          <td (click)="sayHello('aadsadsa')">
             <img
               src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
               alt="Group image"
               class="rounded"
             />
           </td>
-          <td>{{ group.name }}</td>
-          <td>{{ group.description }}</td>
-          <td>{{ group.dateCreated | date }}</td>
-          <td><i class="far fa-heart fa-lg"></i></td>
-          <td>{{ group.numberOfMembers }}</td>
+          <td (click)="sayHello('aadsadsa')">{{ group.name }}</td>
+          <td (click)="sayHello('aadsadsa')">{{ group.description }}</td>
+          <td (click)="sayHello('aadsadsa')">{{ group.dateCreated | date }}</td>
+          <td (click)="sayHello('hello')"><i class="far fa-heart fa-lg"></i></td>
+          <td ><i class="fa fa-users mr-4"></i>{{ group.numberOfMembers }}</td>
+          <td>
+            <i *ngIf="member===true" class="fas fa-check" style="color:rgb(153, 255, 0)"></i> Already member
+            <!-- <i *ngIf="member===true" class="fas fa-plus"></i> Join -->
+          </td>
         </tr>
     </table>
   </div>

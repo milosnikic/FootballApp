@@ -7,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./groups-list.component.css"]
 })
 export class GroupsListComponent implements OnInit {
+  member = true;
   groups: Group[] = [
     {
       name: "Jelovac",
@@ -31,4 +32,8 @@ export class GroupsListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  sayHello(text){
+    console.log(text);
+  }
 }

@@ -36,6 +36,7 @@ export class UserDetailComponent implements OnInit {
   };
 
   titleToDisplay: string;
+  editable: boolean;
   
 
   @ViewChild('tabs', { static: true }) tabs: MatTabGroup;
@@ -48,6 +49,7 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data: Data) => {
       this.titleToDisplay = data['title'];
+      this.editable = data['editable'];
       // console.log(data['title']);
     });
   }

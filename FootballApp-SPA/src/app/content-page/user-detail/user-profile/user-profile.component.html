@@ -5,50 +5,97 @@
         <!-- src="https://material.angular.io/assets/img/examples/shiba2.jpg" -->
         <img
           mat-card-image
-          src="{{user.photos[0].path}}"
-          
+          src="{{ user.photos[0].path }}"
           alt="User profile picture"
         />
-        <a class="status" (click)="onEditProfile()">
+        <a class="status" (click)="onEditProfile()" *ngIf="editable">
           <mat-card-content>
             <i class="far fa-lg fa-smile mr-4"></i> Set your status
           </mat-card-content>
         </a>
-        {{user.photos[0].description}}
-        <mat-card-actions>
-          <button class="btn btn-light" (click)="onEditProfile()">Edit Profile</button>
+        <p>{{ user.photos[0].description }}</p>
+        <mat-card-actions *ngIf="editable">
+          <button class="btn btn-light" (click)="onEditProfile()">
+            Edit Profile
+          </button>
         </mat-card-actions>
       </mat-card>
+      <div class="latest-visitors">
+        <p class="text-center">Latest visitors</p>
+        <table>
+          <!-- <tr>
+            <th>User</th>
+            <th class="time-ago">Time ago</th>
+          </!--> 
+          <tr>
+            <td><a href="">Jovan Jovanovic</a></td>
+            <td class="time-ago"><small class="text-muted">22 minutes ago</small></td>
+          </tr>
+          <tr>
+            <td><a href="">Ivan Ivanovic</a></td>
+            <td class="time-ago"><small class="text-muted">42 minutes ago</small></td>
+          </tr>
+          <tr>
+            <td><a href="">Marko Markovic</a></td>
+            <td class="time-ago"><small class="text-muted">1 day ago</small></td>
+          </tr>
+          <tr>
+            <td><a href="">Uros Urosevic</a></td>
+            <td class="time-ago"><small class="text-muted">2 days ago</small></td>
+          </tr>
+        </table>
+      </div>
     </div>
     <div class="col col-sm-9">
       <div class="row">
-      <h2>{{user.firstname}} {{user.lastname}}</h2>
-        <h4 class="nickname">({{user.username}})</h4>
+        <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+        <h4 class="nickname">({{ user.username }})</h4>
       </div>
       <div class="row">
         <h5 class="text-muted mt-0">
-          {{user.city}}, {{user.country}}
+          {{ user.city }}, {{ user.country }}
           <img src="../../../../assets/sr.png" class="flag" alt="sr flag" />
-        </h5>        
+        </h5>
       </div>
       <div class="row">
-        <h5>{{user.age}} years old</h5>
+        <h5>{{ user.age }} years old</h5>
         <!-- 23 years old -->
       </div>
       <div class="row">
-        <h3>Achievements</h3> <h4 class="text-muted percentage">(4/5) {{4/5 * 100}} %</h4>
+        <h3>Achievements</h3>
+        <h4 class="text-muted percentage">(6/12) {{ (6 / 12) * 100 }} %</h4>
       </div>
-      <div class="row">
+      <div class="row achievement-wrapper">
         <div class="col-md-4">
           <div class="achievement">
             <i class="far fa-futbol icon"></i>
-            <span class="achievement-text">Most organized matches last year</span>
+            <span class="achievement-text"
+              >Most organized matches last year</span
+            >
           </div>
         </div>
         <div class="col-md-4">
           <div class="achievement">
             <i class="fas fa-running icon"></i>
             <span class="achievement-text">Most assists in single match</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="achievement">
+            <i class="fas fa-trophy icon"></i>
+            <span class="achievement-text">Most goals in single match</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="achievement locked">
+            <i class="fas fa-award icon"></i>
+            <span class="achievement-text">Played over 100 games</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="achievement locked">
+            <i class="fas fa-award icon"></i>
+            <span class="achievement-text">Played over 100 games</span>
           </div>
         </div>
         <div class="col-md-4">
@@ -61,6 +108,36 @@
           <div class="achievement locked">
             <i class="fas fa-award icon"></i>
             <span class="achievement-text">Played over 100 games</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="achievement locked">
+            <i class="fas fa-award icon"></i>
+            <span class="achievement-text">Played over 100 games</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="achievement locked">
+            <i class="fas fa-award icon"></i>
+            <span class="achievement-text">Played over 100 games</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="achievement locked">
+            <i class="fas fa-award icon"></i>
+            <span class="achievement-text">Played over 100 games</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="achievement">
+            <i class="fas fa-trophy icon"></i>
+            <span class="achievement-text">Most goals in singel match</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="achievement">
+            <i class="fas fa-trophy icon"></i>
+            <span class="achievement-text">Most goals in singel match</span>
           </div>
         </div>
       </div>

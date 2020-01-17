@@ -7,6 +7,11 @@
   color: #134ee4;
   transition: 0.1s;
 }
+.mat-tab-disabled:hover {
+  color:grey;
+  cursor: default;
+}
+
 
 .mat-tab-group.mat-primary .mat-ink-bar,
 .mat-tab-nav-bar.mat-primary .mat-ink-bar {

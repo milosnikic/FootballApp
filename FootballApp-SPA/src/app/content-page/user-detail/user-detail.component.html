@@ -3,13 +3,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
-      <mat-tab-group [selectedIndex]="0" #tabs animationDuration="500ms">
+      <mat-tab-group [selectedIndex]="3" #tabs animationDuration="500ms">
         <mat-tab isActive="false">
           <ng-template mat-tab-label>
             Profile
             <i class="fas ml-2 fa-user"></i>
           </ng-template>
-        <app-user-profile [user]="user"  (editProfile)="changeTabToEditProfile($event)"></app-user-profile>
+        <app-user-profile [user]="user" [editable]="editable" (editProfile)="changeTabToEditProfile($event)"></app-user-profile>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -25,7 +25,7 @@
           </ng-template>
           <app-user-statistics></app-user-statistics>
         </mat-tab>
-        <mat-tab>
+        <mat-tab [disabled]="!editable">
           <ng-template mat-tab-label>
             Photos
             <i class="fas ml-2 fa-images"></i>
@@ -39,174 +39,14 @@
           </ng-template>
           <app-user-comments></app-user-comments>
         </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            Settings
-            <i class="fas ml-2 fa-cogs"></i>
-          </ng-template>
-          <app-user-settings></app-user-settings>
-        </mat-tab>
+          <mat-tab *ngIf="editable">
+            <ng-template mat-tab-label>
+              Settings
+              <i class="fas ml-2 fa-cogs"></i>
+            </ng-template>
+            <app-user-settings></app-user-settings>
+          </mat-tab>
       </mat-tab-group>
     </div>
-    <!-- <div
-      class="col-sm-3"
-      style="background-color: #7979792d;border:1px solid black;"
-    >
-      <h3 class="text-center">
-        {{ user.username }} <img src="../../../assets/sr.png" alt="sr flag" />
-      </h3>
-      <div class="img-wrapper"></div>
-      <div class="row">
-        <div class="col-sm-12 text-center mt-3">
-          Member since {{ user.created | date: "d LLLL y" }}
-        </div>
-      </div>
-      <div class="">
-        <ul class="group-items">
-          <a href="#"><li class="group-item">Friends</li></a>
-          <a href="#"><li class="group-item">Groups</li></a>
-          <a href="#"><li class="group-item">All matches</li></a>
-          <a href="#"><li class="group-item">Full Stats</li></a>
-        </ul>
-      </div>
-    </div>
-
-    <div
-      class="col-sm-9"
-      style="background-color: #7979792d;border:1px solid black;margin-left: unset;"
-    >
-      <div class="container">
-        <h3 class="text-center" style="width:80%">Last 5 matches</h3>
-      </div>
-      <table class="mt-2">
-        <tr>
-          <th>Date</th>
-          <th>Team Home</th>
-          <th>Team Away</th>
-          <th>Place</th>
-          <th>Result</th>
-        </tr>
-        <tr>
-          <td>12/5/2019</td>
-          <td>Jelovac</td>
-          <td>Zemun</td>
-          <td>Altina</td>
-          <td>W</td>
-        </tr>
-        <tr>
-          <td>12/5/2019</td>
-          <td>Jelovac</td>
-          <td>Zemun</td>
-          <td>Altina</td>
-          <td>W</td>
-        </tr>
-        <tr>
-          <td>12/5/2019</td>
-          <td>Jelovac</td>
-          <td>Zemun</td>
-          <td>Altina</td>
-          <td>W</td>
-        </tr>
-        <tr>
-          <td>12/5/2019</td>
-          <td>Jelovac</td>
-          <td>Zemun</td>
-          <td>Altina</td>
-          <td>W</td>
-        </tr>
-        <tr>
-          <td>12/5/2019</td>
-          <td>Jelovac</td>
-          <td>Zemun</td>
-          <td>Altina</td>
-          <td>W</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-3">
-      <h1 class="text-center">Statistics</h1>
-    </div>
-    <div class="col-md-9 text-center circles">
-      <div class="row">
-        <div class="col-md-3">
-          <circle-progress
-            [subtitle]="'Win rate'"
-            [subtitleFontSize]="'15'"
-            [percent]="55"
-            [radius]="80"
-            [outerStrokeWidth]="10"
-            [innerStrokeWidth]="6"
-            [outerStrokeColor]="'#205efa'"
-            [innerStrokeColor]="'#5e8bfcbb'"
-            [animation]="true"
-            [animationDuration]="1000"
-          ></circle-progress>
-        </div>
-        <div class="col-md-3">
-          <circle-progress
-            [percent]="35"
-            [radius]="80"
-            [outerStrokeWidth]="10"
-            [innerStrokeWidth]="6"
-            [outerStrokeColor]="'#205eaf'"
-            [innerStrokeColor]="'#5e8bfaab'"
-            [animation]="true"
-            [animationDuration]="200"
-          ></circle-progress>
-        </div>
-        <div class="col-md-3">
-          <circle-progress
-            [percent]="35"
-            [radius]="80"
-            [outerStrokeWidth]="10"
-            [innerStrokeWidth]="6"
-            [outerStrokeColor]="'#205eaf'"
-            [innerStrokeColor]="'#5e8bfaab'"
-            [animation]="true"
-            [animationDuration]="300"
-          ></circle-progress>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <circle-progress
-            [percent]="45"
-            [radius]="80"
-            [outerStrokeWidth]="10"
-            [innerStrokeWidth]="6"
-            [outerStrokeColor]="'red'"
-            [innerStrokeColor]="'blue'"
-            [animation]="true"
-            [animationDuration]="500"
-          ></circle-progress>
-        </div>
-        <div class="col-md-3">
-          <circle-progress
-            [percent]="55"
-            [radius]="80"
-            [outerStrokeWidth]="10"
-            [innerStrokeWidth]="6"
-            [outerStrokeColor]="'red'"
-            [innerStrokeColor]="'blue'"
-            [animation]="true"
-            [animationDuration]="1200"
-          ></circle-progress>
-        </div>
-        <div class="col-md-3">
-          <circle-progress
-            [percent]="89"
-            [radius]="80"
-            [outerStrokeWidth]="10"
-            [innerStrokeWidth]="6"
-            [outerStrokeColor]="'red'"
-            [innerStrokeColor]="'blue'"
-            [animation]="true"
-            [animationDuration]="800"
-          ></circle-progress>
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>
