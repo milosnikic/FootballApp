@@ -8,26 +8,37 @@
         <th>Date Created</th>
         <th></th>
         <th>Number of members</th>
-        <th>Status</th>
+        <th style="width: 240px;">Status</th>
       </tr>
-        <tr class="group" *ngFor="let group of groups">
-          <td (click)="sayHello('aadsadsa')">
-            <img
-              src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
-              alt="Group image"
-              class="rounded"
-            />
-          </td>
-          <td (click)="sayHello('aadsadsa')">{{ group.name }}</td>
-          <td (click)="sayHello('aadsadsa')">{{ group.description }}</td>
-          <td (click)="sayHello('aadsadsa')">{{ group.dateCreated | date }}</td>
-          <td (click)="sayHello('hello')"><i class="far fa-heart fa-lg"></i></td>
-          <td ><i class="fa fa-users mr-4"></i>{{ group.numberOfMembers }}</td>
-          <td>
-            <i *ngIf="member===true" class="fas fa-check" style="color:rgb(153, 255, 0)"></i> Already member
-            <!-- <i *ngIf="member===true" class="fas fa-plus"></i> Join -->
-          </td>
-        </tr>
+      <tr class="group" *ngFor="let group of groups">
+        <td (click)="sayHello('aadsadsa')">
+          <img
+            src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+            alt="Group image"
+            class="rounded"
+          />
+        </td>
+        <td (click)="sayHello('aadsadsa')">{{ group.name }}</td>
+        <td (click)="sayHello('aadsadsa')">{{ group.description }}</td>
+        <td (click)="sayHello('aadsadsa')">{{ group.dateCreated | date }}</td>
+        <td (click)="sayHello('like')"><i class="far fa-heart fa-lg"></i></td>
+        <td><i class="fa fa-users mr-4"></i>{{ group.numberOfMembers }}</td>
+        <td style="text-align:right ;">
+        <button style="cursor: not-allowed;" *ngIf="group.member === true" class="btn btn-outline-success" disabled>
+            <i
+              class="fas fa-check"
+              style="color:rgb(153, 255, 0)"
+            ></i>
+            Already member
+          </button>
+          <button *ngIf="group.member === true" class=" ml-2 btn btn-outline-danger" (click)="group.member = false">
+            <i class="fas fa-times" style="color:red"></i>
+          </button>
+          <button *ngIf="group.member === false" class="btn btn-primary" (click)="group.member = true">
+              <i  class="fas fa-plus"></i> Ask to join
+            </button>
+        </td>
+      </tr>
     </table>
   </div>
 </div>
