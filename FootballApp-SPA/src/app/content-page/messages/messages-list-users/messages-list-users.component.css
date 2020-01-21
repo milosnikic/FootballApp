@@ -12,7 +12,12 @@
 
 .active {
   border-left: 5px solid #205efa;
-  transition: 0.2s;
+  transition: .3s;
+  outline: none;
+}
+
+button:focus{
+  outline: none;
 }
 
 button{
