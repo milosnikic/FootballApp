@@ -1,3 +1,6 @@
+import { SetActiveDirective } from './content-page/messages/set-active.directive';
+import { MessagesDisplayContentComponent } from './content-page/messages/messages-display-content/messages-display-content.component';
+import { MessagesListUsersComponent } from './content-page/messages/messages-list-users/messages-list-users.component';
 import { CreateGroupComponent } from './content-page/groups/create-group/create-group.component';
 import { GroupsListComponent } from './content-page/groups/groups-list/groups-list.component';
 import { FriendDetailComponent } from './content-page/friends/friends-list/friend-detail/friend-detail.component';
@@ -52,10 +55,13 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
       UserPhotosComponent,
       FriendsComponent,
       MessagesComponent,
+      MessagesListUsersComponent,
+      MessagesDisplayContentComponent,
       AvailableMatchesComponent,
       MatchHistoryComponent,
       FriendsListComponent,
       FriendDetailComponent,
+      SetActiveDirective
    ],
    imports: [
       HttpClientModule,

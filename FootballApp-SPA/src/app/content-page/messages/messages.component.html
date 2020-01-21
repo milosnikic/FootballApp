@@ -1,5 +1,12 @@
 <h1>{{ titleToDisplay }}</h1>
 <hr />
 <div class="container-fluid">
-  <div class="row"></div>
+  <div class="row">
+    <div class="col-md-3">
+      <app-messages-list-users></app-messages-list-users>
+    </div>
+    <div class="col-md-9">
+      <app-messages-display-content></app-messages-display-content>
+    </div>
+  </div>
 </div>

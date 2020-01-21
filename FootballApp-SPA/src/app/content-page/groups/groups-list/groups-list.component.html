@@ -21,7 +21,8 @@
         <td (click)="sayHello('aadsadsa')">{{ group.name }}</td>
         <td (click)="sayHello('aadsadsa')">{{ group.description }}</td>
         <td (click)="sayHello('aadsadsa')">{{ group.dateCreated | date }}</td>
-        <td (click)="sayHello('like')"><i class="far fa-heart fa-lg"></i></td>
+        <td (click)="sayHello('like')" *ngIf="group.member === true"><i class="far fa-heart fa-lg"></i></td>
+        <td *ngIf="group.member === false"></td>
         <td><i class="fa fa-users mr-4"></i>{{ group.numberOfMembers }}</td>
         <td style="text-align:right ;">
         <button style="cursor: not-allowed;" *ngIf="group.member === true" class="btn btn-outline-success" disabled>
