@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data;
 using FootballApp.API.Data.Groups;
+using FootballApp.API.Data.Photos;
 using FootballApp.API.Data.Users;
 using FootballApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -47,6 +48,7 @@ namespace FootballApp.API
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IGroupsRepository, GroupsRepository>();
+            services.AddScoped<IPhotosRepository, PhotosRepository>();
             services.AddAutoMapper();
             services.AddSwaggerDocumentation();
 

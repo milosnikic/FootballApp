@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -54,15 +56,17 @@ namespace FootballApp.API.Controllers
 
             _repo.Add(group);
 
-            var membership = new Membership { UserId = user.Id, GroupId = group.Id,  DateSent = DateTime.Now, Role = Role.Owner, Accepted = true, DateAccepted = DateTime.Now};
+            var membership = new Membership { UserId = user.Id, GroupId = group.Id, DateSent = DateTime.Now, Role = Role.Owner, Accepted = true, DateAccepted = DateTime.Now };
 
             _repo.Add(membership);
-            
+
             var userToReturn = _mapper.Map<UserToReturnDto>(user);
             if (await _repo.SaveAll())
                 return Ok(userToReturn);
 
             return BadRequest("Could not create group");
         }
+
+        
     }
 }

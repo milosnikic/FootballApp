@@ -12,7 +12,8 @@ namespace FootballApp.API.Helpers
             CreateMap<UserForRegisterDto, User>();
             CreateMap<User, UserToReturnDto>()
                 .ForMember(dest => dest.Age,
-                    opt => {
+                    opt =>
+                    {
                         opt.MapFrom(src => src.DateOfBirth.CalculateAge());
                     });
             CreateMap<GroupForCreationDto, Group>();
@@ -29,6 +30,8 @@ namespace FootballApp.API.Helpers
                 {
                     opt.MapFrom(src => src.Memberships.Where(m => m.GroupId == src.Id).FirstOrDefault().User.Username);
                 });
+            // CreateMap<Photo, PhotoToReturn>();
+            CreateMap<PhotoForCreationDto, Photo>();
         }
     }
 }

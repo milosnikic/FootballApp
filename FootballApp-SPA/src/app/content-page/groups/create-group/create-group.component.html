@@ -39,10 +39,15 @@
               class="custom-file-input"
               id="validatedCustomFile"
               required
+              #file
+              (change)="preview(file.files)"
             />
             <label class="custom-file-label" for="validatedCustomFile"
               >Choose file...</label
             >
+          </div>
+          <div class="text-danger" *ngIf="message">
+            {{message}}
           </div>
         </div>
       </form>
@@ -54,10 +59,10 @@
         </div>
       </div>
     </div>
-    <div class="col-md-8">
+    <div *ngIf="imgURL" class="col-md-8">
       <div class="text-center">
         <h4>Image preview</h4>
-        <img src="../../../../assets/mn.jpg" alt="" />
+        <img  [src]="imgURL"  alt="" />
       </div>
     </div>
   </div>

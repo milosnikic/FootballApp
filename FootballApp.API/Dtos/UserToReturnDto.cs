@@ -17,7 +17,9 @@ namespace FootballApp.API.Dtos
         public string City { get; set; }
         public string Country { get; set; }
         public ICollection<MembershipToReturnDto> Memberships { get; set; }
-        public ICollection<Match> LatestMatches { get; set; }
+
+        public ICollection<PhotoToReturnDto> Photos { get; set; }
+        // public ICollection<Match> LatestMatches { get; set; }
 
     }
 }

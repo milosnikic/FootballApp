@@ -9,6 +9,7 @@ namespace FootballApp.API.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Membership> Memberships { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,7 +19,7 @@ namespace FootballApp.API.Data
                 .HasOne<User>(m => m.User)
                 .WithMany(u => u.Memberships)
                 .HasForeignKey(m => m.UserId);
-            
+
             modelBuilder.Entity<Membership>()
                 .HasOne<Group>(m => m.Group)
                 .WithMany(u => u.Memberships)

@@ -21,6 +21,7 @@ namespace FootballApp.API.Models
         public string Country { get; set; }
         public bool IsActive { get; set; }
         public ICollection<Membership> Memberships { get; set; }
+        public ICollection<Photo> Photos { get; set; }
 
     }
 }

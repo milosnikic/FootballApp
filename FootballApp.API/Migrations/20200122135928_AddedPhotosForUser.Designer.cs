@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191216094710_UpdatedMembership")]
-    partial class UpdatedMembership
+    [Migration("20200122135928_AddedPhotosForUser")]
+    partial class AddedPhotosForUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,28 @@ namespace FootballApp.API.Migrations
                     b.ToTable("Memberships");
                 });
 
+            modelBuilder.Entity("FootballApp.API.Models.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsMain");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Photos");
+                });
+
             modelBuilder.Entity("FootballApp.API.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -66,7 +88,7 @@ namespace FootballApp.API.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<DateTime?>("DateOfBirth");
+                    b.Property<DateTime>("DateOfBirth");
 
                     b.Property<string>("Email");
 
@@ -100,6 +122,14 @@ namespace FootballApp.API.Migrations
 
                     b.HasOne("FootballApp.API.Models.User", "User")
                         .WithMany("Memberships")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FootballApp.API.Models.Photo", b =>
+                {
+                    b.HasOne("FootballApp.API.Models.User", "User")
+                        .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
