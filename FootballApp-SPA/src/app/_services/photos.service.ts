@@ -9,8 +9,8 @@ export class PhotosService {
 
   constructor(private http: HttpClient) { }
 
-  uploadPhoto(){
-    // return this.http.post(this.baseUrl)
+  uploadPhoto(formData){
+    return this.http.post(this.baseUrl, formData);
     // todo
   }
 }

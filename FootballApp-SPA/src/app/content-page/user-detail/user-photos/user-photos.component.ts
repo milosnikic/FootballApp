@@ -1,3 +1,4 @@
+import { PhotosService } from "./../../../_services/photos.service";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -8,7 +9,7 @@ import { Component, OnInit } from "@angular/core";
 export class UserPhotosComponent implements OnInit {
   selectedFile: File;
 
-  constructor() {}
+  constructor(private photosService: PhotosService) {}
 
   ngOnInit() {}
 
@@ -18,5 +19,18 @@ export class UserPhotosComponent implements OnInit {
 
   onUpload() {
     console.log(this.selectedFile);
+    if (!this.selectedFile) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append("file", this.selectedFile);
+    this.photosService.uploadPhoto(formData).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 }
