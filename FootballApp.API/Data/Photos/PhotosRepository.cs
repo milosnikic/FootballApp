@@ -8,6 +8,7 @@ namespace FootballApp.API.Data.Photos
     public class PhotosRepository : IPhotosRepository
     {
         private readonly DataContext _context;
+
         public PhotosRepository(DataContext context)
         {
             _context = context;
