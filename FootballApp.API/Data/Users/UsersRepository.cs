@@ -6,26 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballApp.API.Data.Users
 {
-    public class UsersRepository : IUsersRepository
+    public class UsersRepository : Repository<User>, IUsersRepository
     {
-        private readonly DataContext _context;
+
         public UsersRepository(DataContext context)
+            : base(context)
         {
-            _context = context;
-
-        }
-        public async Task<User> GetUser(int id)
-        {
-            var user = await _context.Users.Include(m => m.Memberships).FirstOrDefaultAsync(u => u.Id == id && u.IsActive == true);
-
-            return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public DataContext DataContext
         {
-            var users = await _context.Users.ToListAsync();
-
-            return users;
+            get { return Context as DataContext; } 
         }
     }
 }

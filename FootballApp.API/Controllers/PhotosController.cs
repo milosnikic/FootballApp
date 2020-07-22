@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data;
 using FootballApp.API.Data.Photos;
+using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
 using FootballApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -17,23 +18,19 @@ namespace FootballApp.API.Controllers
     [ApiController]
     public class PhotosController : ControllerBase
     {
-        private readonly IUsersRepository _usersRepository;
-        private readonly IRepository _repo;
         private readonly IMapper _mapper;
-        private readonly IPhotosRepository _photosRepository;
-        public PhotosController(IRepository repo, IUsersRepository usersRepository, IPhotosRepository photosRepository, IMapper mapper)
+        private readonly IUnitOfWork _unitOfWork;
+        public PhotosController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _photosRepository = photosRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _repo = repo;
-            _usersRepository = usersRepository;
 
         }
 
         [HttpGet("{id}", Name = "GetPhoto")]
         public async Task<IActionResult> GetPhoto(int id)
         {
-            var photoFromRepo = await _photosRepository.GetPhoto(id);
+            var photoFromRepo = await _unitOfWork.Photos.GetById(id);
 
             var photo = _mapper.Map<PhotoToReturnDto>(photoFromRepo);
 
@@ -41,20 +38,19 @@ namespace FootballApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadPhoto(int userId, 
+        public async Task<IActionResult> UploadPhoto(int userId,
             [FromForm] PhotoForCreationDto photoForCreationDto)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var userFromRepo = await _usersRepository.GetUser(userId);
+            var userFromRepo = await _unitOfWork.Users.GetById(userId);
 
             var file = photoForCreationDto.File;
 
             var filePath = Path.GetTempFileName();
             if (file.Length > 0)
             {
-
                 using (var stream = System.IO.File.Create(filePath))
                 {
                     await file.CopyToAsync(stream);
@@ -71,7 +67,7 @@ namespace FootballApp.API.Controllers
             userFromRepo.Photos.Add(photo);
 
 
-            if (await _repo.SaveAll())
+            if (await _unitOfWork.Complete())
             {
                 var photoToReturn = _mapper.Map<PhotoToReturnDto>(photo);
                 return CreatedAtRoute("GetPhoto", new { id = photo.Id }, photoToReturn);

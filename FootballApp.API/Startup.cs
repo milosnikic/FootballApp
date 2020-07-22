@@ -7,6 +7,7 @@ using AutoMapper;
 using FootballApp.API.Data;
 using FootballApp.API.Data.Groups;
 using FootballApp.API.Data.Photos;
+using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Data.Users;
 using FootballApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,7 +37,7 @@ namespace FootballApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
             services.AddMvc()
                 .AddJsonOptions(opt =>
@@ -45,7 +46,7 @@ namespace FootballApp.API
 
             
             services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IGroupsRepository, GroupsRepository>();
             services.AddScoped<IPhotosRepository, PhotosRepository>();
@@ -67,12 +68,13 @@ namespace FootballApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataContext context)
         {
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                context.Database.Migrate();
             }
             else
             {

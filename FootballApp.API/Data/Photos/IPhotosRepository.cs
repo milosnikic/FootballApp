@@ -3,9 +3,8 @@ using FootballApp.API.Models;
 
 namespace FootballApp.API.Data.Photos
 {
-    public interface IPhotosRepository
+    public interface IPhotosRepository : IRepository<Photo>
     {
-         Task<Photo> GetPhoto(int id);
          Task<Photo> GetMainPhotoForUser(int userId);
     }
 }

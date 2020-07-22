@@ -4,10 +4,8 @@ using FootballApp.API.Models;
 
 namespace FootballApp.API.Data.Groups
 {
-    public interface IGroupsRepository
+    public interface IGroupsRepository : IRepository<Group>
     {
-        Task<IEnumerable<Group>> GetGroups();
-        Task<Group> GetGroup(int id);
         Task<IEnumerable<Group>> GetGroupsForUser(int userId);
     }
 }

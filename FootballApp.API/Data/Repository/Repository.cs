@@ -1,29 +1,63 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace FootballApp.API.Data
 {
-    public class Repository : IRepository
+    public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DataContext _context;
+        protected readonly DbContext Context;
+        private readonly DbSet<T> _entities;
 
-        public Repository(DataContext context)
+        public Repository(DbContext context)
         {
-            _context = context;
+            Context = context;
+            _entities = context.Set<T>();
 
         }
-        public void Add<T>(T entity) where T : class
+
+        public void Add(T entity)
         {
-            _context.Add(entity);
+            _entities.Add(entity);
         }
 
-        public void Delete<T>(T entity) where T : class
+        public void AddRange(ICollection<T> entities)
         {
-            _context.Remove(entity);
+            _entities.AddRange(entities);
         }
 
-        public async Task<bool> SaveAll()
+        public async Task<ICollection<T>> Find(Expression<Func<T, bool>> predicate)
         {
-            return await _context.SaveChangesAsync() > 0;
+            return await _entities.Where(predicate)
+                                  .ToListAsync();
+        }
+
+        public async Task<ICollection<T>> GetAll()
+        {
+            return await _entities.ToListAsync();
+        }
+
+        public async Task<T> GetById(int id)
+        {
+            return await _entities.FindAsync(id);
+        }
+
+        public void Remove(T entity)
+        {
+            _entities.Remove(entity);
+        }
+
+        public void RemoveRange(ICollection<T> entities)
+        {
+            _entities.RemoveRange(entities);
+        }
+
+        public void Update(T entity)
+        {
+            _entities.Update(entity);
         }
     }
 }

@@ -6,6 +6,7 @@ namespace FootballApp.API.Dtos
 {
     public class UserToReturnDto
     {
+        public int Id { get; set; }
         public string Username { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -17,8 +18,8 @@ namespace FootballApp.API.Dtos
         public string City { get; set; }
         public string Country { get; set; }
         public ICollection<MembershipToReturnDto> Memberships { get; set; }
-
         public ICollection<PhotoToReturnDto> Photos { get; set; }
+        public ICollection<GroupToReturnDto> Groups { get; set; }
         // public ICollection<Match> LatestMatches { get; set; }
 
     }

@@ -4,10 +4,8 @@ using FootballApp.API.Models;
 
 namespace FootballApp.API.Data
 {
-    public interface IUsersRepository
+    public interface IUsersRepository : IRepository<User>
     {
-        Task<IEnumerable<User>> GetUsers();
-        Task<User> GetUser(int id);
         
     }
 }

@@ -5,25 +5,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballApp.API.Data.Photos
 {
-    public class PhotosRepository : IPhotosRepository
+    public class PhotosRepository : Repository<Photo>, IPhotosRepository
     {
-        private readonly DataContext _context;
 
-        public PhotosRepository(DataContext context)
+        public PhotosRepository(DataContext context) 
+            : base(context)
         {
-            _context = context;
-
         }
-        public Task<Photo> GetMainPhotoForUser(int userId)
+        public async Task<Photo> GetMainPhotoForUser(int userId)
         {
-            throw new System.NotImplementedException();
+            var mainPhoto = await DataContext.Photos
+                                         .FirstOrDefaultAsync(p => p.IsMain);
+
+            return mainPhoto;
         }
 
-        public async Task<Photo> GetPhoto(int id)
+        public DataContext DataContext
         {
-            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
-            
-            return photo;
+            get { return Context as DataContext; }
         }
     }
 }
