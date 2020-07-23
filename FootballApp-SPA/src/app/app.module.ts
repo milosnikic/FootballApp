@@ -19,7 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {MatTabsModule, MatCardModule} from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -79,6 +79,7 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
          innerStrokeColor: "#C7E596",
          animationDuration: 300,
        }),
+       ReactiveFormsModule,
        AppRoutingModule
    ],
    providers: [

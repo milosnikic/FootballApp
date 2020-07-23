@@ -12,7 +12,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
 
 const appRoutes: Route[] = [
-    {path: '', component: DashboardComponent, children: [
+    {path: 'app', component: DashboardComponent, children: [
         {path: 'dashboard', component: UserDetailComponent, data: {title: 'Dashboard', editable: true}},
         {path: 'groups', component: GroupsComponent, data: {title: 'Groups'}},
         {path: 'users/:id', component: UserDetailComponent, data: {title: 'Users profile', editable: false}},
@@ -23,7 +23,7 @@ const appRoutes: Route[] = [
         
 
     ]},
-    {path: 'register', component: RegisterComponent},
+    {path: '', component: RegisterComponent},
     
 ];
 

@@ -137,6 +137,7 @@
         </div>
         <div class="text-center">
           <button
+            [ngStyle]="{'cursor': !registerForm.valid ? 'not-allowed' : 'pointer'}"
             [disabled]="!registerForm.valid"
             type="submit"
             class="btn btn-primary"
@@ -177,6 +178,7 @@
           </div>
           <div class="text-center">
             <button
+              [ngStyle]="{'cursor': !loginForm.valid ? 'not-allowed' : 'pointer'}"
               [disabled]="!loginForm.valid"
               type="submit"
               class="btn btn-success"

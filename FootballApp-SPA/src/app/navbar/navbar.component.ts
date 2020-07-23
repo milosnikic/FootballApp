@@ -13,4 +13,8 @@ export class NavbarComponent {
         this.searchBox.nativeElement.value = '';
     }
 
+    logout(){
+        localStorage.clear();
+    }
+
 }
