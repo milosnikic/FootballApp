@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballApp.API.Models
 {
+    public enum Gender{
+        Male,
+        Female,
+        Other
+    }
     public class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,9 +20,9 @@ namespace FootballApp.API.Models
         public string Lastname { get; set; }
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public DateTime LastActive { get; set; }
+        public DateTime? LastActive { get; set; }
         public DateTime Created { get; set; }
-        public string Gender { get; set; }
+        public Gender Gender { get; set; } = Gender.Other;
         public string City { get; set; }
         public string Country { get; set; }
         public bool IsActive { get; set; }
