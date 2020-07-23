@@ -20,8 +20,6 @@ const appRoutes: Route[] = [
         {path: 'messages', component: MessagesComponent, data: {title: 'Messages'}},
         {path: 'available-matches', component: AvailableMatchesComponent, data: {title: 'Available Matches'}},
         {path: 'match-history', component: MatchHistoryComponent, data: {title: 'Match History'}},
-        
-
     ]},
     {path: '', component: RegisterComponent},
     

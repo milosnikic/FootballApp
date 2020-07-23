@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../_models/user';
 import { AuthService } from '../_services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NotifyService } from '../_services/notify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  user: User = new User();
   state = 0;
   // 0 if register
   // 1 if login
@@ -20,7 +20,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private notifyService: NotifyService,
+    private router: Router) { }
 
   ngOnInit() {
     this.buildForms();
@@ -46,31 +48,47 @@ export class RegisterComponent implements OnInit {
 
 
   register() {
-    this.authService.register(this.user).subscribe(
+    const registerData = {
+      username: this.registerForm.get('username').value,
+      password: this.registerForm.get('password').value,
+      firstname: this.registerForm.get('firstname').value,
+      lastname: this.registerForm.get('lastname').value,
+      city: this.registerForm.get('city').value,
+      country: this.registerForm.get('country').value,
+      email: this.registerForm.get('email').value,
+      dateOfBirth: this.registerForm.get('dateOfBirth').value,
+      gender: this.registerForm.get('gender').value,
+    };
+    this.authService.register(registerData).subscribe(
       res => {
-        console.log(res);
+        this.notifyService.showSuccess('Successfully registered!');
+        this.state = 1;
       },
       err => {
-        console.log(err);
+        this.notifyService.showError(err);
       }
     );
-    console.log('Pera 1');
   }
 
   changeState(val) {
     this.state = val;
-    console.log(this.state);
   }
 
   login() {
-    this.authService.login(this.user).subscribe(
-      res => {
-        console.log(res);
+    const loginData = {
+      username: this.loginForm.get('username').value,
+      password: this.loginForm.get('password').value
+    };
+    this.authService.login(loginData).subscribe(
+      (res: any) => {
+        this.notifyService.showSuccess('Successfully logged in!');
+        this.router.navigate(['/app/dashboard']);
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('user', JSON.stringify(res.user));
       },
       err => {
-        console.log(err);
+        this.notifyService.showError();
       }
     );
-    console.log('Pera 2');
   }
 }

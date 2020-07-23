@@ -5,7 +5,7 @@
         <!-- src="https://material.angular.io/assets/img/examples/shiba2.jpg" -->
         <img
           mat-card-image
-          src="{{ user.photos[0].path }}"
+          src="{{ user?.photos[0]?.path }}"
           alt="User profile picture"
         />
         <a class="status" (click)="onEditProfile()" *ngIf="editable">
@@ -13,7 +13,7 @@
             <i class="far fa-lg fa-smile mr-4"></i> Set your status
           </mat-card-content>
         </a>
-        <p>{{ user.photos[0].description }}</p>
+        <p>{{ user?.photos[0]?.description }}</p>
         <mat-card-actions *ngIf="editable">
           <button class="btn btn-light" (click)="onEditProfile()">
             Edit Profile
@@ -48,7 +48,7 @@
     </div>
     <div class="col col-sm-9">
       <div class="row">
-        <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+        <h2>{{ user?.firstname }} {{ user?.lastname }}</h2>
         <h4 class="nickname">({{ user.username }})</h4>
       </div>
       <div class="row">
