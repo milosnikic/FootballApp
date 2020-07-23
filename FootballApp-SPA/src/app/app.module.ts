@@ -33,6 +33,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ContentPageComponent } from './content-page/content-page.component';
 import { GroupsComponent } from './content-page/groups/groups.component';
 import { UserDetailComponent } from './content-page/user-detail/user-detail.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -80,6 +81,10 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
          animationDuration: 300,
        }),
        ReactiveFormsModule,
+       ToastrModule.forRoot({
+         positionClass: 'toast-bottom-left',
+         preventDuplicates: true,
+       }),
        AppRoutingModule
    ],
    providers: [
