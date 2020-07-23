@@ -32,7 +32,7 @@ namespace FootballApp.API.Controllers
         [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
-            var userFromRepo = await _unitOfWork.Users.GetById(id);
+            var userFromRepo = await _unitOfWork.Users.GetUserByIdWithAdditionalInformation(id);
 
             if (userFromRepo == null)
                 return BadRequest("Specified user does not exist");

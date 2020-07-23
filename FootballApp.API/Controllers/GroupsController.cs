@@ -80,16 +80,13 @@ namespace FootballApp.API.Controllers
                         
             var membership = new Membership { UserId = user.Id, GroupId = groupToAdd.Id, DateSent = DateTime.Now, Role = Role.Owner, Accepted = true, DateAccepted = DateTime.Now, User = user, Group = groupToAdd };
             _unitOfWork.Memberships.Add(membership);
-            if(!await _unitOfWork.Complete())
-            {
-                return BadRequest(new KeyValuePair<bool,string>(false, "Couldn't create membership"));
-            }
 
             if (await _unitOfWork.Complete())
             {
                 var groupToReturn = _mapper.Map<GroupToReturnDto>(groupToAdd);
                 return CreatedAtRoute("GetGroup", new {id = groupToReturn.Id}, groupToReturn);
             }
+            
             return BadRequest(new KeyValuePair<bool,string>(false, "Something went wrong!"));
         }
         

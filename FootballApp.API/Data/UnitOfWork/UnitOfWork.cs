@@ -31,7 +31,7 @@ namespace FootballApp.API.Data.UnitOfWork
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            _context.Dispose();
         }
     }
 }

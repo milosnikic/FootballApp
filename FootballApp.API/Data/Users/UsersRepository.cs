@@ -14,9 +14,17 @@ namespace FootballApp.API.Data.Users
         {
         }
 
+        public async Task<User> GetUserByIdWithAdditionalInformation(int id)
+        {
+            return await DataContext.Users
+                                    .Include(u => u.Memberships)
+                                    .Include(u => u.Photos)
+                                    .FirstOrDefaultAsync(u => u.Id == id);
+        }
         public DataContext DataContext
         {
             get { return Context as DataContext; } 
         }
+
     }
 }

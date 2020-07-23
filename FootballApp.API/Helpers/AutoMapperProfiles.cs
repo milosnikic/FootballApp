@@ -11,7 +11,8 @@ namespace FootballApp.API.Helpers
         {
             CreateMap<UserForRegisterDto, User>();
             CreateMap<User, UserToReturnDto>()
-                .ForMember(dest => dest.Age,
+                .ForMember(
+                    dest => dest.Age,
                     opt =>
                     {
                         opt.MapFrom(src => src.DateOfBirth.CalculateAge());

@@ -6,6 +6,6 @@ namespace FootballApp.API.Data
 {
     public interface IUsersRepository : IRepository<User>
     {
-        
+        Task<User> GetUserByIdWithAdditionalInformation(int id);
     }
 }
