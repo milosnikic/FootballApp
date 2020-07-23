@@ -19,18 +19,16 @@
       <h2 class="text-center">Register here!</h2>
       <form
         class="register-form"
-        #registerForm="ngForm"
-        (ngSubmit)="register()"
+        [formGroup]="registerForm"
       >
         <div class="form-group">
           <label>Username</label>
           <input
+            formControlName="username"
             type="text"
             class="form-control"
             placeholder="Enter username"
             name="username"
-            [(ngModel)]="user.username"
-            required
           />
         </div>
         <div class="form-group">
@@ -39,9 +37,8 @@
             type="password"
             class="form-control"
             placeholder="Password"
-            [(ngModel)]="user.password"
+            formControlName="password"
             name="password"
-            required
           />
           <small id="emailHelp" class="form-text text-muted"
             >Never share your password with anyone else.</small
@@ -54,8 +51,7 @@
             class="form-control"
             placeholder="Enter firstname"
             name="firstname"
-            [(ngModel)]="user.firstname"
-            required
+            formControlName="firstname"
           />
         </div>
         <div class="form-group">
@@ -65,8 +61,7 @@
             class="form-control"
             placeholder="Enter lastname"
             name="lastname"
-            [(ngModel)]="user.lastname"
-            required
+            formControlName="lastname"
           />
         </div>
         <div class="form-group">
@@ -76,8 +71,7 @@
             class="form-control"
             placeholder="Enter city"
             name="city"
-            [(ngModel)]="user.city"
-            required
+            formControlName="city"
           />
         </div>
         <div class="form-group">
@@ -87,8 +81,7 @@
             class="form-control"
             placeholder="Enter country"
             name="country"
-            [(ngModel)]="user.country"
-            required
+            formControlName="country"
           />
         </div>
         <div class="form-group">
@@ -98,8 +91,7 @@
             class="form-control"
             placeholder="Enter email"
             name="email"
-            [(ngModel)]="user.email"
-            required
+            formControlName="email"
           />
         </div>
         <div class="form-group">
@@ -109,7 +101,7 @@
             class="form-control"
             placeholder="Enter dateOfBirth"
             name="dateOfBirth"
-            [(ngModel)]="user.dateOfBirth"
+            formControlName="dateOfBirth"
           />
         </div>
         <div class="form-group">
@@ -122,7 +114,7 @@
               type="radio"
               value="male"
               name="gender"
-              [(ngModel)]="user.gender"
+              formControlName="gender"
             />Male
           </label>
           <label class="radio-inline ml-3">
@@ -131,7 +123,7 @@
               type="radio"
               value="female"
               name="gender"
-              [(ngModel)]="user.gender"
+              formControlName="gender"
             />Female
           </label>
         </div>
@@ -141,16 +133,20 @@
             [disabled]="!registerForm.valid"
             type="submit"
             class="btn btn-primary"
+            (click)="register()"
           >
             Register
           </button>
+        </div>
+        <div>
+          {{registerForm.valid }}
         </div>
       </form>
     </div>
     <ng-template #loginTemplate>
       <div class="col-md-3 mt-5">
         <h2 class="text-center">Login here!</h2>
-        <form class="login-form" #loginForm="ngForm" (ngSubmit)="login()">
+        <form class="login-form" [formGroup]="loginForm">
           <div class="form-group">
             <label>Username</label>
             <input
@@ -158,8 +154,7 @@
               class="form-control"
               placeholder="Enter username"
               name="username"
-              [(ngModel)]="user.username"
-              required
+              formControlName="username"
             />
           </div>
           <div class="form-group">
@@ -168,9 +163,8 @@
               type="password"
               class="form-control"
               placeholder="Password"
-              [(ngModel)]="user.password"
               name="password"
-              required
+              formControlName="password"
             />
             <small id="emailHelp" class="form-text text-muted"
               >Never share your password with anyone else.</small
@@ -182,6 +176,7 @@
               [disabled]="!loginForm.valid"
               type="submit"
               class="btn btn-success"
+              (click)="login()"
             >
               Login
             </button>

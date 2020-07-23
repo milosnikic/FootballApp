@@ -14,30 +14,35 @@ export class RegisterComponent implements OnInit {
   state = 0;
   // 0 if register
   // 1 if login
-
-  registerForm = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
-    firstname: ['', Validators.required],
-    lastname: ['', Validators.required],
-    city: ['', Validators.required],
-    country: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    dateOfBirth: ['', Validators.required],
-    gender: ['', Validators.required]
-  });
-  loginForm = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-    password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]]
-  });
+  registerForm: FormGroup;
+  loginForm: FormGroup;
+  
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.buildForms();
   }
 
+  buildForms() {
+    this.registerForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      firstname: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      lastname: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      dateOfBirth: ['', Validators.required],
+      gender: ['', Validators.required]
+    });
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]]
+    });
+  }
 
 
   register() {
