@@ -12,6 +12,7 @@ namespace FootballApp.API.Data.UnitOfWork
         IPhotosRepository Photos { get; }
         IGroupsRepository Groups { get; }
         IMembershipsRepository Memberships { get; }
+        IAuthRepository Auths { get; }
         Task<bool> Complete();
     }
 }

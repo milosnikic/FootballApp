@@ -6,17 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballApp.API.Data
 {
-    public class AuthRepository : IAuthRepository
+    public class AuthRepository : Repository<User>, IAuthRepository
     {
-        private readonly DataContext _context;
-        public AuthRepository(DataContext context)
-        {
-            _context = context;
 
+        
+        public AuthRepository(DataContext context)
+            : base(context)
+        {
         }
         public async Task<User> Login(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            var user = await DataContext.Users
+                                        .Include(u => u.Memberships)
+                                        .Include(u => u.Photos)
+                                        .FirstOrDefaultAsync(u => u.Username == username);
 
             if (user == null)
                 return null;
@@ -48,9 +51,8 @@ namespace FootballApp.API.Data
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            await _context.AddAsync(user);
-            await _context.SaveChangesAsync();
-
+            await DataContext.Users.AddAsync(user);
+            
             return user;
         }
 
@@ -65,11 +67,16 @@ namespace FootballApp.API.Data
 
         public async Task<bool> UserExists(string username)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await DataContext.Users.FirstOrDefaultAsync(x => x.Username == username);
 
             if (user == null)
                 return false;
             return true;
+        }
+
+        public DataContext DataContext 
+        { 
+            get { return Context as DataContext; }
         }
     }
 }

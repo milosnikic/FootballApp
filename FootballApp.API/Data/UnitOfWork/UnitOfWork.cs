@@ -17,11 +17,13 @@ namespace FootballApp.API.Data.UnitOfWork
             Photos = new PhotosRepository(_context);
             Groups = new GroupsRepository(_context);
             Memberships = new MembershipsRepository(_context);
+            Auths = new AuthRepository(_context);
         }
 
         public IGroupsRepository Groups { get; private set; }
         public IUsersRepository Users { get; private set; }
         public IPhotosRepository Photos { get; private set; }
+        public IAuthRepository Auths { get; private set; }
         public IMembershipsRepository Memberships { get; private set; }
 
         public async Task<bool> Complete()

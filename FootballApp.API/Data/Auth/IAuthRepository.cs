@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FootballApp.API.Data
 {
-    public interface IAuthRepository
+    public interface IAuthRepository : IRepository<User>
     {
         Task<User> Login(string username, string password);
         Task<User> Register(User user, string password);
