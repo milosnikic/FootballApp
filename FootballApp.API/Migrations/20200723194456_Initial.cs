@@ -36,7 +36,7 @@ namespace FootballApp.API.Migrations
                     Lastname = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
-                    LastActive = table.Column<DateTime>(nullable: false),
+                    LastActive = table.Column<DateTime>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     Gender = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
@@ -55,7 +55,7 @@ namespace FootballApp.API.Migrations
                     UserId = table.Column<int>(nullable: false),
                     GroupId = table.Column<int>(nullable: false),
                     DateSent = table.Column<DateTime>(nullable: false),
-                    DateAccepted = table.Column<DateTime>(nullable: false),
+                    DateAccepted = table.Column<DateTime>(nullable: true),
                     Accepted = table.Column<bool>(nullable: false),
                     Role = table.Column<int>(nullable: false)
                 },

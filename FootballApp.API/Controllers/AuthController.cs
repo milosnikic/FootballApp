@@ -39,6 +39,9 @@ namespace FootballApp.API.Controllers
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
             var createdUser = await _unitOfWork.Auths.Register(userToCreate, userForRegisterDto.Password);
+            if(!await _unitOfWork.Complete())
+                return BadRequest("User couldn't be created.");                
+            
 
             var userToReturn = _mapper.Map<UserToReturnDto>(createdUser);
             return Ok(new

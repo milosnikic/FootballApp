@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using FootballApp.API.Models;
 
 namespace FootballApp.API.Dtos
 {
@@ -23,18 +24,17 @@ namespace FootballApp.API.Dtos
         public string Email { get; set; }
         [Required]
         public string Country { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public DateTime Created { get; set; }
-        public DateTime LastActive { get; set; }
+        public DateTime? LastActive { get; set; }
         [Required]
-        public string Gender { get; set; }
+        public Gender Gender { get; set; } = Gender.Other;
         public bool IsActive { get; set; }
 
         public UserForRegisterDto()
         {
             IsActive = true;
             Created = DateTime.Now;
-            LastActive = DateTime.Now;
         }
 
     }

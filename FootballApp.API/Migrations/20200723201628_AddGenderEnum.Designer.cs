@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200722160726_Initial")]
-    partial class Initial
+    [Migration("20200723201628_AddGenderEnum")]
+    partial class AddGenderEnum
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,7 @@ namespace FootballApp.API.Migrations
 
                     b.Property<bool>("Accepted");
 
-                    b.Property<DateTime>("DateAccepted");
+                    b.Property<DateTime?>("DateAccepted");
 
                     b.Property<DateTime>("DateSent");
 
@@ -100,11 +100,11 @@ namespace FootballApp.API.Migrations
 
                     b.Property<string>("Firstname");
 
-                    b.Property<string>("Gender");
+                    b.Property<int>("Gender");
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<DateTime>("LastActive");
+                    b.Property<DateTime?>("LastActive");
 
                     b.Property<string>("Lastname");
 

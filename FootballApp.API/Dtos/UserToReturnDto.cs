@@ -12,7 +12,7 @@ namespace FootballApp.API.Dtos
         public string Lastname { get; set; }
         public string Email { get; set; }
         public int Age { get; set; }
-        public DateTime LastActive { get; set; }
+        public DateTime? LastActive { get; set; }
         public DateTime Created { get; set; }
         public string Gender { get; set; }
         public string City { get; set; }
