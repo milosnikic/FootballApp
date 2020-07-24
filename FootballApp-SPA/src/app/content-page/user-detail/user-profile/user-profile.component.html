@@ -2,18 +2,25 @@
   <div class="row">
     <div class="col col-sm-3">
       <mat-card class="example-card">
-        <!-- src="https://material.angular.io/assets/img/examples/shiba2.jpg" -->
         <img
+          *ngIf="user?.mainPhoto; else defaultImage"
           mat-card-image
-          src="{{ user?.photos[0]?.path }}"
+          src="data:image/JPEG;base64,{{ user?.mainPhoto?.image }}"
           alt="User profile picture"
         />
+        <ng-template #defaultImage>
+          <img 
+          mat-card-image
+          *ngIf="!user?.mainPhoto" 
+          src="{{user?.gender === 'Male' ? '../assets/male-default.jpg' : '../assets/female-default.jpg'}}" 
+          alt="" />
+        </ng-template>
         <a class="status" (click)="onEditProfile()" *ngIf="editable">
           <mat-card-content>
             <i class="far fa-lg fa-smile mr-4"></i> Set your status
           </mat-card-content>
         </a>
-        <p>{{ user?.photos[0]?.description }}</p>
+        <p>{{ user?.mainPhoto?.description }}</p>
         <mat-card-actions *ngIf="editable">
           <button class="btn btn-light" (click)="onEditProfile()">
             Edit Profile
@@ -23,25 +30,33 @@
       <div class="latest-visitors">
         <p class="text-center">Latest visitors</p>
         <table>
-          <!-- <tr>
+          <tr>
             <th>User</th>
             <th class="time-ago">Time ago</th>
-          </!--> 
+          </tr>
           <tr>
             <td><a href="">Jovan Jovanovic</a></td>
-            <td class="time-ago"><small class="text-muted">22 minutes ago</small></td>
+            <td class="time-ago">
+              <small class="text-muted">22 minutes ago</small>
+            </td>
           </tr>
           <tr>
             <td><a href="">Ivan Ivanovic</a></td>
-            <td class="time-ago"><small class="text-muted">42 minutes ago</small></td>
+            <td class="time-ago">
+              <small class="text-muted">42 minutes ago</small>
+            </td>
           </tr>
           <tr>
             <td><a href="">Marko Markovic</a></td>
-            <td class="time-ago"><small class="text-muted">1 day ago</small></td>
+            <td class="time-ago">
+              <small class="text-muted">1 day ago</small>
+            </td>
           </tr>
           <tr>
             <td><a href="">Uros Urosevic</a></td>
-            <td class="time-ago"><small class="text-muted">2 days ago</small></td>
+            <td class="time-ago">
+              <small class="text-muted">2 days ago</small>
+            </td>
           </tr>
         </table>
       </div>

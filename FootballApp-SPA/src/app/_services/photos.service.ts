@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PhotosService {
-  baseUrl = 'http://localhost:5000/api/users/1/photos';
+  baseUrl: string = 'http://localhost:5000/api/photos';
 
   constructor(private http: HttpClient) { }
 
-  uploadPhoto(formData){
-    return this.http.post(this.baseUrl, formData);
-    // todo
+  uploadPhoto(formData: FormData) {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    });
+    const userId = JSON.parse(localStorage.getItem('user')).id;
+    return this.http.post(this.baseUrl + `?userId=${userId}`, formData, {headers});
   }
 }

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  state = 0;
+  state = 1;
   // 0 if register
   // 1 if login
   registerForm: FormGroup;

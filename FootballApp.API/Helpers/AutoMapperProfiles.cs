@@ -16,7 +16,14 @@ namespace FootballApp.API.Helpers
                     opt =>
                     {
                         opt.MapFrom(src => src.DateOfBirth.CalculateAge());
-                    });
+                    })
+                .ForMember(
+                    dest => dest.MainPhoto,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain));
+                    }
+                );
             CreateMap<GroupForCreationDto, Group>();
             CreateMap<Group, GroupToReturnDto>()
                 .ForMember(
@@ -31,7 +38,7 @@ namespace FootballApp.API.Helpers
                 {
                     opt.MapFrom(src => src.Memberships.Where(m => m.GroupId == src.Id).FirstOrDefault().User.Username);
                 });
-            // CreateMap<Photo, PhotoToReturn>();
+            CreateMap<Photo, PhotoToReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
         }
     }

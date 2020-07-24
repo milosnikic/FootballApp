@@ -2,16 +2,19 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
-        <div class="custom-file">
+        <div class="custom-file" [formGroup]="uploadForm">
           <input
             style="display: none"
             type="file"
             (change)="onFileChanged($event)"
+            accept=".png, .jpg, .jpeg"
             #fileInput
           />
           <button class="btn btn-outline-secondary" style="display: block;width:100%;" (click)="fileInput.click()">Select File</button>
-          <label class="mt-2" for="description">Enter description</label>
+          <div class="pt-4">
+          </div>
           <textarea
+            formControlName="description"
             name="description"
             style="resize:none;"
             rows="5"
@@ -19,7 +22,7 @@
             placeholder="Enter description..."
           ></textarea>
           <div class="text-center">
-            <button class="mt-2 mb-3 btn btn-outline-success btn-lg" (click)="onUpload()">
+            <button [disabled]="!uploadForm.valid" class="mt-2 mb-3 btn btn-outline-success btn-lg" (click)="onUpload()">
               Upload
             </button>
           </div>
@@ -28,123 +31,23 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3 mb-4 image">
+    <div *ngFor="let photo of photos" class="col-md-3 mb-4 image">
       <mat-card class="example-card">
         <img
           mat-card-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          alt="Photo of a Shiba Inu"
+          src="data:image/JPEG;base64,{{ photo?.image }}"
+          alt="User photo"
         />
         <mat-card-content>
           <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz
-            breeds of dog from Japan. A small, agile dog that copes very well
-            with mountainous terrain, the Shiba Inu was originally bred for
-            hunting.
+            {{photo?.description}}
           </p>
         </mat-card-content>
         <mat-card-actions class="text-center">
-          <button class="btn btn-primary">Make main photo</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div class="col-md-3 mb-4 image">
-      <mat-card class="example-card">
-        <img
-          mat-card-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          alt="Photo of a Shiba Inu"
-        />
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz
-            breeds of dog from Japan. A small, agile dog that copes very well
-            with mountainous terrain, the Shiba Inu was originally bred for
-            hunting.
-          </p>
-        </mat-card-content>
-        <mat-card-actions class="text-center">
-          <button class="btn btn-primary">Make main photo</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div class="col-md-3 mb-4 image">
-      <mat-card class="example-card">
-        <img
-          mat-card-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          alt="Photo of a Shiba Inu"
-        />
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz
-            breeds of dog from Japan. A small, agile dog that copes very well
-            with mountainous terrain, the Shiba Inu was originally bred for
-            hunting.
-          </p>
-        </mat-card-content>
-        <mat-card-actions class="text-center">
-          <button class="btn btn-primary">Make main photo</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div class="col-md-3 mb-4 image">
-      <mat-card class="example-card">
-        <img
-          mat-card-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          alt="Photo of a Shiba Inu"
-        />
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz
-            breeds of dog from Japan. A small, agile dog that copes very well
-            with mountainous terrain, the Shiba Inu was originally bred for
-            hunting.
-          </p>
-        </mat-card-content>
-        <mat-card-actions class="text-center">
-          <button class="btn btn-primary">Make main photo</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div class="col-md-3 mb-4 image">
-      <mat-card class="example-card">
-        <img
-          mat-card-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          alt="Photo of a Shiba Inu"
-        />
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz
-            breeds of dog from Japan. A small, agile dog that copes very well
-            with mountainous terrain, the Shiba Inu was originally bred for
-            hunting.
-          </p>
-        </mat-card-content>
-        <mat-card-actions class="text-center">
-          <button class="btn btn-primary">Make main photo</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div class="col-md-3 mb-4 image">
-      <mat-card class="example-card">
-        <img
-          mat-card-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          alt="Photo of a Shiba Inu"
-        />
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz
-            breeds of dog from Japan. A small, agile dog that copes very well
-            with mountainous terrain, the Shiba Inu was originally bred for
-            hunting.
-          </p>
-        </mat-card-content>
-        <mat-card-actions class="text-center">
-          <button class="btn btn-primary">Make main photo</button>
+          <button *ngIf="!photo.isMain;else currentMainPhoto" class="btn btn-primary">Make main photo</button>
+          <ng-template #currentMainPhoto>
+            <button class="btn btn-outline-secondary" disabled="true" style="cursor: default;">Current main photo</button>
+          </ng-template>
         </mat-card-actions>
       </mat-card>
     </div>

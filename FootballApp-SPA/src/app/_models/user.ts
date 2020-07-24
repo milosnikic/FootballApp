@@ -14,6 +14,7 @@ export class User {
     gender: string;
     city: string;
     country: string;
+    mainPhoto?: Photo;
     photos?: Photo[];
     groups?: Group[];
 }
