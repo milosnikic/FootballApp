@@ -3,6 +3,7 @@ import { AuthService } from '../_services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotifyService } from '../_services/notify.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../_services/local-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -16,13 +17,13 @@ export class RegisterComponent implements OnInit {
   // 1 if login
   registerForm: FormGroup;
   loginForm: FormGroup;
-  
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private notifyService: NotifyService,
-    private router: Router) { }
+    private router: Router,
+    private localStorage: LocalStorageService) { }
 
   ngOnInit() {
     this.buildForms();
@@ -83,8 +84,8 @@ export class RegisterComponent implements OnInit {
       (res: any) => {
         this.notifyService.showSuccess('Successfully logged in!');
         this.router.navigate(['/app/dashboard']);
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('user', JSON.stringify(res.user));
+        this.localStorage.set('token', res.token);
+        this.localStorage.set('user', JSON.stringify(res.user));
       },
       err => {
         this.notifyService.showError();

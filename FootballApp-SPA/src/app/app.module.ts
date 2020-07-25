@@ -20,9 +20,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {MatTabsModule, MatCardModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -34,6 +35,7 @@ import { ContentPageComponent } from './content-page/content-page.component';
 import { GroupsComponent } from './content-page/groups/groups.component';
 import { UserDetailComponent } from './content-page/user-detail/user-detail.component';
 import { ToastrModule } from 'ngx-toastr';
+import { TokenInterceptor } from './_interceptors/token.interceptor';
 
 
 @NgModule({
@@ -62,7 +64,8 @@ import { ToastrModule } from 'ngx-toastr';
       MatchHistoryComponent,
       FriendsListComponent,
       FriendDetailComponent,
-      SetActiveDirective
+      SetActiveDirective,
+      TimeAgoPipe
    ],
    imports: [
       HttpClientModule,
@@ -88,7 +91,13 @@ import { ToastrModule } from 'ngx-toastr';
        AppRoutingModule
    ],
    providers: [
-      AuthService
+      AuthService,
+      {
+         provide: HTTP_INTERCEPTORS,
+         useClass: TokenInterceptor,
+         multi: true
+       }
+
    ],
    bootstrap: [
       AppComponent
