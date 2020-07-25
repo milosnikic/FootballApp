@@ -27,35 +27,17 @@
           </button>
         </mat-card-actions>
       </mat-card>
-      <div class="latest-visitors">
+      <div *ngIf="visitors?.length > 0" class="latest-visitors">
         <p class="text-center">Latest visitors</p>
         <table>
           <tr>
             <th>User</th>
             <th class="time-ago">Time ago</th>
           </tr>
-          <tr>
-            <td><a href="">Jovan Jovanovic</a></td>
+          <tr *ngFor="let visitor of visitors">
+            <td><a href="">{{visitor.visitor.firstname}} {{visitor.visitor.lastname}}</a></td>
             <td class="time-ago">
-              <small class="text-muted">22 minutes ago</small>
-            </td>
-          </tr>
-          <tr>
-            <td><a href="">Ivan Ivanovic</a></td>
-            <td class="time-ago">
-              <small class="text-muted">42 minutes ago</small>
-            </td>
-          </tr>
-          <tr>
-            <td><a href="">Marko Markovic</a></td>
-            <td class="time-ago">
-              <small class="text-muted">1 day ago</small>
-            </td>
-          </tr>
-          <tr>
-            <td><a href="">Uros Urosevic</a></td>
-            <td class="time-ago">
-              <small class="text-muted">2 days ago</small>
+              <small class="text-muted">{{visitor.dateVisited | timeAgo}}</small>
             </td>
           </tr>
         </table>

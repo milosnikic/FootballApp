@@ -77,7 +77,9 @@ namespace FootballApp.API.Controllers
             // TODO: Add mappings for visitors
             var visitors = await _unitOfWork.Users.GetLatestFiveVisitorsForUser(userId);
 
-            return Ok(visitors);
+            var visitorsToReturn = _mapper.Map<ICollection<VisitToReturnDto>>(visitors);
+
+            return Ok(visitorsToReturn);
         }
 
         // [HttpPost("{id}/createGroup")]
