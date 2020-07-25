@@ -29,16 +29,28 @@ namespace FootballApp.API.Controllers
 
         }
 
+        // [HttpGet]
+        // public async Task<IActionResult> GetAllPhotos(int userId)
+        // {
+        //     if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+        //         return Unauthorized();
+            
+        //     var photos = await _unitOfWork.Photos.GetAll();
+
+        //     return Ok(_mapper.Map<ICollection<PhotoToReturnDto>>(photos));
+        // }
+
         [HttpGet]
-        public async Task<IActionResult> GetAllPhotos(int userId)
+        public async Task<IActionResult> GetAllPhotosForUser(int userId)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
             
-            var photos = await _unitOfWork.Photos.GetAll();
+            var photos = await _unitOfWork.Photos.GetAllPhotosForUser(userId);
 
             return Ok(_mapper.Map<ICollection<PhotoToReturnDto>>(photos));
         }
+
 
         [HttpGet("{id}", Name = "GetPhoto")]
         public async Task<IActionResult> GetPhoto(int id)

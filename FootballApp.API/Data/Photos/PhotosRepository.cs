@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FootballApp.API.Models;
@@ -18,6 +19,14 @@ namespace FootballApp.API.Data.Photos
                                          .FirstOrDefaultAsync(p => p.IsMain);
 
             return mainPhoto;
+        }
+
+        public async Task<ICollection<Photo>> GetAllPhotosForUser(int userId)
+        {
+            var photos = await DataContext.Photos
+                                          .Where(p => p.UserId == userId)
+                                          .ToListAsync();
+            return photos;
         }
 
         public DataContext DataContext

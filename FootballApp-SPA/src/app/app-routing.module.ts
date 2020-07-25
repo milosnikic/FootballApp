@@ -22,7 +22,7 @@ const appRoutes: Route[] = [
         {path: 'match-history', component: MatchHistoryComponent, data: {title: 'Match History'}},
     ]},
     {path: '', component: RegisterComponent},
-    
+
 ];
 
 

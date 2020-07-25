@@ -15,4 +15,8 @@ export class PhotosService {
     const userId = JSON.parse(this.localStorage.get('user')).id;
     return this.http.post(this.baseUrl + `?userId=${userId}`, formData);
   }
+
+  getPhotosForUser(userId: number){
+    return this.http.get(this.baseUrl + `?userId=${userId}`);
+  }
 }

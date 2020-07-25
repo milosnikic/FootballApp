@@ -8,13 +8,16 @@ import { LocalStorageService } from './local-storage.service';
 export class UserService {
   baseUrl: string = 'http://localhost:5000/api/users';
 
-  constructor(private http: HttpClient,
-              private localStorage: LocalStorageService) {}
+  constructor(
+    private http: HttpClient,
+    private localStorage: LocalStorageService
+  ) {}
 
-  getLatestFiveVisitors() {
-    const params = new HttpParams();
-    params.append('userId', JSON.parse(localStorage.getItem('user')).id);
-    const userId = JSON.parse(this.localStorage.get('user')).id;
-    return this.http.get(this.baseUrl + '/visitors' + `?userId=${userId}`, { params });
+  getLatestFiveVisitorsForUser(userId: number) {
+    return this.http.get(this.baseUrl + '/visitors' + `?userId=${userId}`);
+  }
+  
+  getUserData(userId: number) {
+    return this.http.get(this.baseUrl + `/${userId}`);
   }
 }

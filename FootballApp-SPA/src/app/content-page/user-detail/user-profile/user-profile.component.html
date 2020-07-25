@@ -46,16 +46,16 @@
     <div class="col col-sm-9">
       <div class="row">
         <h2>{{ user?.firstname }} {{ user?.lastname }}</h2>
-        <h4 class="nickname">({{ user.username }})</h4>
+        <h4 class="nickname">({{ user?.username }})</h4>
       </div>
       <div class="row">
         <h5 class="text-muted mt-0">
-          {{ user.city }}, {{ user.country }}
+          {{ user?.city }}, {{ user?.country }}
           <img src="../../../../assets/sr.png" class="flag" alt="sr flag" />
         </h5>
       </div>
       <div class="row">
-        <h5>{{ user.age }} years old</h5>
+        <h5>{{ user?.age }} years old</h5>
         <!-- 23 years old -->
       </div>
       <div class="row">

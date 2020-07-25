@@ -2,6 +2,7 @@ import { Group } from './group';
 import { Photo } from './photo';
 
 export class User {
+    id: number;
     username: string;
     password?: string;
     firstname: string;

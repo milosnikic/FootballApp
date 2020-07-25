@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NotifyService } from 'src/app/_services/notify.service';
+import { LocalStorageService } from 'src/app/_services/local-storage.service';
 
 @Component({
   selector: 'app-user-photos',
@@ -22,11 +23,17 @@ export class UserPhotosComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private photosService: PhotosService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private localStorage: LocalStorageService
   ) {}
 
   ngOnInit() {
-    this.photos = JSON.parse(localStorage.getItem('user')).photos;
+    const userId = JSON.parse(this.localStorage.get('user')).id;
+    this.photosService.getPhotosForUser(userId).subscribe(
+      (res: Photo[]) => {
+        this.photos = res;
+      }
+    );
     this.uploadForm = this.fb.group({
       description: ['', Validators.required],
     });

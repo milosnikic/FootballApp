@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getLatestFiveVisitors()
+    this.userService.getLatestFiveVisitorsForUser(this.user.id)
       .subscribe(
         (res: Visitor[]) =>{
           this.visitors = res;

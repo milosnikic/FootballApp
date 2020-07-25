@@ -71,10 +71,6 @@ namespace FootballApp.API.Controllers
         [Route("visitors")]
         public async Task<IActionResult> GetLatestFiveVisitorsForUser(int userId)
         {
-            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))            
-                return Unauthorized();
-            
-            // TODO: Add mappings for visitors
             var visitors = await _unitOfWork.Users.GetLatestFiveVisitorsForUser(userId);
 
             var visitorsToReturn = _mapper.Map<ICollection<VisitToReturnDto>>(visitors);
