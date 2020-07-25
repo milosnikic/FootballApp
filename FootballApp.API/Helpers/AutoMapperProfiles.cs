@@ -40,6 +40,7 @@ namespace FootballApp.API.Helpers
                 });
             CreateMap<Photo, PhotoToReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<VisitUserDto, Visit>();
         }
     }
 }

@@ -15,8 +15,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace FootballApp.API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -49,6 +49,35 @@ namespace FootballApp.API.Controllers
 
             var usersToReturn = _mapper.Map<ICollection<UserToReturnDto>>(users);
             return Ok(usersToReturn);
+        }
+
+
+        [HttpPost]
+        [Route("visit")]
+        public async Task<IActionResult> VisitUser(VisitUserDto visitUserDto)
+        {
+            if (visitUserDto.VisitorId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            // Map visit user dto to visit object
+            var visit = _mapper.Map<Visit>(visitUserDto);
+            _unitOfWork.Users.VisitUser(visit);
+            if (await _unitOfWork.Complete())
+                return Ok(new KeyValuePair<bool,string>(true, "User successfully visited!"));
+
+            return Ok(new KeyValuePair<bool,string>(false, "Problem with visiting user!"));
+        }
+
+        [HttpGet]
+        [Route("visitors")]
+        public async Task<IActionResult> GetLatestFiveVisitorsForUser(int userId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))            
+                return Unauthorized();
+            
+            // TODO: Add mappings for visitors
+            var visitors = await _unitOfWork.Users.GetLatestFiveVisitorsForUser(userId);
+
+            return Ok(visitors);
         }
 
         // [HttpPost("{id}/createGroup")]

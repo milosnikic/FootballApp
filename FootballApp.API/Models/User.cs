@@ -28,6 +28,7 @@ namespace FootballApp.API.Models
         public bool IsActive { get; set; }
         public ICollection<Membership> Memberships { get; set; }
         public ICollection<Photo> Photos { get; set; }
-
+        public ICollection<Visit> Visitors { get; set; }
+        public ICollection<Visit> Visiteds { get; set; }
     }
 }

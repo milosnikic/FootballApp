@@ -9,5 +9,7 @@ namespace FootballApp.API.Models
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public ICollection<Membership> Memberships { get; set; }
+        public int LocationId { get; set; }
+        public Location Location { get; set; }
     }
 }

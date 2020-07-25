@@ -21,6 +21,24 @@ namespace FootballApp.API.Data.Users
                                     .Include(u => u.Photos)
                                     .FirstOrDefaultAsync(u => u.Id == id);
         }
+
+        public async void VisitUser(Visit visit)
+        {
+            await DataContext.Visits
+                             .AddAsync(visit);
+        }
+
+        public async Task<ICollection<Visit>> GetLatestFiveVisitorsForUser(int userId)
+        {
+            var latestFiveVisitors = await DataContext.Visits
+                                                      .Where(v => v.VisitedId == userId)
+                                                      .OrderByDescending(v => v.DateVisited)
+                                                      .Take(5)
+                                                      .Include(v => v.Visitor)
+                                                      .ToListAsync();
+            return latestFiveVisitors;
+        }
+
         public DataContext DataContext
         {
             get { return Context as DataContext; } 

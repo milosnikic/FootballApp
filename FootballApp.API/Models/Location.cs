@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace FootballApp.API.Models
 {
     public class Location
@@ -8,6 +10,6 @@ namespace FootballApp.API.Models
         public string Country { get; set; }
         public decimal Longitude { get; set; }
         public decimal Latitude { get; set; }
-        
+        public ICollection<Group> Groups { get; set; }
     }
 }
