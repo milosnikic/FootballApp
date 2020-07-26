@@ -13,9 +13,8 @@ import { LocalStorageService } from 'src/app/_services/local-storage.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class UserDetailComponent implements OnInit {
-  user: User;
-  userId: number;
   titleToDisplay: string;
+  userId: number;
   editable: boolean;
 
   @ViewChild('tabs', { static: true }) tabs: MatTabGroup;
@@ -29,23 +28,22 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((res: ParamMap) => {
-      if (res.get('id')) {
-        this.userId = +res.get('id');
+      if (res.get('userId')) {
+        // We are on apps/users/{userId} route
+        this.userId = +res.get('userId');
         if (this.userId === JSON.parse(this.localStorage.get('user')).id) {
+          // On route of own id
           return this.router.navigate(['app/dashboard']);
         }
+        this.userService.visitUser(this.userId).subscribe();
       } else {
+        // We are on dashboard route directly
         this.userId = JSON.parse(this.localStorage.get('user')).id;
       }
     });
     this.route.data.subscribe((data: Data) => {
       this.titleToDisplay = data['title'];
       this.editable = data['editable'];
-      // console.log(data['title']);
-    });
-    this.userService.getUserData(this.userId).subscribe((res: User) => {
-      this.user = res;
-      console.log(this.user);
     });
   }
 

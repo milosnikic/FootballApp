@@ -36,7 +36,4 @@ export class GroupsListComponent implements OnInit {
 
   ngOnInit() {}
 
-  sayHello(text) {
-    console.log(text);
-  }
 }

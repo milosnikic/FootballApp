@@ -51,3 +51,7 @@
   border-color: #212322 !important;
   box-shadow: unset !important;
 }
+
+#username:hover {
+    color: rgb(121, 121, 121);
+}

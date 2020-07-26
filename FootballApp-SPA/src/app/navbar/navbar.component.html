@@ -14,6 +14,7 @@
              <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
         </span>
      </div>
+     <a [routerLink]="['/app/dashboard']" id="username">{{user.username}}</a>
      <button class="btn btn-primary" type="button" (click)="logout()"><i title="Logout" class="fas fa-sign-in-alt"></i></button>
   </div>
 </nav>

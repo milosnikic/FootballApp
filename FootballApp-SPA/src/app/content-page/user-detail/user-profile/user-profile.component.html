@@ -35,9 +35,9 @@
             <th class="time-ago">Time ago</th>
           </tr>
           <tr *ngFor="let visitor of visitors">
-            <td><a href="">{{visitor.visitor.firstname}} {{visitor.visitor.lastname}}</a></td>
+            <td><a [routerLink]="['/app','users',visitor?.visitor.id]">{{visitor?.visitor?.firstname}} {{visitor?.visitor?.lastname}}</a></td>
             <td class="time-ago">
-              <small class="text-muted">{{visitor.dateVisited | timeAgo}}</small>
+              <small class="text-muted">{{visitor?.dateVisited | timeAgo}}</small>
             </td>
           </tr>
         </table>

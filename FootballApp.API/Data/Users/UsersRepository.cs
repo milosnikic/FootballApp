@@ -31,11 +31,20 @@ namespace FootballApp.API.Data.Users
         public async Task<ICollection<Visit>> GetLatestFiveVisitorsForUser(int userId)
         {
             var latestFiveVisitors = await DataContext.Visits
-                                                      .Where(v => v.VisitedId == userId)
-                                                      .OrderByDescending(v => v.DateVisited)
-                                                      .Take(5)
-                                                      .Include(v => v.Visitor)
-                                                      .ToListAsync();
+                                                        .Where(v => v.VisitedId == userId)
+                                                        .GroupBy(v => new { v.VisitorId, v.VisitedId })
+                                                        .Select(v => new Visit {
+                                                            VisitorId = v.FirstOrDefault().VisitedId,
+                                                            Visitor = v.FirstOrDefault().Visitor,
+                                                            VisitedId = userId,
+                                                            Visited = v.FirstOrDefault().Visited,
+                                                            DateVisited = v.Max(x => x.DateVisited)
+                                                        })
+                                                        .OrderByDescending(v => v.DateVisited)
+                                                        .Include(v => v.Visitor)
+                                                        .Take(5)
+                                                        .ToListAsync();
+  
             return latestFiveVisitors;
         }
 

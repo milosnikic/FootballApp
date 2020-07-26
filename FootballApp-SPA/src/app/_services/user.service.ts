@@ -20,4 +20,14 @@ export class UserService {
   getUserData(userId: number) {
     return this.http.get(this.baseUrl + `/${userId}`);
   }
+
+  visitUser(visitedId: number) {
+    const data = {
+      visitorId: JSON.parse(this.localStorage.get('user')).id,
+      visitedId,
+      dateVisited: new Date().toLocaleString()
+    };
+
+    return this.http.post(this.baseUrl + '/visit', data);
+  }
 }

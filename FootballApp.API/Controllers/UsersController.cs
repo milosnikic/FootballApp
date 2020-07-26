@@ -60,7 +60,9 @@ namespace FootballApp.API.Controllers
                 return Unauthorized();
             // Map visit user dto to visit object
             var visit = _mapper.Map<Visit>(visitUserDto);
+            
             _unitOfWork.Users.VisitUser(visit);
+            
             if (await _unitOfWork.Complete())
                 return Ok(new KeyValuePair<bool,string>(true, "User successfully visited!"));
 

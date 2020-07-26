@@ -30,7 +30,7 @@ namespace FootballApp.API.Data
                 .HasForeignKey(m => m.GroupId);
 
             // Visits fluent api creation
-            modelBuilder.Entity<Visit>().HasKey(v => new { v.VisitorId, v.VisitedId});
+            modelBuilder.Entity<Visit>().HasKey(v => new { v.VisitorId, v.VisitedId, v.DateVisited });
 
             modelBuilder.Entity<Visit>()
                 .HasOne<User>(v => v.Visitor)

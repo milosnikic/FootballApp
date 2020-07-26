@@ -1,7 +1,7 @@
 using System;
 
 namespace FootballApp.API.Models
-{
+{   
     public class Visit
     {
         public int VisitorId { get; set; }

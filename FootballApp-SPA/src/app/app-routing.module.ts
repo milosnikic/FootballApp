@@ -15,8 +15,8 @@ const appRoutes: Route[] = [
     {path: 'app', component: DashboardComponent, children: [
         {path: 'dashboard', component: UserDetailComponent, data: {title: 'Dashboard', editable: true}},
         {path: 'groups', component: GroupsComponent, data: {title: 'Groups'}},
-        {path: 'users/:id', component: UserDetailComponent, data: {title: 'Users profile', editable: false}},
-        {path: 'friends', component: FriendsComponent, data: {title: 'Friends'}},
+        {path: 'users', component: FriendsComponent, data: {title: 'Users'}},
+        {path: 'users/:userId', component: UserDetailComponent, data: {title: 'Users profile', editable: false}},
         {path: 'messages', component: MessagesComponent, data: {title: 'Messages'}},
         {path: 'available-matches', component: AvailableMatchesComponent, data: {title: 'Available Matches'}},
         {path: 'match-history', component: MatchHistoryComponent, data: {title: 'Match History'}},

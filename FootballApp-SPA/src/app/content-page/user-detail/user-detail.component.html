@@ -9,7 +9,7 @@
             Profile
             <i class="fas ml-2 fa-user"></i>
           </ng-template>
-        <app-user-profile [user]="user" [editable]="editable" (editProfile)="changeTabToEditProfile($event)"></app-user-profile>
+        <app-user-profile [userId]="userId" [editable]="editable" (editProfile)="changeTabToEditProfile($event)"></app-user-profile>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>

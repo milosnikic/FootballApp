@@ -15,7 +15,6 @@ export class GroupsComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe((data: Data) => {
         this.titleToDisplay = data["title"];
-        console.log(data['title']);
       });
   }
 }

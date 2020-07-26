@@ -10,7 +10,6 @@ export class UserLatestMatchesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("latest matches ngOnInit!")
   }
 
 }

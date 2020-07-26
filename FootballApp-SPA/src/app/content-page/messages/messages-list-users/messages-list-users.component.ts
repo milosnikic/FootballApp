@@ -12,6 +12,5 @@ export class MessagesListUsersComponent implements OnInit {
   ngOnInit() {}
 
   onClick() {
-    console.log(this.userButton);
   }
 }

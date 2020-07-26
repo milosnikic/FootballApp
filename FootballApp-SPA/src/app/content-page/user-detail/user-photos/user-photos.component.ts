@@ -62,7 +62,6 @@ export class UserPhotosComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
         this.notifyService.showError('Problem uploading image!');
       }
     );
