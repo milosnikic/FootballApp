@@ -19,4 +19,8 @@ export class PhotosService {
   getPhotosForUser(userId: number){
     return this.http.get(this.baseUrl + `?userId=${userId}`);
   }
+
+  makePhotoMain(photoId: number, userId: number) {
+    return this.http.post(this.baseUrl + '/main' + `?photoId=${photoId}&userId=${userId}`, {});
+  }
 }

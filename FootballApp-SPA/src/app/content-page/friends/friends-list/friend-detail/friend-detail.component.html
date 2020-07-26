@@ -1,11 +1,23 @@
 <mat-card class="example-card">
   <img
+    *ngIf="user?.mainPhoto; else defaultImage"
     mat-card-image
-    src="../../../../../assets/mn.jpg"
-    
-    alt="Photo of a Shiba Inu"
+    src="data:image/JPEG;base64,{{ user?.mainPhoto?.image }}"
+    alt="User profile picture"
   />
-  Description
+  <ng-template #defaultImage>
+    <img
+      mat-card-image
+      *ngIf="!user?.mainPhoto"
+      src="{{
+        user?.gender === 'Male'
+          ? '../assets/male-default.jpg'
+          : '../assets/female-default.jpg'
+      }}"
+      alt=""
+    />
+  </ng-template>
+  <h3>{{user?.firstname}} {{user?.lastname}}</h3><h4 class="text-muted">({{user?.username}})</h4>
   <mat-card-actions class="text-center">
     <button
       *ngIf="buttonDisplay === 'addFriend'"
@@ -28,11 +40,11 @@
     >
       <i class="fas fa-times mr-1"></i>Remove
     </button>
-    <button class="btn btn-outline-secondary ml-1" [routerLink]="['/users',1]">Visit Profile</button>
+    <button class="btn btn-outline-secondary ml-1" [routerLink]="[user.id]">
+      Visit Profile
+    </button>
     <a href="" *ngIf="buttonDisplay === 'removeFriend'"
-      ><i
-        class="far fa-heart fa-lg ml-2"
-      ></i
+      ><i class="far fa-heart fa-lg ml-2"></i
     ></a>
   </mat-card-actions>
 </mat-card>

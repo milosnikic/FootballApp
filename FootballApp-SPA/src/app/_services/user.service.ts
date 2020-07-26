@@ -30,4 +30,8 @@ export class UserService {
 
     return this.http.post(this.baseUrl + '/visit', data);
   }
+
+  getAllExploreUsers(userId: number) {
+    return this.http.get(this.baseUrl + '/explore' + `?userId=${userId}`);
+  }
 }

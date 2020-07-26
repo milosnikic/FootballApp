@@ -44,13 +44,25 @@ namespace FootballApp.API.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
-        {
+        {   
             var users = await _unitOfWork.Users.GetAll();
 
             var usersToReturn = _mapper.Map<ICollection<UserToReturnDto>>(users);
             return Ok(usersToReturn);
         }
 
+        [HttpGet]
+        [Route("explore")]
+        public async Task<IActionResult> GetAllExploreUsers(int userId)
+        {   
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var users = await _unitOfWork.Users.GetAllExploreUsers(userId);
+
+            var usersToReturn = _mapper.Map<ICollection<UserToReturnDto>>(users);
+            return Ok(usersToReturn);
+        }
 
         [HttpPost]
         [Route("visit")]

@@ -9,5 +9,6 @@ namespace FootballApp.API.Data
         Task<User> GetUserByIdWithAdditionalInformation(int id);
         void VisitUser(Visit visit);
         Task<ICollection<Visit>> GetLatestFiveVisitorsForUser(int userId);
+        Task<ICollection<User>> GetAllExploreUsers(int userId);
     }
 }

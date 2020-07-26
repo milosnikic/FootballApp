@@ -17,6 +17,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
   visitors: Visitor[];
 
   constructor(private userService: UserService) {}
+  
   ngOnChanges(changes: SimpleChanges): void {
     this.userService.getUserData(this.userId).subscribe((res: User) => {
       this.user = res;

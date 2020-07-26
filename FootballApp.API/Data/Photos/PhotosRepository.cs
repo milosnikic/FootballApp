@@ -16,7 +16,7 @@ namespace FootballApp.API.Data.Photos
         public async Task<Photo> GetMainPhotoForUser(int userId)
         {
             var mainPhoto = await DataContext.Photos
-                                         .FirstOrDefaultAsync(p => p.IsMain);
+                                         .FirstOrDefaultAsync(p => p.IsMain && p.UserId == userId);
 
             return mainPhoto;
         }

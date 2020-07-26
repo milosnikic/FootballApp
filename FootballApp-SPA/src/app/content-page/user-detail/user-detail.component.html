@@ -25,12 +25,12 @@
           </ng-template>
           <app-user-statistics></app-user-statistics>
         </mat-tab>
-        <mat-tab [disabled]="!editable">
+        <mat-tab >
           <ng-template mat-tab-label>
             Photos
             <i class="fas ml-2 fa-images"></i>
           </ng-template>
-          <app-user-photos></app-user-photos>
+          <app-user-photos [editable]="editable"></app-user-photos>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>

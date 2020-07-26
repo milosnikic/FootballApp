@@ -111,5 +111,30 @@ namespace FootballApp.API.Controllers
             }
             return Ok(new KeyValuePair<bool, string>(false, "File is not allowed"));
         }
+
+        [HttpPost]
+        [Route("main")]
+        public async Task<IActionResult> MakePhotoMain(int photoId, int userId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            // Find specified photo
+            var photo = await _unitOfWork.Photos.GetById(photoId);
+            if (photo == null)
+                return BadRequest("Specified photo doesn't exist.");
+            
+            // Check if user has profile photo
+            // If does change it to not be profile
+            var mainPhoto = await _unitOfWork.Photos.GetMainPhotoForUser(userId);
+            if (mainPhoto != null)
+                mainPhoto.IsMain = false;
+
+            photo.IsMain = true;
+            if (await _unitOfWork.Complete())
+                return Ok(new KeyValuePair<bool, string>(true, "Photo successfully set to main."));
+
+            return BadRequest("Problem setting photo to main.");
+        }
     }
 }
