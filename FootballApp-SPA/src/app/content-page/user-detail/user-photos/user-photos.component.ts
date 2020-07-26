@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { NotifyService } from 'src/app/_services/notify.service';
 import { LocalStorageService } from 'src/app/_services/local-storage.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-photos',
