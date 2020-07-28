@@ -79,6 +79,13 @@ namespace FootballApp.API.Helpers
                     {
                         opt.MapFrom(src => src.Achievement.Name);
                     }
+                )
+                .ForMember(
+                    dest => dest.Value,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Achievement.Value);
+                    }
                 );
         }
     }

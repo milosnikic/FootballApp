@@ -1,9 +1,16 @@
 import { User } from './../../../_models/user';
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Visitor } from 'src/app/_models/visitor';
 import { UserService } from 'src/app/_services/user.service';
-import { LocalStorageService } from 'src/app/_services/local-storage.service';
-import { CommentsService } from 'src/app/_services/comments.service';
+import { Achievement } from 'src/app/_models/achievement';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,6 +23,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
   @Input() editable: boolean;
   @Output() editProfile = new EventEmitter<number>();
   visitors: Visitor[];
+  userAchievements: Achievement[] = [];
+  achievements: Achievement[];
 
   constructor(private userService: UserService) {}
 
@@ -26,19 +35,37 @@ export class UserProfileComponent implements OnInit, OnChanges {
         (res: Visitor[]) => {
           this.visitors = res;
         },
-        (err) => {
-        }
+        (err) => {}
+      );
+      this.userService.getAllAchievements().subscribe(
+        (res: Achievement[]) => {
+          this.achievements = res;
+        },
+        (err) => console.log(err)
       );
       // TODO: implement get achievements
+      this.userService.getAchievementsForUser(this.userId).subscribe(
+        (res: Achievement[]) => {
+          this.userAchievements = res;
+        },
+        (err) => console.log(err)
+      );
     });
   }
 
-  ngOnInit() {
-  }
-
-
+  ngOnInit() {}
 
   onEditProfile() {
     this.editProfile.emit(5);
+  }
+
+  getClass(achievement: Achievement) {
+    for (let index = 0; index < this.userAchievements.length; index++) {
+      const element = this.userAchievements[index];
+      if(element.value === achievement.value) {
+        return false; 
+      }
+    }
+    return true;
   }
 }

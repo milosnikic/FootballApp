@@ -55,7 +55,7 @@ button {
 }
 
 .achievement{
-  border: 1px solid #d1d5da;
+  border: 1px solid black;
   width:100%;
   padding:16px;
   margin-bottom: 10px;
@@ -63,6 +63,7 @@ button {
   display:flex;
 }
 .achievement.locked{
+  border: 1px solid #d1d5da;
   opacity:50%;
 }
 .achievement:hover{

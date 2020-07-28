@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FootballApp.API.Models;
 
 namespace FootballApp.API.Data
@@ -12,9 +13,11 @@ namespace FootballApp.API.Data
 
         }
 
-        public void SeedDatabase() 
+        public void SeedDatabase()
         {
-            var achievements = new List<Achievement> 
+            if (!_context.Achievements.Any())
+            {
+                var achievements = new List<Achievement>
                                 {
                                     new Achievement { Name = "Played over 10 games", Value = 101, Points = 10, Icon = "fas fa-award icon" },
                                     new Achievement { Name = "Played over 50 games", Value = 102, Points = 50, Icon = "fas fa-award icon" },
@@ -29,10 +32,10 @@ namespace FootballApp.API.Data
                                     new Achievement { Name = "Most organized matches in last year", Value = 302, Points = 500, Icon = "fas fa-running icon" },
                                     new Achievement { Name = "Highest rated player in a match", Value = 400, Points = 50, Icon = "far fa-futbol icon" }
                                 };
-            _context.Achievements.AddRange(achievements);
+                _context.Achievements.AddRange(achievements);
 
-            _context.SaveChanges();
-
+                _context.SaveChanges();
+            }
         }
     }
 }

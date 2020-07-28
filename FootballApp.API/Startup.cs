@@ -76,7 +76,7 @@ namespace FootballApp.API
             {
                 app.UseDeveloperExceptionPage();
                 context.Database.Migrate();
-                // seed.SeedDatabase();
+                seed.SeedDatabase();
             }
             else
             {

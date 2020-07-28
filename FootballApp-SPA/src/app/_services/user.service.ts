@@ -34,4 +34,12 @@ export class UserService {
   getAllExploreUsers(userId: number) {
     return this.http.get(this.baseUrl + '/explore' + `?userId=${userId}`);
   }
+
+  getAchievementsForUser(userId: number) {
+    return this.http.get(this.baseUrl + '/achievements' + `?userId=${userId}`);
+  }
+
+  getAllAchievements() {
+    return this.http.get(this.baseUrl + '/achievements/all');
+  }
 }

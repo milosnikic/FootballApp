@@ -116,6 +116,13 @@ namespace FootballApp.API.Controllers
         // }
 
         [HttpGet]
+        [Route("achievements/all")]
+        public async Task<IActionResult> GetAllAchievements() 
+        {
+            return Ok(await _unitOfWork.Achievements.GetAll());
+        }
+
+        [HttpGet]
         [Route("achievements")]
         public async Task<IActionResult> GetAllAchievementsForUser(int userId)
         {
