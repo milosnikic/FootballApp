@@ -9,7 +9,7 @@
             Profile
             <i class="fas ml-2 fa-user"></i>
           </ng-template>
-        <app-user-profile [userId]="userId" [editable]="editable" (editProfile)="changeTabToEditProfile($event)"></app-user-profile>
+        <app-user-profile [userId]="userId" [editable]="editable" (editProfile)="changeTab($event)"></app-user-profile>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -30,14 +30,14 @@
             Photos
             <i class="fas ml-2 fa-images"></i>
           </ng-template>
-          <app-user-photos [editable]="editable"></app-user-photos>
+          <app-user-photos [userId]="userId" [editable]="editable"></app-user-photos>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             Comments
             <i class="fas ml-2 fa-comments"></i>
           </ng-template>
-          <app-user-comments></app-user-comments>
+          <app-user-comments [comments]="comments" (profile)="changeTab($event)"></app-user-comments>
         </mat-tab>
           <mat-tab *ngIf="editable">
             <ng-template mat-tab-label>

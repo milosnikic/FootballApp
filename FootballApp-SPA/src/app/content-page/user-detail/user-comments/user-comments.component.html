@@ -1,33 +1,76 @@
 <div class="container-fluid mt-4">
   <div class="row justify-content-center">
-    <div class="row justify-content-center">
-      <textarea name="comment" id="" style="resize:none;" rows="4" placeholder="Enter text here..." class="comment-box"></textarea>
-    <div class="col-md-10 mt-2 mb-4 post" >
-      <button class="btn btn-success pull-right">Post comment</button>
+    <div [formGroup]="commentForm" class="row justify-content-center">
+      <textarea
+        formControlName="comment"
+        name="comment"
+        id=""
+        style="resize: none;"
+        rows="4"
+        placeholder="Enter text here..."
+        class="comment-box"
+      ></textarea>
+      <div class="col-md-10 mt-2 mb-4 post">
+        <button
+          class="btn btn-success pull-right"
+          [disabled]="!commentForm.valid"
+          (click)="postComment()"
+        >
+          Post comment
+        </button>
+      </div>
     </div>
-  </div>
     <div class="comments-wrapper">
-      <div class="comment">
+      <div *ngFor="let comment of comments" class="comment">
         <div class="comment-image">
-          <a href=""><img src="../../../../assets/mn.jpg" class="rounded-circle" alt="" /></a>
+          <a [routerLink]="['/app/users/', comment?.commenter?.id]"><img
+            class="rounded-circle"
+            *ngIf="comment?.commenter?.mainPhoto; else defaultImage"
+            src="data:image/JPEG;base64,{{
+              comment?.commenter?.mainPhoto?.image
+            }}"
+            alt="User profile picture"
+          />
+          <ng-template #defaultImage>
+            <img
+              class="rounded-circle"
+              *ngIf="!comment?.commenter?.mainPhoto"
+              src="{{
+                comment?.commenter?.gender === 'Male'
+                  ? '../assets/male-default.jpg'
+                  : '../assets/female-default.jpg'
+              }}"
+              alt=""
+            />
+          </ng-template></a>
           <div class="membership">
-            Member since 2019
+            Member since {{ comment?.commenter?.created | date: "yyyy" }}
           </div>
         </div>
-        
+
         <div class="comment-content">
           <div class="comment-header">
-            <a href="" class="profile-link"><h2 class="name">Milos Nikic</h2> <h4 class="nickname">(kicni)</h4></a>
+            <a [routerLink]="['/app/users/', comment?.commenter?.id]" (click)="changeToProfileTab()" class="profile-link"
+              ><h2 class="name">
+                {{ comment?.commenter?.firstname }}
+                {{ comment?.commenter?.lastname }}
+              </h2>
+              <h4 class="nickname">({{ comment?.commenter?.username }})</h4></a
+            >
           </div>
           <div class="comment-text">
-            Bratina
+            {{ comment?.content }}
           </div>
         </div>
         <div class="text-muted comment-date">
-          31.12.2020.
+          {{ comment?.dateCommented | date: "d.M.yyyy. HH:mm" }}
+          <!-- {{ comment?.dateCommented | timeAgo }} -->
         </div>
       </div>
-      <div class="comment">
+      <div *ngIf="!comments?.length">
+        <h2>No comments for user, be first to comment! :)</h2>
+      </div>
+      <!-- <div class="comment">
         <div class="comment-image">
           <a href=""><img src="../../../../assets/user.jpg" class="rounded-circle" alt="" /></a>
           <div class="membership">
@@ -61,86 +104,7 @@
         <div class="text-muted comment-date">
           1.1.2019.
         </div>
-      </div>
-      <div class="comment">
-        <div class="comment-image">
-          <a href=""><img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="rounded-circle" alt="" /></a>
-          <div class="membership">
-            Member since 2020
-          </div>
-        </div>
-        
-        <div class="comment-content">
-          <div class="comment-header">
-            <a href="" class="profile-link"><h2 class="name">Jovan Jovanovic</h2> <h4 class="nickname">(joca)</h4></a>
-          </div>
-          <div class="comment-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a
-            mauris ac enim tempus sollicitudin. Suspendisse a maximus erat. Sed
-            a massa non magna pharetra eleifend ac ut nulla. Curabitur quis
-            sapien fermentum ligula porta accumsan. Nunc sed neque ac libero
-            vulputate fringilla ac a erat. Nam consequat sit amet sem tincidunt
-            placerat. Duis ultrices luctus arcu sed placerat.
-            a maximus erat. Sed
-          </div>
-        </div>
-        <div class="text-muted comment-date">
-          31.12.2020.
-        </div>
-      </div>
-
-      <div class="comment">
-        <div class="comment-image">
-          <a href=""><img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="rounded-circle" alt="" /></a>
-          <div class="membership">
-            Member since 2020
-          </div>
-        </div>
-        
-        <div class="comment-content">
-          <div class="comment-header">
-            <a href="" class="profile-link"><h2 class="name">Jovan Jovanovic</h2> <h4 class="nickname">(joca)</h4></a>
-          </div>
-          <div class="comment-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a
-            mauris ac enim tempus sollicitudin. Suspendisse a maximus erat. Sed
-            a massa non magna pharetra eleifend ac ut nulla. Curabitur quis
-            sapien fermentum ligula porta accumsan. Nunc sed neque ac libero
-            vulputate fringilla ac a erat. Nam consequat sit amet sem tincidunt
-            placerat. Duis ultrices luctus arcu sed placerat.
-            a maximus erat. Sed
-          </div>
-        </div>
-        <div class="text-muted comment-date">
-          31.12.2020.
-        </div>
-      </div>
-      <div class="comment">
-        <div class="comment-image">
-          <a href=""><img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" class="rounded-circle" alt="" /></a>
-          <div class="membership">
-            Member since 2020
-          </div>
-        </div>
-        
-        <div class="comment-content">
-          <div class="comment-header">
-            <a href="" class="profile-link"><h2 class="name">Jovan Jovanovic</h2> <h4 class="nickname">(joca)</h4></a>
-          </div>
-          <div class="comment-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a
-            mauris ac enim tempus sollicitudin. Suspendisse a maximus erat. Sed
-            a massa non magna pharetra eleifend ac ut nulla. Curabitur quis
-            sapien fermentum ligula porta accumsan. Nunc sed neque ac libero
-            vulputate fringilla ac a erat. Nam consequat sit amet sem tincidunt
-            placerat. Duis ultrices luctus arcu sed placerat.
-            a maximus erat. Sed
-          </div>
-        </div>
-        <div class="text-muted comment-date">
-          31.12.2020.
-        </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

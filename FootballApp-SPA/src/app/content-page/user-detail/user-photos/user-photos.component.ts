@@ -21,7 +21,7 @@ export class UserPhotosComponent implements OnInit {
   selectedFile: File;
   photos: Photo[];
   uploadForm: FormGroup;
-  userId: number;
+  @Input() userId: number;
 
   constructor(
     private router: Router,
@@ -33,7 +33,6 @@ export class UserPhotosComponent implements OnInit {
 
   ngOnInit() {
     // TODO: Change user id to be passed as input parameter
-    this.userId = JSON.parse(this.localStorage.get('user')).id;
     this.photosService
       .getPhotosForUser(this.userId)
       .subscribe((res: Photo[]) => {

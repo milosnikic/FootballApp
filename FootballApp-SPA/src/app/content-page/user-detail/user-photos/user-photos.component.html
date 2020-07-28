@@ -51,5 +51,8 @@
         </mat-card-actions>
       </mat-card>
     </div>
+    <div *ngIf="!photos?.length" class="container-fluid">
+      <h2 class="text-center">User hasn't uploaded photo yet. :(</h2>
+    </div>
   </div>
 </div>

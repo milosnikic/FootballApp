@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChange
 import { Visitor } from 'src/app/_models/visitor';
 import { UserService } from 'src/app/_services/user.service';
 import { LocalStorageService } from 'src/app/_services/local-storage.service';
+import { CommentsService } from 'src/app/_services/comments.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +18,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
   visitors: Visitor[];
 
   constructor(private userService: UserService) {}
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     this.userService.getUserData(this.userId).subscribe((res: User) => {
       this.user = res;
@@ -28,6 +29,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
         (err) => {
         }
       );
+      // TODO: implement get achievements
     });
   }
 

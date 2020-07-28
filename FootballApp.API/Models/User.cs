@@ -30,5 +30,7 @@ namespace FootballApp.API.Models
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Visit> Visitors { get; set; }
         public ICollection<Visit> Visiteds { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Commented { get; set; }
     }
 }

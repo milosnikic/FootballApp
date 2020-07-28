@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using FootballApp.API.Data.Comments;
 using FootballApp.API.Data.Groups;
 using FootballApp.API.Data.Memberships;
 using FootballApp.API.Data.Photos;
@@ -18,6 +19,7 @@ namespace FootballApp.API.Data.UnitOfWork
             Groups = new GroupsRepository(_context);
             Memberships = new MembershipsRepository(_context);
             Auths = new AuthRepository(_context);
+            Comments = new CommentsRepository(_context);
         }
 
         public IGroupsRepository Groups { get; private set; }
@@ -25,6 +27,7 @@ namespace FootballApp.API.Data.UnitOfWork
         public IPhotosRepository Photos { get; private set; }
         public IAuthRepository Auths { get; private set; }
         public IMembershipsRepository Memberships { get; private set; }
+        public ICommentsRepository Comments { get; set; }
 
         public async Task<bool> Complete()
         {

@@ -13,6 +13,7 @@ namespace FootballApp.API.Data
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Visit> Visits { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,6 +43,21 @@ namespace FootballApp.API.Data
                 .HasOne<User>(v => v.Visited)
                 .WithMany(u => u.Visiteds)
                 .HasForeignKey(v => v.VisitedId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Comments fluent api creation
+            modelBuilder.Entity<Comment>().HasKey(c => new { c.Id, c.CommenterId, c.CommentedId });
+
+            modelBuilder.Entity<Comment>()
+                .HasOne<User>(c => c.Commenter)
+                .WithMany(u => u.Comments)
+                .HasForeignKey(c => c.CommenterId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne<User>(c => c.Commented)
+                .WithMany(u => u.Commented)
+                .HasForeignKey(c => c.CommentedId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

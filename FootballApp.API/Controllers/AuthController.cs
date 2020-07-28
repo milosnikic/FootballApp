@@ -56,7 +56,7 @@ namespace FootballApp.API.Controllers
             var userFromRepo = await _unitOfWork.Auths.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
-                return Unauthorized();
+                return BadRequest("Not valid credentials.");
 
             var claims = new[]
             {

@@ -16,8 +16,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace FootballApp.API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class PhotosController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -41,11 +41,10 @@ namespace FootballApp.API.Controllers
         // }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllPhotosForUser(int userId)
         {
-            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
-            
+            //We have to allow anonymous because we want other people to see photos    
             var photos = await _unitOfWork.Photos.GetAllPhotosForUser(userId);
 
             return Ok(_mapper.Map<ICollection<PhotoToReturnDto>>(photos));

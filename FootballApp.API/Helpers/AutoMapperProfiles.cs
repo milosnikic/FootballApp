@@ -49,6 +49,23 @@ namespace FootballApp.API.Helpers
                         opt.MapFrom(src => src.Visitor);
                     }
                 );
+            CreateMap<CommentForCreationDto, Comment>()
+                .ForMember(
+                    dest => dest.Created,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.DateCommented);
+                    }
+                );
+            CreateMap<Comment, CommentToReturn>()
+                .ForMember(
+                    dest => dest.DateCommented,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Created);
+                    }
+                );
+
         }
     }
 }
