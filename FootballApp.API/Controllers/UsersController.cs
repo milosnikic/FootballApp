@@ -115,6 +115,48 @@ namespace FootballApp.API.Controllers
         //     return BadRequest("Could not create group");
         // }
 
+        [HttpGet]
+        [Route("achievements")]
+        public async Task<IActionResult> GetAllAchievementsForUser(int userId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var achievements = await _unitOfWork.Users
+                                          .GetAllAchievementsForUser(userId);
+
+            return Ok(_mapper.Map<ICollection<GainedAchievementToReturnDto>>(achievements));
+        }
+
+        [HttpPost]
+        [Route("achievements/new")]
+        public async Task<IActionResult> GainAchievement(int userId, GainedAchievementForCreationDto gainedAchievementForCreationDto)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var achievement = await _unitOfWork.Achievements.GetAchievementByValue(gainedAchievementForCreationDto.Value);
+
+            if (achievement == null) 
+            {
+                return BadRequest("Not valid achievement!");
+            }
+
+            var gainedAchievement = new GainedAchievement 
+                                    {
+                                        UserId = userId,
+                                        User = await _unitOfWork.Users.GetById(userId),
+                                        DateAchieved = DateTime.Now,
+                                        Achievement = achievement,
+                                        AchievementId = achievement.Id
+                                    };
+
+            _unitOfWork.Users.GainAchievement(gainedAchievement);
+            if(await _unitOfWork.Complete())
+                return Ok(new KeyValuePair<bool, string>(true, "Achievement successfully gained!"));
+
+            return Ok(new KeyValuePair<bool, string>(false, "Problem gaining achievement!"));
+        }
         
     }
 }

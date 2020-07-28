@@ -14,6 +14,8 @@ namespace FootballApp.API.Data
         public DbSet<Visit> Visits { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<GainedAchievement> GainedAchievements { get; set; }
+        public DbSet<Achievement> Achievements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,7 +29,7 @@ namespace FootballApp.API.Data
 
             modelBuilder.Entity<Membership>()
                 .HasOne<Group>(m => m.Group)
-                .WithMany(u => u.Memberships)
+                .WithMany(g => g.Memberships)
                 .HasForeignKey(m => m.GroupId);
 
             // Visits fluent api creation
@@ -58,6 +60,21 @@ namespace FootballApp.API.Data
                 .HasOne<User>(c => c.Commented)
                 .WithMany(u => u.Commented)
                 .HasForeignKey(c => c.CommentedId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Achievements fluent api creation
+            modelBuilder.Entity<GainedAchievement>().HasKey(a => new { a.Id, a.AchievementId, a.UserId});
+
+            modelBuilder.Entity<GainedAchievement>()
+                .HasOne<User>(a => a.User)
+                .WithMany(u => u.GainedAchievements)
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<GainedAchievement>()
+                .HasOne<Achievement>(a => a.Achievement)
+                .WithMany(a => a.GainedAchievements)
+                .HasForeignKey(a => a.AchievementId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

@@ -65,7 +65,21 @@ namespace FootballApp.API.Helpers
                         opt.MapFrom(src => src.Created);
                     }
                 );
-
+            CreateMap<GainedAchievement, GainedAchievementToReturnDto>()
+                .ForMember(
+                    dest => dest.Icon,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Achievement.Icon);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Name,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Achievement.Name);
+                    }
+                );
         }
     }
 }

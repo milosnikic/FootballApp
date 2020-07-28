@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using FootballApp.API.Data.Achievements;
 using FootballApp.API.Data.Comments;
 using FootballApp.API.Data.Groups;
 using FootballApp.API.Data.Memberships;
@@ -15,6 +16,7 @@ namespace FootballApp.API.Data.UnitOfWork
         IMembershipsRepository Memberships { get; }
         IAuthRepository Auths { get; }
         ICommentsRepository Comments { get; }
+        IAchievementsRepository Achievements { get; }
         Task<bool> Complete();
     }
 }
