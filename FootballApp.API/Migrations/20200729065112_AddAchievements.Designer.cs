@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200728175959_AddAchievements")]
+    [Migration("20200729065112_AddAchievements")]
     partial class AddAchievements
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,7 +65,9 @@ namespace FootballApp.API.Migrations
 
             modelBuilder.Entity("FootballApp.API.Models.GainedAchievement", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AchievementId");
 

@@ -20,14 +20,14 @@
             alt=""
           />
         </ng-template>
-        <a class="status" (click)="onEditProfile()" *ngIf="editable">
+        <a class="status" *ngIf="editable">
           <mat-card-content>
-            <i class="far fa-lg fa-smile mr-4"></i> Set your status
+            <div class="form-group"><i class="far fa-lg fa-smile mr-4"></i><input type="text" class="status-input" name="status" id="status" placeholder="Set your status"></div>
           </mat-card-content>
         </a>
         <p>{{ user?.mainPhoto?.description }}</p>
         <mat-card-actions *ngIf="editable">
-          <button class="btn btn-light" (click)="onEditProfile()">
+          <button class="btn btn-light">
             Edit Profile
           </button>
         </mat-card-actions>
@@ -72,18 +72,24 @@
       </div>
       <div class="row">
         <h3>Achievements</h3>
-        <h4 class="text-muted percentage">({{userAchievements?.length}}/{{achievements?.length}}) {{ (userAchievements?.length / achievements?.length) * 100 }} %</h4>
+        <h4 class="text-muted percentage">
+          ({{ userAchievements?.length }}/{{ achievements?.length }})
+          {{
+            Math?.round(
+              (this.userAchievements?.length / this.achievements?.length) * 1000
+            ) / 10
+          }}
+          %
+        </h4>
       </div>
       <div class="row achievement-wrapper">
         <div *ngFor="let achievement of achievements" class="col-md-4">
-          <div class="achievement" [ngClass]="{'locked': getClass(achievement)}">
+          <div
+            class="achievement"
+            [ngClass]="{ locked: getClass(achievement) }"
+          >
             <i class="{{ achievement?.icon }}"></i>
             <span class="achievement-text">{{ achievement?.name }}</span>
-          </div>
-        </div>
-        <div *ngIf="!achievements?.length">
-          <div class="container-fluid text-center">
-            <h3 class="text-muted">No achievements unlocked! <i class="fas fa-lock"></i></h3>
           </div>
         </div>
       </div>

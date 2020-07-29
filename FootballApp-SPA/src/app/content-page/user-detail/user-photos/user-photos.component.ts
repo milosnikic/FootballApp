@@ -63,6 +63,7 @@ export class UserPhotosComponent implements OnInit {
         if (photo || !photo.key) {
           this.photos.push(photo);
           this.notifyService.showSuccess('Image has been upload succesfully!');
+          this.uploadForm.reset();
         } else {
           this.notifyService.showError(photo.value);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FootballApp.API.Models;
@@ -35,6 +36,44 @@ namespace FootballApp.API.Data
                 _context.Achievements.AddRange(achievements);
 
                 _context.SaveChanges();
+            }
+            if (!_context.Users.Any())
+            {
+                var users = new List<User>
+                            {
+                                new User { Username = "milos", Firstname = "Milos", Lastname = "Nikic", City = "Belgrade", Country = "Serbia",
+                                           Email = "milos.nikic@gmail.com", DateOfBirth = new DateTime(1996,12,31), Created = DateTime.Now, IsActive = true,
+                                           Gender = Gender.Male, LastActive = null},
+                                new User { Username = "darko", Firstname = "Darko", Lastname = "Nikic", City = "Belgrade", Country = "Serbia",
+                                           Email = "darko.nikic@gmail.com", DateOfBirth = new DateTime(1981,12,05), Created = DateTime.Now, IsActive = true,
+                                           Gender = Gender.Male, LastActive = null},
+                                new User { Username = "milutin", Firstname = "Milutin", Lastname = "Nikic", City = "Belgrade", Country = "Serbia",
+                                           Email = "milutin.nikic@gmail.com", DateOfBirth = new DateTime(1956,1,1), Created = DateTime.Now, IsActive = true,
+                                           Gender = Gender.Male, LastActive = null},
+                                new User { Username = "snezana", Firstname = "Snezana", Lastname = "Nikic", City = "Belgrade", Country = "Serbia",
+                                           Email = "snezana.nikic@gmail.com", DateOfBirth = new DateTime(1986,3,10), Created = DateTime.Now, IsActive = true,
+                                           Gender = Gender.Female, LastActive = null},
+                            };
+                string password = "Test123*";
+                foreach (var user in users)
+                {   
+                    byte[] passwordHash, passwordSalt;
+                    CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                    user.PasswordHash = passwordHash;
+                    user.PasswordSalt = passwordSalt;
+                    _context.Users.Add(user);
+                }
+
+                _context.SaveChanges();
+            }
+        }
+
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
     }

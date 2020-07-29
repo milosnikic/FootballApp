@@ -63,7 +63,9 @@ namespace FootballApp.API.Migrations
 
             modelBuilder.Entity("FootballApp.API.Models.GainedAchievement", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AchievementId");
 

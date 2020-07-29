@@ -1,15 +1,18 @@
 <div class="container-fluid mt-4">
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-md-12">
-      <h2>Edit profile</h2>
+      
     </div>
-  </div>
+  </div> -->
   <div class="row">
+    <div class="col-md-4"></div>
     <div class="col-md-4">
-      <form #editForm>
+      <h2 class="text-center">Edit profile</h2>
+      <form [formGroup]="editForm">
         <div class="form-group">
-          <label for="groupName">Edit firstname</label>
+          <label for="groupName">Firstname</label>
           <input
+            formControlName="firstname"
             type="text"
             id="firstname"
             class="form-control"
@@ -17,8 +20,9 @@
           />
         </div>
         <div class="form-group">
-          <label for="lastname">Edit lastname</label>
+          <label for="lastname">Lastname</label>
           <input
+            formControlName="lastname"
             type="text"
             id="lastname"
             class="form-control"
@@ -26,8 +30,9 @@
           />
         </div>
         <div class="form-group">
-          <label for="username">Edit username</label>
+          <label for="username">Username</label>
           <input
+            formControlName="username"
             type="text"
             id="username"
             class="form-control"
@@ -37,6 +42,7 @@
         <div class="form-group">
           <label for="username">Edit email</label>
           <input
+            formControlName="email"
             type="email"
             id="email"
             class="form-control"
@@ -45,45 +51,28 @@
         </div>
         <div class="form-group">
           <label for="country">Edit Location</label>
-          <select id="country" class="form-control">
+          <select id="country" formControlName="country" class="form-control">
             <option selected>Serbia</option>
             <option>Bulgaria</option>
+            <option>Belgium</option>
           </select>
         </div>
         <div class="form-group">
           <label for="city">Edit City</label>
-          <select id="city" class="form-control">
+          <select id="city" formControlName="city" class="form-control">
             <option selected>---</option>
             <option>Belgrade</option>
             <option>Novi Sad</option>
+            <option>Brisel</option>
           </select>
         </div>
-        <div class="form-group">
-          <div class="custom-file">
-            <input
-              type="file"
-              class="custom-file-input"
-              id="validatedCustomFile"
-              required
-            />
-            <label class="custom-file-label" for="validatedCustomFile"
-              >Edit profile picture</label
-            >
-          </div>
-        </div>
       </form>
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="col-md-4">
-          <button class="btn-success btn btn-lg">
+          <button [disabled]="!editForm.touched" class="btn-success btn btn-lg" (click)="updateUser(userId)">
             Update
           </button>
         </div>
-      </div>
-    </div>
-    <div class="col-md-8">
-      <div class="text-center">
-        <h4>Image preview</h4>
-        <img src="../../../../assets/mn.jpg" alt="" />
       </div>
     </div>
   </div>

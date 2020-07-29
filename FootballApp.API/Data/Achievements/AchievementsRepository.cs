@@ -18,6 +18,14 @@ namespace FootballApp.API.Data.Achievements
                               .FirstOrDefaultAsync();
         }
 
+        public async Task<GainedAchievement> GetGainedAchievement(int userId, int value)
+        {
+            var gainedAchievement = await DataContext.GainedAchievements
+                                               .Where(g => g.UserId == userId && g.Achievement.Value == value)
+                                               .FirstOrDefaultAsync();
+            return gainedAchievement;
+        }
+
         public DataContext DataContext
         {
             get

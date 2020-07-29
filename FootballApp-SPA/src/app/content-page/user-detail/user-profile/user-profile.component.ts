@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit, OnChanges {
   visitors: Visitor[];
   userAchievements: Achievement[] = [];
   achievements: Achievement[];
+  Math = Math;
 
   constructor(private userService: UserService) {}
 
@@ -62,8 +63,8 @@ export class UserProfileComponent implements OnInit, OnChanges {
   getClass(achievement: Achievement) {
     for (let index = 0; index < this.userAchievements.length; index++) {
       const element = this.userAchievements[index];
-      if(element.value === achievement.value) {
-        return false; 
+      if (element.value === achievement.value) {
+        return false;
       }
     }
     return true;

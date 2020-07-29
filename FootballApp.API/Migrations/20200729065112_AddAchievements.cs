@@ -28,7 +28,8 @@ namespace FootballApp.API.Migrations
                 name: "GainedAchievements",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(nullable: false),
                     AchievementId = table.Column<int>(nullable: false),
                     DateAchieved = table.Column<DateTime>(nullable: false)

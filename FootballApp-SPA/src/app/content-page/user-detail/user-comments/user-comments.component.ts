@@ -56,6 +56,7 @@ export class UserCommentsComponent implements OnInit {
         (res: any) => {
           if (res.key) {
             this.notifyService.showSuccess('Comment posted successfully!');
+            this.commentForm.reset();
             this.commentsService
               .getCommentsForUser(commentedId)
               .subscribe((res: any) => {
