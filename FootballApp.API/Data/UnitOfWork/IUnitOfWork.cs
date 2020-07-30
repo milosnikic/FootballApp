@@ -1,8 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using FootballApp.API.Data.Achievements;
+using FootballApp.API.Data.Cities;
 using FootballApp.API.Data.Comments;
+using FootballApp.API.Data.Countries;
 using FootballApp.API.Data.Groups;
+using FootballApp.API.Data.Locations;
 using FootballApp.API.Data.Memberships;
 using FootballApp.API.Data.Photos;
 
@@ -17,6 +20,9 @@ namespace FootballApp.API.Data.UnitOfWork
         IAuthRepository Auths { get; }
         ICommentsRepository Comments { get; }
         IAchievementsRepository Achievements { get; }
+        ICitiesRepository Cities { get; }
+        ICountriesRepository Countries { get; }
+        ILocationsRepository Locations { get; }
         Task<bool> Complete();
     }
 }

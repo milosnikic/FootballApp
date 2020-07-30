@@ -10,8 +10,6 @@ namespace FootballApp.API.Models
         public City City { get; set; }
         public int CountryId { get; set; }
         public Country Country { get; set; }
-        public decimal Longitude { get; set; }
-        public decimal Latitude { get; set; }
         public ICollection<Group> Groups { get; set; }
     }
 }

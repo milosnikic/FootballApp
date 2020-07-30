@@ -99,6 +99,8 @@ namespace FootballApp.API.Helpers
                         opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Image);
                     }
                 );
+            CreateMap<CityForCreationDto, City>();
+            CreateMap<Location, LocationToAddDto>();
         }
     }
 }
