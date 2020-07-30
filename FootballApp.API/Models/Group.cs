@@ -11,5 +11,6 @@ namespace FootballApp.API.Models
         public ICollection<Membership> Memberships { get; set; }
         public int LocationId { get; set; }
         public Location Location { get; set; }
+        public byte[] Image { get; set; }
     }
 }

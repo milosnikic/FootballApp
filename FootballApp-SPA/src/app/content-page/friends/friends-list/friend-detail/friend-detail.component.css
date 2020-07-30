@@ -13,3 +13,11 @@
   color: red;
   transition: 0.5s;
 }
+
+.link-name {
+  text-decoration: none; 
+  color:black;
+}
+.link-name:hover {
+  color: rgb(104, 104, 104);
+}

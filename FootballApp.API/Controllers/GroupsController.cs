@@ -62,7 +62,7 @@ namespace FootballApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGroup(int userId, GroupForCreationDto group)
+        public async Task<IActionResult> CreateGroup(int userId,[FromForm] GroupForCreationDto group)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
@@ -84,7 +84,7 @@ namespace FootballApp.API.Controllers
             if (await _unitOfWork.Complete())
             {
                 var groupToReturn = _mapper.Map<GroupToReturnDto>(groupToAdd);
-                return CreatedAtRoute("GetGroup", new {id = groupToReturn.Id}, groupToReturn);
+                return Ok(new KeyValuePair<bool, string>(true, "Group created successfully!"));
             }
             
             return BadRequest(new KeyValuePair<bool,string>(false, "Something went wrong!"));

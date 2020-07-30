@@ -24,7 +24,11 @@ namespace FootballApp.API.Helpers
                         opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain));
                     }
                 );
-            CreateMap<GroupForCreationDto, Group>();
+            CreateMap<GroupForCreationDto, Group>()
+                .ForMember(
+                    dest => dest.Location,
+                    opt => opt.Ignore()
+                );
             CreateMap<Group, GroupToReturnDto>()
                 .ForMember(
                  dest => dest.UserId,
@@ -85,6 +89,14 @@ namespace FootballApp.API.Helpers
                     opt => 
                     {
                         opt.MapFrom(src => src.Achievement.Value);
+                    }
+                );
+            CreateMap<User, ExploreUserDto>()
+                .ForMember(
+                    dest => dest.MainPhoto,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Image);
                     }
                 );
         }

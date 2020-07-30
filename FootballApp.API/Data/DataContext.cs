@@ -16,9 +16,24 @@ namespace FootballApp.API.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<GainedAchievement> GainedAchievements { get; set; }
         public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Locations
+            modelBuilder.Entity<Location>()
+                .HasOne(l => l.Country)
+                .WithMany(c => c.Locations)
+                .HasForeignKey(l => l.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<Location>()
+                .HasOne(l => l.City)
+                .WithMany(c => c.Locations)
+                .HasForeignKey(l => l.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // Memberships fluent api creation
             modelBuilder.Entity<Membership>().HasKey(m => new { m.UserId, m.GroupId });
 

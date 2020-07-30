@@ -84,7 +84,7 @@ namespace FootballApp.API.Controllers
 
             var users = await _unitOfWork.Users.GetAllExploreUsers(userId);
 
-            var usersToReturn = _mapper.Map<ICollection<UserToReturnDto>>(users);
+            var usersToReturn = _mapper.Map<ICollection<ExploreUserDto>>(users);
             return Ok(usersToReturn);
         }
 

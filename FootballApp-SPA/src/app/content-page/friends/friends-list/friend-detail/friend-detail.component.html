@@ -2,7 +2,7 @@
   <img
     *ngIf="user?.mainPhoto; else defaultImage"
     mat-card-image
-    src="data:image/JPEG;base64,{{ user?.mainPhoto?.image }}"
+    src="data:image/JPEG;base64,{{ user?.mainPhoto }}"
     alt="User profile picture"
   />
   <ng-template #defaultImage>
@@ -17,7 +17,7 @@
       alt=""
     />
   </ng-template>
-  <h3>{{user?.firstname}} {{user?.lastname}}</h3><h4 class="text-muted">({{user?.username}})</h4>
+  <a class="link-name" [routerLink]="['/app/users/', user.id]"><h3>{{user?.firstname}} {{user?.lastname}}</h3><h4 class="text-muted">({{user?.username}})</h4></a>
   <mat-card-actions class="text-center">
     <button
       *ngIf="buttonDisplay === 'addFriend'"

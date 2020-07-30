@@ -4,14 +4,16 @@ using FootballApp.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FootballApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200730173837_AddGroupImage")]
+    partial class AddGroupImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,23 +40,6 @@ namespace FootballApp.API.Migrations
                     b.ToTable("Achievements");
                 });
 
-            modelBuilder.Entity("FootballApp.API.Models.City", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CountryId");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Cities");
-                });
-
             modelBuilder.Entity("FootballApp.API.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -76,19 +61,6 @@ namespace FootballApp.API.Migrations
                     b.HasIndex("CommenterId");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("FootballApp.API.Models.Country", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("FootballApp.API.Models.GainedAchievement", b =>
@@ -141,9 +113,9 @@ namespace FootballApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CityId");
+                    b.Property<string>("City");
 
-                    b.Property<int>("CountryId");
+                    b.Property<string>("Country");
 
                     b.Property<decimal>("Latitude");
 
@@ -152,10 +124,6 @@ namespace FootballApp.API.Migrations
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
 
                     b.ToTable("Locations");
                 });
@@ -256,14 +224,6 @@ namespace FootballApp.API.Migrations
                     b.ToTable("Visits");
                 });
 
-            modelBuilder.Entity("FootballApp.API.Models.City", b =>
-                {
-                    b.HasOne("FootballApp.API.Models.Country", "Country")
-                        .WithMany("Cities")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("FootballApp.API.Models.Comment", b =>
                 {
                     b.HasOne("FootballApp.API.Models.User", "Commented")
@@ -296,19 +256,6 @@ namespace FootballApp.API.Migrations
                         .WithMany("Groups")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("FootballApp.API.Models.Location", b =>
-                {
-                    b.HasOne("FootballApp.API.Models.City", "City")
-                        .WithMany("Locations")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("FootballApp.API.Models.Country", "Country")
-                        .WithMany("Locations")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("FootballApp.API.Models.Membership", b =>

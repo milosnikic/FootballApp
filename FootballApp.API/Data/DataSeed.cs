@@ -66,6 +66,47 @@ namespace FootballApp.API.Data
 
                 _context.SaveChanges();
             }
+            // if (!_context.Countries.Any())
+            // {
+
+            //     var cities = new List<City>
+            //                 {
+            //                     new City { Name = "Belgrade", CountryId = 1},
+            //                     new City { Name = "Novi Sad", CountryId = 1},
+            //                     new City { Name = "Nis", CountryId = 1},
+            //                     new City { Name = "Krusevac", CountryId = 1},
+            //                     new City { Name = "Kragujevac", CountryId = 1},
+
+            //                     new City { Name = "Sarajevo", CountryId = 2},
+            //                     new City { Name = "Bijeljina", CountryId = 2},
+            //                     new City { Name = "Tuzla", CountryId = 2},
+            //                     new City { Name = "Zenica", CountryId = 2},
+            //                     new City { Name = "Novi Travnik", CountryId = 2},
+
+            //                     new City { Name = "Split", CountryId = 3},
+            //                     new City { Name = "Umag", CountryId = 3},
+            //                     new City { Name = "Zagreb", CountryId = 3},
+            //                     new City { Name = "Sibenik", CountryId = 3},
+            //                     new City { Name = "Opatija", CountryId = 3},
+
+            //                     new City { Name = "Ulcinj", CountryId = 4},
+            //                     new City { Name = "Podgorica", CountryId = 4},
+            //                     new City { Name = "Niksic", CountryId = 4},
+            //                     new City { Name = "Kolasin", CountryId = 4},
+            //                     new City { Name = "Bar", CountryId = 4},
+
+            //                 };
+            //     var countries = new List<Country> 
+            //                 {
+            //                     new Country { Name = "Serbia" },
+            //                     new Country { Name = "Bosnia and Herzegovina" },
+            //                     new Country { Name = "Croatia" },
+            //                     new Country { Name = "Montenegro" }
+            //                 };
+            //     _context.AddRange(countries);
+            //     _context.AddRange(cities);
+            //     _context.SaveChanges();
+            // }
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
