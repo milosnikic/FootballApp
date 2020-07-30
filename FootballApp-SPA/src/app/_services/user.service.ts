@@ -16,7 +16,7 @@ export class UserService {
   getLatestFiveVisitorsForUser(userId: number) {
     return this.http.get(this.baseUrl + '/visitors' + `?userId=${userId}`);
   }
-  
+
   getUserData(userId: number) {
     return this.http.get(this.baseUrl + `/${userId}`);
   }
@@ -25,7 +25,7 @@ export class UserService {
     const data = {
       visitorId: JSON.parse(this.localStorage.get('user')).id,
       visitedId,
-      dateVisited: new Date().toLocaleString()
+      dateVisited: new Date().toLocaleString(),
     };
 
     return this.http.post(this.baseUrl + '/visit', data);
@@ -33,5 +33,17 @@ export class UserService {
 
   getAllExploreUsers(userId: number) {
     return this.http.get(this.baseUrl + '/explore' + `?userId=${userId}`);
+  }
+
+  getAchievementsForUser(userId: number) {
+    return this.http.get(this.baseUrl + '/achievements' + `?userId=${userId}`);
+  }
+
+  getAllAchievements() {
+    return this.http.get(this.baseUrl + '/achievements/all');
+  }
+
+  updateUser(userId, data: { email?: string; city?: string; country?: string }) {
+    return this.http.post(this.baseUrl + '/update' + `?userId=${userId}`, data);
   }
 }

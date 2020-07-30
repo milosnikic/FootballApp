@@ -57,6 +57,21 @@ namespace FootballApp.API.Data.Users
             return exploreUsers;
         }
 
+        public async void GainAchievement(GainedAchievement gainedAchievement)
+        {
+            await DataContext.GainedAchievements
+                             .AddAsync(gainedAchievement);
+        }
+
+        public async Task<ICollection<GainedAchievement>> GetAllAchievementsForUser(int userId)
+        {
+            var achievements = await DataContext.GainedAchievements
+                                          .Where(g => g.UserId == userId)
+                                          .Include(g => g.Achievement)
+                                          .ToListAsync();
+            return achievements;
+        }
+
         public DataContext DataContext
         {
             get { return Context as DataContext; } 

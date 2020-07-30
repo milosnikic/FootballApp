@@ -28,6 +28,30 @@ namespace FootballApp.API.Controllers
             _mapper = mapper;
 
         }
+        [HttpPost]
+        [Route("update")]
+        public async Task<IActionResult> UpdateUser(int userId, UserToUpdateDto userToUpdateDto)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var user = await _unitOfWork.Users.GetById(userId);
+
+            if (user == null)
+            {
+                return BadRequest("Specified user doesn't exist.");
+            }
+
+            user.City = userToUpdateDto.City;
+            user.Country = userToUpdateDto.Country;
+            user.Email = userToUpdateDto.Email;
+            if (await _unitOfWork.Complete())
+            {
+                return Ok(new KeyValuePair<bool, string>(true, "User successfully updated."));
+            }
+
+            return Ok(new KeyValuePair<bool, string>(false, "User can't be updated."));
+        }
 
         [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(int id)
@@ -44,7 +68,7 @@ namespace FootballApp.API.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
-        {   
+        {
             var users = await _unitOfWork.Users.GetAll();
 
             var usersToReturn = _mapper.Map<ICollection<UserToReturnDto>>(users);
@@ -54,7 +78,7 @@ namespace FootballApp.API.Controllers
         [HttpGet]
         [Route("explore")]
         public async Task<IActionResult> GetAllExploreUsers(int userId)
-        {   
+        {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
@@ -72,13 +96,13 @@ namespace FootballApp.API.Controllers
                 return Unauthorized();
             // Map visit user dto to visit object
             var visit = _mapper.Map<Visit>(visitUserDto);
-            
-            _unitOfWork.Users.VisitUser(visit);
-            
-            if (await _unitOfWork.Complete())
-                return Ok(new KeyValuePair<bool,string>(true, "User successfully visited!"));
 
-            return Ok(new KeyValuePair<bool,string>(false, "Problem with visiting user!"));
+            _unitOfWork.Users.VisitUser(visit);
+
+            if (await _unitOfWork.Complete())
+                return Ok(new KeyValuePair<bool, string>(true, "User successfully visited!"));
+
+            return Ok(new KeyValuePair<bool, string>(false, "Problem with visiting user!"));
         }
 
         [HttpGet]
@@ -115,6 +139,57 @@ namespace FootballApp.API.Controllers
         //     return BadRequest("Could not create group");
         // }
 
-        
+        [HttpGet]
+        [Route("achievements/all")]
+        public async Task<IActionResult> GetAllAchievements()
+        {
+            return Ok(await _unitOfWork.Achievements.GetAll());
+        }
+
+        [HttpGet]
+        [Route("achievements")]
+        public async Task<IActionResult> GetAllAchievementsForUser(int userId)
+        {
+            var achievements = await _unitOfWork.Users
+                                          .GetAllAchievementsForUser(userId);
+
+            return Ok(_mapper.Map<ICollection<GainedAchievementToReturnDto>>(achievements));
+        }
+
+        [HttpPost]
+        [Route("achievements/new")]
+        public async Task<IActionResult> GainAchievement(int userId, GainedAchievementForCreationDto gainedAchievementForCreationDto)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var achievement = await _unitOfWork.Achievements.GetAchievementByValue(gainedAchievementForCreationDto.Value);
+
+            if (achievement == null)
+            {
+                return BadRequest("Not valid achievement!");
+            }
+            var gainedAchievement = await _unitOfWork.Achievements.GetGainedAchievement(userId, gainedAchievementForCreationDto.Value);
+            if (gainedAchievement != null)
+            {
+                return BadRequest("Already have gained that achievement!");
+            }
+
+            gainedAchievement = new GainedAchievement
+            {
+                UserId = userId,
+                User = await _unitOfWork.Users.GetById(userId),
+                DateAchieved = DateTime.Now,
+                Achievement = achievement,
+                AchievementId = achievement.Id
+            };
+
+            _unitOfWork.Users.GainAchievement(gainedAchievement);
+            if (await _unitOfWork.Complete())
+                return Ok(new KeyValuePair<bool, string>(true, "Achievement successfully gained!"));
+
+            return Ok(new KeyValuePair<bool, string>(false, "Problem gaining achievement!"));
+        }
+
     }
 }

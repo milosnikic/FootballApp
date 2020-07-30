@@ -50,6 +50,7 @@ namespace FootballApp.API
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IGroupsRepository, GroupsRepository>();
             services.AddScoped<IPhotosRepository, PhotosRepository>();
+            services.AddTransient<DataSeed>();
             services.AddAutoMapper();
             services.AddSwaggerDocumentation();
 
@@ -68,13 +69,14 @@ namespace FootballApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataContext context, DataSeed seed)
         {
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 context.Database.Migrate();
+                seed.SeedDatabase();
             }
             else
             {

@@ -9,20 +9,25 @@
           alt="User profile picture"
         />
         <ng-template #defaultImage>
-          <img 
-          mat-card-image
-          *ngIf="!user?.mainPhoto" 
-          src="{{user?.gender === 'Male' ? '../assets/male-default.jpg' : '../assets/female-default.jpg'}}" 
-          alt="" />
+          <img
+            mat-card-image
+            *ngIf="!user?.mainPhoto"
+            src="{{
+              user?.gender === 'Male'
+                ? '../assets/male-default.jpg'
+                : '../assets/female-default.jpg'
+            }}"
+            alt=""
+          />
         </ng-template>
-        <a class="status" (click)="onEditProfile()" *ngIf="editable">
+        <a class="status" *ngIf="editable">
           <mat-card-content>
-            <i class="far fa-lg fa-smile mr-4"></i> Set your status
+            <div class="form-group"><i class="far fa-lg fa-smile mr-4"></i><input type="text" class="status-input" name="status" id="status" placeholder="Set your status"></div>
           </mat-card-content>
         </a>
         <p>{{ user?.mainPhoto?.description }}</p>
         <mat-card-actions *ngIf="editable">
-          <button class="btn btn-light" (click)="onEditProfile()">
+          <button class="btn btn-light">
             Edit Profile
           </button>
         </mat-card-actions>
@@ -35,9 +40,16 @@
             <th class="time-ago">Time ago</th>
           </tr>
           <tr *ngFor="let visitor of visitors">
-            <td><a [routerLink]="['/app','users',visitor?.visitor.id]">{{visitor?.visitor?.firstname}} {{visitor?.visitor?.lastname}}</a></td>
+            <td>
+              <a [routerLink]="['/app', 'users', visitor?.visitor.id]"
+                >{{ visitor?.visitor?.firstname }}
+                {{ visitor?.visitor?.lastname }}</a
+              >
+            </td>
             <td class="time-ago">
-              <small class="text-muted">{{visitor?.dateVisited | timeAgo}}</small>
+              <small class="text-muted">{{
+                visitor?.dateVisited | timeAgo
+              }}</small>
             </td>
           </tr>
         </table>
@@ -60,81 +72,24 @@
       </div>
       <div class="row">
         <h3>Achievements</h3>
-        <h4 class="text-muted percentage">(6/12) {{ (6 / 12) * 100 }} %</h4>
+        <h4 class="text-muted percentage">
+          ({{ userAchievements?.length }}/{{ achievements?.length }})
+          {{
+            Math?.round(
+              (this.userAchievements?.length / this.achievements?.length) * 1000
+            ) / 10
+          }}
+          %
+        </h4>
       </div>
       <div class="row achievement-wrapper">
-        <div class="col-md-4">
-          <div class="achievement">
-            <i class="far fa-futbol icon"></i>
-            <span class="achievement-text"
-              >Most organized matches last year</span
-            >
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement">
-            <i class="fas fa-running icon"></i>
-            <span class="achievement-text">Most assists in single match</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement">
-            <i class="fas fa-trophy icon"></i>
-            <span class="achievement-text">Most goals in single match</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement locked">
-            <i class="fas fa-award icon"></i>
-            <span class="achievement-text">Played over 100 games</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement locked">
-            <i class="fas fa-award icon"></i>
-            <span class="achievement-text">Played over 100 games</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement">
-            <i class="fas fa-trophy icon"></i>
-            <span class="achievement-text">Most goals in singel match</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement locked">
-            <i class="fas fa-award icon"></i>
-            <span class="achievement-text">Played over 100 games</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement locked">
-            <i class="fas fa-award icon"></i>
-            <span class="achievement-text">Played over 100 games</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement locked">
-            <i class="fas fa-award icon"></i>
-            <span class="achievement-text">Played over 100 games</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement locked">
-            <i class="fas fa-award icon"></i>
-            <span class="achievement-text">Played over 100 games</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement">
-            <i class="fas fa-trophy icon"></i>
-            <span class="achievement-text">Most goals in singel match</span>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="achievement">
-            <i class="fas fa-trophy icon"></i>
-            <span class="achievement-text">Most goals in singel match</span>
+        <div *ngFor="let achievement of achievements" class="col-md-4">
+          <div
+            class="achievement"
+            [ngClass]="{ locked: getClass(achievement) }"
+          >
+            <i class="{{ achievement?.icon }}"></i>
+            <span class="achievement-text">{{ achievement?.name }}</span>
           </div>
         </div>
       </div>

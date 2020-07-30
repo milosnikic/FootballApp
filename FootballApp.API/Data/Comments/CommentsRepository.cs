@@ -38,7 +38,10 @@ namespace FootballApp.API.Data.Comments
         /// <returns></returns>
         public async Task<ICollection<Comment>> GetAllCommentedForUser(int userId)
         {
-            throw new System.NotImplementedException();
+            var comments = await DataContext.Comments
+                                            .Where(c => c.CommenterId == userId)
+                                            .ToListAsync();
+            return comments;
         }
 
         public DataContext DataContext
