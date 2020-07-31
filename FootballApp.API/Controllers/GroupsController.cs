@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using FootballApp.API.Data;
 using FootballApp.API.Data.Groups;
 using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
+using FootballApp.API.Helpers;
 using FootballApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -70,9 +72,31 @@ namespace FootballApp.API.Controllers
             // Groups and User relationship is based on Membership so
             // when we add group we need to add new Membership with desired user
             var user = await _unitOfWork.Users.GetById(userId);
-
             var groupToAdd = _mapper.Map<Group>(group);
+
+            if (group.Image != null && ImageValidator.ValidateImageExtension(group.Image)
+                && ImageValidator.ValidateImageSize(group.Image)
+                && ImageValidator.ValidateImageSignature(group.Image)) 
+                {
+                    using(var memoryStream = new MemoryStream())
+                    {
+                        await group.Image.CopyToAsync(memoryStream);
+                        groupToAdd.Image = memoryStream.ToArray();
+                    }
+                }
+
+            // We check if selected location exists
+            // If it doesn't we create a new one with specified country and city
+            var location = await _unitOfWork.Locations.GetByName(groupToAdd.Name);
+            if(location == null)
+            {
+                location = new Location { Name = group.Location, CityId = group.CityId, CountryId = group.CountryId };
+                _unitOfWork.Locations.Add(location);
+            }
+
+            groupToAdd.Location = location;
             _unitOfWork.Groups.Add(groupToAdd);
+
             if(!await _unitOfWork.Complete())
             {
                 return BadRequest(new KeyValuePair<bool,string>(false, "Couldn't create group"));
@@ -89,6 +113,13 @@ namespace FootballApp.API.Controllers
             
             return BadRequest(new KeyValuePair<bool,string>(false, "Something went wrong!"));
         }
-        
+
+        [HttpGet]
+        [Route("all")]
+        public async Task<IActionResult> GetAllGroups()
+        {
+            var groups = await _unitOfWork.Groups.GetAllGroupsWithInclude();
+            return Ok(_mapper.Map<ICollection<GroupToReturnDto>>(groups));
+        }   
     }
 }

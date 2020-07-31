@@ -31,17 +31,12 @@ namespace FootballApp.API.Helpers
                 );
             CreateMap<Group, GroupToReturnDto>()
                 .ForMember(
-                 dest => dest.UserId,
-                 opt =>
-                {
-                    opt.MapFrom(src => src.Memberships.Where(m => m.GroupId == src.Id).FirstOrDefault().User.Id);
-                })
-                .ForMember(
-                 dest => dest.Username,
-                 opt =>
-                {
-                    opt.MapFrom(src => src.Memberships.Where(m => m.GroupId == src.Id).FirstOrDefault().User.Username);
-                });
+                    dest => dest.NumberOfMembers,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Memberships.ToArray().Length);
+                    }
+                );
             CreateMap<Photo, PhotoToReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<VisitUserDto, Visit>();
@@ -100,7 +95,23 @@ namespace FootballApp.API.Helpers
                     }
                 );
             CreateMap<CityForCreationDto, City>();
-            CreateMap<Location, LocationToAddDto>();
+            CreateMap<LocationToAddDto, Location>();
+            CreateMap<Location, LocationToReturnDto>()
+                .ForMember(
+                    dest => dest.Country,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Country.Name);
+                    }
+                )
+                .ForMember(
+                    dest => dest.City,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.City.Name);
+                    }
+                );
+            CreateMap<Country, CountryToReturnDto>();
         }
     }
 }

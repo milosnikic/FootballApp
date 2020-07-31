@@ -3,41 +3,41 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <mat-tab-group animationDuration="500ms" [selectedIndex]="0"> 
+            <mat-tab-group #tabs animationDuration="500ms" [selectedIndex]="0"> 
                 <mat-tab>
                     <ng-template mat-tab-label>
                         All groups
                         <i class="fas fa-globe-europe ml-2"></i>
                     </ng-template>
-                    <app-groups-list></app-groups-list>
+                    <app-groups-list [groups]="allGroups$ | async"></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
                         Your groups
                         <i class="fas fa-futbol ml-2"></i>
                     </ng-template>
-                    Content 1 
+                    <app-groups-list [groups]="usersGroups$ | async"></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
                         Groups you created
                         <i class="fas fa-save ml-2"></i>
                     </ng-template>
-                    Content 2 
+                    <app-groups-list [groups]="[]"></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
                         Favorite groups
                         <i class="fas fa-heart ml-2"></i>
                     </ng-template>
-                    Content 3
+                    <app-groups-list [groups]="[]"></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
                         Create group
                         <i class="fas fa-plus-circle ml-2"></i>
                     </ng-template>
-                    <app-create-group></app-create-group>
+                    <app-create-group (mainTab)="changeTab($event)"></app-create-group>
                 </mat-tab>
               </mat-tab-group>
         </div>

@@ -1,5 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation, ViewChild } from "@angular/core";
 import { ActivatedRoute, Data } from "@angular/router";
+import { MatTabGroup } from '@angular/material';
+import { GroupsService } from 'src/app/_services/groups.service';
+import { Observable } from 'rxjs';
+import { Group } from 'src/app/_models/group';
+import { filter, first } from 'rxjs/operators';
+import { LocalStorageService } from 'src/app/_services/local-storage.service';
 
 @Component({
   selector: "app-groups",
@@ -8,13 +14,28 @@ import { ActivatedRoute, Data } from "@angular/router";
   encapsulation: ViewEncapsulation.None
 })
 export class GroupsComponent implements OnInit {
+  userId: number;
   titleToDisplay: string;
+  @ViewChild('tabs', {static : true}) tabs: MatTabGroup;
+  allGroups$: Observable<Group[]>;
+  usersGroups$: Observable<Group[]>;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,
+              private groupService: GroupsService,
+              private localStorage: LocalStorageService) {}
   
   ngOnInit() {
+    this.userId = JSON.parse(this.localStorage.get('user')).id;
+    this.groupService.getAllGroups();
+    this.groupService.getUsersGroups(this.userId);
     this.route.data.subscribe((data: Data) => {
         this.titleToDisplay = data["title"];
       });
+    this.allGroups$ = this.groupService.allGroups$;
+    this.usersGroups$ = this.groupService.usersGroups$;
+  }
+
+  changeTab(event){
+    this.tabs.selectedIndex = event;
   }
 }

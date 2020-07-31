@@ -28,12 +28,29 @@
           ></textarea>
         </div>
         <div class="form-group">
-          <label for="location">Choose Location</label>
-          <select id="location" formControlName="location" class="form-control">
-            <option selected>Serbia</option>
-            <option>Bulgaria</option>
+          <label for="locationName">Enter location name</label>
+          <input
+            formControlName="location"
+            type="text"
+            id="locationName"
+            class="form-control"
+            placeholder="Location name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="country">Choose country</label>
+          <select id="country" formControlName="country" class="form-control" (change)="getCitiesForCountry($event.target.value)">
+            <option [value]="country.id" *ngFor="let country of countries">{{
+              country.name
+            }}</option>
           </select>
         </div>
+        <div class="form-group">
+            <label for="city">Choose city</label>
+            <select id="city" formControlName="city" class="form-control">
+              <option [value]="city.id" *ngFor="let city of cities">{{city.name}}</option>
+            </select>
+          </div>
         <div class="form-group">
           <div class="custom-file">
             <input
@@ -49,13 +66,17 @@
             >
           </div>
           <div class="text-danger" *ngIf="message">
-            {{message}}
+            {{ message }}
           </div>
         </div>
       </form>
       <div class="row">
         <div class="col-md-4">
-          <button class="btn-success btn btn-lg" [disabled]="!createGroupForm.valid" (click)="createGroup()">
+          <button
+            class="btn-success btn btn-lg"
+            [disabled]="!createGroupForm.valid"
+            (click)="createGroup()"
+          >
             Create
           </button>
         </div>
@@ -64,7 +85,7 @@
     <div *ngIf="imgURL" class="col-md-8">
       <div class="text-center">
         <h4>Image preview</h4>
-        <img  [src]="imgURL"  alt="" />
+        <img [src]="imgURL" alt="" />
       </div>
     </div>
   </div>

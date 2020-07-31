@@ -96,5 +96,29 @@ namespace FootballApp.API.Controllers
         }
 
 
+        [HttpGet]
+        [Route("all")]
+        public async Task<IActionResult> GetAllLocations()
+        {
+            var locations = await _unitOfWork.Locations.GetAllLocationsWithInclude();
+            return Ok(_mapper.Map<ICollection<LocationToReturnDto>>(locations));
+        }
+
+
+        [HttpGet]
+        [Route("all-countries")]
+        public async Task<IActionResult> GetAllCountriesWithCities()
+        {
+            var countries = await _unitOfWork.Countries.GetAllCountriesWithCities();
+            return Ok(_mapper.Map<ICollection<CountryToReturnDto>>(countries));
+        }
+
+        [HttpGet]
+        [Route("country-cities/{id}")]
+        public async Task<IActionResult> GetAllCitiesForCountry(int id)
+        {
+            var cities = await _unitOfWork.Cities.GetAllCitiesForCountry(id);
+            return Ok(_mapper.Map<ICollection<CityToReturnDto>>(cities));
+        }
     }
 }
