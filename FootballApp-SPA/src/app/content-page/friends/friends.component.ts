@@ -15,10 +15,12 @@ export class FriendsComponent implements OnInit {
   titleToDisplay: string;
   displayUserDetail: boolean = false;
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
+    const userId = JSON.parse(localStorage.getItem('user')).id;
     this.route.data.subscribe((data: Data) => {
       this.titleToDisplay = data['title'];
     });

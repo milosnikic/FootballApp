@@ -1,6 +1,4 @@
-import { User } from './../../_models/user';
 import { Component, OnInit, ViewEncapsulation, ViewChild, OnChanges } from '@angular/core';
-import { AuthService } from 'src/app/_services/auth.service';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { MatTabGroup } from '@angular/material';
 import { UserService } from 'src/app/_services/user.service';

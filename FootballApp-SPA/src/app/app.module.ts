@@ -18,7 +18,7 @@ import { UserProfileComponent } from './content-page/user-detail/user-profile/us
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MatTabsModule, MatCardModule} from '@angular/material';
+import {MatTabsModule, MatCardModule, MatAutocompleteModule, MatFormFieldModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -73,6 +73,8 @@ import { TokenInterceptor } from './_interceptors/token.interceptor';
       BrowserAnimationsModule,
       MatTabsModule,
       MatCardModule,
+      MatAutocompleteModule,
+      MatFormFieldModule,
       FormsModule,
       NgCircleProgressModule.forRoot({
          // set defaults here
