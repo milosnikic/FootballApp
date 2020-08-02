@@ -4,6 +4,9 @@ import { User } from 'src/app/_models/user';
 import { UserService } from 'src/app/_services/user.service';
 import { PhotosService } from 'src/app/_services/photos.service';
 import { NotifyService } from 'src/app/_services/notify.service';
+import { City } from 'src/app/_models/city';
+import { Country } from 'src/app/_models/country';
+import { LocationsService } from 'src/app/_services/locations.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -15,10 +18,13 @@ export class UserSettingsComponent implements OnInit {
   @Input() userId: number;
   editForm: FormGroup;
   user: User;
+  countries: Country[];
+  cities: City[] = [];
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
-              private notifyService: NotifyService) { }
+              private notifyService: NotifyService,
+              private locationService: LocationsService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -28,6 +34,15 @@ export class UserSettingsComponent implements OnInit {
         this.populateForm(res);
       },
       (err: any) => {
+        console.log(err);
+      }
+    );
+    this.locationService.getAllCountries().subscribe(
+      (res: Country[]) => {
+        this.countries = res;
+        this.getCitiesForCountry(res[0].id);
+      },
+      (err) => {
         console.log(err);
       }
     );
@@ -64,14 +79,25 @@ export class UserSettingsComponent implements OnInit {
 
     this.userService.updateUser(userId, data).subscribe(
       (res: any) => {
-        if(res.key) {
+        if (res.key) {
           this.notifyService.showSuccess('Successfully updated profile info!');
-        }else {
+        } else {
           this.notifyService.showError(res.value);
         }
       },
       err => {
         this.notifyService.showError(err);
+      }
+    );
+  }
+
+  getCitiesForCountry(id: number) {
+    this.locationService.getAllCitiesForCountry(id).subscribe(
+      (res: City[]) => {
+        this.cities = res;
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }

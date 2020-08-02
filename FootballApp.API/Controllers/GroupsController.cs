@@ -64,31 +64,38 @@ namespace FootballApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGroup(int userId,[FromForm] GroupForCreationDto group)
+        public async Task<IActionResult> CreateGroup(int userId, [FromForm] GroupForCreationDto group)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
-            
+
             // Groups and User relationship is based on Membership so
             // when we add group we need to add new Membership with desired user
             var user = await _unitOfWork.Users.GetById(userId);
             var groupToAdd = _mapper.Map<Group>(group);
 
-            if (group.Image != null && ImageValidator.ValidateImageExtension(group.Image)
+            if (group.Image != null)
+            {
+                if (ImageValidator.ValidateImageExtension(group.Image)
                 && ImageValidator.ValidateImageSize(group.Image)
-                && ImageValidator.ValidateImageSignature(group.Image)) 
+                && ImageValidator.ValidateImageSignature(group.Image))
                 {
-                    using(var memoryStream = new MemoryStream())
+                    using (var memoryStream = new MemoryStream())
                     {
                         await group.Image.CopyToAsync(memoryStream);
                         groupToAdd.Image = memoryStream.ToArray();
                     }
                 }
+                else
+                {
+                    return Ok(new KeyValuePair<bool, string>(false, "Image cannot be uploaded"));
+                }
+            }
 
             // We check if selected location exists
             // If it doesn't we create a new one with specified country and city
             var location = await _unitOfWork.Locations.GetByName(groupToAdd.Name);
-            if(location == null)
+            if (location == null)
             {
                 location = new Location { Name = group.Location, CityId = group.CityId, CountryId = group.CountryId };
                 _unitOfWork.Locations.Add(location);
@@ -97,12 +104,12 @@ namespace FootballApp.API.Controllers
             groupToAdd.Location = location;
             _unitOfWork.Groups.Add(groupToAdd);
 
-            if(!await _unitOfWork.Complete())
+            if (!await _unitOfWork.Complete())
             {
-                return BadRequest(new KeyValuePair<bool,string>(false, "Couldn't create group"));
+                return BadRequest(new KeyValuePair<bool, string>(false, "Couldn't create group"));
             }
-                        
-            var membership = new Membership { UserId = user.Id, GroupId = groupToAdd.Id, DateSent = DateTime.Now, Role = Role.Owner, Accepted = true, DateAccepted = DateTime.Now, User = user, Group = groupToAdd };
+
+            var membership = new Membership { UserId = user.Id, GroupId = groupToAdd.Id, DateSent = DateTime.Now, Role = Role.Owner, Accepted = true, DateAccepted = DateTime.Now, User = user, Group = groupToAdd, MembershipStatus = MembershipStatus.Accepted };
             _unitOfWork.Memberships.Add(membership);
 
             if (await _unitOfWork.Complete())
@@ -110,16 +117,23 @@ namespace FootballApp.API.Controllers
                 var groupToReturn = _mapper.Map<GroupToReturnDto>(groupToAdd);
                 return Ok(new KeyValuePair<bool, string>(true, "Group created successfully!"));
             }
-            
-            return BadRequest(new KeyValuePair<bool,string>(false, "Something went wrong!"));
+
+            return BadRequest(new KeyValuePair<bool, string>(false, "Something went wrong!"));
         }
 
         [HttpGet]
         [Route("all")]
-        public async Task<IActionResult> GetAllGroups()
+        public async Task<IActionResult> GetAllGroups(int userId)
         {
-            var groups = await _unitOfWork.Groups.GetAllGroupsWithInclude();
+            var groups = await _unitOfWork.Groups.GetAllGroupsWithInclude(userId);
             return Ok(_mapper.Map<ICollection<GroupToReturnDto>>(groups));
-        }   
+        }
+
+        [HttpGet]
+        [Route("created")]
+        public async Task<IActionResult> GetAllCreatedGroups(int userId)
+        {
+            return Ok();
+        }
     }
 }

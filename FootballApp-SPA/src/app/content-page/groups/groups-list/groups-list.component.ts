@@ -10,6 +10,8 @@ import { GroupsService } from 'src/app/_services/groups.service';
 })
 export class GroupsListComponent implements OnInit {
   @Input() groups: Group[] = [];
+  @Input() mode: GroupStatus;
+  GroupStatus = GroupStatus;
 
   constructor(private groupService: GroupsService) {}
 

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Group } from 'src/app/_models/group';
 import { filter, first } from 'rxjs/operators';
 import { LocalStorageService } from 'src/app/_services/local-storage.service';
+import { GroupStatus } from 'src/app/_models/GroupStatus.enum';
 
 @Component({
   selector: "app-groups",
@@ -17,8 +18,11 @@ export class GroupsComponent implements OnInit {
   userId: number;
   titleToDisplay: string;
   @ViewChild('tabs', {static : true}) tabs: MatTabGroup;
+  GroupStatus = GroupStatus;
+
   allGroups$: Observable<Group[]>;
   usersGroups$: Observable<Group[]>;
+  usersCreatedGroups$: Observable<Group[]>;
 
   constructor(private route: ActivatedRoute,
               private groupService: GroupsService,
@@ -26,13 +30,15 @@ export class GroupsComponent implements OnInit {
   
   ngOnInit() {
     this.userId = JSON.parse(this.localStorage.get('user')).id;
-    this.groupService.getAllGroups();
+    this.groupService.getAllGroups(this.userId);
     this.groupService.getUsersGroups(this.userId);
+    this.groupService.getUsersCreatedGroups(this.userId);
     this.route.data.subscribe((data: Data) => {
         this.titleToDisplay = data["title"];
       });
     this.allGroups$ = this.groupService.allGroups$;
     this.usersGroups$ = this.groupService.usersGroups$;
+    this.usersCreatedGroups$ = this.groupService.usersCreatedGroups$;
   }
 
   changeTab(event){

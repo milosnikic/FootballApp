@@ -24,8 +24,8 @@ export class GroupsService {
     return this.http.post(this.baseUrl + `?userId=${userId}`, data);
   }
 
-  getAllGroups() {
-    return this.http.get(this.baseUrl + '/all').subscribe(
+  getAllGroups(userId: number) {
+    return this.http.get(this.baseUrl + '/all' + `?userid=${userId}`).subscribe(
       (res: Group[]) => {
         this.allGroups.next(res);
       }
@@ -38,5 +38,13 @@ export class GroupsService {
         this.usersGroups.next(res);
       }
     );
+  }
+
+  getUsersCreatedGroups(userId: number) {
+    return this.http.get(this.baseUrl + '/created' + `?userId=${userId}`).subscribe(
+      (res: any) => {
+        this.usersCreatedGroups.next(res);
+      }
+    )
   }
 }

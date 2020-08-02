@@ -9,5 +9,6 @@ namespace FootballApp.API.Models
         public Country Country { get; set; }
         public int CountryId { get; set; }
         public ICollection<Location> Locations { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }

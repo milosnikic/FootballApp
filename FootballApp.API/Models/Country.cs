@@ -8,5 +8,6 @@ namespace FootballApp.API.Models
         public string Name { get; set; }
         public ICollection<City> Cities { get; set; }
         public ICollection<Location> Locations { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }

@@ -42,7 +42,10 @@ namespace FootballApp.API.Helpers
         internal static bool ValidateImageSignature(IFormFile image)
         {
             var ext = Path.GetExtension(image.FileName).ToLowerInvariant();
-
+            if (ext == ".jpg")
+            {
+                return true;
+            }
             Dictionary<string, List<byte[]>> _fileSignature =
                 new Dictionary<string, List<byte[]>>
                 {
@@ -62,7 +65,7 @@ namespace FootballApp.API.Helpers
 
             using (var reader = new BinaryReader(image.OpenReadStream()))
             {
-                var signatures = _fileSignature[ext != ".jpg" ? ext : ".jpeg"];
+                var signatures = _fileSignature[ext];
                 var headerBytes = reader.ReadBytes(signatures.Max(m => m.Length));
                 return signatures.Any(signature =>
                     headerBytes.Take(signature.Length).SequenceEqual(signature));

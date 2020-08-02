@@ -16,6 +16,8 @@ export class NavbarComponent implements OnInit {
   //       do filter serach on server side (order by date, take 5)
   //       and display loading icon if its loading
   //       and add search page with all searched items
+  //       https://itnext.io/using-angular-6-material-auto-complete-with-async-data-6d89501c4b79
+
   allUsers: User[] = [];
   filteredUsers$: Observable<User[]>;
   userControl = new FormControl();

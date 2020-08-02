@@ -5,7 +5,7 @@ export interface Group {
     description: string;
     numberOfMembers: number;
     dateCreated: Date;
-    status: number;
+    membershipStatus: GroupStatus;
     favorite: boolean;
     location: any;
     image: string;

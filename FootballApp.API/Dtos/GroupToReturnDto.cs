@@ -1,4 +1,5 @@
 using System;
+using FootballApp.API.Models;
 
 namespace FootballApp.API.Dtos
 {
@@ -10,9 +11,8 @@ namespace FootballApp.API.Dtos
         public DateTime DateCreated { get; set; }
         public bool Favorite { get; set; }
         public int NumberOfMembers { get; set; }
-        public int Status { get; set; }
+        public MembershipStatus MembershipStatus { get; set; }
         public LocationToReturnDto Location { get; set; }
-
         public byte[] Image { get; set; }
         public GroupToReturnDto()
         {

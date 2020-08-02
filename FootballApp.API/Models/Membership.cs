@@ -8,6 +8,12 @@ namespace FootballApp.API.Models
         Owner,
         Member
     }
+    public enum MembershipStatus
+    {
+        NotMember,
+        Sent,
+        Accepted
+    }
     public class Membership
     {
         public Membership()
@@ -22,7 +28,9 @@ namespace FootballApp.API.Models
         public int GroupId { get; set; }
         public Group Group { get; set; }
         public DateTime DateSent { get; set; }
+        public bool Favorite { get; set; }
         public DateTime? DateAccepted { get; set; }
+        public MembershipStatus MembershipStatus { get; set; }
         public bool Accepted { get; set; }
         public Role Role { get; set; }
     }

@@ -5,46 +5,69 @@
         <h1>No groups to display.</h1>
       </div>
     </ng-template>
-    <table *ngIf="groups?.length;else noGroups">
+    <table *ngIf="groups?.length; else noGroups">
       <tr>
         <th>#</th>
         <th>Name</th>
         <th>Description</th>
         <th>Date Created</th>
         <th>Location</th>
-        <th></th>
+        <th *ngIf="mode === GroupStatus.Accepted"></th>
         <th>Number of members</th>
-        <th style="padding-left: 70px;">Status</th>
         <th></th>
       </tr>
       <tr class="group" *ngFor="let group of groups">
         <td>
-          <img *ngIf="group.image"
+          <img
+            *ngIf="group.image"
             src="data:image/JPEG;base64,{{ group?.image }}"
             alt="Group image"
             class="rounded"
           />
         </td>
-        <td >{{ group.name }}</td>
-        <td >{{ group.description }}</td>
-        <td >{{ group.dateCreated | date }}</td>
+        <td>{{ group?.name }}</td>
+        <td>{{ group?.description }}</td>
+        <td>{{ group?.dateCreated | date }}</td>
         <td>Jelovac, Serbia - Belgrade</td>
-        <td  *ngIf="group"><i class="far fa-heart fa-lg"></i></td>
-        <td><i class="fa fa-users mr-4"></i>{{ group.numberOfMembers }}</td>
-        <td style="text-align:right ;">
-        <button style="cursor: not-allowed;" *ngIf="false" class="btn btn-outline-success" disabled>
-            <i
-              class="fas fa-check"
-              style="color:rgb(153, 255, 0)"
-            ></i>
+        <td>
+          <i
+            *ngIf="group?.favorite && group?.membershipStatus === GroupStatus.Accepted"
+            class="fas fa-heart fa-lg"
+            style="color: red;"
+          ></i>
+          <i
+          *ngIf="!group?.favorite && group?.membershipStatus === GroupStatus.Accepted"
+           class="far fa-heart fa-lg"></i>
+        </td>
+        <td><i class="fa fa-users mr-4"></i>{{ group?.numberOfMembers }}</td>
+        <td style="text-align: right;">
+          <button
+            style="cursor: not-allowed;"
+            *ngIf="group?.membershipStatus === GroupStatus.Accepted"
+            class="btn btn-outline-success"
+            disabled
+          >
+            <i class="fas fa-check" style="color: rgb(153, 255, 0);"></i>
             Already member
           </button>
-          <button *ngIf="false" class=" ml-2 btn btn-outline-danger" (click)="group.member = false">
-            <i class="fas fa-times" style="color:red"></i>
+          <button
+            *ngIf="group?.membershipStatus === GroupStatus.Accepted"
+            class="ml-2 btn btn-outline-danger"
+          >
+            <i class="fas fa-times" style="color: red;"></i>
           </button>
-          <button *ngIf="group" class="btn btn-primary" (click)="group.member = true">
-              <i  class="fas fa-plus"></i> Ask to join
-            </button>
+          <button
+            *ngIf="group?.membershipStatus === GroupStatus.Sent"
+            class="ml-2 btn btn-outline-secondary"
+          >
+            Request already sent
+          </button>
+          <button
+            *ngIf="mode === GroupStatus.NotMember"
+            class="btn btn-primary"
+          >
+            <i class="fas fa-plus"></i> Ask to join
+          </button>
         </td>
       </tr>
     </table>

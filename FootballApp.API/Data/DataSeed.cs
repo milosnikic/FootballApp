@@ -37,26 +37,70 @@ namespace FootballApp.API.Data
 
                 _context.SaveChanges();
             }
+
+            if (!_context.Countries.Any())
+            {
+                var countries = new List<Country>
+                            {
+                                new Country { Name = "Serbia" },
+                                new Country { Name = "Bosnia and Herzegovina" },
+                                new Country { Name = "Croatia" },
+                                new Country { Name = "Montenegro" }
+                            };
+                _context.AddRange(countries);
+
+                var cities = new List<City>
+                            {
+                                new City { Name = "Belgrade", Country = countries[0]},
+                                new City { Name = "Novi Sad", Country = countries[0]},
+                                new City { Name = "Nis", Country = countries[0]},
+                                new City { Name = "Krusevac", Country = countries[0]},
+                                new City { Name = "Kragujevac", Country = countries[0]},
+
+                                new City { Name = "Sarajevo", Country = countries[1]},
+                                new City { Name = "Bijeljina", Country = countries[1]},
+                                new City { Name = "Tuzla", Country = countries[1]},
+                                new City { Name = "Zenica", Country = countries[1]},
+                                new City { Name = "Novi Travnik", Country = countries[1]},
+
+                                new City { Name = "Split", Country = countries[2]},
+                                new City { Name = "Umag", Country = countries[2]},
+                                new City { Name = "Zagreb", Country = countries[2]},
+                                new City { Name = "Sibenik", Country = countries[2]},
+                                new City { Name = "Opatija", Country = countries[2]},
+
+                                new City { Name = "Ulcinj", Country = countries[3]},
+                                new City { Name = "Podgorica", Country = countries[3]},
+                                new City { Name = "Niksic", Country = countries[3]},
+                                new City { Name = "Kolasin", Country = countries[3]},
+                                new City { Name = "Bar", Country = countries[3]},
+                            };
+
+
+                _context.AddRange(cities);
+                _context.SaveChanges();
+            }
+
             if (!_context.Users.Any())
             {
                 var users = new List<User>
                             {
-                                new User { Username = "milos", Firstname = "Milos", Lastname = "Nikic", City = "Belgrade", Country = "Serbia",
+                                new User { Username = "milos", Firstname = "Milos", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
                                            Email = "milos.nikic@gmail.com", DateOfBirth = new DateTime(1996,12,31), Created = DateTime.Now, IsActive = true,
                                            Gender = Gender.Male, LastActive = null},
-                                new User { Username = "darko", Firstname = "Darko", Lastname = "Nikic", City = "Belgrade", Country = "Serbia",
+                                new User { Username = "darko", Firstname = "Darko", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
                                            Email = "darko.nikic@gmail.com", DateOfBirth = new DateTime(1981,12,05), Created = DateTime.Now, IsActive = true,
                                            Gender = Gender.Male, LastActive = null},
-                                new User { Username = "milutin", Firstname = "Milutin", Lastname = "Nikic", City = "Belgrade", Country = "Serbia",
+                                new User { Username = "milutin", Firstname = "Milutin", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
                                            Email = "milutin.nikic@gmail.com", DateOfBirth = new DateTime(1956,1,1), Created = DateTime.Now, IsActive = true,
                                            Gender = Gender.Male, LastActive = null},
-                                new User { Username = "snezana", Firstname = "Snezana", Lastname = "Nikic", City = "Belgrade", Country = "Serbia",
+                                new User { Username = "snezana", Firstname = "Snezana", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
                                            Email = "snezana.nikic@gmail.com", DateOfBirth = new DateTime(1986,3,10), Created = DateTime.Now, IsActive = true,
                                            Gender = Gender.Female, LastActive = null},
                             };
                 string password = "Test123*";
                 foreach (var user in users)
-                {   
+                {
                     byte[] passwordHash, passwordSalt;
                     CreatePasswordHash(password, out passwordHash, out passwordSalt);
                     user.PasswordHash = passwordHash;
@@ -66,47 +110,7 @@ namespace FootballApp.API.Data
 
                 _context.SaveChanges();
             }
-            // if (!_context.Countries.Any())
-            // {
 
-            //     var cities = new List<City>
-            //                 {
-            //                     new City { Name = "Belgrade", CountryId = 1},
-            //                     new City { Name = "Novi Sad", CountryId = 1},
-            //                     new City { Name = "Nis", CountryId = 1},
-            //                     new City { Name = "Krusevac", CountryId = 1},
-            //                     new City { Name = "Kragujevac", CountryId = 1},
-
-            //                     new City { Name = "Sarajevo", CountryId = 2},
-            //                     new City { Name = "Bijeljina", CountryId = 2},
-            //                     new City { Name = "Tuzla", CountryId = 2},
-            //                     new City { Name = "Zenica", CountryId = 2},
-            //                     new City { Name = "Novi Travnik", CountryId = 2},
-
-            //                     new City { Name = "Split", CountryId = 3},
-            //                     new City { Name = "Umag", CountryId = 3},
-            //                     new City { Name = "Zagreb", CountryId = 3},
-            //                     new City { Name = "Sibenik", CountryId = 3},
-            //                     new City { Name = "Opatija", CountryId = 3},
-
-            //                     new City { Name = "Ulcinj", CountryId = 4},
-            //                     new City { Name = "Podgorica", CountryId = 4},
-            //                     new City { Name = "Niksic", CountryId = 4},
-            //                     new City { Name = "Kolasin", CountryId = 4},
-            //                     new City { Name = "Bar", CountryId = 4},
-
-            //                 };
-            //     var countries = new List<Country> 
-            //                 {
-            //                     new Country { Name = "Serbia" },
-            //                     new Country { Name = "Bosnia and Herzegovina" },
-            //                     new Country { Name = "Croatia" },
-            //                     new Country { Name = "Montenegro" }
-            //                 };
-            //     _context.AddRange(countries);
-            //     _context.AddRange(cities);
-            //     _context.SaveChanges();
-            // }
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

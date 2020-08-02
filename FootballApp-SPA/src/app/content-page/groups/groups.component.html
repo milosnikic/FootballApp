@@ -9,21 +9,21 @@
                         All groups
                         <i class="fas fa-globe-europe ml-2"></i>
                     </ng-template>
-                    <app-groups-list [groups]="allGroups$ | async"></app-groups-list>
+                    <app-groups-list [groups]="allGroups$ | async" [mode]="GroupStatus.NotMember"></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
                         Your groups
                         <i class="fas fa-futbol ml-2"></i>
                     </ng-template>
-                    <app-groups-list [groups]="usersGroups$ | async"></app-groups-list>
+                    <app-groups-list [groups]="usersGroups$ | async" [mode]="GroupStatus.Accepted"></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
                         Groups you created
                         <i class="fas fa-save ml-2"></i>
                     </ng-template>
-                    <app-groups-list [groups]="[]"></app-groups-list>
+                    <app-groups-list [groups]="usersCreatedGroups$ | async"></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>

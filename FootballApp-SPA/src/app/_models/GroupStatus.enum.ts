@@ -1,5 +1,5 @@
 export enum GroupStatus {
-    JoinGroup,
-    LeaveGroup,
-    RequestSent
+    NotMember,
+    Sent,
+    Accepted
 }

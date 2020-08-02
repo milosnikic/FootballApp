@@ -19,6 +19,8 @@ namespace FootballApp.API.Data.Users
             return await DataContext.Users
                                     .Include(u => u.Memberships)
                                     .Include(u => u.Photos)
+                                    .Include(u => u.City)
+                                    .Include(u => u.Country)
                                     .FirstOrDefaultAsync(u => u.Id == id);
         }
 

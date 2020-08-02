@@ -4,14 +4,16 @@ using FootballApp.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FootballApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200802090737_AddMembershipStatus")]
+    partial class AddMembershipStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,8 +120,6 @@ namespace FootballApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreatedById");
-
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<string>("Description");
@@ -133,8 +133,6 @@ namespace FootballApp.API.Migrations
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
 
                     b.HasIndex("LocationId");
 
@@ -173,8 +171,6 @@ namespace FootballApp.API.Migrations
                     b.Property<DateTime?>("DateAccepted");
 
                     b.Property<DateTime>("DateSent");
-
-                    b.Property<bool>("Favorite");
 
                     b.Property<int>("MembershipStatus");
 
@@ -216,9 +212,9 @@ namespace FootballApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CityId");
+                    b.Property<string>("City");
 
-                    b.Property<int?>("CountryId");
+                    b.Property<string>("Country");
 
                     b.Property<DateTime>("Created");
 
@@ -243,10 +239,6 @@ namespace FootballApp.API.Migrations
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
 
                     b.ToTable("Users");
                 });
@@ -302,11 +294,6 @@ namespace FootballApp.API.Migrations
 
             modelBuilder.Entity("FootballApp.API.Models.Group", b =>
                 {
-                    b.HasOne("FootballApp.API.Models.User", "CreatedBy")
-                        .WithMany("GroupsCreated")
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("FootballApp.API.Models.Location", "Location")
                         .WithMany("Groups")
                         .HasForeignKey("LocationId")
@@ -345,19 +332,6 @@ namespace FootballApp.API.Migrations
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("FootballApp.API.Models.User", b =>
-                {
-                    b.HasOne("FootballApp.API.Models.City", "City")
-                        .WithMany("Users")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("FootballApp.API.Models.Country", "Country")
-                        .WithMany("Users")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("FootballApp.API.Models.Visit", b =>

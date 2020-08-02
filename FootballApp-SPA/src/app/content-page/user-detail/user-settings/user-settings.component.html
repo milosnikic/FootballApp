@@ -50,22 +50,19 @@
           />
         </div>
         <div class="form-group">
-          <label for="country">Edit Location</label>
-          <select id="country" formControlName="country" class="form-control">
-            <option selected>Serbia</option>
-            <option>Bulgaria</option>
-            <option>Belgium</option>
+          <label for="country">Choose country</label>
+          <select id="country" formControlName="country" class="form-control" (change)="getCitiesForCountry($event.target.value)">
+            <option [value]="country.id" *ngFor="let country of countries">{{
+              country.name
+            }}</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="city">Edit City</label>
-          <select id="city" formControlName="city" class="form-control">
-            <option selected>---</option>
-            <option>Belgrade</option>
-            <option>Novi Sad</option>
-            <option>Brisel</option>
-          </select>
-        </div>
+            <label for="city">Choose city</label>
+            <select id="city" formControlName="city" class="form-control">
+              <option [value]="city.id" *ngFor="let city of cities">{{city.name}}</option>
+            </select>
+          </div>
       </form>
       <div class="row justify-content-center">
         <div class="col-md-4">

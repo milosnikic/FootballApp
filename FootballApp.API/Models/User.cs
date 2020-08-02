@@ -23,8 +23,10 @@ namespace FootballApp.API.Models
         public DateTime? LastActive { get; set; }
         public DateTime Created { get; set; }
         public Gender Gender { get; set; } = Gender.Other;
-        public string City { get; set; }
-        public string Country { get; set; }
+        public City City { get; set; }
+        public int? CityId { get; set; }
+        public Country Country { get; set; }
+        public int? CountryId { get; set; }
         public bool IsActive { get; set; }
         public ICollection<Membership> Memberships { get; set; }
         public ICollection<Photo> Photos { get; set; }
@@ -33,5 +35,6 @@ namespace FootballApp.API.Models
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Comment> Commented { get; set; }
         public ICollection<GainedAchievement> GainedAchievements { get; set; }
+        public ICollection<Group> GroupsCreated { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace FootballApp.API.Models
         public int LocationId { get; set; }
         public Location Location { get; set; }
         public byte[] Image { get; set; }
+        public User CreatedBy { get; set; }
     }
 }

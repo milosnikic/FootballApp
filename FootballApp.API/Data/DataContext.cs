@@ -27,7 +27,7 @@ namespace FootballApp.API.Data
                 .WithMany(c => c.Locations)
                 .HasForeignKey(l => l.CountryId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             modelBuilder.Entity<Location>()
                 .HasOne(l => l.City)
                 .WithMany(c => c.Locations)
@@ -78,18 +78,36 @@ namespace FootballApp.API.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Achievements fluent api creation
-            modelBuilder.Entity<GainedAchievement>().HasKey(a => new { a.Id, a.AchievementId, a.UserId});
+            modelBuilder.Entity<GainedAchievement>().HasKey(a => new { a.Id, a.AchievementId, a.UserId });
 
             modelBuilder.Entity<GainedAchievement>()
                 .HasOne<User>(a => a.User)
                 .WithMany(u => u.GainedAchievements)
                 .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             modelBuilder.Entity<GainedAchievement>()
                 .HasOne<Achievement>(a => a.Achievement)
                 .WithMany(a => a.GainedAchievements)
                 .HasForeignKey(a => a.AchievementId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Groups fluent api
+            modelBuilder.Entity<Group>()
+                .HasOne(g => g.CreatedBy)
+                .WithMany(u => u.GroupsCreated)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // City fluent api
+            modelBuilder.Entity<City>()
+                .HasMany(c => c.Users)
+                .WithOne(u => u.City)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Country fluent api
+            modelBuilder.Entity<Country>()
+                .HasMany(c => c.Users)
+                .WithOne(u => u.Country)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

@@ -23,6 +23,20 @@ namespace FootballApp.API.Helpers
                     {
                         opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain));
                     }
+                )
+                .ForMember(
+                    dest => dest.City,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.City.Name);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Country,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Country.Name);
+                    }
                 );
             CreateMap<GroupForCreationDto, Group>()
                 .ForMember(
@@ -112,6 +126,56 @@ namespace FootballApp.API.Helpers
                     }
                 );
             CreateMap<Country, CountryToReturnDto>();
+            CreateMap<Membership, GroupToReturnDto>()
+                .ForMember(
+                    dest => dest.Id,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Id);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Name,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Name);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Description,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Description);
+                    }
+                )
+                .ForMember(
+                    dest => dest.DateCreated,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.DateCreated);
+                    }
+                )
+                .ForMember(
+                    dest => dest.NumberOfMembers,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Memberships.ToArray().Length);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Location,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Location);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Image,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Image);
+                    }
+                );
         }
     }
 }
