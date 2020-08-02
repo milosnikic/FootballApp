@@ -12,6 +12,10 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  // TODO: Change logic to fetch groups and users
+  //       do filter serach on server side (order by date, take 5)
+  //       and display loading icon if its loading
+  //       and add search page with all searched items
   allUsers: User[] = [];
   filteredUsers$: Observable<User[]>;
   userControl = new FormControl();
