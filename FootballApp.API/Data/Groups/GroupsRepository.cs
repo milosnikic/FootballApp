@@ -28,14 +28,6 @@ namespace FootballApp.API.Data.Groups
         }
         public async Task<IEnumerable<Membership>> GetGroupsForUser(int userId)
         {
-            // var memberships = await DataContext.Memberships.Where(m => m.UserId == userId).Select(m => m.GroupId).ToListAsync();
-
-            // var groups = new List<Group>();
-            // foreach (var groupId in memberships)
-            // {
-            //     var group = await DataContext.Groups.Include(g => g.Memberships).ThenInclude(m => m.User).Include(g => g.Location).FirstOrDefaultAsync(g => g.Id == groupId);
-            //     groups.Add(group);
-            // }
             var groups = await DataContext.Memberships
                                           .Where(m => m.UserId == userId)
                                           .Include(m => m.Group)

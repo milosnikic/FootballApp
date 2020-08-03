@@ -133,7 +133,34 @@ namespace FootballApp.API.Controllers
         [Route("created")]
         public async Task<IActionResult> GetAllCreatedGroups(int userId)
         {
+
+            // TODO: Implement these
             return Ok();
         }
+
+        [HttpPost]
+        [Route("leave/{groupId}")]
+        public async Task<IActionResult> LeaveGroup(int groupId, int userId)
+        {
+            // TODO: Implement these
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("request-join/{groupId}")]
+        public async Task<IActionResult> RequestJoinGroup(int groupId, int userId)
+        {
+            // TODO: Implement these
+            return Ok();
+        }
+        
+        [HttpPost]
+        [Route("favorite/{groupId}")]
+        public async Task<IActionResult> MakeFavoriteGroup(int groupId, int userId)
+        {
+            // TODO: Implement these
+            return Ok();
+        }
+
     }
 }

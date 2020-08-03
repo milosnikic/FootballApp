@@ -48,7 +48,7 @@ namespace FootballApp.API.Helpers
                     dest => dest.NumberOfMembers,
                     opt => 
                     {
-                        opt.MapFrom(src => src.Memberships.ToArray().Length);
+                        opt.MapFrom(src => src.Memberships.Where(m => m.MembershipStatus == MembershipStatus.Accepted).ToArray().Length);
                     }
                 );
             CreateMap<Photo, PhotoToReturnDto>();
