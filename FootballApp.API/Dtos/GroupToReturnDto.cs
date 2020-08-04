@@ -14,9 +14,5 @@ namespace FootballApp.API.Dtos
         public MembershipStatus MembershipStatus { get; set; }
         public LocationToReturnDto Location { get; set; }
         public byte[] Image { get; set; }
-        public GroupToReturnDto()
-        {
-            Favorite = true;
-        }
     }
 }

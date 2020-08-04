@@ -12,7 +12,7 @@
         <th>Description</th>
         <th>Date Created</th>
         <th>Location</th>
-        <th *ngIf="mode === GroupStatus.Accepted"></th>
+        <th *ngIf="mode === MembershipStatus.Accepted"></th>
         <th>Number of members</th>
         <th></th>
       </tr>
@@ -28,22 +28,36 @@
         <td>{{ group?.name }}</td>
         <td>{{ group?.description }}</td>
         <td>{{ group?.dateCreated | date }}</td>
-        <td>Jelovac, Serbia - Belgrade</td>
         <td>
-          <i
-            *ngIf="group?.favorite && group?.membershipStatus === GroupStatus.Accepted"
-            class="fas fa-heart fa-lg"
-            style="color: red;"
-          ></i>
-          <i
-          *ngIf="!group?.favorite && group?.membershipStatus === GroupStatus.Accepted"
-           class="far fa-heart fa-lg"></i>
+          {{ group?.location?.name }} | {{ group?.location?.country }},
+          {{ group?.location?.city }}
+        </td>
+        <td *ngIf="mode === MembershipStatus.Accepted">
+          <span
+            *ngIf="group?.membershipStatus === MembershipStatus.Accepted"
+            matTooltip="{{
+              !group?.favorite ? 'Make favorite! 💕' : 'Make unfavorite! 💔'
+            }}"
+            (click)="
+              !group?.favorite
+                ? makeFavorite(group.id)
+                : makeUnfavorite(group.id)
+            "
+            matTooltipPosition="above"
+          >
+            <span *ngIf="group?.favorite">
+              <i class="fas fa-heart fa-lg" style="color: red;"></i>
+            </span>
+            <span *ngIf="!group?.favorite">
+              <i class="far fa-heart fa-lg"></i>
+            </span>
+          </span>
         </td>
         <td><i class="fa fa-users mr-4"></i>{{ group?.numberOfMembers }}</td>
         <td style="text-align: right;">
           <button
             style="cursor: not-allowed;"
-            *ngIf="group?.membershipStatus === GroupStatus.Accepted"
+            *ngIf="group?.membershipStatus === MembershipStatus.Accepted"
             class="btn btn-outline-success"
             disabled
           >
@@ -51,20 +65,21 @@
             Already member
           </button>
           <button
-            *ngIf="group?.membershipStatus === GroupStatus.Accepted"
+            *ngIf="group?.membershipStatus === MembershipStatus.Accepted"
             class="ml-2 btn btn-outline-danger"
           >
             <i class="fas fa-times" style="color: red;"></i>
           </button>
           <button
-            *ngIf="group?.membershipStatus === GroupStatus.Sent"
+            *ngIf="group?.membershipStatus === MembershipStatus.Sent"
             class="ml-2 btn btn-outline-secondary"
           >
             Request already sent
           </button>
           <button
-            *ngIf="mode === GroupStatus.NotMember"
+            *ngIf="group?.membershipStatus === MembershipStatus.NotMember"
             class="btn btn-primary"
+            (click)="requestToJoin(group.id)"
           >
             <i class="fas fa-plus"></i> Ask to join
           </button>

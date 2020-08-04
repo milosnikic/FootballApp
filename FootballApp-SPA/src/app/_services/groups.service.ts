@@ -25,26 +25,47 @@ export class GroupsService {
   }
 
   getAllGroups(userId: number) {
-    return this.http.get(this.baseUrl + '/all' + `?userid=${userId}`).subscribe(
-      (res: Group[]) => {
+    return this.http
+      .get(this.baseUrl + '/all' + `?userid=${userId}`)
+      .subscribe((res: Group[]) => {
         this.allGroups.next(res);
-      }
-    );
+      });
   }
 
   getUsersGroups(userId: number) {
-    return this.http.get(this.baseUrl + `?userId=${userId}`).subscribe(
-      (res: any) => {
+    return this.http
+      .get(this.baseUrl + `?userId=${userId}`)
+      .subscribe((res: any) => {
         this.usersGroups.next(res);
-      }
-    );
+      });
   }
 
   getUsersCreatedGroups(userId: number) {
-    return this.http.get(this.baseUrl + '/created' + `?userId=${userId}`).subscribe(
-      (res: any) => {
+    return this.http
+      .get(this.baseUrl + '/created' + `?userId=${userId}`)
+      .subscribe((res: any) => {
         this.usersCreatedGroups.next(res);
-      }
-    )
+      });
+  }
+
+  requestToJoin(userId: number, groupId: number) {
+    return this.http.post(
+      this.baseUrl + `/request-join/${groupId}` + `?userId=${userId}`,
+      {}
+    );
+  }
+
+  makeFavorite(userId: number, groupId: number) {
+    return this.http.post(
+      this.baseUrl + `/favorite/${groupId}` + `?userId=${userId}`,
+      {}
+    );
+  }
+
+  makeUnfavorite(userId: number, groupId: number, favorite: boolean) {
+    return this.http.post(
+      this.baseUrl + `/favorite/${groupId}` + `?userId=${userId}&favorite=${favorite}`,
+      {}
+    );
   }
 }

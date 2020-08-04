@@ -1,11 +1,12 @@
-import { GroupStatus } from './GroupStatus.enum';
+import { MembershipStatus } from './MembershipStatus.enum';
+
 export interface Group {
     id: number;
     name: string;
     description: string;
     numberOfMembers: number;
     dateCreated: Date;
-    membershipStatus: GroupStatus;
+    membershipStatus: MembershipStatus;
     favorite: boolean;
     location: any;
     image: string;

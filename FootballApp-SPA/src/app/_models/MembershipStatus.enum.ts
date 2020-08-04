@@ -1,4 +1,4 @@
-export enum GroupStatus {
+export enum MembershipStatus {
     NotMember,
     Sent,
     Accepted

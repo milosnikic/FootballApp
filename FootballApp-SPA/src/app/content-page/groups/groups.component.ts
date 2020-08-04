@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Group } from 'src/app/_models/group';
 import { filter, first } from 'rxjs/operators';
 import { LocalStorageService } from 'src/app/_services/local-storage.service';
-import { GroupStatus } from 'src/app/_models/GroupStatus.enum';
+import { MembershipStatus } from 'src/app/_models/MembershipStatus.enum';
 
 @Component({
   selector: "app-groups",
@@ -18,7 +18,7 @@ export class GroupsComponent implements OnInit {
   userId: number;
   titleToDisplay: string;
   @ViewChild('tabs', {static : true}) tabs: MatTabGroup;
-  GroupStatus = GroupStatus;
+  MembershipStatus = MembershipStatus;
 
   allGroups$: Observable<Group[]>;
   usersGroups$: Observable<Group[]>;

@@ -17,10 +17,12 @@ namespace FootballApp.API.Data.Groups
         {
             var groups = await DataContext.Groups
                                           .Where(g => g.Memberships.FirstOrDefault(m => m.UserId == userId 
-                                                                                    && g.Id == m.GroupId 
-                                                                                    && (m.MembershipStatus == MembershipStatus.Accepted
+                                                                                     && g.Id == m.GroupId 
+                                                                                     && (m.MembershipStatus == MembershipStatus.Accepted
                                                                                         || m.MembershipStatus == MembershipStatus.Sent)) == null)
                                           .Include(g => g.Location)
+                                          .ThenInclude(l => l.Country)
+                                          .Include(g => g.Location.City)
                                           .Include(g => g.Memberships)
                                           .ToListAsync();
 
@@ -32,6 +34,9 @@ namespace FootballApp.API.Data.Groups
                                           .Where(m => m.UserId == userId)
                                           .Include(m => m.Group)
                                           .ThenInclude(g => g.Memberships)
+                                          .Include(m => m.Group.Location)
+                                          .ThenInclude(l => l.City)
+                                          .ThenInclude(l => l.Country)
                                           .ToListAsync();
 
             return groups;

@@ -142,24 +142,100 @@ namespace FootballApp.API.Controllers
         [Route("leave/{groupId}")]
         public async Task<IActionResult> LeaveGroup(int groupId, int userId)
         {
-            // TODO: Implement these
-            return Ok();
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var membership = await _unitOfWork.Memberships.GetMembershipById(userId, groupId);
+            if (membership == null)
+            {
+                return BadRequest("Specified membership doesn't exist!");
+            }
+
+            _unitOfWork.Memberships.Remove(membership);
+
+            return Ok(new KeyValuePair<bool, string>(true, "Successfully removed membership!"));
         }
 
         [HttpPost]
         [Route("request-join/{groupId}")]
         public async Task<IActionResult> RequestJoinGroup(int groupId, int userId)
         {
-            // TODO: Implement these
-            return Ok();
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var group = await _unitOfWork.Groups.GetById(groupId);
+            if (group == null)
+            {
+                return BadRequest("Specified group doesn't exist!");
+            }
+
+            var user = await _unitOfWork.Users.GetById(userId);
+            if (user == null)
+            {
+                return BadRequest("Specified user doesn't exist!");
+            }
+
+            var membership = new Membership
+            {
+                Favorite = false,
+                Group = group,
+                GroupId = group.Id,
+                MembershipStatus = MembershipStatus.Sent,
+                User = user,
+                UserId = user.Id,
+            };
+
+
+
+            _unitOfWork.Memberships.Add(membership);
+
+            if (await _unitOfWork.Complete())
+            {
+                return Ok(new KeyValuePair<bool, string>(true, "Request successfully sent!"));
+            }
+
+            return Ok(new KeyValuePair<bool, string>(false, "Request not sent!"));
         }
-        
+
+        /// <summary>
+        /// Method is used to make group favorite or unfavorite 🙂
+        /// </summary>
+        /// <param name="groupId">Id of group to get favorite or unfavorite</param>
+        /// <param name="userId">User id</param>
+        /// <param name="like">Indicator if group should be favorite or unfavorite</param>
+        /// <returns>Result of favoriting operation</returns>
         [HttpPost]
         [Route("favorite/{groupId}")]
-        public async Task<IActionResult> MakeFavoriteGroup(int groupId, int userId)
+        public async Task<IActionResult> MakeFavoriteGroup(int groupId, int userId, bool favorite = true)
         {
-            // TODO: Implement these
-            return Ok();
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var group = await _unitOfWork.Groups.GetById(groupId);
+            if (group == null)
+            {
+                return BadRequest("Specified group doesn't exist!");
+            }
+
+            var user = await _unitOfWork.Users.GetById(userId);
+            if (user == null)
+            {
+                return BadRequest("Specified user doesn't exist!");
+            }
+
+            var membership = await _unitOfWork.Memberships.GetMembershipById(userId, groupId);
+            if (membership == null)
+            {
+                return BadRequest("Specified membership doesn't exist!");
+            }
+
+            membership.Favorite = favorite;
+            if (await _unitOfWork.Complete())
+            {
+                return Ok(new KeyValuePair<bool, string>(true, "Successfully changed status!"));
+            }
+
+            return Ok(new KeyValuePair<bool, string>(false, "Error changing status!"));
         }
 
     }

@@ -159,7 +159,7 @@ namespace FootballApp.API.Helpers
                     dest => dest.NumberOfMembers,
                     opt => 
                     {
-                        opt.MapFrom(src => src.Group.Memberships.ToArray().Length);
+                        opt.MapFrom(src => src.Group.Memberships.Where(m => m.MembershipStatus == MembershipStatus.Accepted).ToArray().Length);
                     }
                 )
                 .ForMember(
