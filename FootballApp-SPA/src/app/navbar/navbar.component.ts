@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../_services/user.service';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,11 @@ export class NavbarComponent implements OnInit {
   user: User;
   @ViewChild('searchBox', { static: true }) searchBox: ElementRef;
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private authService: AuthService
+  ) {
     this.filteredUsers$ = this.userControl.valueChanges.pipe(
       startWith('.'),
       map((firstname) =>
@@ -50,6 +55,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     localStorage.clear();
+    this.authService.resetUser();
     this.router.navigate(['']);
   }
 
@@ -65,6 +71,6 @@ export class NavbarComponent implements OnInit {
   }
 
   goToProfile(id: number) {
-      this.router.navigate(['app/users/', id]);
+    this.router.navigate(['app/users/', id]);
   }
 }

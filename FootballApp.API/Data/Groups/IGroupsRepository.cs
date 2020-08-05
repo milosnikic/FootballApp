@@ -9,5 +9,6 @@ namespace FootballApp.API.Data.Groups
         Task<IEnumerable<Membership>> GetGroupsForUser(int userId);
         Task<ICollection<Membership>> GetFavoriteGroupsForUser(int userId);
         Task<ICollection<Group>> GetAllGroupsWithInclude(int userId);
+        Task<ICollection<Membership>> GetCreatedGroupsForUser(PowerUser powerUser);
     }
 }

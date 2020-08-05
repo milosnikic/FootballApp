@@ -36,7 +36,16 @@ namespace FootballApp.API.Controllers
             if (await _unitOfWork.Auths.UserExists(userForRegisterDto.Username))
                 return BadRequest("User with specified username already exists");
 
-            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+            var city = await _unitOfWork.Cities.GetById(userForRegisterDto.City);
+            var country = await _unitOfWork.Countries.GetById(userForRegisterDto.Country);
+            if(city == null || country == null)
+            {
+                return BadRequest("Invalid city or country specified");
+            }
+            
+            var userToCreate = _mapper.Map<CommonUser>(userForRegisterDto);
+            userToCreate.Country = country;
+            userToCreate.City = city;
 
             var createdUser = await _unitOfWork.Auths.Register(userToCreate, userForRegisterDto.Password);
             if(!await _unitOfWork.Complete())

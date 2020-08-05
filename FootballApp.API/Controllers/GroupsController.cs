@@ -65,11 +65,11 @@ namespace FootballApp.API.Controllers
 
         [HttpGet]
         [Route("favorite")]
-        public async Task<IActionResult> GetFavoriteGroupsForUser(int userId) 
+        public async Task<IActionResult> GetFavoriteGroupsForUser(int userId)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
-            
+
             var groups = await _unitOfWork.Groups.GetFavoriteGroupsForUser(userId);
 
             var groupsToReturn = _mapper.Map<ICollection<GroupToReturnDto>>(groups);
@@ -86,6 +86,17 @@ namespace FootballApp.API.Controllers
             // Groups and User relationship is based on Membership so
             // when we add group we need to add new Membership with desired user
             var user = await _unitOfWork.Users.GetById(userId);
+            if (user == null)
+            {
+                return BadRequest("User doesn't exist!");
+            }
+
+            if (!(user is PowerUser))
+            {
+                return Unauthorized();
+            }
+
+            PowerUser powerUser = (PowerUser)user;
             var groupToAdd = _mapper.Map<Group>(group);
 
             if (group.Image != null)
@@ -115,7 +126,10 @@ namespace FootballApp.API.Controllers
                 _unitOfWork.Locations.Add(location);
             }
 
+            groupToAdd.CreatedBy = powerUser;
             groupToAdd.Location = location;
+
+            powerUser.NumberOfGroupsCreated += 1;
             _unitOfWork.Groups.Add(groupToAdd);
 
             if (!await _unitOfWork.Complete())
@@ -123,7 +137,7 @@ namespace FootballApp.API.Controllers
                 return BadRequest(new KeyValuePair<bool, string>(false, "Couldn't create group"));
             }
 
-            var membership = new Membership { UserId = user.Id, GroupId = groupToAdd.Id, DateSent = DateTime.Now, Role = Role.Owner, Accepted = true, DateAccepted = DateTime.Now, User = user, Group = groupToAdd, MembershipStatus = MembershipStatus.Accepted };
+            var membership = new Membership { UserId = powerUser.Id, GroupId = groupToAdd.Id, DateSent = DateTime.Now, Role = Role.Owner, Accepted = true, DateAccepted = DateTime.Now, User = powerUser, Group = groupToAdd, MembershipStatus = MembershipStatus.Accepted };
             _unitOfWork.Memberships.Add(membership);
 
             if (await _unitOfWork.Complete())
@@ -147,9 +161,18 @@ namespace FootballApp.API.Controllers
         [Route("created")]
         public async Task<IActionResult> GetAllCreatedGroups(int userId)
         {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
 
-            // TODO: Implement these
-            return Ok();
+            var user = await _unitOfWork.Users.GetUserByIdWithAdditionalInformation(userId);
+            if(!(user is PowerUser))
+            {
+                return BadRequest("You are not power user!");
+            }
+            
+            PowerUser powerUser = (PowerUser) user;
+            var createdGroups = await _unitOfWork.Groups.GetCreatedGroupsForUser(powerUser);
+            return Ok(_mapper.Map<ICollection<GroupToReturnDto>>(createdGroups));
         }
 
         [HttpPost]

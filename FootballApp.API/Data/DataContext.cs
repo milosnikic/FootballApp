@@ -18,6 +18,8 @@ namespace FootballApp.API.Data
         public DbSet<Achievement> Achievements { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<PowerUser> PowerUsers { get; set; }
+        public DbSet<CommonUser> CommonUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -95,7 +97,7 @@ namespace FootballApp.API.Data
             // Groups fluent api
             modelBuilder.Entity<Group>()
                 .HasOne(g => g.CreatedBy)
-                .WithMany(u => u.GroupsCreated)
+                .WithMany(pu => pu.GroupsCreated)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // City fluent api
@@ -109,6 +111,10 @@ namespace FootballApp.API.Data
                 .HasMany(c => c.Users)
                 .WithOne(u => u.Country)
                 .OnDelete(DeleteBehavior.Restrict);
+ 
+            // User inheritance implemented
+            modelBuilder.Entity<CommonUser>().ToTable("CommonUsers");
+            modelBuilder.Entity<PowerUser>().ToTable("PowerUsers");
         }
     }
 }

@@ -16,7 +16,20 @@ namespace FootballApp.API.Data.Users
 
         public async Task<User> GetUserByIdWithAdditionalInformation(int id)
         {
-            return await DataContext.Users
+            var user = await DataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+            
+            if(user != null && user is PowerUser)
+            {
+                return await DataContext.PowerUsers
+                                    .Include(u => u.Memberships)
+                                    .Include(u => u.Photos)
+                                    .Include(u => u.City)
+                                    .Include(u => u.Country)
+                                    .Include(u => u.GroupsCreated)
+                                    .FirstOrDefaultAsync(u => u.Id == id);
+            }
+
+            return await DataContext.CommonUsers
                                     .Include(u => u.Memberships)
                                     .Include(u => u.Photos)
                                     .Include(u => u.City)

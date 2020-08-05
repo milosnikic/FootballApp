@@ -9,7 +9,15 @@ namespace FootballApp.API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<UserForRegisterDto, User>();
+            CreateMap<UserForRegisterDto, CommonUser>()
+                .ForMember(
+                    dest => dest.City,
+                    opt => opt.Ignore()
+                )
+                .ForMember(
+                    dest => dest.Country,
+                    opt => opt.Ignore()
+                );
             CreateMap<User, UserToReturnDto>()
                 .ForMember(
                     dest => dest.Age,
@@ -36,6 +44,27 @@ namespace FootballApp.API.Helpers
                     opt => 
                     {
                         opt.MapFrom(src => src.Country.Name);
+                    }
+                )
+                .ForMember(
+                    dest => dest.IsPowerUser,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src is PowerUser);
+                    }
+                )
+                .ForMember(
+                    dest => dest.NumberOfGroupsCreated,
+                    opt =>
+                    {
+                        opt.MapFrom(src => src is PowerUser ? (src as PowerUser).NumberOfGroupsCreated : -1);
+                    }
+                )
+                .ForMember(
+                    dest => dest.GroupsCreated,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src is PowerUser ? (src as PowerUser).GroupsCreated : null);
                     }
                 );
             CreateMap<GroupForCreationDto, Group>()

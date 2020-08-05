@@ -19,11 +19,11 @@ namespace FootballApp.API.Dtos
         [Required]
         public string Lastname { get; set; }
         [Required]
-        public string City { get; set; }
+        public int City { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
-        public string Country { get; set; }
+        public int Country { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime Created { get; set; }
         public DateTime? LastActive { get; set; }

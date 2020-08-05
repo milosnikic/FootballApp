@@ -18,4 +18,6 @@ export class User {
     mainPhoto?: Photo;
     photos?: Photo[];
     groups?: Group[];
+    isPowerUser: boolean;
+    numberOfGroupsCreated: number;
 }

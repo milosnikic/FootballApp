@@ -18,12 +18,12 @@
                     </ng-template>
                     <app-groups-list [groups]="usersGroups$ | async" [mode]="MembershipStatus.Accepted"></app-groups-list>
                 </mat-tab>
-                <mat-tab>
+                <mat-tab *ngIf="user?.isPowerUser">
                     <ng-template mat-tab-label>
                         Groups you created
                         <i class="fas fa-save ml-2"></i>
                     </ng-template>
-                    <app-groups-list [groups]="usersCreatedGroups$ | async"></app-groups-list>
+                    <app-groups-list [groups]="usersCreatedGroups$ | async" [mode]="MembershipStatus.Accepted"></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
@@ -32,7 +32,7 @@
                     </ng-template>
                     <app-groups-list [groups]="usersFavoriteGroups$ | async" [mode]="MembershipStatus.Accepted"></app-groups-list>
                 </mat-tab>
-                <mat-tab>
+                <mat-tab *ngIf="user?.isPowerUser">
                     <ng-template mat-tab-label>
                         Create group
                         <i class="fas fa-plus-circle ml-2"></i>

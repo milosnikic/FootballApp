@@ -85,16 +85,16 @@ namespace FootballApp.API.Data
             {
                 var users = new List<User>
                             {
-                                new User { Username = "milos", Firstname = "Milos", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
+                                new PowerUser { Username = "milos", Firstname = "Milos", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
                                            Email = "milos.nikic@gmail.com", DateOfBirth = new DateTime(1996,12,31), Created = DateTime.Now, IsActive = true,
                                            Gender = Gender.Male, LastActive = null},
-                                new User { Username = "darko", Firstname = "Darko", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
+                                new PowerUser { Username = "darko", Firstname = "Darko", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
                                            Email = "darko.nikic@gmail.com", DateOfBirth = new DateTime(1981,12,05), Created = DateTime.Now, IsActive = true,
                                            Gender = Gender.Male, LastActive = null},
-                                new User { Username = "milutin", Firstname = "Milutin", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
+                                new PowerUser { Username = "milutin", Firstname = "Milutin", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
                                            Email = "milutin.nikic@gmail.com", DateOfBirth = new DateTime(1956,1,1), Created = DateTime.Now, IsActive = true,
                                            Gender = Gender.Male, LastActive = null},
-                                new User { Username = "snezana", Firstname = "Snezana", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
+                                new CommonUser { Username = "snezana", Firstname = "Snezana", Lastname = "Nikic", City = _context.Cities.FirstOrDefault(c => c.Name == "Belgrade"), Country = _context.Countries.FirstOrDefault(c => c.Name == "Serbia"),
                                            Email = "snezana.nikic@gmail.com", DateOfBirth = new DateTime(1986,3,10), Created = DateTime.Now, IsActive = true,
                                            Gender = Gender.Female, LastActive = null},
                             };

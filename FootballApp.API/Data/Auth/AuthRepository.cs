@@ -23,8 +23,10 @@ namespace FootballApp.API.Data
 
             if (user == null)
                 return null;
+
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
+
             return user;
         }
 
@@ -44,7 +46,7 @@ namespace FootballApp.API.Data
             return true;
         }
 
-        public async Task<User> Register(User user, string password)
+        public async Task<User> Register(CommonUser user, string password)
         {
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);

@@ -106,6 +106,7 @@ namespace FootballApp.API.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("all-countries")]
         public async Task<IActionResult> GetAllCountriesWithCities()
         {
@@ -114,6 +115,7 @@ namespace FootballApp.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("country-cities/{id}")]
         public async Task<IActionResult> GetAllCitiesForCountry(int id)
         {

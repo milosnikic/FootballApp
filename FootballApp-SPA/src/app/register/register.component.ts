@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotifyService } from '../_services/notify.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../_services/local-storage.service';
+import { City } from '../_models/city';
+import { Country } from '../_models/country';
+import { LocationsService } from '../_services/locations.service';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +15,8 @@ import { LocalStorageService } from '../_services/local-storage.service';
 })
 export class RegisterComponent implements OnInit {
 
+  cities: City[];
+  countries: Country[];
   state = 1;
   // 0 if register
   // 1 if login
@@ -23,10 +28,20 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private notifyService: NotifyService,
     private router: Router,
+    private locationService: LocationsService,
     private localStorage: LocalStorageService) { }
 
   ngOnInit() {
     this.buildForms();
+    this.locationService.getAllCountries().subscribe(
+      (res: Country[]) => {
+        this.countries = res;
+        this.getCitiesForCountry(res[0].id);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   buildForms() {
@@ -86,9 +101,21 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/app/dashboard']);
         this.localStorage.set('token', res.token);
         this.localStorage.set('user', JSON.stringify(res.user));
+        this.authService.setUser(res.user);
       },
       err => {
         this.notifyService.showError();
+      }
+    );
+  }
+  
+  getCitiesForCountry(id: number) {
+    this.locationService.getAllCitiesForCountry(id).subscribe(
+      (res: City[]) => {
+        this.cities = res;
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }

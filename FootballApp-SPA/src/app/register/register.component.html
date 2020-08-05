@@ -3,7 +3,7 @@
     <div class="col-md-9 pt-5 text-center">
       <h1 class="vertical">Welcome to our football app</h1>
       <h3 class="text-muted">
-        <a  class="text-decoration-none register-link" (click)="changeState(0)"
+        <a class="text-decoration-none register-link" (click)="changeState(0)"
           >Register</a
         >
         for free!
@@ -17,10 +17,7 @@
     </div>
     <div *ngIf="state == 0; else loginTemplate" class="col-md-3 mt-5">
       <h2 class="text-center">Register here!</h2>
-      <form
-        class="register-form"
-        [formGroup]="registerForm"
-      >
+      <form class="register-form" [formGroup]="registerForm">
         <div class="form-group">
           <label>Username</label>
           <input
@@ -65,24 +62,25 @@
           />
         </div>
         <div class="form-group">
-          <label>City</label>
-          <input
-            type="text"
+          <label for="country">Choose country</label>
+          <select
+            id="country"
+            formControlName="country"
             class="form-control"
-            placeholder="Enter city"
-            name="city"
-            formControlName="city"
-          />
+            (change)="getCitiesForCountry($event.target.value)"
+          >
+            <option [value]="country.id" *ngFor="let country of countries">{{
+              country.name
+            }}</option>
+          </select>
         </div>
         <div class="form-group">
-          <label>Country</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter country"
-            name="country"
-            formControlName="country"
-          />
+          <label for="city">Choose city</label>
+          <select id="city" formControlName="city" class="form-control">
+            <option [value]="city.id" *ngFor="let city of cities">{{
+              city.name
+            }}</option>
+          </select>
         </div>
         <div class="form-group">
           <label>Email</label>
@@ -105,7 +103,7 @@
           />
         </div>
         <div class="form-group">
-          <label class="control-label" style="margin-right:10px"
+          <label class="control-label" style="margin-right: 10px;"
             >I am a:
           </label>
           <label class="radio-inline">
@@ -129,7 +127,9 @@
         </div>
         <div class="text-center">
           <button
-            [ngStyle]="{'cursor': !registerForm.valid ? 'not-allowed' : 'pointer'}"
+            [ngStyle]="{
+              cursor: !registerForm.valid ? 'not-allowed' : 'pointer'
+            }"
             [disabled]="!registerForm.valid"
             type="submit"
             class="btn btn-primary"
@@ -137,9 +137,6 @@
           >
             Register
           </button>
-        </div>
-        <div>
-          {{registerForm.valid }}
         </div>
       </form>
     </div>
@@ -172,7 +169,9 @@
           </div>
           <div class="text-center">
             <button
-              [ngStyle]="{'cursor': !loginForm.valid ? 'not-allowed' : 'pointer'}"
+              [ngStyle]="{
+                cursor: !loginForm.valid ? 'not-allowed' : 'pointer'
+              }"
               [disabled]="!loginForm.valid"
               type="submit"
               class="btn btn-success"

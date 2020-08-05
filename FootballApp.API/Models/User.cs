@@ -9,7 +9,7 @@ namespace FootballApp.API.Models
         Female,
         Other
     }
-    public class User
+    public abstract class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -35,6 +35,6 @@ namespace FootballApp.API.Models
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Comment> Commented { get; set; }
         public ICollection<GainedAchievement> GainedAchievements { get; set; }
-        public ICollection<Group> GroupsCreated { get; set; }
+
     }
 }

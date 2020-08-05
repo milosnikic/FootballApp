@@ -56,6 +56,19 @@ namespace FootballApp.API.Data.Groups
             return groups;
         }
 
+        public async Task<ICollection<Membership>> GetCreatedGroupsForUser(PowerUser powerUser)
+        {
+            var groups = await DataContext.Memberships
+                                          .Where(m => m.UserId == powerUser.Id && m.Role == Role.Owner)
+                                          .Include(m => m.Group)
+                                          .ThenInclude(g => g.Memberships)
+                                          .Include(m => m.Group.Location)
+                                          .ThenInclude(l => l.City)
+                                          .ThenInclude(l => l.Country)
+                                          .ToListAsync();
+            return groups;
+        }
+
         public DataContext DataContext
         {
             get { return Context as DataContext; } 
