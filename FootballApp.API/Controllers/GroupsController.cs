@@ -152,8 +152,12 @@ namespace FootballApp.API.Controllers
             }
 
             _unitOfWork.Memberships.Remove(membership);
+            if (await _unitOfWork.Complete())
+            {
+                return Ok(new KeyValuePair<bool, string>(true, "Successfully left group!"));
+            }
 
-            return Ok(new KeyValuePair<bool, string>(true, "Successfully removed membership!"));
+            return Ok(new KeyValuePair<bool, string>(false, "Error leaving group!"));
         }
 
         [HttpPost]

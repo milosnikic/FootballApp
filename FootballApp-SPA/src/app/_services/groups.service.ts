@@ -64,7 +64,16 @@ export class GroupsService {
 
   makeUnfavorite(userId: number, groupId: number, favorite: boolean) {
     return this.http.post(
-      this.baseUrl + `/favorite/${groupId}` + `?userId=${userId}&favorite=${favorite}`,
+      this.baseUrl +
+        `/favorite/${groupId}` +
+        `?userId=${userId}&favorite=${favorite}`,
+      {}
+    );
+  }
+
+  leaveGroup(userId: number, groupId: number) {
+    return this.http.post(
+      this.baseUrl + `/leave/${groupId}` + `?userId=${userId}`,
       {}
     );
   }

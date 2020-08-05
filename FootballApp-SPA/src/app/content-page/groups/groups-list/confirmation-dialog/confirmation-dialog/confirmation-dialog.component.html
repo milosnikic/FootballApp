@@ -1,0 +1,10 @@
+<h1 mat-dialog-title class="text-center">Warning!</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to <strong>leave</strong> group?</p>
+</div>
+<div mat-dialog-actions>
+  <div class="row">
+      <button class="btn btn-outline-secondary mr-4 ml-4" (click)="onNoClick()">No Thanks</button>
+      <button class="btn btn-lg btn-danger float-right mr-4 ml-4" (click)="onYesClick()" cdkFocusInitial>Leave</button>
+  </div>
+</div>

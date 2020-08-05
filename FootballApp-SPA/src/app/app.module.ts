@@ -18,7 +18,14 @@ import { UserProfileComponent } from './content-page/user-detail/user-profile/us
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatTabsModule, MatCardModule, MatAutocompleteModule, MatFormFieldModule, MatTooltipModule} from '@angular/material';
+import {
+  MatTabsModule,
+  MatCardModule,
+  MatAutocompleteModule,
+  MatFormFieldModule,
+  MatTooltipModule,
+  MatDialogModule,
+} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,74 +43,74 @@ import { GroupsComponent } from './content-page/groups/groups.component';
 import { UserDetailComponent } from './content-page/user-detail/user-detail.component';
 import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
-
+import { ConfirmationDialogComponent } from './content-page/groups/groups-list/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      RegisterComponent,
-      DashboardComponent,
-      NavbarComponent,
-      SidebarComponent,
-      ContentPageComponent,
-      GroupsComponent,
-      GroupsListComponent,
-      CreateGroupComponent,
-      UserDetailComponent,
-      UserProfileComponent,
-      UserLatestMatchesComponent,
-      UserStatisticsComponent,
-      UserCommentsComponent,
-      UserSettingsComponent,
-      UserPhotosComponent,
-      FriendsComponent,
-      MessagesComponent,
-      MessagesListUsersComponent,
-      MessagesDisplayContentComponent,
-      AvailableMatchesComponent,
-      MatchHistoryComponent,
-      FriendsListComponent,
-      FriendDetailComponent,
-      SetActiveDirective,
-      TimeAgoPipe
-   ],
-   imports: [
-      HttpClientModule,
-      BrowserModule,
-      BrowserAnimationsModule,
-      MatTabsModule,
-      MatCardModule,
-      MatAutocompleteModule,
-      MatFormFieldModule,
-      MatTooltipModule,
-      FormsModule,
-      NgCircleProgressModule.forRoot({
-         // set defaults here
-         radius: 100,
-         outerStrokeWidth: 16,
-         innerStrokeWidth: 8,
-         outerStrokeColor: "#78C000",
-         innerStrokeColor: "#C7E596",
-         animationDuration: 300,
-       }),
-       ReactiveFormsModule,
-       ToastrModule.forRoot({
-         positionClass: 'toast-bottom-left',
-         preventDuplicates: true,
-       }),
-       AppRoutingModule
-   ],
-   providers: [
-      AuthService,
-      {
-         provide: HTTP_INTERCEPTORS,
-         useClass: TokenInterceptor,
-         multi: true
-       }
-
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    RegisterComponent,
+    DashboardComponent,
+    NavbarComponent,
+    SidebarComponent,
+    ContentPageComponent,
+    GroupsComponent,
+    GroupsListComponent,
+    CreateGroupComponent,
+    UserDetailComponent,
+    UserProfileComponent,
+    UserLatestMatchesComponent,
+    UserStatisticsComponent,
+    UserCommentsComponent,
+    UserSettingsComponent,
+    UserPhotosComponent,
+    FriendsComponent,
+    MessagesComponent,
+    MessagesListUsersComponent,
+    MessagesDisplayContentComponent,
+    AvailableMatchesComponent,
+    MatchHistoryComponent,
+    FriendsListComponent,
+    FriendDetailComponent,
+    ConfirmationDialogComponent,
+    SetActiveDirective,
+    TimeAgoPipe,
+  ],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
+    MatCardModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatTooltipModule,
+    MatDialogModule,
+    FormsModule,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: '#78C000',
+      innerStrokeColor: '#C7E596',
+      animationDuration: 300,
+    }),
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+    }),
+    AppRoutingModule,
+  ],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
+  entryComponents: [ConfirmationDialogComponent],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

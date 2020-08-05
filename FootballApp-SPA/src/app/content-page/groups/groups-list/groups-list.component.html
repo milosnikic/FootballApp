@@ -45,7 +45,9 @@
             "
             matTooltipPosition="above"
           >
-            <span *ngIf="group?.favorite">
+            <span *ngIf="group?.favorite"
+            class="favorite"
+            >
               <i class="fas fa-heart fa-lg" style="color: red;"></i>
             </span>
             <span *ngIf="!group?.favorite">
@@ -67,6 +69,7 @@
           <button
             *ngIf="group?.membershipStatus === MembershipStatus.Accepted"
             class="ml-2 btn btn-outline-danger"
+            (click)="openDialog(group.id)"
           >
             <i class="fas fa-times" style="color: red;"></i>
           </button>

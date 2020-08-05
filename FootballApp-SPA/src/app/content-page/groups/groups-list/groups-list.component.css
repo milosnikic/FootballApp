@@ -29,3 +29,8 @@ td>img {
   width: 35px;
   height: 35px;
 }
+
+.favorite:hover {
+  opacity: 40%;
+  transition: ease-out;
+}

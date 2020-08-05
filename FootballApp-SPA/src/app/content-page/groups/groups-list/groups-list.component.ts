@@ -4,6 +4,8 @@ import { MembershipStatus } from 'src/app/_models/MembershipStatus.enum';
 import { GroupsService } from 'src/app/_services/groups.service';
 import { LocalStorageService } from 'src/app/_services/local-storage.service';
 import { NotifyService } from 'src/app/_services/notify.service';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-groups-list',
@@ -19,7 +21,8 @@ export class GroupsListComponent implements OnInit {
   constructor(
     private groupService: GroupsService,
     private localStorage: LocalStorageService,
-    private notifyService: NotifyService
+    private notifyService: NotifyService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -72,5 +75,29 @@ export class GroupsListComponent implements OnInit {
         this.notifyService.showError(err);
       }
     );
+  }
+
+  openDialog(groupId: number): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.groupService.leaveGroup(this.userId, groupId).subscribe(
+          (res: any) => {
+            if (res.key) {
+              this.notifyService.showSuccess(res.value);
+              this.groups = this.groups.filter(g => g.id !== groupId);
+            } else {
+              this.notifyService.showError(res.value);
+            }
+          },
+          (err) => {
+            this.notifyService.showError(err);
+          }
+        );
+      }
+    });
   }
 }
