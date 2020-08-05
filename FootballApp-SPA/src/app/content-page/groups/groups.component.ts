@@ -23,6 +23,7 @@ export class GroupsComponent implements OnInit {
   allGroups$: Observable<Group[]>;
   usersGroups$: Observable<Group[]>;
   usersCreatedGroups$: Observable<Group[]>;
+  usersFavoriteGroups$: Observable<Group[]>;
 
   constructor(private route: ActivatedRoute,
               private groupService: GroupsService,
@@ -33,12 +34,14 @@ export class GroupsComponent implements OnInit {
     this.groupService.getAllGroups(this.userId);
     this.groupService.getUsersGroups(this.userId);
     this.groupService.getUsersCreatedGroups(this.userId);
+    this.groupService.getUsersFavoriteGroups(this.userId);
     this.route.data.subscribe((data: Data) => {
         this.titleToDisplay = data["title"];
       });
     this.allGroups$ = this.groupService.allGroups$;
     this.usersGroups$ = this.groupService.usersGroups$;
     this.usersCreatedGroups$ = this.groupService.usersCreatedGroups$;
+    this.usersFavoriteGroups$ = this.groupService.usersFavoriteGroups$;
   }
 
   changeTab(event){

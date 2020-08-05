@@ -63,6 +63,20 @@ namespace FootballApp.API.Controllers
             return Ok(groupsToReturn);
         }
 
+        [HttpGet]
+        [Route("favorite")]
+        public async Task<IActionResult> GetFavoriteGroupsForUser(int userId) 
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var groups = await _unitOfWork.Groups.GetFavoriteGroupsForUser(userId);
+
+            var groupsToReturn = _mapper.Map<ICollection<GroupToReturnDto>>(groups);
+
+            return Ok(groupsToReturn);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateGroup(int userId, [FromForm] GroupForCreationDto group)
         {

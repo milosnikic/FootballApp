@@ -30,7 +30,7 @@
                         Favorite groups
                         <i class="fas fa-heart ml-2"></i>
                     </ng-template>
-                    <app-groups-list [groups]="[]"></app-groups-list>
+                    <app-groups-list [groups]="usersFavoriteGroups$ | async" [mode]="MembershipStatus.Accepted"></app-groups-list>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>

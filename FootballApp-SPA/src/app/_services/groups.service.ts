@@ -48,6 +48,14 @@ export class GroupsService {
       });
   }
 
+  getUsersFavoriteGroups(userId: number) {
+    return this.http
+      .get(this.baseUrl + '/favorite' + `?userId=${userId}`)
+      .subscribe((res: any) => {
+        this.usersFavoriteGroups.next(res);
+      });
+  }
+
   requestToJoin(userId: number, groupId: number) {
     return this.http.post(
       this.baseUrl + `/request-join/${groupId}` + `?userId=${userId}`,

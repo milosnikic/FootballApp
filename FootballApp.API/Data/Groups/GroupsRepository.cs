@@ -42,6 +42,20 @@ namespace FootballApp.API.Data.Groups
             return groups;
         }
 
+        public async Task<ICollection<Membership>> GetFavoriteGroupsForUser(int userId)
+        {
+            var groups = await DataContext.Memberships
+                                          .Where(m => m.UserId == userId && m.Favorite)
+                                          .Include(m => m.Group)
+                                          .ThenInclude(g => g.Memberships)
+                                          .Include(m => m.Group.Location)
+                                          .ThenInclude(l => l.City)
+                                          .ThenInclude(l => l.Country)
+                                          .ToListAsync();
+
+            return groups;
+        }
+
         public DataContext DataContext
         {
             get { return Context as DataContext; } 
