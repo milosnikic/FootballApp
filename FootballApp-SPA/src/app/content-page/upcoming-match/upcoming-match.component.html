@@ -27,17 +27,39 @@
   <div class="row">
     <!-- Here should be displayed number of users and buttons -->
     <div class="col-md-4"></div>
-    <div class="col-md-4 text-center"><h4>5/12</h4></div>
+    <div class="col-md-4 text-center">
+      <h3 [ngClass]="getCapacityClass()">{{ users?.length }}/12</h3>
+    </div>
     <div class="col-md-4">
-      <button class="btn btn-outline-danger ml-4 mr-4 float-right">
+      <button
+        *ngIf="!isConfirmed && isChecked"
+        class="btn btn-outline-danger ml-4 mr-4 float-right"
+        (click)="giveUp()"
+      >
         Give up
       </button>
-      <button class="btn btn-success ml-4 mr-4 float-right">Confirm</button>
-      <button class="btn btn-warning ml-4 mr-4 float-right">Check in</button>
+      <button
+        *ngIf="isChecked"
+        class="btn btn-success ml-4 mr-4 float-right"
+        [disabled]="isConfirmed"
+        (click)="confirm()"
+      >
+        Confirm
+      </button>
+      <button
+        *ngIf="!isConfirmed && !isChecked"
+        class="btn btn-warning ml-4 mr-4 float-right"
+        (click)="checkIn()"
+      >
+        <i class="fas fa-plus"></i> Check in
+      </button>
     </div>
     <!-- Row for users -->
     <div class="col-md-12 mt-4">
-      <app-group-user-box></app-group-user-box>
+      <app-group-user-box
+        *ngFor="let user of users"
+        [user]="user"
+      ></app-group-user-box>
     </div>
   </div>
 </div>

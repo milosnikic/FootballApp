@@ -8,7 +8,7 @@ import { User } from 'src/app/_models/user';
 })
 export class GroupUserBoxComponent implements OnInit {
   @Input() user: any;
-  @Input() visitProfile: boolean = false;
+  @Input() deleteVisible: boolean = false;
   @Input() pendingRequest: boolean = false;
 
   constructor() { }
