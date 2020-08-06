@@ -27,5 +27,11 @@ namespace FootballApp.API.Data.Cities
             var cities = await DataContext.Cities.Where(c => c.CountryId == id).ToListAsync();
             return cities;
         }
+
+        public async Task<City> GetCityById(int cityId, int countryId)
+        {
+            var city = await DataContext.Cities.Where(c => c.Id == cityId && c.CountryId == countryId).FirstOrDefaultAsync();
+            return city;
+        }
     }
 }

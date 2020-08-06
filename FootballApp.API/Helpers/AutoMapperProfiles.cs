@@ -66,6 +66,13 @@ namespace FootballApp.API.Helpers
                     {
                         opt.MapFrom(src => src is PowerUser ? (src as PowerUser).GroupsCreated : null);
                     }
+                )
+                .ForMember(
+                    dest => dest.Flag,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Country.Flag);
+                    }
                 );
             CreateMap<GroupForCreationDto, Group>()
                 .ForMember(

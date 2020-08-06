@@ -42,10 +42,10 @@ namespace FootballApp.API.Data
             {
                 var countries = new List<Country>
                             {
-                                new Country { Name = "Serbia" },
-                                new Country { Name = "Bosnia and Herzegovina" },
-                                new Country { Name = "Croatia" },
-                                new Country { Name = "Montenegro" }
+                                new Country { Name = "Serbia", Flag = "../../../../assets/sr.png" },
+                                new Country { Name = "Bosnia and Herzegovina", Flag = "../../../../assets/bih.png" },
+                                new Country { Name = "Croatia", Flag = "../../../../assets/cro.png" },
+                                new Country { Name = "Montenegro", Flag = "../../../../assets/mne.png" }
                             };
                 _context.AddRange(countries);
 

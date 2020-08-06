@@ -37,9 +37,6 @@ export class RegisterComponent implements OnInit {
       (res: Country[]) => {
         this.countries = res;
         this.getCitiesForCountry(res[0].id);
-      },
-      (err) => {
-        console.log(err);
       }
     );
   }
@@ -115,7 +112,7 @@ export class RegisterComponent implements OnInit {
         this.cities = res;
       },
       (err) => {
-        console.log(err);
+        
       }
     );
   }

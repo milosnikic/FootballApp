@@ -17,6 +17,7 @@ namespace FootballApp.API.Dtos
         public string Gender { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+        public string Flag { get; set; }
         public bool IsPowerUser { get; set; }
         public int? NumberOfGroupsCreated { get; set; }
         public PhotoToReturnDto MainPhoto { get; set; }

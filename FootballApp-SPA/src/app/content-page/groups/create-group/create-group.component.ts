@@ -36,9 +36,6 @@ export class CreateGroupComponent implements OnInit {
       (res: Country[]) => {
         this.countries = res;
         this.getCitiesForCountry(res[0].id);
-      },
-      (err) => {
-        console.log(err);
       }
     );
   }
@@ -103,7 +100,7 @@ export class CreateGroupComponent implements OnInit {
         this.cities = res;
       },
       (err) => {
-        console.log(err);
+        
       }
     );
   }

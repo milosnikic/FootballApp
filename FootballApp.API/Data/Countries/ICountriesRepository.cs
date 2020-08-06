@@ -8,5 +8,6 @@ namespace FootballApp.API.Data.Countries
     {
         Task<bool> Exists(string name);
         Task<ICollection<Country>> GetAllCountriesWithCities();
+        Task<Country> GetCountryWithCities(int countryId);
     }
 }

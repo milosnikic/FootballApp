@@ -27,6 +27,14 @@ namespace FootballApp.API.Data.Countries
             return countries;
         }
 
+        public async Task<Country> GetCountryWithCities(int countryId)
+        {
+            var country = await DataContext.Countries.Include(c => c.Cities)
+                                                     .FirstOrDefaultAsync(c => c.Id == countryId);
+
+            return country;
+        }
+
         public DataContext DataContext
         {
             get

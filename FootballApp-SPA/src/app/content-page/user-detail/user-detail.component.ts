@@ -45,9 +45,6 @@ export class UserDetailComponent implements OnInit{
       this.commentsService.getCommentsForUser(this.userId).subscribe(
         (res: any) => {
           this.comments = res;
-        },
-        err => {
-          console.log(err);
         }
       );
     });

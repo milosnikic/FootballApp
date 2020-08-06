@@ -20,4 +20,5 @@ export class User {
     groups?: Group[];
     isPowerUser: boolean;
     numberOfGroupsCreated: number;
+    flag: string;
 }

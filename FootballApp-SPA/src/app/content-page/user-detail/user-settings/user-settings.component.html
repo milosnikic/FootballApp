@@ -51,7 +51,7 @@
         </div>
         <div class="form-group">
           <label for="country">Choose country</label>
-          <select id="country" formControlName="country" class="form-control" (change)="getCitiesForCountry($event.target.value)">
+          <select id="country" formControlName="country" class="form-control" (change)="setCountry($event.target.value)">
             <option [value]="country.id" *ngFor="let country of countries">{{
               country.name
             }}</option>
@@ -60,7 +60,7 @@
         <div class="form-group">
             <label for="city">Choose city</label>
             <select id="city" formControlName="city" class="form-control">
-              <option [value]="city.id" *ngFor="let city of cities">{{city.name}}</option>
+              <option [value]="city.id" *ngFor="let city of country?.cities" selected>{{city.name}}</option>
             </select>
           </div>
       </form>

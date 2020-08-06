@@ -43,7 +43,7 @@ export class UserService {
     return this.http.get(this.baseUrl + '/achievements/all');
   }
 
-  updateUser(userId, data: { email?: string; city?: string; country?: string }) {
+  updateUser(userId, data: { email?: string; city?: number; country?: number }) {
     return this.http.post(this.baseUrl + '/update' + `?userId=${userId}`, data);
   }
 }

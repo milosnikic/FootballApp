@@ -22,12 +22,12 @@
         </ng-template>
         <a class="status" *ngIf="editable">
           <mat-card-content>
-            <div class="form-group"><i class="far fa-lg fa-smile mr-4"></i><input type="text" class="status-input" name="status" id="status" placeholder="Set your status"></div>
+            <div matTooltip="Soon 🔜" class="form-group"><i class="far fa-lg fa-smile mr-4"></i><input type="text" class="status-input" name="status" id="status" style="cursor: default;" placeholder="Set your status"></div>
           </mat-card-content>
         </a>
         <p>{{ user?.mainPhoto?.description }}</p>
         <mat-card-actions *ngIf="editable">
-          <button class="btn btn-light">
+          <button class="btn btn-light" (click)="onEditProfile()">
             Edit Profile
           </button>
         </mat-card-actions>
@@ -64,7 +64,7 @@
       <div class="row">
         <h5 class="text-muted mt-0">
           {{ user?.city }}, {{ user?.country }}
-          <img src="../../../../assets/sr.png" class="flag" alt="sr flag" />
+          <img src="{{user?.flag}}" class="flag" alt="sr flag" />
         </h5>
       </div>
       <div class="row">

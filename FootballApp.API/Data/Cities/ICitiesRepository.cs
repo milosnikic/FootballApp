@@ -7,5 +7,6 @@ namespace FootballApp.API.Data.Cities
     public interface ICitiesRepository : IRepository<City>
     {
         Task<ICollection<City>> GetAllCitiesForCountry(int id);
+        Task<City> GetCityById(int cityId, int countryId);
     }
 }

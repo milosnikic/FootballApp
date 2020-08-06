@@ -87,9 +87,6 @@ export class UserPhotosComponent implements OnInit {
         } else {
           this.notifyService.showError(res.value);
         }
-      },
-      (err) => {
-        console.log(err);
       }
     );
   }

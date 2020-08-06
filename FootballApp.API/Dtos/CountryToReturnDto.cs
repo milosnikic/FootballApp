@@ -6,6 +6,7 @@ namespace FootballApp.API.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Flag { get; set; }
         public ICollection<CityToReturnDto> Cities { get; set; }
     }
 }

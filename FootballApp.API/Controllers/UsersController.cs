@@ -41,9 +41,9 @@ namespace FootballApp.API.Controllers
             {
                 return BadRequest("Specified user doesn't exist.");
             }
-            var city = await _unitOfWork.Cities.GetById(userToUpdateDto.City);
-            var country = await _unitOfWork.Countries.GetById(userToUpdateDto.Country);
-            if (city == null || country == null)
+            var country = await _unitOfWork.Countries.GetCountryWithCities(userToUpdateDto.Country);
+            var city = await _unitOfWork.Cities.GetCityById(userToUpdateDto.City, userToUpdateDto.Country);
+            if (city == null || country == null || !country.Cities.Contains(city))
             {
                 return BadRequest("Specified country or city doesn't exist!");
             }

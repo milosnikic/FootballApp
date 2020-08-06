@@ -79,3 +79,12 @@
     left: 30%;
   }
   
+  /* REMOVE WHEN TODO */
+  #no-style:hover {
+    border: none;
+  }
+
+  /* REMOVE WHEN TODO */
+  a#no-style:hover {
+    border: none;
+  }

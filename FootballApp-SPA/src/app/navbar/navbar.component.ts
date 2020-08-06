@@ -43,9 +43,6 @@ export class NavbarComponent implements OnInit {
     this.userService.getAllExploreUsers(this.user.id).subscribe(
       (res: User[]) => {
         this.allUsers = res;
-      },
-      (err) => {
-        console.log(err);
       }
     );
   }
