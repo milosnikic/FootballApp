@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-md-6" style="max-height: 100vh;">
+      <app-group-user-box
+        *ngFor="let user of users"
+        [visitProfile]="true"
+        [user]="user"
+        (click)="setSelectedUser(user)"
+      ></app-group-user-box>
+    </div>
+    <div class="col-md-6">
+      <mat-card
+        *ngIf="!!selectedUser; else noSelectedUser"
+        class="example-card"
+      >
+        <img
+          mat-card-image
+          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          style="max-height: 500px; object-fit: cover;"
+          alt="Photo of a Shiba Inu"
+        />
+        <div class="row">
+          <div class="col-md-6">
+            <mat-card-content>
+              <h2>
+                {{ selectedUser?.firstname }} {{ selectedUser?.lastname }}
+              </h2>
+              <h5>{{ selectedUser?.username }}</h5>
+              <h5>{{ selectedUser?.email }}</h5>
+              <h5>Date of birth: {{ selectedUser?.dateOfBirth }}</h5>
+              <h5>Last active: {{ selectedUser?.lastActive }}</h5>
+            </mat-card-content>
+          </div>
+          <div class="col-md-6">
+            <h2>Latest form</h2>
+            <h4>
+              <span style="color: greenyellow;">W </span
+              ><span style="color: greenyellow;">W </span
+              ><span style="color: greenyellow;">W </span
+              ><span style="color: greenyellow;">W </span>
+              <span style="color: red;">L </span>
+            </h4>
+          </div>
+        </div>
+      </mat-card>
+      <ng-template #noSelectedUser>
+        <h3 class="text-center">Select user to see information 🙂</h3>
+      </ng-template>
+    </div>
+  </div>
+</div>

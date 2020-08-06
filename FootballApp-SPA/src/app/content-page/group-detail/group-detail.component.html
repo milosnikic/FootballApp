@@ -1,0 +1,51 @@
+<h1>{{ titleToDisplay }}</h1>
+<hr />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <mat-tab-group [selectedIndex]="4" #tabs animationDuration="500ms">
+        <mat-tab isActive="false">
+          <ng-template mat-tab-label>
+            About
+            <i class="far fa-address-card ml-2"></i>
+          </ng-template>
+          <app-group-about></app-group-about>
+        </mat-tab>
+        <mat-tab isActive="false">
+          <ng-template mat-tab-label>
+            Upcoming Matches
+            <i class="fas fa-running ml-2"></i>
+          </ng-template>
+          <app-group-matches [mode]="MatchPlayed.Upcoming"></app-group-matches>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Past matches
+            <i class="fas fa-history ml-2"></i>
+          </ng-template>
+          <app-group-matches [mode]="MatchPlayed.Played"></app-group-matches>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Members
+            <i class="fas fa-users ml-2"></i>
+          </ng-template>
+          <app-group-members></app-group-members>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Pending Accepts
+            <i class="fas fa-user-check ml-2"></i>
+          </ng-template>
+          <app-group-pending-accept></app-group-pending-accept>
+        </mat-tab>
+        <mat-tab disabled>
+          <ng-template mat-tab-label>
+            Edit Group
+            <i class="fas fa-edit ml-2"></i>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

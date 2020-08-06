@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Lorem ispum sitem</mat-card-title>
+          <mat-card-subtitle>Date created</mat-card-subtitle>
+          <div class="row">
+            <div class="col-md-12 justify-content-center">
+              <button class="btn btn-outline-primary ml-1 mt-1 mb-2">
+                Make group favorite! 💙
+              </button>
+              <button
+                *ngIf="false"
+                class="btn btn-success float-right ml-1 mt-1 mb-2"
+              >
+                Leave group 😱
+              </button>
+              <button class="btn btn-primary float-right ml-1 mt-1 mb-2">
+                Ask to join ⚽
+              </button>
+            </div>
+          </div>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="../../../../assets/default-group-image.jpg"
+          alt="Photo of a Shiba Inu"
+        />
+        <mat-card-content>
+          <p>
+            Lorem ipsum dolor sitemLorem ipsum dolor sitemLorem ipsum dolor
+            sitemLorem ipsum dolor sitem Lorem ipsum dolor sitemLorem ipsum
+            dolor sitemLorem ipsum dolor sitemLorem ipsum dolor sitem Lorem
+            ipsum dolor sitemLorem ipsum dolor sitemLorem ipsum dolor sitemLorem
+            ipsum dolor sitem
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <mat-card class="col-md-6 latest-joined-users">
+      <mat-card-header class="text-center"
+        ><h3>Latest joined users!</h3></mat-card-header
+      >
+      <div class="users-wrapper">
+        <div class="row">
+          <div *ngFor="let user of users" class="col-md-6">
+            <app-group-user-box  [visitProfile]="false" [user]="user"></app-group-user-box>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -30,6 +30,10 @@ td>img {
   height: 35px;
 }
 
+td>a {
+  color: black;
+}
+
 .favorite:hover {
   opacity: 40%;
   transition: ease-out;

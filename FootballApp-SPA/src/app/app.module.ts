@@ -44,6 +44,15 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
 import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 import { ConfirmationDialogComponent } from './content-page/groups/groups-list/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
+import { GroupDetailComponent } from './content-page/group-detail/group-detail.component';
+import { GroupMembersComponent } from './content-page/group-detail/group-members/group-members.component';
+import { GroupPendingAcceptComponent } from './content-page/group-detail/group-pending-accept/group-pending-accept.component';
+import { GroupSettingsComponent } from './content-page/group-detail/group-settings/group-settings.component';
+import { GroupMatchesComponent } from './content-page/group-detail/group-matches/group-matches.component';
+import { GroupAboutComponent } from './content-page/group-detail/group-about/group-about.component';
+import { GroupUserBoxComponent } from './content-page/group-detail/group-user-box/group-user-box.component';
+import { UpcomingMatchComponent } from './content-page/upcoming-match/upcoming-match.component';
+import { PlayedMatchComponent } from './content-page/played-match/played-match.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +81,15 @@ import { ConfirmationDialogComponent } from './content-page/groups/groups-list/c
     FriendsListComponent,
     FriendDetailComponent,
     ConfirmationDialogComponent,
+    GroupDetailComponent,
+    GroupMembersComponent,
+    GroupPendingAcceptComponent,
+    GroupSettingsComponent,
+    GroupMatchesComponent,
+    GroupAboutComponent,
+    GroupUserBoxComponent,
+    UpcomingMatchComponent,
+    PlayedMatchComponent,
     SetActiveDirective,
     TimeAgoPipe,
   ],

@@ -10,16 +10,22 @@ import { UserDetailComponent } from './content-page/user-detail/user-detail.comp
 import { RegisterComponent } from './register/register.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
+import { GroupDetailComponent } from './content-page/group-detail/group-detail.component';
+import { UpcomingMatchComponent } from './content-page/upcoming-match/upcoming-match.component';
+import { PlayedMatchComponent } from './content-page/played-match/played-match.component';
 
 const appRoutes: Route[] = [
     {path: 'app', component: DashboardComponent, children: [
         {path: 'dashboard', component: UserDetailComponent, data: {title: 'Dashboard', editable: true}},
         {path: 'groups', component: GroupsComponent, data: {title: 'Groups'}},
+        {path: 'groups/:groupId', component: GroupDetailComponent, data: {title: 'Desired group'}},
         {path: 'users', component: FriendsComponent, data: {title: 'Users'}},
         {path: 'users/:userId', component: UserDetailComponent, data: {title: 'Users profile', editable: false}},
         {path: 'messages', component: MessagesComponent, data: {title: 'Messages'}},
         {path: 'available-matches', component: AvailableMatchesComponent, data: {title: 'Available Matches'}},
         {path: 'match-history', component: MatchHistoryComponent, data: {title: 'Match History'}},
+        {path: 'upcoming-match/:matchId', component: UpcomingMatchComponent, data: {title: 'Upcoming match'}},
+        {path: 'played-match/:matchId', component: PlayedMatchComponent, data: {title: 'Played match'}},
     ]},
     {path: '', component: RegisterComponent},
 

@@ -1,0 +1,21 @@
+<mat-card class="user-box">
+  <div>
+    <img
+      src="{{ user?.mainPhoto }}"
+      class="rounded-circle user-img"
+      alt="usr-img"
+    />
+    <h3 class="name">{{ user?.firstname }} {{ user?.lastname }}</h3>
+    <span class="text-muted username">({{ user?.username }})</span>
+    <button *ngIf="visitProfile" class="btn btn-outline-primary float-right mt-4">
+      Visit profile
+    </button>
+    <button *ngIf="pendingRequest" class="btn btn-outline-danger ml-4 mt-4 float-right">
+      Reject user
+    </button>
+    <button *ngIf="pendingRequest" class="btn btn-success ml-4 mt-4 float-right">
+      Accept user
+    </button>
+    <small class="date-joined">Joined {{ user?.dateCreated }}</small>
+  </div>
+</mat-card>

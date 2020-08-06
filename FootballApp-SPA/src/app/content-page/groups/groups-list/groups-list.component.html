@@ -17,7 +17,7 @@
         <th></th>
       </tr>
       <tr class="group" *ngFor="let group of groups">
-        <td>
+        <td [routerLink]="[group.id]">
           <img
             *ngIf="group.image"
             src="data:image/JPEG;base64,{{ group?.image }}"
@@ -25,7 +25,7 @@
             class="rounded"
           />
         </td>
-        <td>{{ group?.name }}</td>
+        <td><a [routerLink]="[group.id]">{{ group?.name }}</a></td>
         <td>{{ group?.description }}</td>
         <td>{{ group?.dateCreated | date }}</td>
         <td>

@@ -1,0 +1,30 @@
+.user-box {
+    margin-bottom: 10px;
+    border: 1px solid rgb(209, 209, 209);
+    padding: 10px;
+  }
+  
+  .user-box:hover {
+    opacity: 70%;
+  }
+  
+  .user-img {
+    cursor: pointer;
+    width: 64px;
+  }
+  
+  .name {
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 20px;
+
+  }
+  .username {
+    margin-left: 15px;
+    display: inline-block;
+  }
+  
+  .date-joined {
+    display: block;
+    text-align: left;
+  }
