@@ -1,8 +1,14 @@
 <div class="container-fluid">
-  <div class="mt-2"><h3 style="display: block;">Manage user membership</h3></div>
+  <div class="mt-2">
+    <h3 style="display: inline;">Manage user membership</h3>
+    <h4 style="display: inline;" class="float-right">Pending accepts: 5</h4>
+  </div>
   <div class="row mt-4">
     <div *ngFor="let user of users" class="col-md-12">
-      <app-group-user-box [user]="user" [pendingRequest]="true"></app-group-user-box>
+      <app-group-user-box
+        [user]="user"
+        [pendingRequest]="true"
+      ></app-group-user-box>
     </div>
   </div>
 </div>

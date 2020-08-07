@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatchStatus } from 'src/app/_models/matchStatus.enum';
 
 @Component({
   selector: 'app-upcoming-match',
@@ -19,6 +20,7 @@ export class UpcomingMatchComponent implements OnInit {
       email: 'milos.nikic@gmail.com',
       lastActive: '20.5.2020.',
       dateOfBirth: '31.12.1996.',
+      matchStatus: MatchStatus.Checked
     },
     {
       firstname: 'jovan',
@@ -29,6 +31,7 @@ export class UpcomingMatchComponent implements OnInit {
       email: 'jovan.jovanovic@gmail.com',
       lastActive: '20.5.2020.',
       dateOfBirth: '31.12.1996.',
+      matchStatus: MatchStatus.Checked
     },
     {
       firstname: 'Ivan',
@@ -39,6 +42,7 @@ export class UpcomingMatchComponent implements OnInit {
       email: 'ivan.ivanovic@gmail.com',
       lastActive: '20.5.2020.',
       dateOfBirth: '31.12.1996.',
+      matchStatus: MatchStatus.Checked
     },
     {
       firstname: 'Ivan',
@@ -49,6 +53,7 @@ export class UpcomingMatchComponent implements OnInit {
       email: 'ivan.ivanovic@gmail.com',
       lastActive: '20.5.2020.',
       dateOfBirth: '31.12.1996.',
+      matchStatus: MatchStatus.Confirmed
     },
   ];
 
@@ -68,6 +73,7 @@ export class UpcomingMatchComponent implements OnInit {
       email: 'ivan.ivanovic@gmail.com',
       lastActive: '20.5.2020.',
       dateOfBirth: '31.12.1996.',
+      matchStatus: MatchStatus.Checked
     };
     this.users.unshift(user);
   }

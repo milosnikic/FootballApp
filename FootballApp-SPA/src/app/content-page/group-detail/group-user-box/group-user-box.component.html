@@ -1,4 +1,10 @@
-<mat-card class="user-box">
+<mat-card
+  class="user-box"
+  [ngClass]="{
+    confirmed: matchStatus === MatchStatus.Confirmed,
+    checked: matchStatus === MatchStatus.Checked
+  }"
+>
   <div>
     <img
       src="{{ user?.mainPhoto }}"
@@ -7,12 +13,21 @@
     />
     <h3 class="name">{{ user?.firstname }} {{ user?.lastname }}</h3>
     <span class="text-muted username">({{ user?.username }})</span>
-    <button *ngIf="pendingRequest" class="btn btn-outline-danger ml-4 mt-4 float-right">
+    <!-- TODO: Add recent form display -->
+    <button
+      *ngIf="pendingRequest"
+      class="btn btn-outline-danger ml-4 mt-4 float-right"
+    >
       Reject user
     </button>
-    <button *ngIf="pendingRequest" class="btn btn-success ml-4 mt-4 float-right">
+    <button
+      *ngIf="pendingRequest"
+      class="btn btn-success ml-4 mt-4 float-right"
+    >
       Accept user
     </button>
+    <div *ngIf="matchStatus === MatchStatus.Checked" style="color: yellow;margin-left: 80px;"><i class="fas fa-question-circle"></i> Checked</div>
+    <div *ngIf="matchStatus === MatchStatus.Confirmed" style="color: greenyellow;margin-left: 80px;"><i class="fas fa-check-circle"></i> Confirmed</div>
     <small class="date-joined">Joined {{ user?.dateCreated }}</small>
   </div>
 </mat-card>
