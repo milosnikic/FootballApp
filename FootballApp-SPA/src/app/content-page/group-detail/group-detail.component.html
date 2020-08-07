@@ -3,43 +3,50 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
-      <mat-tab-group [selectedIndex]="4" #tabs animationDuration="500ms">
+      <mat-tab-group [selectedIndex]="0" #groupTabs animationDuration="500ms">
         <mat-tab isActive="false">
           <ng-template mat-tab-label>
             About
             <i class="far fa-address-card ml-2"></i>
           </ng-template>
-          <app-group-about></app-group-about>
+          <app-group-about [group]="group"></app-group-about>
         </mat-tab>
         <mat-tab isActive="false">
           <ng-template mat-tab-label>
             Upcoming Matches
             <i class="fas fa-running ml-2"></i>
           </ng-template>
-          <app-group-matches [mode]="MatchPlayed.Upcoming"></app-group-matches>
+          <app-group-matches [mode]="MatchPlayed.Upcoming" [upcomingMatches]="upcomingMatches"></app-group-matches>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             Past matches
             <i class="fas fa-history ml-2"></i>
           </ng-template>
-          <app-group-matches [mode]="MatchPlayed.Played"></app-group-matches>
+          <app-group-matches [mode]="MatchPlayed.Played" [playedMatches]="playedMatches"></app-group-matches>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             Members
             <i class="fas fa-users ml-2"></i>
           </ng-template>
-          <app-group-members></app-group-members>
+          <app-group-members [groupMembers]="group?.members"></app-group-members>
         </mat-tab>
-        <mat-tab>
+        <mat-tab *ngIf="user?.isPowerUser">
           <ng-template mat-tab-label>
             Pending Accepts
             <i class="fas fa-user-check ml-2"></i>
           </ng-template>
-          <app-group-pending-accept></app-group-pending-accept>
+          <app-group-pending-accept [pendingRequests]="group?.pendingRequests"></app-group-pending-accept>
         </mat-tab>
-        <mat-tab disabled>
+        <mat-tab *ngIf="user?.isPowerUser">
+          <ng-template mat-tab-label>
+            Create match
+            <i class="fas fa-user-check ml-2"></i>
+          </ng-template>
+          <app-create-match (upcomingTab)="changeTab($event)"></app-create-match>
+        </mat-tab>
+        <mat-tab *ngIf="user?.isPowerUser" disabled>
           <ng-template mat-tab-label>
             Edit Group
             <i class="fas fa-edit ml-2"></i>

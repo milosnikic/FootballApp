@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Group } from '../_models/group';
+import { group } from 'console';
 
 @Injectable({
   providedIn: 'root',
@@ -84,5 +85,17 @@ export class GroupsService {
       this.baseUrl + `/leave/${groupId}` + `?userId=${userId}`,
       {}
     );
+  }
+
+  getDetailGroupInformation(groupId: number, userId: number) {
+    return this.http.get(this.baseUrl + `/${groupId}?userId=${userId}`);
+  }
+
+  acceptUser(userId: number, groupId: number) {
+    return this.http.post(this.baseUrl + `/accept/${groupId}?userId=${userId}`, {});
+  }
+
+  rejectUser(userId: number, groupId: number) {
+    return this.http.delete(this.baseUrl + `/reject/${groupId}?userId=${userId}`, {});
   }
 }

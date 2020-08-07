@@ -71,9 +71,10 @@ export class CreateGroupComponent implements OnInit {
   createGroup() {
     const userId = JSON.parse(this.localStorage.get('user')).id;
     const formData = new FormData();
-    
-    if(!!this.selectedFile)
+
+    if (!!this.selectedFile) {
       formData.append('image', this.selectedFile, this.selectedFile.name);
+    }
     formData.append('name', this.createGroupForm.get('name').value);
     formData.append(
       'description',

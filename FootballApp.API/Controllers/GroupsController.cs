@@ -36,7 +36,7 @@ namespace FootballApp.API.Controllers
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var groupFromRepo = await _unitOfWork.Groups.GetById(id);
+            var groupFromRepo = await _unitOfWork.Groups.GetGroupWithInclude(id);
 
             if (groupFromRepo == null)
                 return BadRequest(new
@@ -45,7 +45,7 @@ namespace FootballApp.API.Controllers
                 });
 
 
-            var groupToReturn = _mapper.Map<GroupToReturnDto>(groupFromRepo);
+            var groupToReturn = _mapper.Map<DetailGroupToReturnDto>(groupFromRepo);
 
             return Ok(groupToReturn);
         }
@@ -165,12 +165,12 @@ namespace FootballApp.API.Controllers
                 return Unauthorized();
 
             var user = await _unitOfWork.Users.GetUserByIdWithAdditionalInformation(userId);
-            if(!(user is PowerUser))
+            if (!(user is PowerUser))
             {
                 return BadRequest("You are not power user!");
             }
-            
-            PowerUser powerUser = (PowerUser) user;
+
+            PowerUser powerUser = (PowerUser)user;
             var createdGroups = await _unitOfWork.Groups.GetCreatedGroupsForUser(powerUser);
             return Ok(_mapper.Map<ICollection<GroupToReturnDto>>(createdGroups));
         }
@@ -226,8 +226,6 @@ namespace FootballApp.API.Controllers
                 UserId = user.Id,
             };
 
-
-
             _unitOfWork.Memberships.Add(membership);
 
             if (await _unitOfWork.Complete())
@@ -236,6 +234,79 @@ namespace FootballApp.API.Controllers
             }
 
             return Ok(new KeyValuePair<bool, string>(false, "Request not sent!"));
+        }
+
+        [HttpPost]
+        [Route("accept/{groupId}")]
+        public async Task<IActionResult> AcceptUser(int groupId, int userId)
+        {
+            // We only check that we are logged in
+            // TODO: add check if user is admin or owner in order to 
+            //       accept or reject user
+            
+            var group = await _unitOfWork.Groups.GetById(groupId);
+            if (group == null)
+            {
+                return BadRequest("Specified group doesn't exist!");
+            }
+
+            var user = await _unitOfWork.Users.GetById(userId);
+            if (user == null)
+            {
+                return BadRequest("Specified user doesn't exist!");
+            }
+
+            var membership = await _unitOfWork.Memberships.GetMembershipById(userId, groupId);
+            if (membership == null)
+            {
+                return BadRequest("You have to ask to join to group!");
+            }
+
+            membership.DateAccepted = DateTime.Now;
+            membership.Accepted = true;
+            membership.MembershipStatus = MembershipStatus.Accepted;
+
+            if (await _unitOfWork.Complete())
+            {
+                return Ok(new KeyValuePair<bool, string>(true, "User joined group!"));
+            }
+
+            return Ok(new KeyValuePair<bool, string>(false, "User hasn't joined group!"));
+        }
+
+        [HttpDelete]
+        [Route("reject/{groupId}")]
+        public async Task<IActionResult> RejectUser(int groupId, int userId)
+        {   
+            // We only check that we are logged in
+            // TODO: add check if user is admin or owner in order to 
+            //       accept or reject user
+
+            var group = await _unitOfWork.Groups.GetById(groupId);
+            if (group == null)
+            {
+                return BadRequest("Specified group doesn't exist!");
+            }
+
+            var user = await _unitOfWork.Users.GetById(userId);
+            if (user == null)
+            {
+                return BadRequest("Specified user doesn't exist!");
+            }
+
+            var membership = await _unitOfWork.Memberships.GetMembershipById(userId, groupId);
+            if (membership == null)
+            {
+                return BadRequest("You have to ask to join to group!");
+            }
+
+            _unitOfWork.Memberships.Remove(membership);
+            if (await _unitOfWork.Complete())
+            {
+                return Ok(new KeyValuePair<bool, string>(true, "User successfully rejected!"));
+            }
+
+            return Ok(new KeyValuePair<bool, string>(false, "User couldn't be rejected!"));
         }
 
         /// <summary>

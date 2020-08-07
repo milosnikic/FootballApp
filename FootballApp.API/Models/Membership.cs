@@ -19,7 +19,7 @@ namespace FootballApp.API.Models
         public Membership()
         {
             DateAccepted = null;
-            DateSent = new DateTime();
+            DateSent = DateTime.Now;
             Accepted = false;
             Role = Role.Member;
         }

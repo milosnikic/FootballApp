@@ -1,0 +1,100 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Create new match!</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <form [formGroup]="createMatchForm">
+        <div class="form-group">
+          <label for="matchName">Enter match name</label>
+          <input
+            formControlName="matchName"
+            type="text"
+            id="matchName"
+            class="form-control"
+            placeholder="Match name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="matchName">Enter match description</label>
+          <textarea
+            formControlName="description"
+            class="form-control"
+            style="resize: none;"
+            rows="3"
+            placeholder="Match description"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              [min]="minDate"
+              [matDatepicker]="picker"
+              placeholder="Choose a playing date"
+              formControlName="datePlaying"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label for="numberOfPlayers">Enter number of players playing match</label>
+          <input
+            formControlName="numberOfPlayers"
+            type="number"
+            id="numberOfPlayers"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="locationName">Enter location name</label>
+          <input
+            formControlName="location"
+            type="text"
+            id="locationName"
+            class="form-control"
+            placeholder="Location name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="country">Choose country</label>
+          <select
+            id="country"
+            formControlName="country"
+            class="form-control"
+            (change)="getCitiesForCountry($event.target.value)"
+          >
+            <option [value]="country.id" *ngFor="let country of countries">{{
+              country.name
+            }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="city">Choose city</label>
+          <select id="city" formControlName="city" class="form-control">
+            <option [value]="city.id" *ngFor="let city of cities">{{
+              city.name
+            }}</option>
+          </select>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-md-4">
+          <button
+            class="btn-success btn btn-lg"
+            [disabled]="!createMatchForm.valid"
+            (click)="createMatch()"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

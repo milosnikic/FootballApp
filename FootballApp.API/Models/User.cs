@@ -35,6 +35,6 @@ namespace FootballApp.API.Models
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Comment> Commented { get; set; }
         public ICollection<GainedAchievement> GainedAchievements { get; set; }
-
+        public ICollection<MatchStatus> MatchStatuses { get; set; }
     }
 }

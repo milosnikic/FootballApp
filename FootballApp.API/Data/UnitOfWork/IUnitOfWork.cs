@@ -6,6 +6,8 @@ using FootballApp.API.Data.Comments;
 using FootballApp.API.Data.Countries;
 using FootballApp.API.Data.Groups;
 using FootballApp.API.Data.Locations;
+using FootballApp.API.Data.Matchdays;
+using FootballApp.API.Data.MatchStatuses;
 using FootballApp.API.Data.Memberships;
 using FootballApp.API.Data.Photos;
 
@@ -23,6 +25,8 @@ namespace FootballApp.API.Data.UnitOfWork
         ICitiesRepository Cities { get; }
         ICountriesRepository Countries { get; }
         ILocationsRepository Locations { get; }
+        IMatchdaysRepository Matchdays { get; }
+        IMatchStatusesRepository MatchStatuses { get; }
         Task<bool> Complete();
     }
 }

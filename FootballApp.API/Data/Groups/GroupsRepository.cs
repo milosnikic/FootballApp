@@ -69,6 +69,19 @@ namespace FootballApp.API.Data.Groups
             return groups;
         }
 
+        public async Task<Group> GetGroupWithInclude(int groupId)
+        {
+            var group = await DataContext.Groups
+                                         .Include(g => g.Location)
+                                         .ThenInclude(l => l.City)
+                                         .ThenInclude(l => l.Country)
+                                         .Include(g => g.Memberships)
+                                         .ThenInclude(m => m.User)
+                                         .ThenInclude(u => u.Photos)
+                                         .FirstOrDefaultAsync(g => g.Id == groupId);
+            return group;
+        }
+
         public DataContext DataContext
         {
             get { return Context as DataContext; } 

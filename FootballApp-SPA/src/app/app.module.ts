@@ -25,6 +25,9 @@ import {
   MatFormFieldModule,
   MatTooltipModule,
   MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatInputModule,
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -53,6 +56,7 @@ import { GroupAboutComponent } from './content-page/group-detail/group-about/gro
 import { GroupUserBoxComponent } from './content-page/group-detail/group-user-box/group-user-box.component';
 import { UpcomingMatchComponent } from './content-page/upcoming-match/upcoming-match.component';
 import { PlayedMatchComponent } from './content-page/played-match/played-match.component';
+import { CreateMatchComponent } from './content-page/group-detail/create-match/create-match.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +92,7 @@ import { PlayedMatchComponent } from './content-page/played-match/played-match.c
     GroupMatchesComponent,
     GroupAboutComponent,
     GroupUserBoxComponent,
+    CreateMatchComponent,
     UpcomingMatchComponent,
     PlayedMatchComponent,
     SetActiveDirective,
@@ -103,6 +108,9 @@ import { PlayedMatchComponent } from './content-page/played-match/played-match.c
     MatFormFieldModule,
     MatTooltipModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     FormsModule,
     NgCircleProgressModule.forRoot({
       // set defaults here

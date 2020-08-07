@@ -20,6 +20,9 @@ namespace FootballApp.API.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<PowerUser> PowerUsers { get; set; }
         public DbSet<CommonUser> CommonUsers { get; set; }
+        public DbSet<MatchStatus> MatchStatuses { get; set; }
+        public DbSet<Matchday> Matchdays { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -115,6 +118,19 @@ namespace FootballApp.API.Data
             // User inheritance implemented
             modelBuilder.Entity<CommonUser>().ToTable("CommonUsers");
             modelBuilder.Entity<PowerUser>().ToTable("PowerUsers");
+
+            // Match status api
+            modelBuilder.Entity<MatchStatus>().HasKey(s => new {s.UserId, s.MatchdayId});
+ 
+            modelBuilder.Entity<MatchStatus>()
+                .HasOne(s => s.Matchday)
+                .WithMany(m => m.MatchStatuses)
+                .HasForeignKey(s => s.MatchdayId);
+ 
+            modelBuilder.Entity<MatchStatus>()
+                .HasOne(s => s.User)
+                .WithMany(u => u.MatchStatuses)
+                .HasForeignKey(s => s.UserId);
         }
     }
 }

@@ -6,6 +6,7 @@ namespace FootballApp.API.Dtos
     public class MembershipToReturnDto
     {
         public int UserId { get; set; }
+        public UserToReturnDto User { get; set; }
         public int GroupId { get; set; }
         public DateTime DateSent { get; set; }
         public DateTime DateAccepted { get; set; }

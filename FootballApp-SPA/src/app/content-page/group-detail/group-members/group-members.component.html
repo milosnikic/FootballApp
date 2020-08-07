@@ -2,7 +2,7 @@
   <div class="row mt-4">
     <div class="col-md-6" style="max-height: 100vh;">
       <app-group-user-box
-        *ngFor="let user of users"
+        *ngFor="let user of groupMembers"
         [user]="user"
         (click)="setSelectedUser(user)"
       ></app-group-user-box>
@@ -12,12 +12,24 @@
         *ngIf="!!selectedUser; else noSelectedUser"
         class="example-card"
       >
-        <img
-          mat-card-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          style="max-height: 500px; object-fit: cover;"
-          alt="Photo of a Shiba Inu"
-        />
+      <img
+      *ngIf="selectedUser?.mainPhoto; else defaultImage"
+      mat-card-image
+      src="data:image/JPEG;base64,{{ selectedUser?.mainPhoto?.image }}"
+      alt="User profile picture"
+    />
+    <ng-template #defaultImage>
+      <img
+        mat-card-image
+        *ngIf="!selectedUser?.mainPhoto"
+        src="{{
+          selectedUser?.gender === 'Male'
+            ? '../assets/male-default.jpg'
+            : '../assets/female-default.jpg'
+        }}"
+        alt=""
+      />
+    </ng-template>
         <div class="row">
           <div class="col-md-6">
             <mat-card-content>
@@ -26,8 +38,8 @@
               </h2>
               <h5>{{ selectedUser?.username }}</h5>
               <h5>{{ selectedUser?.email }}</h5>
-              <h5>Date of birth: {{ selectedUser?.dateOfBirth }}</h5>
-              <h5>Last active: {{ selectedUser?.lastActive }}</h5>
+              <h5>Age: {{ selectedUser?.age }}</h5>
+              <h5>Joined {{ selectedUser?.created | timeAgo }}</h5>
             </mat-card-content>
           </div>
           <div class="col-md-6">

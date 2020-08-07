@@ -7,6 +7,8 @@ import { MatchPlayed } from 'src/app/_models/matchPlayed.enum';
   styleUrls: ['./group-matches.component.css']
 })
 export class GroupMatchesComponent implements OnInit {
+  @Input() playedMatches: any[];
+  @Input() upcomingMatches: any[];
   @Input() mode: MatchPlayed;
   MatchPlayed = MatchPlayed;
   constructor() { }

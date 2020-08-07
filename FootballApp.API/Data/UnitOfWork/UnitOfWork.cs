@@ -5,6 +5,8 @@ using FootballApp.API.Data.Comments;
 using FootballApp.API.Data.Countries;
 using FootballApp.API.Data.Groups;
 using FootballApp.API.Data.Locations;
+using FootballApp.API.Data.Matchdays;
+using FootballApp.API.Data.MatchStatuses;
 using FootballApp.API.Data.Memberships;
 using FootballApp.API.Data.Photos;
 using FootballApp.API.Data.Users;
@@ -28,6 +30,8 @@ namespace FootballApp.API.Data.UnitOfWork
             Cities = new CitiesRepository(_context);
             Countries = new CountriesRepository(_context);
             Locations = new LocationsRepository(_context);
+            Matchdays = new MatchdaysRepository(_context);
+            MatchStatuses = new MatchStatusesRepository(_context);
         }
 
         public IGroupsRepository Groups { get; private set; }
@@ -39,7 +43,10 @@ namespace FootballApp.API.Data.UnitOfWork
         public IAchievementsRepository Achievements { get; private set; }
         public ICitiesRepository Cities { get; private set; }
         public ICountriesRepository Countries { get; private set; }
-        public ILocationsRepository Locations { get; private set;}
+        public ILocationsRepository Locations { get; private set; }
+        public IMatchdaysRepository Matchdays { get; private set; }
+        public IMatchStatusesRepository MatchStatuses { get; private set; }
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;

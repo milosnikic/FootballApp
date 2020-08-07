@@ -15,5 +15,6 @@ namespace FootballApp.API.Models
         public Location Location { get; set; }
         public byte[] Image { get; set; }
         public PowerUser CreatedBy { get; set; }
+        public ICollection<Matchday> Matchdays { get; set; }
     }
 }
