@@ -5,6 +5,7 @@ import { MatchPlayed } from 'src/app/_models/matchPlayed.enum';
 import { MatTabGroup } from '@angular/material';
 import { User } from 'src/app/_models/user';
 import { GroupsService } from 'src/app/_services/groups.service';
+import { MatchService } from 'src/app/_services/match.service';
 
 @Component({
   selector: 'app-group-detail',
@@ -22,9 +23,12 @@ export class GroupDetailComponent implements OnInit {
   upcomingMatches: any[];
   groupId: number;
   group: any;
+  // TODO: add membership model
+  membershipInfo: any;
 
-
-  constructor(private route: ActivatedRoute,private groupService: GroupsService) { }
+  constructor(private route: ActivatedRoute,
+              private groupService: GroupsService,
+              private matchService: MatchService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((data: ParamMap) => {
@@ -38,7 +42,17 @@ export class GroupDetailComponent implements OnInit {
         this.pendingRequests = this.group.pendingRequests;
         this.groupMembers = this.group.members;
       }
-    )
+    );
+    this.groupService.getMembershipInformation(this.groupId, this.user.id).subscribe(
+      (res: any) => {
+        this.membershipInfo = res;
+      }
+    );
+    this.matchService.getUpcomingMatches(this.groupId).subscribe(
+      (res: any) => {
+        this.upcomingMatches = res;
+      }
+    );
   }
 
   changeTab(number) {

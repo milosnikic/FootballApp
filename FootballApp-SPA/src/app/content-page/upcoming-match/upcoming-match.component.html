@@ -1,23 +1,24 @@
-<h1>Upcoming match</h1>
+<h1>Upcoming match - <h2>{{match?.name}}</h2></h1>
 <hr />
 <div class="container-fluid">
   <div class="row text-center mt-4">
     <div class="col-md-3">
       <h3>📢</h3>
       <h3>Match is going to be played</h3>
-      <p class="text">Jelovac, Serbia - Belgrade</p>
+      <p class="text">{{match?.location}}, {{match?.country}} - {{match?.city}}</p>
     </div>
     <div class="col-md-3">
       <h3>🕗</h3>
       <h3>Playing date</h3>
-      <p class="text">21.12.2020. 19:00</p>
+      <p class="text">{{match?.datePlaying | date:'dd.MM.yyyy.'}}</p>
     </div>
     <div class="col-md-3">
       <h3>🏃‍♂️</h3>
       <h3>Number of players playing</h3>
-      <p class="text">12</p>
+      <p class="text">{{match?.numberOfPlayers}}</p>
     </div>
-    <div class="col-md-3">
+    <!-- Hide for this phase -->
+    <div *ngIf="false" class="col-md-3">
       <h3>💸</h3>
       <h3>Price</h3>
       <p class="text">100 RSD / per person</p>
@@ -28,7 +29,7 @@
     <!-- Here should be displayed number of users and buttons -->
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
-      <h3 [ngClass]="getCapacityClass()">Users confirmed: {{ users?.length }}/12</h3>
+      <h3 [ngClass]="getCapacityClass()">Users confirmed: {{ match?.numberOfAppliedPlayers }}/{{match?.numberOfPlayers}}</h3>
     </div>
     <div class="col-md-4">
       <button
@@ -55,12 +56,15 @@
       </button>
     </div>
     <!-- Row for users -->
-    <div class="col-md-12 mt-4">
+    <div *ngIf="users?.length > 0; else noUsers" class="col-md-12 mt-4">
       <app-group-user-box
         *ngFor="let user of users"
         [user]="user"
         [matchStatus]="user?.matchStatus"
       ></app-group-user-box>
     </div>
+    <ng-template #noUsers>
+      <h2>No applied or checked in users for this match.</h2>
+    </ng-template>
   </div>
 </div>

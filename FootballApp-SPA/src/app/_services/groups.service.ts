@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { Group } from '../_models/group';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Subject } from "rxjs";
+import { Group } from "../_models/group";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class GroupsService {
-  baseUrl: string = 'http://localhost:5000/api/groups';
+  baseUrl: string = "http://localhost:5000/api/groups";
   private allGroups = new Subject<Group[]>();
   private usersGroups = new Subject<Group[]>();
   private usersFavoriteGroups = new Subject<Group[]>();
@@ -26,7 +26,7 @@ export class GroupsService {
 
   getAllGroups(userId: number) {
     return this.http
-      .get(this.baseUrl + '/all' + `?userid=${userId}`)
+      .get(this.baseUrl + "/all" + `?userid=${userId}`)
       .subscribe((res: Group[]) => {
         this.allGroups.next(res);
       });
@@ -42,7 +42,7 @@ export class GroupsService {
 
   getUsersCreatedGroups(userId: number) {
     return this.http
-      .get(this.baseUrl + '/created' + `?userId=${userId}`)
+      .get(this.baseUrl + "/created" + `?userId=${userId}`)
       .subscribe((res: any) => {
         this.usersCreatedGroups.next(res);
       });
@@ -50,10 +50,18 @@ export class GroupsService {
 
   getUsersFavoriteGroups(userId: number) {
     return this.http
-      .get(this.baseUrl + '/favorite' + `?userId=${userId}`)
+      .get(this.baseUrl + `/favorite?userId=${userId}`)
       .subscribe((res: any) => {
         this.usersFavoriteGroups.next(res);
       });
+  }
+
+  getMembershipInformation(groupId: number, userId: number) {
+    return this.http.get(this.baseUrl + `/${groupId}/membership-info?userId=${userId}`);
+  }
+
+  getDetailGroupInformation(groupId: number, userId: number) {
+    return this.http.get(this.baseUrl + `/${groupId}?userId=${userId}`);
   }
 
   requestToJoin(userId: number, groupId: number) {
@@ -86,15 +94,17 @@ export class GroupsService {
     );
   }
 
-  getDetailGroupInformation(groupId: number, userId: number) {
-    return this.http.get(this.baseUrl + `/${groupId}?userId=${userId}`);
-  }
-
   acceptUser(userId: number, groupId: number) {
-    return this.http.post(this.baseUrl + `/accept/${groupId}?userId=${userId}`, {});
+    return this.http.post(
+      this.baseUrl + `/accept/${groupId}?userId=${userId}`,
+      {}
+    );
   }
 
   rejectUser(userId: number, groupId: number) {
-    return this.http.delete(this.baseUrl + `/reject/${groupId}?userId=${userId}`, {});
+    return this.http.delete(
+      this.baseUrl + `/reject/${groupId}?userId=${userId}`,
+      {}
+    );
   }
 }

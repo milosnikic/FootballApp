@@ -350,5 +350,29 @@ namespace FootballApp.API.Controllers
             return Ok(new KeyValuePair<bool, string>(false, "Error changing status!"));
         }
 
+
+        [HttpGet]
+        [Route("{groupId}/membership-info")]
+        public async Task<IActionResult> GetMembershipInformation(int userId, int groupId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var group = await _unitOfWork.Groups.GetById(groupId);
+            if (group == null)
+            {
+                return BadRequest("Specified group doesn't exist!");
+            }
+
+            var user = await _unitOfWork.Users.GetById(userId);
+            if (user == null)
+            {
+                return BadRequest("Specified user doesn't exist!");
+            }
+
+            var membership = _mapper.Map<MembershipInformationDto>(await _unitOfWork.Memberships.GetMembershipById(userId, groupId));
+            
+            return Ok(membership);
+        }
     }
 }

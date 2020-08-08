@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FootballApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,11 @@ namespace FootballApp.API.Data.MatchStatuses
             {
                 return Context as DataContext;
             }
+        }
+
+        public async Task<MatchStatus> GetMatchStatusById(int userId, int matchId)
+        {
+            return await DataContext.MatchStatuses.FirstOrDefaultAsync(m => m.UserId == userId && m.MatchdayId == matchId);
         }
     }
 }

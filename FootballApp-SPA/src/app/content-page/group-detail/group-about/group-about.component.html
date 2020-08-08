@@ -3,21 +3,62 @@
     <div class="col-md-6">
       <mat-card class="example-card">
         <mat-card-header>
-          <mat-card-title>{{group?.location.name}} - {{group?.location?.city?.name}}, {{group?.location?.country?.name}}</mat-card-title>
-          <mat-card-subtitle>Created {{group?.dateCreated | timeAgo}}</mat-card-subtitle>
+          <mat-card-title
+            >{{ group?.location.name }} - {{ group?.location?.city?.name }},
+            {{ group?.location?.country?.name }}</mat-card-title
+          >
+          <mat-card-subtitle
+            >Created {{ group?.dateCreated | timeAgo }}</mat-card-subtitle
+          >
           <div class="row">
             <div class="col-md-12 justify-content-center">
-              <button *ngIf="!group?.favorite" class="btn btn-outline-primary ml-1 mt-1 mb-2">
+              <button
+                *ngIf="
+                  membershipInfo?.membershipStatus ===
+                    MembershipStatus.Accepted && !membershipInfo?.favorite
+                "
+                class="btn btn-outline-primary ml-1 mt-1 mb-2"
+                (click)="favoriteGroup()"
+              >
                 Make group favorite! 💙
               </button>
               <button
-                *ngIf="group?.isMember"
+                class="btn btn-outline-danger ml-1 mt-1 mb-2"
+                *ngIf="
+                  membershipInfo?.membershipStatus ===
+                    MembershipStatus.Accepted && membershipInfo?.favorite
+                "
+                (click)="unfavoriteGroup()"
+              >
+                Unfavorite group! 🚫
+              </button>
+              <button
+                *ngIf="
+                  membershipInfo?.membershipStatus === MembershipStatus.Accepted
+                "
                 class="btn btn-success float-right ml-1 mt-1 mb-2"
+                (click)="leaveGroup()"
               >
                 Leave group 😱
               </button>
-              <button *ngIf="!group?.isMember" class="btn btn-primary float-right ml-1 mt-1 mb-2">
+              <button
+                *ngIf="
+                  !membershipInfo ||
+                  membershipInfo?.membershipStatus ===
+                    MembershipStatus.NotMember
+                "
+                class="btn btn-primary float-right ml-1 mt-1 mb-2"
+                (click)="requestJoin()"
+              >
                 Ask to join ⚽
+              </button>
+              <button
+                *ngIf="
+                  membershipInfo?.membershipStatus === MembershipStatus.Sent
+                "
+                class="btn btn-outline-secondary"
+              >
+                Request already sent
               </button>
             </div>
           </div>
@@ -38,7 +79,7 @@
         </ng-template>
         <mat-card-content>
           <p>
-            {{group?.description}}
+            {{ group?.description }}
           </p>
         </mat-card-content>
       </mat-card>

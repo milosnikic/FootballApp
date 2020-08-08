@@ -9,21 +9,21 @@
             About
             <i class="far fa-address-card ml-2"></i>
           </ng-template>
-          <app-group-about [group]="group"></app-group-about>
+          <app-group-about [group]="group" [membershipInfo]="membershipInfo" [user]="user"></app-group-about>
         </mat-tab>
         <mat-tab isActive="false">
           <ng-template mat-tab-label>
             Upcoming Matches
             <i class="fas fa-running ml-2"></i>
           </ng-template>
-          <app-group-matches [mode]="MatchPlayed.Upcoming" [upcomingMatches]="upcomingMatches"></app-group-matches>
+          <app-group-matches [mode]="MatchPlayed.Upcoming" [matches]="upcomingMatches"></app-group-matches>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             Past matches
             <i class="fas fa-history ml-2"></i>
           </ng-template>
-          <app-group-matches [mode]="MatchPlayed.Played" [playedMatches]="playedMatches"></app-group-matches>
+          <app-group-matches [mode]="MatchPlayed.Played" [matches]="playedMatches"></app-group-matches>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>

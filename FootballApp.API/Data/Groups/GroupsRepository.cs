@@ -71,6 +71,7 @@ namespace FootballApp.API.Data.Groups
 
         public async Task<Membership> GetGroupWithInclude(int groupId, int userId)
         {
+            
             var group = await DataContext.Memberships
                                               .Where(m => m.GroupId == groupId)
                                               .Include(m => m.User)

@@ -28,9 +28,9 @@ namespace FootballApp.API.Controllers
 
         [HttpGet]
         [Route("{matchId}")]
-        public async Task<IActionResult> GetMatch(int matchId)
+        public async Task<IActionResult> GetUpcomingMatchday(int matchId)
         {
-            var match = await _unitOfWork.Matchdays.GetMatchdayWithLocation(matchId);
+            var match = _mapper.Map<MatchdayToReturnDto>(await _unitOfWork.Matchdays.GetMatchdayWithAdditionalInformation(matchId));
             return Ok(match);
         }
 
@@ -78,8 +78,66 @@ namespace FootballApp.API.Controllers
 
             return Ok(new KeyValuePair<bool, string>(false, "Matchday has not been created."));
         }
-        public async Task<IActionResult> GetUpcomingMatchesForGroup(int matchId)
+
+        [HttpGet]
+        [Route("upcoming-matches")]
+        public async Task<IActionResult> GetUpcomingMatchesForGroup(int groupId)
         {
+            var matches = _mapper.Map<ICollection<MatchdayToReturnDto>>(await _unitOfWork.Matchdays.GetUpcomingMatchesForGroup(groupId));
+
+            return Ok(matches);
+        }
+
+
+        [HttpPost]
+        [Route("{matchId}/check-in")]
+        public async Task<IActionResult> CheckInForMatch(int userId, int matchId)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var match = await _unitOfWork.Matchdays.GetById(matchId);
+            if(match == null) 
+            {
+                return BadRequest("Specified match doesn't exist!");
+            }
+
+            var matchStatus = await _unitOfWork.MatchStatuses.GetMatchStatusById(userId, matchId);
+            if(matchStatus != null)
+            {
+                return BadRequest("You are already checked in!");
+            }
+
+            matchStatus = new MatchStatus 
+            {
+                UserId = userId,
+                MatchdayId = match.Id,
+                Matchday = match,
+                Checked = true,
+                Confirmed = null
+            };
+            _unitOfWork.MatchStatuses.Add(matchStatus);
+            if(await _unitOfWork.Complete())
+            {
+                return Ok(new KeyValuePair<bool, string>(true, "Successfully checked in for match!"));
+            }
+
+            return Ok(new KeyValuePair<bool, string>(false, "Couldn't check in for match!"));
+        }
+
+        [HttpPost]
+        [Route("{matchId}/give-up")]
+        public async Task<IActionResult> GiveUpForMatch(int userId, int matchId)
+        {
+            // TODO
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("{matchId}/confirm")]
+        public async Task<IActionResult> ConfirmForMatch(int userId, int matchId)
+        {
+            // TODO
             return Ok();
         }
 

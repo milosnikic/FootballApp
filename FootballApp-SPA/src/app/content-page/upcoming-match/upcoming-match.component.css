@@ -2,6 +2,10 @@
   font-size: large;
 }
 
+.zero-capacity {
+  color:black;
+}
+
 .low-capacity {
   color: greenyellow;
 }

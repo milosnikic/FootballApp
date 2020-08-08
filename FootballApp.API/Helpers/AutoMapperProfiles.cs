@@ -256,6 +256,7 @@ namespace FootballApp.API.Helpers
                     dest => dest.Location,
                     opt => opt.Ignore()
                 );
+            CreateMap<Membership,MembershipInformationDto>();
             CreateMap<Membership, DetailGroupToReturnDto>()
                 .ForMember(
                     dest => dest.Id,
@@ -330,14 +331,43 @@ namespace FootballApp.API.Helpers
                     {
                         opt.MapFrom(src => src.Group.DateCreated);
                     }
-                )
-                .ForMember(
-                    dest => dest.IsMember,
-                    opt => 
-                    {
-                        opt.MapFrom(src => src.Group.Memberships.FirstOrDefault(m => m.User == src.User) != null);
-                    }
                 );
+                CreateMap<Matchday, MatchdayToReturnDto>()
+                    .ForMember(
+                        dest => dest.Location,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Location.Name);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.City,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Location.City.Name);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.Country,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Location.Country.Name);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.NumberOfAppliedPlayers,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.MatchStatuses.Where(m => m.Confirmed == true).ToArray().Length);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.AppliedUsers,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.MatchStatuses.Select(m => m.User));
+                        }
+                    );
         }
     }
 }

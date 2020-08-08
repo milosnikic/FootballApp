@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FootballApp.API.Models;
@@ -13,15 +14,32 @@ namespace FootballApp.API.Data.Matchdays
 
         }
 
-        public async Task<Matchday> GetMatchdayWithLocation(int matchId)
+        public async Task<Matchday> GetMatchdayWithAdditionalInformation(int matchId)
         {
             var match = await DataContext.Matchdays
                                         .Include(m => m.Location)
                                         .ThenInclude(l => l.City)
                                         .ThenInclude(l => l.Country)
+                                        .Include(m => m.MatchStatuses)
+                                        .ThenInclude(m => m.User)
+                                        .ThenInclude(u => u.Photos)
                                         .FirstOrDefaultAsync(m => m.Id == matchId);
             return match;
         }
+
+        public async Task<ICollection<Matchday>> GetUpcomingMatchesForGroup(int groupId)
+        {
+            var upcomingMatches = await DataContext.Matchdays
+                                                   .Where(m => m.Group.Id == groupId)
+                                                   .Include(m => m.Location)
+                                                   .ThenInclude(l => l.City)
+                                                   .ThenInclude(l => l.Country)
+                                                   .OrderBy(m => m.DatePlaying)
+                                                   .OrderBy(m => m.Location.CountryId)
+                                                   .ToListAsync();
+            return upcomingMatches;
+        }
+
         public DataContext DataContext
         {
             get
