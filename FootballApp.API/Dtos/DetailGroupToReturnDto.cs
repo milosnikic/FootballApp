@@ -11,6 +11,9 @@ namespace FootballApp.API.Dtos
         public DateTime DateCreated { get; set; }
         public bool Favorite { get; set; }
         public int NumberOfMembers { get; set; }
+        // TODO: add another user to display dto 
+        //      in order to stop loading memberships, groups etc
+        //      and add mapping
         public ICollection<UserToReturnDto> LatestJoined { get; set; }
         public ICollection<UserToReturnDto> PendingRequests { get; set; }
         public ICollection<UserToReturnDto> Members { get; set; }
