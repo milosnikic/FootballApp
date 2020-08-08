@@ -13,11 +13,11 @@ namespace FootballApp.API.Data.Groups
         {
         }
 
-        public async Task<ICollection<Group>> GetAllGroupsWithInclude(int userId) 
+        public async Task<ICollection<Group>> GetAllGroupsWithInclude(int userId)
         {
             var groups = await DataContext.Groups
-                                          .Where(g => g.Memberships.FirstOrDefault(m => m.UserId == userId 
-                                                                                     && g.Id == m.GroupId 
+                                          .Where(g => g.Memberships.FirstOrDefault(m => m.UserId == userId
+                                                                                     && g.Id == m.GroupId
                                                                                      && (m.MembershipStatus == MembershipStatus.Accepted
                                                                                         || m.MembershipStatus == MembershipStatus.Sent)) == null)
                                           .Include(g => g.Location)
@@ -69,22 +69,36 @@ namespace FootballApp.API.Data.Groups
             return groups;
         }
 
-        public async Task<Group> GetGroupWithInclude(int groupId)
+        public async Task<Membership> GetGroupWithInclude(int groupId, int userId)
         {
-            var group = await DataContext.Groups
-                                         .Include(g => g.Location)
-                                         .ThenInclude(l => l.City)
-                                         .ThenInclude(l => l.Country)
-                                         .Include(g => g.Memberships)
-                                         .ThenInclude(m => m.User)
-                                         .ThenInclude(u => u.Photos)
-                                         .FirstOrDefaultAsync(g => g.Id == groupId);
+            var group = await DataContext.Memberships
+                                              .Where(m => m.GroupId == groupId)
+                                              .Include(m => m.User)
+                                              .Include(m => m.Group)
+                                              .ThenInclude(g => g.Location)
+                                              .ThenInclude(l => l.City)
+                                              .ThenInclude(l => l.Country)
+                                              .Include(m => m.Group)
+                                              .ThenInclude(g => g.Memberships)
+                                              .ThenInclude(m => m.User)
+                                              .ThenInclude(u => u.Photos)
+                                              .FirstOrDefaultAsync();
             return group;
+
+            // var group = await DataContext.Groups
+            //                              .Include(g => g.Location)
+            //                              .ThenInclude(l => l.City)
+            //                              .ThenInclude(l => l.Country)
+            //                              .Include(g => g.Memberships)
+            //                              .ThenInclude(m => m.User)
+            //                              .ThenInclude(u => u.Photos)
+            //                              .FirstOrDefaultAsync(g => g.Id == groupId);
+            // return group;
         }
 
         public DataContext DataContext
         {
-            get { return Context as DataContext; } 
+            get { return Context as DataContext; }
         }
     }
 }

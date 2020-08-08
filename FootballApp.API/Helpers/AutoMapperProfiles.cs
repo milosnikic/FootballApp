@@ -161,6 +161,41 @@ namespace FootballApp.API.Helpers
                         opt.MapFrom(src => src.City.Name);
                     }
                 );
+            CreateMap<User, UserForDisplayDto>()
+                .ForMember(
+                    dest => dest.Age,
+                    opt =>
+                    {
+                        opt.MapFrom(src => src.DateOfBirth.CalculateAge());
+                    })
+                .ForMember(
+                    dest => dest.MainPhoto,
+                    opt =>
+                    {
+                        opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain));
+                    }
+                )
+                .ForMember(
+                    dest => dest.City,
+                    opt =>
+                    {
+                        opt.MapFrom(src => src.City.Name);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Country,
+                    opt =>
+                    {
+                        opt.MapFrom(src => src.Country.Name);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Flag,
+                    opt =>
+                    {
+                        opt.MapFrom(src => src.Country.Flag);
+                    }
+                );
             CreateMap<Country, CountryToReturnDto>();
             CreateMap<Membership, GroupToReturnDto>()
                 .ForMember(
@@ -221,12 +256,26 @@ namespace FootballApp.API.Helpers
                     dest => dest.Location,
                     opt => opt.Ignore()
                 );
-            CreateMap<Group, DetailGroupToReturnDto>()
+            CreateMap<Membership, DetailGroupToReturnDto>()
+                .ForMember(
+                    dest => dest.Id,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Id);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Name,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Name);
+                    }
+                )
                 .ForMember(
                     dest => dest.NumberOfMembers,
                     opt =>
                     {
-                        opt.MapFrom(src => src.Memberships
+                        opt.MapFrom(src => src.Group.Memberships
                         .Where(m => m.MembershipStatus == MembershipStatus.Accepted)
                         .ToArray()
                         .Length);
@@ -236,7 +285,7 @@ namespace FootballApp.API.Helpers
                     dest => dest.LatestJoined,
                     opt =>
                     {
-                        opt.MapFrom(src => src.Memberships
+                        opt.MapFrom(src => src.Group.Memberships
                                     .Where(m => m.MembershipStatus == MembershipStatus.Accepted)
                                     .OrderByDescending(m => m.DateAccepted)
                                     .Take(10)
@@ -248,7 +297,7 @@ namespace FootballApp.API.Helpers
                     dest => dest.PendingRequests,
                     opt => 
                     {
-                        opt.MapFrom(src => src.Memberships
+                        opt.MapFrom(src => src.Group.Memberships
                                     .Where(m => m.MembershipStatus == MembershipStatus.Sent)
                                     .Select(m => m.User)
                                     .ToList());
@@ -258,7 +307,35 @@ namespace FootballApp.API.Helpers
                     dest => dest.Members,
                     opt => 
                     {
-                        opt.MapFrom(src => src.Memberships.Where(m => m.MembershipStatus == MembershipStatus.Accepted).Select(m => m.User));
+                        opt.MapFrom(src => src.Group.Memberships.Where(m => m.MembershipStatus == MembershipStatus.Accepted).Select(m => m.User));
+                    }
+                )
+                .ForMember(
+                    dest => dest.Location,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Location);
+                    }
+                )
+                .ForMember(
+                    dest => dest.Description,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Description);
+                    }
+                )
+                .ForMember(
+                    dest => dest.DateCreated,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.DateCreated);
+                    }
+                )
+                .ForMember(
+                    dest => dest.IsMember,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Memberships.FirstOrDefault(m => m.User == src.User) != null);
                     }
                 );
         }

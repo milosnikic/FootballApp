@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FootballApp.API.Models;
 
 namespace FootballApp.API.Dtos
 {
@@ -11,13 +12,11 @@ namespace FootballApp.API.Dtos
         public DateTime DateCreated { get; set; }
         public bool Favorite { get; set; }
         public int NumberOfMembers { get; set; }
-        // TODO: add another user to display dto 
-        //      in order to stop loading memberships, groups etc
-        //      and add mapping
-        public ICollection<UserToReturnDto> LatestJoined { get; set; }
-        public ICollection<UserToReturnDto> PendingRequests { get; set; }
-        public ICollection<UserToReturnDto> Members { get; set; }
-        public LocationToReturnDto Location { get; set; }
+        public bool IsMember { get; set; }
+        public ICollection<UserForDisplayDto> LatestJoined { get; set; }
+        public ICollection<UserForDisplayDto> PendingRequests { get; set; }
+        public ICollection<UserForDisplayDto> Members { get; set; }
+        public Location Location { get; set; }
         public byte[] Image { get; set; }
         
     }

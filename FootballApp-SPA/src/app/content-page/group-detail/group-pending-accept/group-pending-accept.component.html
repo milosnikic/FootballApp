@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="mt-2">
-    <h3 style="display: inline;">Manage user membership</h3>
+    <h3 *ngIf="pendingRequests?.length > 0" style="display: inline;">Manage user membership</h3>
     <h4 *ngIf="pendingRequests?.length > 0" style="display: inline;" class="float-right">Pending accepts: {{pendingRequests?.length}}</h4>
   </div>
-  <hr>
+  <hr *ngIf="pendingRequests?.length > 0">
   <div class="row mt-4">
     <h2 *ngIf="pendingRequests?.length < 1">No pending requests.</h2>
     <div *ngFor="let user of pendingRequests" class="col-md-12">

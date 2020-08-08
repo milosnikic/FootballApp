@@ -36,7 +36,7 @@ namespace FootballApp.API.Controllers
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var groupFromRepo = await _unitOfWork.Groups.GetGroupWithInclude(id);
+            var groupFromRepo = await _unitOfWork.Groups.GetGroupWithInclude(id, userId);
 
             if (groupFromRepo == null)
                 return BadRequest(new

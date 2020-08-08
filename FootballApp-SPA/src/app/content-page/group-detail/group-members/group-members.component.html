@@ -7,7 +7,8 @@
         (click)="setSelectedUser(user)"
       ></app-group-user-box>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
       <mat-card
         *ngIf="!!selectedUser; else noSelectedUser"
         class="example-card"
@@ -36,10 +37,10 @@
               <h2>
                 {{ selectedUser?.firstname }} {{ selectedUser?.lastname }}
               </h2>
-              <h5>{{ selectedUser?.username }}</h5>
-              <h5>{{ selectedUser?.email }}</h5>
-              <h5>Age: {{ selectedUser?.age }}</h5>
-              <h5>Joined {{ selectedUser?.created | timeAgo }}</h5>
+              <h6>{{ selectedUser?.username }}</h6>
+              <h6>{{ selectedUser?.email }}</h6>
+              <h6>Age: {{ selectedUser?.age }}</h6>
+              <h6>Joined {{ selectedUser?.created | timeAgo }}</h6>
             </mat-card-content>
           </div>
           <div class="col-md-6">
@@ -51,7 +52,7 @@
               ><span style="color: greenyellow;">W </span>
               <span style="color: red;">L </span>
             </h4>
-            <button class="btn btn-outline-primary mt-4">
+            <button class="btn btn-outline-primary mt-4 float-right">
               Visit profile
             </button>
             <button class="btn btn-outline-danger float-right mt-4">
