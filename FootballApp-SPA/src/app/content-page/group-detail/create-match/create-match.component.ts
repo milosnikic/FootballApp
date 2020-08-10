@@ -64,7 +64,7 @@ export class CreateMatchComponent implements OnInit {
     const hours = time.split(':')[0];
     const minutes = time.split(':')[1];
     
-    const datePlaying = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes);
+    const datePlaying = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes).toLocaleString();
 
     const data = {
       groupId: this.groupId,

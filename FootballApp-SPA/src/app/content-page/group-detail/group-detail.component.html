@@ -78,6 +78,7 @@
             [pendingRequests]="group?.pendingRequests"
           ></app-group-pending-accept>
         </mat-tab>
+        <!-- Only power user can create -->
         <mat-tab
           *ngIf="user?.isPowerUser"
           [disabled]="
