@@ -1,11 +1,12 @@
 <div class="container-fluid">
   <div class="row">
-    <table style="width:100%">
+    <table *ngIf="matches?.length > 0;else noMatches" style="width:100%">
       <tr>
         <th>Name</th>
         <th>Country</th>
         <th>City</th>
         <th>Location</th>
+        <th *ngIf="mode === MatchPlayed.Upcoming">Date playing</th>
         <th *ngIf="mode === MatchPlayed.Played">Result</th>
         <th *ngIf="mode === MatchPlayed.Upcoming">Number of players</th>
         <th *ngIf="mode === MatchPlayed.Played">Home</th>
@@ -17,13 +18,16 @@
         <td>{{match?.country}}</td>
         <td>{{match?.city}}</td>
         <td>{{match?.location}}</td>
-        <td>{{match?.datePlaying | date:'dd.MM.yyyy.'}}</td>
+        <td *ngIf="mode === MatchPlayed.Upcoming">{{match?.datePlaying | date:'dd.MM.yyyy. HH:mm'}}</td>
         <td *ngIf="mode === MatchPlayed.Played">WIN</td>
-        <td *ngIf="mode === MatchPlayed.Upcoming">{{match?.numberOfAppliedPlayers}}/{{match?.numberOfPlayers}}</td>
+        <td *ngIf="mode === MatchPlayed.Upcoming">{{match?.numberOfConfirmedPlayers}}/{{match?.numberOfPlayers}}</td>
         <td *ngIf="mode === MatchPlayed.Played">Jelovac</td>
         <td *ngIf="mode === MatchPlayed.Played">NBG</td>
-        <td [routerLink]="['/app','upcoming-match', match?.id]" class="match-page"><i class="fas fa-caret-right"></i></td>
+        <td [routerLink]="['upcoming-match', match?.id]" class="match-page"><i class="fas fa-caret-right"></i></td>
       </tr>
     </table>
+    <ng-template #noMatches>
+      <h2 class="mt-4">No upcoming matches for selected group.</h2>
+    </ng-template>
   </div>
 </div>

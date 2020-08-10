@@ -50,6 +50,7 @@ export class CreateMatchComponent implements OnInit {
       description: [''],
       numberOfPlayers: [10],
       datePlaying: ['', Validators.required],
+      timePlaying: ['', Validators.required],
       location: ['', Validators.required],
       country: ['', Validators.required],
       city: ['', Validators.required],
@@ -58,17 +59,24 @@ export class CreateMatchComponent implements OnInit {
 
   createMatch() {
     const userId = JSON.parse(this.localStorage.get('user')).id;
+    let date = new Date(this.createMatchForm.get('datePlaying').value);
+    let time = this.createMatchForm.get('timePlaying').value;
+    const hours = time.split(':')[0];
+    const minutes = time.split(':')[1];
+    
+    const datePlaying = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes);
+
     const data = {
       groupId: this.groupId,
       name: this.createMatchForm.get('matchName').value,
       description: this.createMatchForm.get('description').value,
       numberOfPlayers: +this.createMatchForm.get('numberOfPlayers').value,
-      datePlaying: this.createMatchForm.get('datePlaying').value,
+      datePlaying,
       location: this.createMatchForm.get('location').value,
       cityId: +this.createMatchForm.get('city').value,
       countryId: +this.createMatchForm.get('country').value,
     };
-    console.log(data);
+    
     this.matchService.createMatch(data, userId).subscribe(
       (res: any) => {
         if(res.key) {

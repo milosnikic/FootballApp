@@ -17,5 +17,6 @@ namespace FootballApp.API.Dtos
         public string Country { get; set; }
         public string Flag { get; set; }
         public PhotoToReturnDto MainPhoto { get; set; }
+        public MatchStatusToReturnDto MatchStatus { get; set; }
     }
 }

@@ -37,16 +37,20 @@ export class GroupsComponent implements OnInit {
     this.userId = JSON.parse(this.localStorage.get('user')).id;
     this.groupService.getAllGroups(this.userId);
     this.groupService.getUsersGroups(this.userId);
-    this.groupService.getUsersCreatedGroups(this.userId);
     this.groupService.getUsersFavoriteGroups(this.userId);
+    
     this.route.data.subscribe((data: Data) => {
         this.titleToDisplay = data['title'];
       });
+
     this.allGroups$ = this.groupService.allGroups$;
     this.usersGroups$ = this.groupService.usersGroups$;
     this.usersCreatedGroups$ = this.groupService.usersCreatedGroups$;
     this.usersFavoriteGroups$ = this.groupService.usersFavoriteGroups$;
     this.user = JSON.parse(this.localStorage.get('user'));
+    if(this.user.isPowerUser) {
+      this.groupService.getUsersCreatedGroups(this.userId);
+    }
   }
 
   changeTab(event){

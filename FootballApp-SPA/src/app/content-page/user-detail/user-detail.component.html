@@ -11,14 +11,16 @@
           </ng-template>
         <app-user-profile [userId]="userId" [editable]="editable" (editProfile)="changeTab($event)"></app-user-profile>
         </mat-tab>
-        <mat-tab>
+        <!-- TODO: Phase 2 -->
+        <mat-tab disabled>
           <ng-template mat-tab-label>
             Latest 5 Matches
             <i class="fas ml-2 fa-trophy"></i>
           </ng-template>
           <app-user-latest-matches></app-user-latest-matches>
         </mat-tab>
-        <mat-tab>
+        <!-- TODO: Phase 2 -->
+        <mat-tab disabled>
           <ng-template mat-tab-label>
             Statistics
             <i class="fas ml-2 fa-poll"></i>

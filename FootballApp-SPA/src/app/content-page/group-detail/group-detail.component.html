@@ -9,44 +9,91 @@
             About
             <i class="far fa-address-card ml-2"></i>
           </ng-template>
-          <app-group-about [group]="group" [membershipInfo]="membershipInfo" [user]="user"></app-group-about>
+          <app-group-about
+            [group]="group"
+            [membershipInfo]="membershipInfo"
+            [user]="user"
+          ></app-group-about>
         </mat-tab>
-        <mat-tab isActive="false">
+        <mat-tab
+          isActive="false"
+          [disabled]="
+            membershipInfo === null ||
+            membershipInfo?.membershipStatus !== MembershipStatus.Accepted
+          "
+        >
           <ng-template mat-tab-label>
             Upcoming Matches
             <i class="fas fa-running ml-2"></i>
           </ng-template>
-          <app-group-matches [mode]="MatchPlayed.Upcoming" [matches]="upcomingMatches"></app-group-matches>
+          <app-group-matches
+            [mode]="MatchPlayed.Upcoming"
+            [matches]="upcomingMatches"
+          ></app-group-matches>
         </mat-tab>
-        <mat-tab>
+        <!-- TODO: Phase 2 -->
+        <mat-tab
+          [disabled]="
+            true ||
+            membershipInfo === null ||
+            membershipInfo?.membershipStatus !== MembershipStatus.Accepted
+          "
+        >
           <ng-template mat-tab-label>
             Past matches
             <i class="fas fa-history ml-2"></i>
           </ng-template>
-          <app-group-matches [mode]="MatchPlayed.Played" [matches]="playedMatches"></app-group-matches>
+          <app-group-matches
+            [mode]="MatchPlayed.Played"
+            [matches]="playedMatches"
+          ></app-group-matches>
         </mat-tab>
-        <mat-tab>
+        <mat-tab
+          [disabled]="
+            membershipInfo === null ||
+            membershipInfo?.membershipStatus !== MembershipStatus.Accepted
+          "
+        >
           <ng-template mat-tab-label>
             Members
             <i class="fas fa-users ml-2"></i>
           </ng-template>
-          <app-group-members [groupMembers]="group?.members"></app-group-members>
+          <app-group-members
+            [groupMembers]="group?.members"
+          ></app-group-members>
         </mat-tab>
-        <mat-tab *ngIf="user?.isPowerUser">
+        <mat-tab
+          *ngIf="user?.isPowerUser"
+          [disabled]="
+            membershipInfo === null ||
+            membershipInfo?.membershipStatus !== MembershipStatus.Accepted ||
+            membershipInfo?.role !== Role.Owner
+          "
+        >
           <ng-template mat-tab-label>
             Pending Accepts
             <i class="fas fa-user-check ml-2"></i>
           </ng-template>
-          <app-group-pending-accept [pendingRequests]="group?.pendingRequests"></app-group-pending-accept>
+          <app-group-pending-accept
+            [pendingRequests]="group?.pendingRequests"
+          ></app-group-pending-accept>
         </mat-tab>
-        <mat-tab *ngIf="user?.isPowerUser">
+        <mat-tab
+          *ngIf="user?.isPowerUser"
+          [disabled]="
+            membershipInfo === null ||
+            membershipInfo?.membershipStatus !== MembershipStatus.Accepted
+          "
+        >
           <ng-template mat-tab-label>
             Create match
             <i class="fas fa-user-check ml-2"></i>
           </ng-template>
-          <app-create-match (upcomingTab)="changeTab($event)"></app-create-match>
+          <app-create-match
+            (upcomingTab)="changeTab($event)"
+          ></app-create-match>
         </mat-tab>
-        <mat-tab *ngIf="user?.isPowerUser" disabled>
+        <mat-tab *ngIf="user?.isPowerUser" [disabled]="true">
           <ng-template mat-tab-label>
             Edit Group
             <i class="fas fa-edit ml-2"></i>

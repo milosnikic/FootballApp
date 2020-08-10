@@ -93,22 +93,22 @@ namespace FootballApp.API.Controllers
         [Route("{matchId}/check-in")]
         public async Task<IActionResult> CheckInForMatch(int userId, int matchId)
         {
-            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
             var match = await _unitOfWork.Matchdays.GetById(matchId);
-            if(match == null) 
+            if (match == null)
             {
                 return BadRequest("Specified match doesn't exist!");
             }
 
             var matchStatus = await _unitOfWork.MatchStatuses.GetMatchStatusById(userId, matchId);
-            if(matchStatus != null)
+            if (matchStatus != null)
             {
                 return BadRequest("You are already checked in!");
             }
 
-            matchStatus = new MatchStatus 
+            matchStatus = new MatchStatus
             {
                 UserId = userId,
                 MatchdayId = match.Id,
@@ -117,7 +117,7 @@ namespace FootballApp.API.Controllers
                 Confirmed = null
             };
             _unitOfWork.MatchStatuses.Add(matchStatus);
-            if(await _unitOfWork.Complete())
+            if (await _unitOfWork.Complete())
             {
                 return Ok(new KeyValuePair<bool, string>(true, "Successfully checked in for match!"));
             }
@@ -129,17 +129,75 @@ namespace FootballApp.API.Controllers
         [Route("{matchId}/give-up")]
         public async Task<IActionResult> GiveUpForMatch(int userId, int matchId)
         {
-            // TODO
-            return Ok();
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var match = await _unitOfWork.Matchdays.GetById(matchId);
+            if (match == null)
+            {
+                return BadRequest("Specified match doesn't exist!");
+            }
+
+            var matchStatus = await _unitOfWork.MatchStatuses.GetMatchStatusById(userId, matchId);
+            if (matchStatus == null)
+            {
+                return BadRequest("You are not checked in for match.");
+            }
+
+            _unitOfWork.MatchStatuses.Remove(matchStatus);
+
+            if (await _unitOfWork.Complete())
+            {
+                return Ok(new KeyValuePair<bool, string>(true, "Successfully gave up a match!"));
+            }
+
+            return Ok(new KeyValuePair<bool, string>(false, "Couldn't give up for match!"));
         }
 
         [HttpPost]
         [Route("{matchId}/confirm")]
         public async Task<IActionResult> ConfirmForMatch(int userId, int matchId)
         {
-            // TODO
-            return Ok();
-        }
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
 
+            var match = await _unitOfWork.Matchdays.GetById(matchId);
+            if (match == null)
+            {
+                return BadRequest("Specified match doesn't exist!");
+            }
+
+            var matchStatus = await _unitOfWork.MatchStatuses.GetMatchStatusById(userId, matchId);
+            if (matchStatus == null)
+            {
+                return BadRequest("You are not checked in for match.");
+            }
+            matchStatus.Checked = false;
+            matchStatus.Confirmed = true;
+
+            if (await _unitOfWork.Complete())
+            {
+                return Ok(new KeyValuePair<bool, string>(true, "Successfully confirmed for match!"));
+            }
+
+            return Ok(new KeyValuePair<bool, string>(false, "Couldn't confirm for match!"));
+        }
+        
+        [HttpGet]
+        [Route("{matchId}/status/{userId}")]
+        public async Task<IActionResult> GetUserStatusForMatchday(int matchId, int userId){
+            
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var match = await _unitOfWork.Matchdays.GetById(matchId);
+            if (match == null)
+            {
+                return BadRequest("Specified match doesn't exist!");
+            }
+
+            var matchStatus = await _unitOfWork.MatchStatuses.GetMatchStatusById(userId, matchId);
+            return Ok(_mapper.Map<MatchStatusToReturnDto>(matchStatus));
+        }
     }
 }

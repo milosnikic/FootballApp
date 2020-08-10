@@ -11,7 +11,7 @@ namespace FootballApp.API.Dtos
         public string City { get; set; }
         public string Country { get; set; }
         public int NumberOfPlayers { get; set; }
-        public int NumberOfAppliedPlayers { get; set; }
+        public int NumberOfConfirmedPlayers { get; set; }
         public DateTime DatePlaying { get; set; }
         public ICollection<UserForDisplayDto> AppliedUsers { get; set; }
     }

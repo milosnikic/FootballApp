@@ -52,9 +52,10 @@
               ><span style="color: greenyellow;">W </span>
               <span style="color: red;">L </span>
             </h4>
-            <button class="btn btn-outline-primary mt-4 float-right">
+            <button [routerLink]="['/app/users', selectedUser.id]" class="btn btn-outline-primary mt-4 float-right">
               Visit profile
             </button>
+            <!-- TODO: Add check if user is power or admin of group -->
             <button class="btn btn-outline-danger float-right mt-4">
               Remove user
             </button>

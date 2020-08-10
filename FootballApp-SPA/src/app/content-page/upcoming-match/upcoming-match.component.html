@@ -1,4 +1,5 @@
-<h1>Upcoming match - <h2>{{match?.name}}</h2></h1>
+<h1 style="display: inline;">Upcoming match - <h2 style="display: inline;">{{match?.name}}</h2></h1>
+<button class="btn btn-outline-primary float-right" (click)="goBack()">Go back</button>
 <hr />
 <div class="container-fluid">
   <div class="row text-center mt-4">
@@ -11,6 +12,7 @@
       <h3>🕗</h3>
       <h3>Playing date</h3>
       <p class="text">{{match?.datePlaying | date:'dd.MM.yyyy.'}}</p>
+      <p class="text">{{match?.datePlaying | date:'HH:mm'}}</p>
     </div>
     <div class="col-md-3">
       <h3>🏃‍♂️</h3>
@@ -29,7 +31,7 @@
     <!-- Here should be displayed number of users and buttons -->
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
-      <h3 [ngClass]="getCapacityClass()">Users confirmed: {{ match?.numberOfAppliedPlayers }}/{{match?.numberOfPlayers}}</h3>
+      <h3 [ngClass]="getCapacityClass()">Users confirmed: {{ match?.numberOfConfirmedPlayers }}/{{match?.numberOfPlayers}}</h3>
     </div>
     <div class="col-md-4">
       <button

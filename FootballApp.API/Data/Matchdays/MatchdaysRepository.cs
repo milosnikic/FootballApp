@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,10 +31,11 @@ namespace FootballApp.API.Data.Matchdays
         public async Task<ICollection<Matchday>> GetUpcomingMatchesForGroup(int groupId)
         {
             var upcomingMatches = await DataContext.Matchdays
-                                                   .Where(m => m.Group.Id == groupId)
+                                                   .Where(m => m.Group.Id == groupId && m.DatePlaying > DateTime.Now)
                                                    .Include(m => m.Location)
                                                    .ThenInclude(l => l.City)
                                                    .ThenInclude(l => l.Country)
+                                                   .Include(m => m.MatchStatuses)
                                                    .OrderBy(m => m.DatePlaying)
                                                    .OrderBy(m => m.Location.CountryId)
                                                    .ToListAsync();

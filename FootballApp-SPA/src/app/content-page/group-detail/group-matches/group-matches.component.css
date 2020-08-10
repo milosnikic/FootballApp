@@ -15,6 +15,11 @@ th {
 .match-page:hover {
   cursor: pointer;
 }
+
+.match-page:focus {
+  outline: none;
+}
+
 .match-page{
     width: 170px;
     text-align: center;

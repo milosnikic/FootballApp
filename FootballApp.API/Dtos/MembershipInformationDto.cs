@@ -6,5 +6,6 @@ namespace FootballApp.API.Dtos
     {
         public bool Favorite { get; set; } = false;
         public MembershipStatus MembershipStatus { get; set; }
+        public Role Role { get; set; }
     }
 }

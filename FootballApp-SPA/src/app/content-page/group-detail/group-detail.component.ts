@@ -6,6 +6,8 @@ import { MatTabGroup } from '@angular/material';
 import { User } from 'src/app/_models/user';
 import { GroupsService } from 'src/app/_services/groups.service';
 import { MatchService } from 'src/app/_services/match.service';
+import { MembershipStatus } from 'src/app/_models/MembershipStatus.enum';
+import { Role } from 'src/app/_models/role.enum';
 
 @Component({
   selector: 'app-group-detail',
@@ -25,6 +27,8 @@ export class GroupDetailComponent implements OnInit {
   group: any;
   // TODO: add membership model
   membershipInfo: any;
+  MembershipStatus = MembershipStatus;
+  Role = Role;
 
   constructor(private route: ActivatedRoute,
               private groupService: GroupsService,
@@ -45,6 +49,7 @@ export class GroupDetailComponent implements OnInit {
     );
     this.groupService.getMembershipInformation(this.groupId, this.user.id).subscribe(
       (res: any) => {
+        console.log(res);
         this.membershipInfo = res;
       }
     );

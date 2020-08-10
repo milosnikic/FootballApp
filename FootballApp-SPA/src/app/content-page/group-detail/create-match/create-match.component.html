@@ -28,12 +28,13 @@
           ></textarea>
         </div>
         <div class="form-group">
+          <label for="date">Choose a playing date: </label>
           <mat-form-field class="example-full-width">
             <input
               matInput
               [min]="minDate"
               [matDatepicker]="picker"
-              placeholder="Choose a playing date"
+              id="date"
               formControlName="datePlaying"
             />
             <mat-datepicker-toggle
@@ -42,6 +43,16 @@
             ></mat-datepicker-toggle>
             <mat-datepicker touchUi #picker></mat-datepicker>
           </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label for="time">Choose exact time: </label>
+            <input
+            class="time-picker" 
+            id="time"
+            [ngxTimepicker]="timePicker"
+            [format]="24"
+            formControlName="timePlaying">
+            <ngx-material-timepicker #timePicker [defaultTime]="'19:00'"></ngx-material-timepicker>
         </div>
         <div class="form-group">
           <label for="numberOfPlayers">Enter number of players playing match</label>

@@ -6,7 +6,7 @@
             <mat-tab-group #tabs animationDuration="500ms" [selectedIndex]="0"> 
                 <mat-tab>
                     <ng-template mat-tab-label>
-                        All groups
+                        Explore groups
                         <i class="fas fa-globe-europe ml-2"></i>
                     </ng-template>
                     <app-groups-list [groups]="allGroups$ | async" [mode]="MembershipStatus.NotMember"></app-groups-list>

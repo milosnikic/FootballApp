@@ -89,11 +89,20 @@
         ><h3>Latest joined users!</h3></mat-card-header
       >
       <div class="users-wrapper">
-        <div class="row">
-          <div *ngFor="let user of group?.latestJoined" class="col-md-6">
+        <div class="row" *ngIf="membershipInfo?.membershipStatus === MembershipStatus.Accepted; else notMember">
+          <div  *ngFor="let user of group?.latestJoined" class="col-md-6">
             <app-group-user-box [user]="user"></app-group-user-box>
           </div>
         </div>
+        <ng-template #notMember>
+          <div class="container-fluid">
+            <div class="row">
+              <h4 class="span6"
+              style="float: none; margin: 0 auto;"
+              >You need to be member of group in order to see this.</h4>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </mat-card>
   </div>

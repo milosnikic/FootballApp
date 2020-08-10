@@ -1,0 +1,18 @@
+.time-picker {
+    cursor: pointer;
+    margin-left:5px;
+    border: none;
+    background-color: transparent;
+    background-image: url('../../../../assets/clock.png');
+    background-size:24px;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    width: 180px;
+    border-bottom: 1px solid grey;
+}
+
+
+
+.time-picker:focus {
+    outline: none;
+}

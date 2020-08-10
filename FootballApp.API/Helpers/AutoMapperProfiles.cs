@@ -195,6 +195,13 @@ namespace FootballApp.API.Helpers
                     {
                         opt.MapFrom(src => src.Country.Flag);
                     }
+                )
+                .ForMember(
+                    dest => dest.MatchStatus,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.MatchStatuses.SingleOrDefault());
+                    }
                 );
             CreateMap<Country, CountryToReturnDto>();
             CreateMap<Membership, GroupToReturnDto>()
@@ -355,7 +362,7 @@ namespace FootballApp.API.Helpers
                         }
                     )
                     .ForMember(
-                        dest => dest.NumberOfAppliedPlayers,
+                        dest => dest.NumberOfConfirmedPlayers,
                         opt => 
                         {
                             opt.MapFrom(src => src.MatchStatuses.Where(m => m.Confirmed == true).ToArray().Length);

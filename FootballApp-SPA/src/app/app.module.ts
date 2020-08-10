@@ -29,6 +29,7 @@ import {
   MatNativeDateModule,
   MatInputModule,
 } from '@angular/material';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -112,6 +113,7 @@ import { CreateMatchComponent } from './content-page/group-detail/create-match/c
     MatNativeDateModule,
     MatInputModule,
     FormsModule,
+    NgxMaterialTimepickerModule,
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 100,
