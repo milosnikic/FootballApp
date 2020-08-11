@@ -50,8 +50,8 @@ namespace FootballApp.API.Controllers
             var membership = await _unitOfWork.Memberships.GetMembershipById(userId, group.Id);
             if (membership == null
             || membership.MembershipStatus == MembershipStatus.NotMember
-            || membership.MembershipStatus == MembershipStatus.Sent
-            || membership.Role == Role.Member)
+            || membership.MembershipStatus == MembershipStatus.Sent)
+            // || membership.Role == Role.Member
             {
                 return Unauthorized();
             }
@@ -80,12 +80,24 @@ namespace FootballApp.API.Controllers
         }
 
         [HttpGet]
-        [Route("upcoming-matches")]
+        [Route("upcoming-matches/{groupId}")]
         public async Task<IActionResult> GetUpcomingMatchesForGroup(int groupId)
         {
             var matches = _mapper.Map<ICollection<MatchdayToReturnDto>>(await _unitOfWork.Matchdays.GetUpcomingMatchesForGroup(groupId));
 
             return Ok(matches);
+        }
+
+        [HttpGet]
+        [Route("upcoming-matches")]
+        public async Task<IActionResult> GetUpcomingMatchesForUser(int userId)
+        {
+            var user = await _unitOfWork.Users.GetUserByIdWithAdditionalInformation(userId);
+            if(user != null)
+            {
+                return Ok(_mapper.Map<ICollection<MatchdayForDisplayDto>>(await _unitOfWork.Matchdays.GetUpcomingMatchesForUser(userId)));
+            }
+            return BadRequest("Specified user doesn't exist.");
         }
 
 
@@ -182,11 +194,12 @@ namespace FootballApp.API.Controllers
 
             return Ok(new KeyValuePair<bool, string>(false, "Couldn't confirm for match!"));
         }
-        
+
         [HttpGet]
         [Route("{matchId}/status/{userId}")]
-        public async Task<IActionResult> GetUserStatusForMatchday(int matchId, int userId){
-            
+        public async Task<IActionResult> GetUserStatusForMatchday(int matchId, int userId)
+        {
+
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 

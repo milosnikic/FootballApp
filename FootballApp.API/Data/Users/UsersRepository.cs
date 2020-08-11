@@ -26,6 +26,7 @@ namespace FootballApp.API.Data.Users
                                     .Include(u => u.City)
                                     .Include(u => u.Country)
                                     .Include(u => u.GroupsCreated)
+                                    .Include(u => u.MatchStatuses)
                                     .FirstOrDefaultAsync(u => u.Id == id);
             }
 
@@ -34,6 +35,7 @@ namespace FootballApp.API.Data.Users
                                     .Include(u => u.Photos)
                                     .Include(u => u.City)
                                     .Include(u => u.Country)
+                                    .Include(u => u.MatchStatuses)
                                     .FirstOrDefaultAsync(u => u.Id == id);
         }
 

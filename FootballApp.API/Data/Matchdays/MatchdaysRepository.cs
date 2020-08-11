@@ -42,6 +42,20 @@ namespace FootballApp.API.Data.Matchdays
             return upcomingMatches;
         }
 
+        public async Task<ICollection<MatchStatus>> GetUpcomingMatchesForUser(int userId)
+        {
+            var upcomingMatches = await DataContext.MatchStatuses
+                                                    .Where(m => m.UserId == userId && m.Matchday.DatePlaying > DateTime.Now)
+                                                    .Include(m => m.Matchday)
+                                                    .ThenInclude(m => m.MatchStatuses)
+                                                    .Include(m => m.Matchday)
+                                                    .ThenInclude(m => m.Location)
+                                                    .ThenInclude(l => l.City)
+                                                    .ThenInclude(l => l.Country)
+                                                    .ToListAsync();
+            return upcomingMatches;
+        }
+
         public DataContext DataContext
         {
             get

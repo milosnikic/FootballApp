@@ -6,7 +6,6 @@ import { GroupsListComponent } from './content-page/groups/groups-list/groups-li
 import { FriendDetailComponent } from './content-page/friends/friends-list/friend-detail/friend-detail.component';
 import { FriendsListComponent } from './content-page/friends/friends-list/friends-list.component';
 import { MatchHistoryComponent } from './content-page/match-history/match-history.component';
-import { AvailableMatchesComponent } from './content-page/available-matches/available-matches.component';
 import { MessagesComponent } from './content-page/messages/messages.component';
 import { FriendsComponent } from './content-page/friends/friends.component';
 import { UserPhotosComponent } from './content-page/user-detail/user-photos/user-photos.component';
@@ -55,9 +54,10 @@ import { GroupSettingsComponent } from './content-page/group-detail/group-settin
 import { GroupMatchesComponent } from './content-page/group-detail/group-matches/group-matches.component';
 import { GroupAboutComponent } from './content-page/group-detail/group-about/group-about.component';
 import { GroupUserBoxComponent } from './content-page/group-detail/group-user-box/group-user-box.component';
-import { UpcomingMatchComponent } from './content-page/upcoming-match/upcoming-match.component';
 import { PlayedMatchComponent } from './content-page/played-match/played-match.component';
 import { CreateMatchComponent } from './content-page/group-detail/create-match/create-match.component';
+import { UpcomingMatchComponent } from './content-page/upcoming-matches/upcoming-match/upcoming-match.component';
+import { UpcomingMatchesComponent } from './content-page/upcoming-matches/upcoming-matches.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +81,6 @@ import { CreateMatchComponent } from './content-page/group-detail/create-match/c
     MessagesComponent,
     MessagesListUsersComponent,
     MessagesDisplayContentComponent,
-    AvailableMatchesComponent,
     MatchHistoryComponent,
     FriendsListComponent,
     FriendDetailComponent,
@@ -95,6 +94,7 @@ import { CreateMatchComponent } from './content-page/group-detail/create-match/c
     GroupUserBoxComponent,
     CreateMatchComponent,
     UpcomingMatchComponent,
+    UpcomingMatchesComponent,
     PlayedMatchComponent,
     SetActiveDirective,
     TimeAgoPipe,

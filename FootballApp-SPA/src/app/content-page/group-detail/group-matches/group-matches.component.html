@@ -1,12 +1,13 @@
 <div class="container-fluid">
   <div class="row">
-    <table *ngIf="matches?.length > 0;else noMatches" style="width:100%">
+    <table *ngIf="matches?.length > 0; else noMatches" style="width: 100%;">
       <tr>
+        <th *ngIf="mode === MatchPlayed.Upcoming">Date playing</th>
+        <th *ngIf="statusVisible">Status</th>
         <th>Name</th>
         <th>Country</th>
         <th>City</th>
         <th>Location</th>
-        <th *ngIf="mode === MatchPlayed.Upcoming">Date playing</th>
         <th *ngIf="mode === MatchPlayed.Played">Result</th>
         <th *ngIf="mode === MatchPlayed.Upcoming">Number of players</th>
         <th *ngIf="mode === MatchPlayed.Played">Home</th>
@@ -14,20 +15,32 @@
         <th>Go to Match Page</th>
       </tr>
       <tr *ngFor="let match of matches" class="match">
-        <td>{{match?.name}}</td>
-        <td>{{match?.country}}</td>
-        <td>{{match?.city}}</td>
-        <td>{{match?.location}}</td>
-        <td *ngIf="mode === MatchPlayed.Upcoming">{{match?.datePlaying | date:'dd.MM.yyyy. HH:mm'}}</td>
+        <td *ngIf="mode === MatchPlayed.Upcoming">
+          {{ match?.datePlaying | date: "dd.MM.yyyy. HH:mm" }}
+        </td>
+        <td
+          *ngIf="statusVisible"
+          [ngClass]="{ confirmed: match?.confirmed, checked: match?.checked }"
+        >
+          {{ match?.confirmed ? '✔' : match?.checked ? '❓'  : '' }}
+        </td>
+        <td>{{ match?.name }}</td>
+        <td>{{ match?.country }}</td>
+        <td>{{ match?.city }}</td>
+        <td>{{ match?.location }}</td>
         <td *ngIf="mode === MatchPlayed.Played">WIN</td>
-        <td *ngIf="mode === MatchPlayed.Upcoming">{{match?.numberOfConfirmedPlayers}}/{{match?.numberOfPlayers}}</td>
+        <td *ngIf="mode === MatchPlayed.Upcoming">
+          {{ match?.numberOfConfirmedPlayers }}/{{ match?.numberOfPlayers }}
+        </td>
         <td *ngIf="mode === MatchPlayed.Played">Jelovac</td>
         <td *ngIf="mode === MatchPlayed.Played">NBG</td>
-        <td [routerLink]="['upcoming-match', match?.id]" class="match-page"><i class="fas fa-caret-right"></i></td>
+        <td [routerLink]="['upcoming-match', match?.id]" class="match-page">
+          <i class="fas fa-caret-right"></i>
+        </td>
       </tr>
     </table>
     <ng-template #noMatches>
-      <h2 class="mt-4">No upcoming matches for selected group.</h2>
+      <h2 class="mt-4">{{ noUpcomingMatchesTitle }}</h2>
     </ng-template>
   </div>
 </div>

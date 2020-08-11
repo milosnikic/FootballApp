@@ -339,6 +339,63 @@ namespace FootballApp.API.Helpers
                         opt.MapFrom(src => src.Group.DateCreated);
                     }
                 );
+                CreateMap<MatchStatus, MatchdayForDisplayDto>()
+                    .ForMember(
+                        dest => dest.Id,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.MatchdayId);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.Name,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Matchday.Name);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.Location,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Matchday.Location.Name);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.City,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Matchday.Location.City.Name);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.Country,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Matchday.Location.Country.Name);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.NumberOfPlayers,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Matchday.NumberOfPlayers);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.DatePlaying,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Matchday.DatePlaying);
+                        }
+                    )
+                    .ForMember(
+                        dest => dest.NumberOfConfirmedPlayers,
+                        opt => 
+                        {
+                            opt.MapFrom(src => src.Matchday.MatchStatuses.Where(m => m.Confirmed == true).ToArray().Length);
+                        }
+                    );
                 CreateMap<Matchday, MatchdayToReturnDto>()
                     .ForMember(
                         dest => dest.Location,

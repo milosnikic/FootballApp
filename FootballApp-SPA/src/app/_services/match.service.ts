@@ -29,8 +29,12 @@ export class MatchService {
     );
   }
 
-  getUpcomingMatches(groupId: number) {
-    return this.http.get(this.baseUrl + `/upcoming-matches?groupId=${groupId}`);
+  getUpcomingMatchesForGroup(groupId: number) {
+    return this.http.get(this.baseUrl + `/upcoming-matches/${groupId}`);
+  }
+
+  getUpcomingMatchesForUser(userId: number) {
+    return this.http.get(this.baseUrl + `/upcoming-matches?userId=${userId}`);
   }
 
   getUserMatchStatus(matchId: number, userId: number) {

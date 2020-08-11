@@ -24,3 +24,11 @@ th {
     width: 170px;
     text-align: center;
 }
+
+.checked {
+  color: yellow
+}
+
+.confirmed {
+  color: yellowgreen;
+}

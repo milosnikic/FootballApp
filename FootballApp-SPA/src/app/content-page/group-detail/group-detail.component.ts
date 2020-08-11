@@ -53,7 +53,7 @@ export class GroupDetailComponent implements OnInit {
         this.membershipInfo = res;
       }
     );
-    this.matchService.getUpcomingMatches(this.groupId).subscribe(
+    this.matchService.getUpcomingMatchesForGroup(this.groupId).subscribe(
       (res: any) => {
         this.upcomingMatches = res;
       }
