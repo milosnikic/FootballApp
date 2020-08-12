@@ -11,6 +11,7 @@ import { MatchPlayed } from 'src/app/_models/matchPlayed.enum';
 export class UpcomingMatchesComponent implements OnInit {
   titleToDisplay: string;
   appliedMatches: any;
+  applicableMatches: any;
   user: any;
   MatchPlayed = MatchPlayed;
 
@@ -27,5 +28,10 @@ export class UpcomingMatchesComponent implements OnInit {
         this.appliedMatches = res;
       }
     );
+    this.matchService.getUpcomingMatchesApplicableForUser(this.user.id).subscribe(
+      (res: any) => {
+        this.applicableMatches = res;
+      }
+    )
   }
 }

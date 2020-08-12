@@ -59,6 +59,7 @@
             <i class="fas fa-users ml-2"></i>
           </ng-template>
           <app-group-members
+            [membershipInfo]="membershipInfo"
             [groupMembers]="group?.members"
           ></app-group-members>
         </mat-tab>

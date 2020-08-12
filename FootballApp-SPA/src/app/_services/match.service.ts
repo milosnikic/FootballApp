@@ -37,6 +37,10 @@ export class MatchService {
     return this.http.get(this.baseUrl + `/upcoming-matches?userId=${userId}`);
   }
 
+  getUpcomingMatchesApplicableForUser(userId: number) {
+    return this.http.get(this.baseUrl + `/upcoming-matches-applicable?userId=${userId}`);
+  }
+
   getUserMatchStatus(matchId: number, userId: number) {
     return this.http.get(this.baseUrl + `/${matchId}/status/${userId}`);
   }
@@ -67,7 +71,6 @@ export class MatchService {
   }
 
   private mapMatchStatus(confirmed: boolean, checked: boolean) {
-    console.log(confirmed, checked);
     return confirmed
       ? MatchStatus.Confirmed
       : checked

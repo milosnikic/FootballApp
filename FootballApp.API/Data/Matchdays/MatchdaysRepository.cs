@@ -52,7 +52,28 @@ namespace FootballApp.API.Data.Matchdays
                                                     .ThenInclude(m => m.Location)
                                                     .ThenInclude(l => l.City)
                                                     .ThenInclude(l => l.Country)
+                                                    .OrderBy(m => m.Matchday.DatePlaying)
                                                     .ToListAsync();
+            return upcomingMatches;
+        }
+
+        public async Task<ICollection<Matchday>> GetUpcomingMatchesApplicableForUser(int userId)
+        {
+            var upcomingMatches = await DataContext.Matchdays
+                                                    .Include(m => m.Group)
+                                                    .ThenInclude(g => g.Memberships)
+                                                    .Where(m =>
+                                                     m.Group.Memberships.FirstOrDefault(u => u.UserId == userId) != null && // This line is related to user participation in group
+                                                     m.MatchStatuses.FirstOrDefault(ms => ms.UserId == userId) == null &&   // This line is related to user not having match status
+                                                     m.DatePlaying > DateTime.Now                                           // This line ensures that match is hasn't been played
+                                                    )
+                                                    .Include(m => m.Location)
+                                                    .ThenInclude(l => l.City)
+                                                    .ThenInclude(l => l.Country)
+                                                    .Include(m => m.MatchStatuses)
+                                                    .OrderBy(m => m.DatePlaying)
+                                                    .ToListAsync();
+            
             return upcomingMatches;
         }
 

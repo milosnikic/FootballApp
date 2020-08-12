@@ -11,8 +11,8 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./upcoming-match.component.css'],
 })
 export class UpcomingMatchComponent implements OnInit {
-  isChecked = false;
-  isConfirmed = false;
+  isChecked;
+  isConfirmed;
   user: any;
 
   groupId: number;
@@ -38,15 +38,13 @@ export class UpcomingMatchComponent implements OnInit {
         .subscribe((res: any) => {
           this.match = res;
           this.users = this.match.appliedUsers;
-          this.say();
-          console.log(this.match);
         });
       this.matchService
         .getUserMatchStatus(this.matchId, this.user.id)
         .subscribe((res: any) => {
           // Here we have match status {checked: bool, confirmed: bool}
           this.isChecked = res !== null ? res.checked : false;
-          this.isConfirmed = res !== null ? res.confiremd : false;
+          this.isConfirmed = res !== null ? res.confirmed : false;
         });
     });
     
@@ -125,9 +123,5 @@ export class UpcomingMatchComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['../..'], { relativeTo: this.route });
-  }
-
-  say() {
-    console.log(this.users.find(i => i.firstname === this.user.firstname));
   }
 }

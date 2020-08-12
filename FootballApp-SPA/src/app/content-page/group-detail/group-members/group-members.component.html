@@ -13,24 +13,24 @@
         *ngIf="!!selectedUser; else noSelectedUser"
         class="example-card"
       >
-      <img
-      *ngIf="selectedUser?.mainPhoto; else defaultImage"
-      mat-card-image
-      src="data:image/JPEG;base64,{{ selectedUser?.mainPhoto?.image }}"
-      alt="User profile picture"
-    />
-    <ng-template #defaultImage>
-      <img
-        mat-card-image
-        *ngIf="!selectedUser?.mainPhoto"
-        src="{{
-          selectedUser?.gender === 'Male'
-            ? '../assets/male-default.jpg'
-            : '../assets/female-default.jpg'
-        }}"
-        alt=""
-      />
-    </ng-template>
+        <img
+          *ngIf="selectedUser?.mainPhoto; else defaultImage"
+          mat-card-image
+          src="data:image/JPEG;base64,{{ selectedUser?.mainPhoto?.image }}"
+          alt="User profile picture"
+        />
+        <ng-template #defaultImage>
+          <img
+            mat-card-image
+            *ngIf="!selectedUser?.mainPhoto"
+            src="{{
+              selectedUser?.gender === 'Male'
+                ? '../assets/male-default.jpg'
+                : '../assets/female-default.jpg'
+            }}"
+            alt=""
+          />
+        </ng-template>
         <div class="row">
           <div class="col-md-6">
             <mat-card-content>
@@ -52,11 +52,20 @@
               ><span style="color: greenyellow;">W </span>
               <span style="color: red;">L </span>
             </h4>
-            <button [routerLink]="['/app/users', selectedUser.id]" class="btn btn-outline-primary mt-4 float-right">
+            <button
+              [routerLink]="['/app/users', selectedUser.id]"
+              class="btn btn-outline-primary mt-4 float-right"
+            >
               Visit profile
             </button>
             <!-- TODO: Add check if user is power or admin of group -->
-            <button class="btn btn-outline-danger float-right mt-4">
+            <button
+              *ngIf="
+                membershipInfo?.role === Role.Owner ||
+                membershipInfo?.role === Role.Admin
+              "
+              class="btn btn-outline-danger float-right mt-4"
+            >
               Remove user
             </button>
           </div>

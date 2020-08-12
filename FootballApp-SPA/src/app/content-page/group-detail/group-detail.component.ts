@@ -49,7 +49,6 @@ export class GroupDetailComponent implements OnInit {
     );
     this.groupService.getMembershipInformation(this.groupId, this.user.id).subscribe(
       (res: any) => {
-        console.log(res);
         this.membershipInfo = res;
       }
     );

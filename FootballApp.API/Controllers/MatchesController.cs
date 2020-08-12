@@ -100,6 +100,12 @@ namespace FootballApp.API.Controllers
             return BadRequest("Specified user doesn't exist.");
         }
 
+        [HttpGet]
+        [Route("upcoming-matches-applicable")]
+        public async Task<IActionResult> GetUpcomingMatchesApplicableForUser(int userId)
+        {
+            return Ok(_mapper.Map<ICollection<MatchdayToReturnDto>>(await _unitOfWork.Matchdays.GetUpcomingMatchesApplicableForUser(userId)));
+        }
 
         [HttpPost]
         [Route("{matchId}/check-in")]

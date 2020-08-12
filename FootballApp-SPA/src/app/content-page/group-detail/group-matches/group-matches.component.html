@@ -34,9 +34,14 @@
         </td>
         <td *ngIf="mode === MatchPlayed.Played">Jelovac</td>
         <td *ngIf="mode === MatchPlayed.Played">NBG</td>
-        <td [routerLink]="['upcoming-match', match?.id]" class="match-page">
+        <td *ngIf="defaultRouter; else differentRouter" [routerLink]="['upcoming-match', match?.id]" class="match-page">
           <i class="fas fa-caret-right"></i>
         </td>
+        <ng-template #differentRouter>
+          <td [routerLink]="['..','upcoming-matches', match?.id]" class="match-page">
+            <i class="fas fa-caret-right"></i>
+          </td>
+        </ng-template>
       </tr>
     </table>
     <ng-template #noMatches>

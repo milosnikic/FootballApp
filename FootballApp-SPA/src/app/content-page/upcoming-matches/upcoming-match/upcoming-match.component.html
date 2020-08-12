@@ -44,10 +44,16 @@
       <button
         *ngIf="isChecked"
         class="btn btn-success ml-4 mr-4 float-right"
-        [disabled]="isConfirmed"
         (click)="confirm()"
       >
         Confirm
+      </button>
+      <button
+      *ngIf="!isChecked && isConfirmed"
+      class="btn btn-success ml-4 mr-4 float-right"
+      disabled
+      >      
+       Confirmed! 
       </button>
       <button
         *ngIf="!isConfirmed && !isChecked"

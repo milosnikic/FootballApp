@@ -11,6 +11,7 @@ export class GroupMatchesComponent implements OnInit {
   @Input() mode: MatchPlayed;
   @Input() noUpcomingMatchesTitle = 'No upcoming matches for selected group.';
   @Input() statusVisible = false;
+  @Input() defaultRouter = true;
   MatchPlayed = MatchPlayed;
   constructor() { }
 

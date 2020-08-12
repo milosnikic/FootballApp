@@ -2,15 +2,15 @@
 <hr />
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6 matches">
+    <div class="col-md-12 matches">
       <h2 style="padding-top: 5px;">Matches you <h2 style="color: yellow;display: inline;">applied</h2> or <h2 style="color: yellowgreen;display: inline;">confirmed</h2></h2>
       <hr>
-      <app-group-matches [matches]="appliedMatches" [statusVisible]="true" [mode]="MatchPlayed.Upcoming" [noUpcomingMatchesTitle]="'You didn\' apply for any match!'"></app-group-matches>
+      <app-group-matches [matches]="appliedMatches" [statusVisible]="true" [defaultRouter]="false" [mode]="MatchPlayed.Upcoming" [noUpcomingMatchesTitle]="'You didn\' apply for any match!'"></app-group-matches>
     </div>
-    <div class="col-md-6 matches">
-      <h2 style="padding-top: 5px;">Matches you can<h2 style="color: yellow;display: inline;">apply</h2> for</h2>
+    <div class="col-md-12 matches mt-5">
+      <h2 style="padding-top: 5px;">Matches you can <h2 style="color: yellow;display: inline;">apply</h2> for</h2>
       <hr>
-      <app-group-matches [mode]="MatchPlayed.Upcoming" [noUpcomingMatchesTitle]="'There is not upcoming matchis you can apply for.'"></app-group-matches>
+      <app-group-matches [matches]="applicableMatches" [mode]="MatchPlayed.Upcoming" [defaultRouter]="false" [noUpcomingMatchesTitle]="'There is no upcoming matches you can apply for.'"></app-group-matches>
     </div>
   </div>
 </div>
