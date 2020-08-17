@@ -58,6 +58,7 @@ import { PlayedMatchComponent } from './content-page/played-match/played-match.c
 import { CreateMatchComponent } from './content-page/group-detail/create-match/create-match.component';
 import { UpcomingMatchComponent } from './content-page/upcoming-matches/upcoming-match/upcoming-match.component';
 import { UpcomingMatchesComponent } from './content-page/upcoming-matches/upcoming-matches.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { UpcomingMatchesComponent } from './content-page/upcoming-matches/upcomi
     PlayedMatchComponent,
     SetActiveDirective,
     TimeAgoPipe,
+    NotFoundComponent,
   ],
   imports: [
     HttpClientModule,
