@@ -95,10 +95,10 @@ export class RegisterComponent implements OnInit {
     this.authService.login(loginData).subscribe(
       (res: any) => {
         this.notifyService.showSuccess('Successfully logged in!');
-        this.router.navigate(['/app/dashboard']);
         this.localStorage.set('token', res.token);
         this.localStorage.set('user', JSON.stringify(res.user));
         this.authService.setUser(res.user);
+        this.router.navigate(['/app/dashboard']);
       },
       err => {
         this.notifyService.showError();

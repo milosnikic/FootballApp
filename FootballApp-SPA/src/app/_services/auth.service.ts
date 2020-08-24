@@ -45,6 +45,6 @@ export class AuthService {
 
     // return a boolean reflecting
     // whether or not the token is expired
-    return !!token && this.helper.isTokenExpired(token);
+    return !!token && !this.helper.isTokenExpired(token);
   }
 }

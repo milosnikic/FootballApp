@@ -14,9 +14,11 @@ import { GroupDetailComponent } from './content-page/group-detail/group-detail.c
 import { PlayedMatchComponent } from './content-page/played-match/played-match.component';
 import { UpcomingMatchComponent } from './content-page/upcoming-matches/upcoming-match/upcoming-match.component';
 import { UpcomingMatchesComponent } from './content-page/upcoming-matches/upcoming-matches.component';
+import { AuthGuardService } from './_guards/auth-guard.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const appRoutes: Route[] = [
-    {path: 'app', component: DashboardComponent, children: [
+    {path: 'app', component: DashboardComponent, canActivate: [AuthGuardService], children: [
         {path: 'dashboard', component: UserDetailComponent, data: {title: 'Dashboard', editable: true}},
         {path: 'groups', component: GroupsComponent, data: {title: 'Groups'}},
         {path: 'groups/:groupId', component: GroupDetailComponent, data: {title: 'Desired group'}},
@@ -29,8 +31,9 @@ const appRoutes: Route[] = [
         {path: 'upcoming-matches/:matchId', component: UpcomingMatchComponent, data: {title: 'Upcoming match'}},
         {path: 'match-history', component: MatchHistoryComponent, data: {title: 'Match History'}},
     ]},
-    {path: '', component: RegisterComponent},
-
+    {path: 'home', component: RegisterComponent},
+    {path: '', redirectTo: 'home', pathMatch: 'full'},
+    {path: '**', component: NotFoundComponent}
 ];
 
 
