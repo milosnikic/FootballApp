@@ -69,13 +69,14 @@ export class UpcomingMatchComponent implements OnInit {
   }
 
   confirm() {
-    this.isConfirmed = true;
     this.matchService.confirm(this.user.id, this.matchId).subscribe(
       (res: any) => {
         if (res.key) {
           this.notifyService.showSuccess(
             'Successfully confirmed participation!'
           );
+          this.isChecked = false;
+          this.isConfirmed = true;
           this.users.find(u => u.firstname === this.user.firstname)
           .matchStatus = MatchStatus.Confirmed;
           this.match.numberOfConfirmedPlayers++;
