@@ -266,6 +266,13 @@ namespace FootballApp.API.Helpers
             CreateMap<Membership,MembershipInformationDto>();
             CreateMap<Membership, DetailGroupToReturnDto>()
                 .ForMember(
+                    dest => dest.Image,
+                    opt =>
+                    {
+                        opt.MapFrom(src => src.Group.Image);
+                    }
+                )
+                .ForMember(
                     dest => dest.Id,
                     opt => 
                     {
