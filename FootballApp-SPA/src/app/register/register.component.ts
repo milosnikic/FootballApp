@@ -60,7 +60,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-
   register() {
     const registerData = {
       username: this.registerForm.get('username').value,
