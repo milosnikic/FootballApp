@@ -1,33 +1,32 @@
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
-namespace FootballApp.API.Helpers
+namespace WCP.Data.Helpers
 {
-    /// <summary>
-    /// Class used to do some image validations
-    /// </summary>
-    internal static class ImageValidator
+    public static class ImageValidator
     {
         /// <summary>
-        /// Method checks if image size is greater than 0 and less than 5MB
+        /// This method checks if there is image and if image size is less than 10MB.
         /// </summary>
-        /// <param name="image">Image file to check</param>
-        /// <returns></returns>
-        internal static bool ValidateImageSize(IFormFile image)
+        /// <param name="image">Image file to be checked.</param>
+        /// <returns>True if image size is valid.</returns>
+        public static bool ImageSizeValidation(IFormFile image)
         {
-            return image.Length > 0 && image.Length < 5242880;
+            return image.Length > 0 && image.Length < 10485760;
         }
 
         /// <summary>
-        /// Method checks if image extensions is valid
+        /// This method checks if file extension is allowed.
         /// </summary>
-        /// <param name="image">Image file to check</param>
-        /// <returns>Returns true if image extension is .jpg, .jpeg, .png</returns>
-        internal static bool ValidateImageExtension(IFormFile image)
+        /// <param name="image">Image file to be checked.</param>
+        /// <returns>True if image extension is in allowed values.</returns>
+        public static bool ImageExtensionValidation(IFormFile image)
         {
-            string[] permittedExtensions = { ".jpeg", ".jpg", ".png" };
+            string[] permittedExtensions = { ".png", ".jpeg", ".jpg" };
 
             var ext = Path.GetExtension(image.FileName).ToLowerInvariant();
 
@@ -35,17 +34,14 @@ namespace FootballApp.API.Helpers
         }
 
         /// <summary>
-        /// Method checks if image signature (first bytes) is valid
+        /// This method checks if image signature is valid.
         /// </summary>
-        /// <param name="image">Image file to check</param>
-        /// <returns>Returns true if image signature is valid</returns>
-        internal static bool ValidateImageSignature(IFormFile image)
+        /// <param name="image">Image file to be checked.</param>
+        /// <returns>True if image signature is allowed.</returns>
+        public static bool ImageSignatureValidation(IFormFile image)
         {
             var ext = Path.GetExtension(image.FileName).ToLowerInvariant();
-            if (ext == ".jpg")
-            {
-                return true;
-            }
+
             Dictionary<string, List<byte[]>> _fileSignature =
                 new Dictionary<string, List<byte[]>>
                 {
@@ -63,14 +59,44 @@ namespace FootballApp.API.Helpers
                     }
                 };
 
-            using (var reader = new BinaryReader(image.OpenReadStream()))
-            {
-                var signatures = _fileSignature[ext];
-                var headerBytes = reader.ReadBytes(signatures.Max(m => m.Length));
-                return signatures.Any(signature =>
-                    headerBytes.Take(signature.Length).SequenceEqual(signature));
-            }
+            using var reader = new BinaryReader(image.OpenReadStream());
+            var signatures = _fileSignature[ext != ".jpg" ? ext : ".jpeg"];
+            var headerBytes = reader.ReadBytes(signatures.Max(m => m.Length));
 
+            return signatures.Any(signature =>
+                headerBytes.Take(signature.Length).SequenceEqual(signature));
+        }
+
+        /// <summary>
+        /// Method is used to get image byte are from original image file
+        /// </summary>
+        /// <param name="image">Image file</param>
+        /// <returns>Image byte array if validations are passed otherwise null</returns>
+        public static async Task<byte[]> GetImageArrayFromImageFileAsync(IFormFile image)
+        {
+            try
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    if (image != null &&
+                        ImageValidator.ImageSizeValidation(image) &&
+                        ImageValidator.ImageExtensionValidation(image) &&
+                        ImageValidator.ImageSignatureValidation(image))
+                    {
+                        await image.CopyToAsync(memoryStream);
+
+                        return memoryStream.ToArray();
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
