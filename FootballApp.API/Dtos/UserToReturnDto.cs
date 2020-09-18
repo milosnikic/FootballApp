@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FootballApp.API.Models;
 
 namespace FootballApp.API.Dtos
 {

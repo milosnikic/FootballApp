@@ -7,6 +7,4 @@ import { ActivatedRoute, Data } from '@angular/router';
     styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent{
-
-
 }

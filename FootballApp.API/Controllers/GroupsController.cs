@@ -142,7 +142,6 @@ namespace FootballApp.API.Controllers
 
             if (await _unitOfWork.Complete())
             {
-                var groupToReturn = _mapper.Map<GroupToReturnDto>(groupToAdd);
                 return Ok(new KeyValuePair<bool, string>(true, "Group created successfully!"));
             }
 

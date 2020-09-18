@@ -29,10 +29,11 @@ export class RegisterComponent implements OnInit {
     private notifyService: NotifyService,
     private router: Router,
     private locationService: LocationsService,
-    private localStorage: LocalStorageService) { }
+    private localStorage: LocalStorageService) { 
+      this.buildForms();
+    }
 
   ngOnInit() {
-    this.buildForms();
     this.locationService.getAllCountries().subscribe(
       (res: Country[]) => {
         this.countries = res;
@@ -45,8 +46,8 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      firstname: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      lastname: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      firstname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      lastname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       city: ['', Validators.required],
       country: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -73,7 +74,7 @@ export class RegisterComponent implements OnInit {
       gender: this.registerForm.get('gender').value,
     };
     this.authService.register(registerData).subscribe(
-      res => {
+      () => {
         this.notifyService.showSuccess('Successfully registered!');
         this.state = 1;
       },
@@ -112,7 +113,6 @@ export class RegisterComponent implements OnInit {
         this.cities = res;
       },
       (err) => {
-        
       }
     );
   }

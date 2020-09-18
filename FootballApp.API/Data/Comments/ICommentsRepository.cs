@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FootballApp.API.Dtos;
 using FootballApp.API.Models;
 
 namespace FootballApp.API.Data.Comments

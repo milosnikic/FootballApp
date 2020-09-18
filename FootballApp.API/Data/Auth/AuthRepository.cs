@@ -1,15 +1,11 @@
-using System;
 using System.Threading.Tasks;
 using FootballApp.API.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FootballApp.API.Data
 {
     public class AuthRepository : Repository<User>, IAuthRepository
     {
-
-        
         public AuthRepository(DataContext context)
             : base(context)
         {

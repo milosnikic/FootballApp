@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using FootballApp.API.Data;
-using FootballApp.API.Data.Photos;
 using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
 using FootballApp.API.Helpers;
@@ -28,17 +25,6 @@ namespace FootballApp.API.Controllers
             _mapper = mapper;
 
         }
-
-        // [HttpGet]
-        // public async Task<IActionResult> GetAllPhotos(int userId)
-        // {
-        //     if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-        //         return Unauthorized();
-            
-        //     var photos = await _unitOfWork.Photos.GetAll();
-
-        //     return Ok(_mapper.Map<ICollection<PhotoToReturnDto>>(photos));
-        // }
 
         [HttpGet]
         [AllowAnonymous]
@@ -74,8 +60,6 @@ namespace FootballApp.API.Controllers
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
-
-            var userFromRepo = await _unitOfWork.Users.GetById(userId);
 
             var image = photoForCreationDto.File;
 

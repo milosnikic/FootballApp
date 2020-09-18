@@ -36,19 +36,6 @@ namespace FootballApp.API.Controllers
             return Ok(_mapper.Map<ICollection<CommentToReturn>>(comments));
         }
 
-        /// <summary>
-        /// Method is used to fetch all comments for specified user that other
-        /// users commented on
-        /// </summary>
-        /// <param name="userId">Id of user to get comments</param>
-        /// <returns></returns>
-        // [HttpGet]
-        // public async Task<IActionResult> GetAllCommentedForUser(int userId)
-        // {
-        //     // var comments = await _unitOfWork.Comments.GetAllCommentedForUser
-        //     return Ok();
-        // }
-
         [HttpPost]
         public async Task<IActionResult> PostCommentForUser(int userId, CommentForCreationDto commentForCreationDto)
         {

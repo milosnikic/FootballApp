@@ -1,5 +1,4 @@
 using System;
-using FootballApp.API.Models;
 
 namespace FootballApp.API.Dtos
 {

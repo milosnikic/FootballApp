@@ -18,7 +18,7 @@ namespace FootballApp.API.Data.Users
         {
             var user = await DataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
             
-            if(user != null && user is PowerUser)
+            if(user is PowerUser)
             {
                 return await DataContext.PowerUsers
                                     .Include(u => u.Memberships)
