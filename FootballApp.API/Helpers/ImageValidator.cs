@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WCP.Data.Helpers
+namespace FootballApp.API.Helpers
 {
     public static class ImageValidator
     {
@@ -59,12 +59,14 @@ namespace WCP.Data.Helpers
                     }
                 };
 
-            using var reader = new BinaryReader(image.OpenReadStream());
-            var signatures = _fileSignature[ext != ".jpg" ? ext : ".jpeg"];
-            var headerBytes = reader.ReadBytes(signatures.Max(m => m.Length));
+            using (var reader = new BinaryReader(image.OpenReadStream()))
+            {
+                var signatures = _fileSignature[ext != ".jpg" ? ext : ".jpeg"];
+                var headerBytes = reader.ReadBytes(signatures.Max(m => m.Length));
+                return signatures.Any(signature =>
+                    headerBytes.Take(signature.Length).SequenceEqual(signature));
+            };
 
-            return signatures.Any(signature =>
-                headerBytes.Take(signature.Length).SequenceEqual(signature));
         }
 
         /// <summary>

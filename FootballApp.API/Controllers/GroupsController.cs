@@ -101,9 +101,9 @@ namespace FootballApp.API.Controllers
 
             if (group.Image != null)
             {
-                if (ImageValidator.ValidateImageExtension(group.Image)
-                && ImageValidator.ValidateImageSize(group.Image)
-                && ImageValidator.ValidateImageSignature(group.Image))
+                if (ImageValidator.ImageExtensionValidation(group.Image)
+                && ImageValidator.ImageSizeValidation(group.Image)
+                && ImageValidator.ImageSignatureValidation(group.Image))
                 {
                     using (var memoryStream = new MemoryStream())
                     {

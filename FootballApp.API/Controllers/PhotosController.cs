@@ -64,9 +64,9 @@ namespace FootballApp.API.Controllers
             var image = photoForCreationDto.File;
 
 
-            if (ImageValidator.ValidateImageSize(image)
-                && ImageValidator.ValidateImageExtension(image)
-                && ImageValidator.ValidateImageSignature(image))
+            if (ImageValidator.ImageExtensionValidation(image)
+                && ImageValidator.ImageSizeValidation(image)
+                && ImageValidator.ImageSignatureValidation(image))
             {
                 using (var memoryStream = new MemoryStream())
                 {
