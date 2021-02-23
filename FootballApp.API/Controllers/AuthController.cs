@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -30,26 +31,21 @@ namespace FootballApp.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
-
-            if (await _unitOfWork.Auths.UserExists(userForRegisterDto.Username))
-                return BadRequest("User with specified username already exists");
-
             var city = await _unitOfWork.Cities.GetById(userForRegisterDto.City);
             var country = await _unitOfWork.Countries.GetById(userForRegisterDto.Country);
-            if(city == null || country == null)
+            if (city == null || country == null)
             {
                 return BadRequest("Invalid city or country specified");
             }
-            
+
             var userToCreate = _mapper.Map<CommonUser>(userForRegisterDto);
             userToCreate.Country = country;
             userToCreate.City = city;
 
             var createdUser = await _unitOfWork.Auths.Register(userToCreate, userForRegisterDto.Password);
-            if(!await _unitOfWork.Complete())
-                return BadRequest("User couldn't be created.");                
-            
+            if (!await _unitOfWork.Complete())
+                return BadRequest("User couldn't be created.");
+
 
             var userToReturn = _mapper.Map<UserToReturnDto>(createdUser);
             return Ok(new
