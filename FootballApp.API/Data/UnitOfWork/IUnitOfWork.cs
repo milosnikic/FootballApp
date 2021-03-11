@@ -4,6 +4,7 @@ using FootballApp.API.Data.Achievements;
 using FootballApp.API.Data.Cities;
 using FootballApp.API.Data.Comments;
 using FootballApp.API.Data.Countries;
+using FootballApp.API.Data.Friends;
 using FootballApp.API.Data.Groups;
 using FootballApp.API.Data.Locations;
 using FootballApp.API.Data.Matchdays;
@@ -27,6 +28,7 @@ namespace FootballApp.API.Data.UnitOfWork
         ILocationsRepository Locations { get; }
         IMatchdaysRepository Matchdays { get; }
         IMatchStatusesRepository MatchStatuses { get; }
+        IFriendsRepository Friends {get;}
         Task<bool> Complete();
     }
 }

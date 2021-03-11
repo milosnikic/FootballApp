@@ -28,6 +28,8 @@ namespace FootballApp.API.Models
         public Country Country { get; set; }
         public int? CountryId { get; set; }
         public bool IsActive { get; set; }
+        public ICollection<Friendship> FriendshipsSent { get; set; }
+        public ICollection<Friendship> FriendshipsReceived { get; set; }
         public ICollection<Membership> Memberships { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Visit> Visitors { get; set; }

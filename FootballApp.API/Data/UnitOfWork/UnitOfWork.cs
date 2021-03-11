@@ -3,6 +3,7 @@ using FootballApp.API.Data.Achievements;
 using FootballApp.API.Data.Cities;
 using FootballApp.API.Data.Comments;
 using FootballApp.API.Data.Countries;
+using FootballApp.API.Data.Friends;
 using FootballApp.API.Data.Groups;
 using FootballApp.API.Data.Locations;
 using FootballApp.API.Data.Matchdays;
@@ -32,6 +33,7 @@ namespace FootballApp.API.Data.UnitOfWork
             Locations = new LocationsRepository(_context);
             Matchdays = new MatchdaysRepository(_context);
             MatchStatuses = new MatchStatusesRepository(_context);
+            Friends = new FriendsRepository(_context);
         }
 
         public IGroupsRepository Groups { get; private set; }
@@ -46,6 +48,7 @@ namespace FootballApp.API.Data.UnitOfWork
         public ILocationsRepository Locations { get; private set; }
         public IMatchdaysRepository Matchdays { get; private set; }
         public IMatchStatusesRepository MatchStatuses { get; private set; }
+        public IFriendsRepository Friends { get; private set; }
 
         public async Task<bool> Complete()
         {

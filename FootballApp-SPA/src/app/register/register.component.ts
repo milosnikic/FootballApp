@@ -8,7 +8,6 @@ import { City } from "../_models/city";
 import { Country } from "../_models/country";
 import { LocationsService } from "../_services/locations.service";
 import { LandingPageState } from "../constants";
-import { UsernameValidator } from "./username-validator";
 
 @Component({
   selector: "app-register",
