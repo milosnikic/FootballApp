@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
+import { Observable } from 'rxjs';
+import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -41,5 +43,9 @@ export class UserService {
 
   updateUser(userId, data: { email?: string; city?: number; country?: number }) {
     return this.http.post(this.baseUrl + '/update' + `?userId=${userId}`, data);
+  }
+
+  public getAll(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl);
   }
 }

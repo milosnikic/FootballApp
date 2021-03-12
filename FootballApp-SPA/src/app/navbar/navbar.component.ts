@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { AuthService } from '../_services/auth.service';
-import { FriendsService } from '../_services/friends.service';
 import { LocalStorageService } from '../_services/local-storage.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -28,21 +28,21 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private friendsService: FriendsService,
+    private userService: UserService,
     private authService: AuthService,
     private localStorage: LocalStorageService
   ) {
     this.filteredUsers$ = this.userControl.valueChanges.pipe(
       startWith('.'),
-      map((firstname) =>
-        firstname ? this._filterUsers(firstname) : this.allUsers.slice()
-      )
+      map((firstname) => (firstname ? this._filterUsers(firstname) : []))
     );
   }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.friendsService.getAllExploreUsers(this.user.id);
+    this.userService.getAll().subscribe((res: User[]) => {
+      this.allUsers = res;
+    });
   }
   onClear() {
     this.searchBox.nativeElement.value = '';
