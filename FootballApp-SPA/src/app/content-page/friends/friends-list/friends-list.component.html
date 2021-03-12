@@ -18,6 +18,7 @@
     </div>
   </div>
   <div class="row">
+    <h2 *ngIf="users?.length === 0">There are no users to be shown!</h2>
     <div *ngFor="let user of users" class="col-md-2 ml-4 mr-2 mt-3">
       <app-friend-detail
         [buttonDisplay]="buttonDisplay"
