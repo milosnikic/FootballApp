@@ -9,15 +9,28 @@
             Explore
             <i class="fas fa-globe-europe ml-2"></i>
           </ng-template>
-          <app-friends-list></app-friends-list>
+          <app-friends-list [users]="(exploreUsers$ | async)" [buttonDisplay]="FriendRequestStatus.NotSent"></app-friends-list>
         </mat-tab>
-        <!-- TODO: Phase 2 -->
-        <mat-tab disabled>
+        <mat-tab>
           <ng-template mat-tab-label>
-            Your friends (soon 🔜)
+            Your friends
             <i class="fas fa-futbol ml-2"></i>
           </ng-template>
-          Content 1
+          <app-friends-list [users]="(friends$ | async)" [buttonDisplay]="FriendRequestStatus.Accepted"></app-friends-list>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Sent friend requests
+            <i class="fas fa-futbol ml-2"></i>
+          </ng-template>
+          <app-friends-list [users]="(sentFriendRequests$ | async)" [buttonDisplay]="FriendRequestStatus.Sent"></app-friends-list>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            Pending requests
+            <i class="fas fa-futbol ml-2"></i>
+          </ng-template>
+          <app-friends-list [users]="(pendingRequests$ | async)" [buttonDisplay]="FriendRequestStatus.NotAccepted"></app-friends-list>
         </mat-tab>
       </mat-tab-group>
     </div>

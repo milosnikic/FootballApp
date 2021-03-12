@@ -19,22 +19,10 @@
   </div>
   <div class="row">
     <div *ngFor="let user of users" class="col-md-2 ml-4 mr-2 mt-3">
-      <app-friend-detail [buttonDisplay]="'addFriend'" [user]="user"></app-friend-detail>
+      <app-friend-detail
+        [buttonDisplay]="buttonDisplay"
+        [user]="user"
+      ></app-friend-detail>
     </div>
-    <!-- <div class="col-md-2 ml-4 mr-2 mt-3">
-      <app-friend-detail [buttonDisplay]="'requestSent'"></app-friend-detail>
-    </div>
-    <div class="col-md-2 ml-4 mr-2 mt-3">
-      <app-friend-detail [buttonDisplay]="'addFriend'"></app-friend-detail>
-    </div>
-    <div class="col-md-2 ml-4 mr-2 mt-3">
-      <app-friend-detail [buttonDisplay]="'removeFriend'"></app-friend-detail>
-    </div>
-    <div class="col-md-2 ml-4 mr-2 mt-3">
-      <app-friend-detail [buttonDisplay]="'removeFriend'"></app-friend-detail>
-    </div>
-    <div class="col-md-2 ml-4 mr-2 mt-3">
-      <app-friend-detail [buttonDisplay]="'removeFriend'"></app-friend-detail>
-    </div> -->
   </div>
 </div>

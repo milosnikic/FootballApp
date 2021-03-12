@@ -28,7 +28,7 @@ namespace FootballApp.API.Controllers
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            return Ok(await _unitOfWork.Friends.GetAllFriendsForUser(userId));
+            return Ok(_mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.GetAllFriendsForUser(userId)));
         }
 
         [HttpGet("pending-requests/{userId}")]
@@ -37,7 +37,16 @@ namespace FootballApp.API.Controllers
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            return Ok(await _unitOfWork.Friends.PendingFriendRequests(userId));
+            return Ok(_mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.PendingFriendRequests(userId)));
+        }
+
+        [HttpGet("sent-requests/{userId}")]
+        public async Task<IActionResult> SentFriendRequests(int userId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            return Ok(_mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.SentFriendRequests(userId)));
         }
 
         [HttpPost("send-request")]

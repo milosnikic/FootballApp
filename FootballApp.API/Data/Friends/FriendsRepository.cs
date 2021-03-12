@@ -16,7 +16,10 @@ namespace FootballApp.API.Data.Friends
         public async Task<KeyValuePair<bool, string>> DeleteFriendRequest(FriendRequestDto friendRequestDto)
         {
             var friendRequest = await DataContext.Friendships
-                                                 .Where(f => f.ReceiverId == friendRequestDto.ReceiverId && f.SenderId == friendRequestDto.SenderId)
+                                                 .Where(f => (f.SenderId == friendRequestDto.SenderId
+                                                                                    && f.ReceiverId == friendRequestDto.ReceiverId)
+                                                                                   || (f.ReceiverId == friendRequestDto.SenderId
+                                                                                    && f.SenderId == friendRequestDto.ReceiverId))
                                                  .FirstOrDefaultAsync();
 
             if (friendRequest != null)
@@ -44,28 +47,48 @@ namespace FootballApp.API.Data.Friends
             return new KeyValuePair<bool, string>(false, "Specified friend request doesn't exist");
         }
 
-        public async Task<IEnumerable<Friendship>> GetAllFriendsForUser(int userId)
+        public async Task<IEnumerable<User>> GetAllFriendsForUser(int userId)
         {
-            var friends = await DataContext.Friendships
-                                            .Where(f => (f.SenderId == userId || f.ReceiverId == userId) && f.Accepted)
-                                            .Include(f => f.Sender)
-                                            .ThenInclude(u => u.Photos)
+            var receivers = await DataContext.Friendships
+                                            .Where(f => f.SenderId == userId && f.Accepted)
                                             .Include(f => f.Receiver)
-                                            .ThenInclude(u => u.Photos)
+                                            .Select(f => f.Receiver)
+                                            .Include(u => u.Photos)
                                             .ToListAsync();
 
-            return friends;
+            var senders = await DataContext.Friendships
+                                            .Where(f => f.ReceiverId == userId && f.Accepted)
+                                            .Include(f => f.Sender)
+                                            .Select(f => f.Sender)
+                                            .Include(u => u.Photos)
+                                            .ToListAsync();
+
+            var combined = receivers.Concat(senders);
+            return combined;
         }
 
-        public async Task<IEnumerable<Friendship>> PendingFriendRequests(int userId)
+        public async Task<IEnumerable<User>> PendingFriendRequests(int userId)
         {
             var pendingRequests = await DataContext.Friendships
                                                     .Where(f => f.ReceiverId == userId && !f.Accepted)
                                                     .Include(f => f.Sender)
-                                                    .ThenInclude(u => u.Photos)
+                                                    .Select(f => f.Sender)
+                                                    .Include(u => u.Photos)
                                                     .ToListAsync();
 
             return pendingRequests;
+        }
+
+        public async Task<IEnumerable<User>> SentFriendRequests(int userId)
+        {
+            var sentRequests = await DataContext.Friendships
+                                                    .Where(f => f.SenderId == userId && !f.Accepted)
+                                                    .Include(f => f.Receiver)
+                                                    .Select(f => f.Receiver)
+                                                    .Include(u => u.Photos)
+                                                    .ToListAsync();
+
+            return sentRequests;
         }
 
         public async Task<KeyValuePair<bool, string>> SendFriendRequest(FriendRequestDto friendRequestDto)
@@ -100,9 +123,9 @@ namespace FootballApp.API.Data.Friends
                                         .FirstOrDefaultAsync(u => u.Id == userId);
 
             var usersFriendsReceivers = user.FriendshipsReceived.Select(f => f.SenderId).ToList();
-            
+
             var usersFriendsSenders = user.FriendshipsSent.Select(f => f.ReceiverId).ToList();
-            
+
             var exploreUsers = await DataContext.Users
                                                 .Where(u => !usersFriendsReceivers.Contains(u.Id) && !usersFriendsSenders.Contains(u.Id) && u.Id != userId)
                                                 .Include(u => u.Photos)
