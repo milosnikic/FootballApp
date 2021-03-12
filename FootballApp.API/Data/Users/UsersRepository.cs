@@ -65,15 +65,6 @@ namespace FootballApp.API.Data.Users
             return latestFiveVisitors;
         }
 
-        public async Task<ICollection<User>> GetAllExploreUsers(int userId)
-        {
-            var exploreUsers = await DataContext.Users
-                                                .Where(u => u.Id != userId)
-                                                .Include(u => u.Photos)
-                                                .ToListAsync();
-            return exploreUsers;
-        }
-
         public async void GainAchievement(GainedAchievement gainedAchievement)
         {
             await DataContext.GainedAchievements

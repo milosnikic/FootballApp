@@ -22,6 +22,7 @@ namespace FootballApp.API.Data
         public DbSet<CommonUser> CommonUsers { get; set; }
         public DbSet<MatchStatus> MatchStatuses { get; set; }
         public DbSet<Matchday> Matchdays { get; set; }
+        public DbSet<Friendship> Friendships { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -65,6 +66,21 @@ namespace FootballApp.API.Data
                 .HasOne<User>(v => v.Visited)
                 .WithMany(u => u.Visiteds)
                 .HasForeignKey(v => v.VisitedId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Friendships fluent api creation
+            modelBuilder.Entity<Friendship>().HasKey(f => new {f.SenderId, f.ReceiverId });
+
+            modelBuilder.Entity<Friendship>()
+                .HasOne<User>(f => f.Sender)
+                .WithMany(u => u.FriendshipsSent)
+                .HasForeignKey(f => f.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Friendship>()
+                .HasOne<User>(f => f.Receiver)
+                .WithMany(u => u.FriendshipsReceived)
+                .HasForeignKey(f => f.ReceiverId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Comments fluent api creation

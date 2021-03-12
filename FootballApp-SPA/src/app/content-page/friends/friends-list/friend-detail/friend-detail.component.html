@@ -19,31 +19,38 @@
   </ng-template>
   <a class="link-name" [routerLink]="['/app/users/', user.id]"><h3>{{user?.firstname}} {{user?.lastname}}</h3><h4 class="text-muted">({{user?.username}})</h4></a>
   <mat-card-actions class="text-center">
-    <!-- <button
-      *ngIf="buttonDisplay === 'addFriend'"
+    <button
+      *ngIf="buttonDisplay === FriendRequestStatus.NotSent"
       (click)="addFriend()"
       class="btn btn-primary"
     >
       <i class="fas fa-plus mr-1"></i>Add Friend
-    </button> -->
+    </button>
     <button
-      *ngIf="buttonDisplay === 'requestSent'"
+      *ngIf="buttonDisplay === FriendRequestStatus.Sent"
       (click)="remove()"
       class="btn btn-outline-warning"
     >
       <i class="fas fa-times mr-1"></i>Cancel Request
     </button>
     <button
-      *ngIf="buttonDisplay === 'removeFriend'"
+      *ngIf="buttonDisplay === FriendRequestStatus.Accepted"
       (click)="remove()"
       class="btn btn-outline-danger"
     >
       <i class="fas fa-times mr-1"></i>Remove
     </button>
+    <button
+      *ngIf="buttonDisplay === FriendRequestStatus.NotAccepted"
+      (click)="acceptFriend()"
+      class="btn btn-outline-success"
+    >
+      <i class="fas fa-check mr-1"></i>Accept
+    </button>
     <button class="btn btn-outline-secondary ml-1" [routerLink]="[user.id]">
       Visit Profile
     </button>
-    <a href="" *ngIf="buttonDisplay === 'removeFriend'"
+    <a href="" *ngIf="buttonDisplay === FriendRequestStatus.Accepted"
       ><i class="far fa-heart fa-lg ml-2"></i
     ></a>
   </mat-card-actions>

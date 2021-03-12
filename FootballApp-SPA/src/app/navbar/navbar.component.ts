@@ -2,10 +2,11 @@ import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../_models/user';
 import { Observable } from 'rxjs';
-import { UserService } from '../_services/user.service';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { AuthService } from '../_services/auth.service';
+import { FriendsService } from '../_services/friends.service';
+import { LocalStorageService } from '../_services/local-storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -27,8 +28,9 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService,
-    private authService: AuthService
+    private friendsService: FriendsService,
+    private authService: AuthService,
+    private localStorage: LocalStorageService
   ) {
     this.filteredUsers$ = this.userControl.valueChanges.pipe(
       startWith('.'),
@@ -40,18 +42,14 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.userService.getAllExploreUsers(this.user.id).subscribe(
-      (res: User[]) => {
-        this.allUsers = res;
-      }
-    );
+    this.friendsService.getAllExploreUsers(this.user.id);
   }
   onClear() {
     this.searchBox.nativeElement.value = '';
   }
 
   logout() {
-    localStorage.clear();
+    this.localStorage.clear();
     this.authService.resetUser();
     this.router.navigate(['']);
   }

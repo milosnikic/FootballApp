@@ -21,7 +21,6 @@ namespace FootballApp.API.Controllers
     public class GroupsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-
         private readonly IMapper _mapper;
         public GroupsController(IUnitOfWork unitOfWork, IMapper mapper)
         {
