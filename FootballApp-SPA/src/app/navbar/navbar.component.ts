@@ -50,7 +50,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.localStorage.clear();
-    this.authService.resetUser();
     this.router.navigate(['']);
   }
 

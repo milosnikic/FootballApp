@@ -13,10 +13,6 @@ export class AuthService {
   //       Refactor code to use user observable...
   baseUrl = 'http://localhost:5000/api/auth';
   helper = new JwtHelperService();
-
-  private user = new Subject<User>();
-  readonly user$ = this.user.asObservable();
-
   constructor(private http: HttpClient,
               private localStorage: LocalStorageService) {}
 
@@ -24,17 +20,11 @@ export class AuthService {
     return this.localStorage.get('token');
   }
 
-  setUser(user: User) {
-    this.user.next(user);
-  }
-
-  resetUser() {
-    this.user.next(null);
-  }
-
+ 
   login(user: any) {
     return this.http.post(this.baseUrl + '/login', user);
   }
+  
   register(user: any) {
     return this.http.post(this.baseUrl + '/register', user);
   }
