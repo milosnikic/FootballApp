@@ -50,8 +50,9 @@
     <button class="btn btn-outline-secondary ml-1" [routerLink]="[user.id]">
       Visit Profile
     </button>
-    <a href="" *ngIf="buttonDisplay === FriendRequestStatus.Accepted"
+    <!-- Currently not enabled, cause favorite person has no meaning -->
+    <!-- <a href="" *ngIf="buttonDisplay === FriendRequestStatus.Accepted"
       ><i class="far fa-heart fa-lg ml-2"></i
-    ></a>
+    ></a> -->
   </mat-card-actions>
 </mat-card>

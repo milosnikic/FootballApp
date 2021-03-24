@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { ActivatedRoute, Data } from "@angular/router";
 import { User } from "src/app/_models/user";
-import { LocalStorageService } from "src/app/_services/local-storage.service";
 import { FriendsService } from "src/app/_services/friends.service";
 import { FriendRequestStatus } from "src/app/constants";
 import { Observable } from "rxjs";
+import { LocalStorageService } from "src/app/_services/local-storage.service";
 
 @Component({
   selector: "app-friends",
@@ -21,11 +21,11 @@ export class FriendsComponent implements OnInit {
   pendingRequests$: Observable<User[]>;
   sentFriendRequests$: Observable<User[]>;
   FriendRequestStatus = FriendRequestStatus;
-  
+
   constructor(
     private route: ActivatedRoute,
     private friendsService: FriendsService,
-    private localStorage: LocalStorageService,
+    private localStorage: LocalStorageService
   ) {}
 
   ngOnInit() {

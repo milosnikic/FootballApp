@@ -4,7 +4,6 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class LocalStorageService {
-  private currentLoggedInUserId = JSON.parse(this.get("user")).id;
 
   constructor() {}
 
@@ -22,10 +21,9 @@ export class LocalStorageService {
 
   clear() {
     localStorage.clear();
-    this.currentLoggedInUserId = null;
   }
 
   public getCurrentLoggedInUserId(): number {
-    return this.currentLoggedInUserId;
+    return JSON.parse(this.get("user")).id;;
   }
 }
