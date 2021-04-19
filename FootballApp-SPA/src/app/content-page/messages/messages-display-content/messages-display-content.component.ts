@@ -61,7 +61,7 @@ export class MessagesDisplayContentComponent implements OnInit {
     userToChat.lastname = user.lastname;
     userToChat.gender = user.gender;
     userToChat.id = user.id;
-    userToChat.mainPhoto = user.photos.filter((p) => p.isMain)[0].image;
+    userToChat.mainPhoto = user.photos.filter((p) => p.isMain)[0] ? user.photos.filter((p) => p.isMain)[0].image : null;
     userToChat.username = user.username;
     return userToChat;
   }
