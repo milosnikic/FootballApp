@@ -23,6 +23,10 @@ namespace FootballApp.API.Data
         public DbSet<MatchStatus> MatchStatuses { get; set; }
         public DbSet<Matchday> Matchdays { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<ChatUser> ChatUsers { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -69,7 +73,7 @@ namespace FootballApp.API.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Friendships fluent api creation
-            modelBuilder.Entity<Friendship>().HasKey(f => new {f.SenderId, f.ReceiverId });
+            modelBuilder.Entity<Friendship>().HasKey(f => new { f.SenderId, f.ReceiverId });
 
             modelBuilder.Entity<Friendship>()
                 .HasOne<User>(f => f.Sender)
@@ -113,6 +117,13 @@ namespace FootballApp.API.Data
                 .HasForeignKey(a => a.AchievementId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Messages fluent api creation
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Sender)
+                .WithMany(u => u.Messages)
+                .HasForeignKey(m => m.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // Groups fluent api
             modelBuilder.Entity<Group>()
                 .HasOne(g => g.CreatedBy)
@@ -130,23 +141,27 @@ namespace FootballApp.API.Data
                 .HasMany(c => c.Users)
                 .WithOne(u => u.Country)
                 .OnDelete(DeleteBehavior.Restrict);
- 
+
             // User inheritance implemented
             modelBuilder.Entity<CommonUser>().ToTable("CommonUsers");
             modelBuilder.Entity<PowerUser>().ToTable("PowerUsers");
 
-            // Match status api
-            modelBuilder.Entity<MatchStatus>().HasKey(s => new {s.UserId, s.MatchdayId});
- 
+            // Match status fluent api
+            modelBuilder.Entity<MatchStatus>().HasKey(s => new { s.UserId, s.MatchdayId });
+
             modelBuilder.Entity<MatchStatus>()
                 .HasOne(s => s.Matchday)
                 .WithMany(m => m.MatchStatuses)
                 .HasForeignKey(s => s.MatchdayId);
- 
+
             modelBuilder.Entity<MatchStatus>()
                 .HasOne(s => s.User)
                 .WithMany(u => u.MatchStatuses)
                 .HasForeignKey(s => s.UserId);
+
+            // Chat user fluent api
+            modelBuilder.Entity<ChatUser>()
+                .HasKey(x => new { x.UserId, x.ChatId });
         }
     }
 }

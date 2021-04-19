@@ -6,6 +6,7 @@ using FootballApp.API.Data.Photos;
 using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Data.Users;
 using FootballApp.API.Helpers;
+using FootballApp.API.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +37,7 @@ namespace FootballApp.API
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            
+
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsersRepository, UsersRepository>();
@@ -45,6 +46,7 @@ namespace FootballApp.API
             services.AddTransient<DataSeed>();
             services.AddAutoMapper();
             services.AddSwaggerDocumentation();
+            services.AddSignalR();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -79,13 +81,16 @@ namespace FootballApp.API
             app.UseSwagger();
             app.UseSwaggerDocumentation();
             app.UseAuthentication();
-            app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-            );
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod()
+                                            .AllowCredentials()
+                                            .SetIsOriginAllowed((host) => true));
             app.UseMvc();
-
+            app.UseSignalR(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/chatHub");
+            });
         }
     }
 }

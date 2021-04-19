@@ -1,14 +1,28 @@
-<div class="wrapper">
-  <button class="user" appSetActive>
-    <img src="../../../../assets/mn.jpg" alt="" class="rounded-circle" />
-    <h3>Milos Nikic</h3>
-    <h4 class="text-muted">(kicni)</h4>
-    <small class="text-muted" style="float:right;">12.12.2020.</small>
-  </button>
-  <button class="user" appSetActive>
-    <img src="../../../../assets/user.jpg" alt="" class="rounded-circle" />
-    <h3>Ivan Ivanovic</h3>
-    <h4 class="text-muted">(ica)</h4>
-    <small class="text-muted" style="float:right;">12.12.2020.</small>
+<div *ngIf="chats?.length" class="wrapper">
+  <button *ngFor="let chat of chats" class="user" (click)="onChatClick(chat)" appSetActive>
+    <img
+      *ngIf="chat?.photo; else defaultImage"
+      style="width: 55px"
+      src="data:image/JPEG;base64,{{ chat?.photo }}"
+      alt="User profile picture"
+      class="rounded-circle"
+    />
+    <ng-template #defaultImage>
+      <img
+        *ngIf="!chat?.photo"
+        style="width: 55px"
+        src="{{
+          chat?.gender === 'Male'
+            ? '../assets/male-default.jpg'
+            : '../assets/female-default.jpg'
+        }}"
+        alt=""
+        class="rounded-circle"
+      />
+    </ng-template>
+    <h4 class="float-left text-muted pt-2">{{ chat.name }}</h4>
+    <small class="text-muted" style="float: right">{{
+      chat.lastMessage | date
+    }}</small>
   </button>
 </div>

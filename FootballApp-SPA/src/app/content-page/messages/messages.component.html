@@ -1,12 +1,18 @@
 <h1>{{ titleToDisplay }}</h1>
 <hr />
 <div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col-10"></div>
+    <div class="col-2">
+      <button class="btn btn-outline-info float-right" (click)="openDialog()">+ New chat</button>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-3">
-      <app-messages-list-users></app-messages-list-users>
+      <app-messages-list-users [chats]="chats" (chatClicked)="onChatClicked($event)"></app-messages-list-users>
     </div>
     <div class="col-md-9">
-      <app-messages-display-content></app-messages-display-content>
+      <app-messages-display-content [messages]="messagesForSpecificChat" [recipientId]="recipientId" [chatId]="chatId"></app-messages-display-content>
     </div>
   </div>
 </div>

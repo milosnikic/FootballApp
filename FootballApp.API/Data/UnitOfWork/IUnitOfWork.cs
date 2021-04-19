@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using FootballApp.API.Data.Achievements;
+using FootballApp.API.Data.Chats;
 using FootballApp.API.Data.Cities;
 using FootballApp.API.Data.Comments;
 using FootballApp.API.Data.Countries;
@@ -10,6 +11,7 @@ using FootballApp.API.Data.Locations;
 using FootballApp.API.Data.Matchdays;
 using FootballApp.API.Data.MatchStatuses;
 using FootballApp.API.Data.Memberships;
+using FootballApp.API.Data.Messages;
 using FootballApp.API.Data.Photos;
 
 namespace FootballApp.API.Data.UnitOfWork
@@ -28,7 +30,9 @@ namespace FootballApp.API.Data.UnitOfWork
         ILocationsRepository Locations { get; }
         IMatchdaysRepository Matchdays { get; }
         IMatchStatusesRepository MatchStatuses { get; }
-        IFriendsRepository Friends {get;}
+        IFriendsRepository Friends { get; }
+        IMessagesRepository Messages { get; }
+        IChatsRepository Chats { get; }
         Task<bool> Complete();
     }
 }

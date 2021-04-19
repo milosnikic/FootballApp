@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
-import { MatTabGroup } from '@angular/material';
 import { GroupsService } from 'src/app/_services/groups.service';
 import { Observable } from 'rxjs';
 import { Group } from 'src/app/_models/group';
@@ -9,6 +8,7 @@ import { LocalStorageService } from 'src/app/_services/local-storage.service';
 import { MembershipStatus } from 'src/app/_models/MembershipStatus.enum';
 import { User } from 'src/app/_models/user';
 import { AuthService } from 'src/app/_services/auth.service';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-groups',

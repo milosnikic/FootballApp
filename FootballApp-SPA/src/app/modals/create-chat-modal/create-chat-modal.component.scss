@@ -1,0 +1,29 @@
+.content {
+  display: flex;
+}
+
+.content img {
+  margin-right: 10px;
+  display: block;
+}
+
+.content span {
+  margin-top: 5px;
+}
+
+mat-selection-list {
+  max-height: 280px;
+  overflow: auto;
+}
+
+.ellipsis {
+  width: 250px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.username {
+  font-size: small;
+  color: grey;
+}
