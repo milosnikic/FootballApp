@@ -9,10 +9,7 @@ namespace FootballApp.API.Data.Photos
     public class PhotosRepository : Repository<Photo>, IPhotosRepository
     {
 
-        public PhotosRepository(DataContext context) 
-            : base(context)
-        {
-        }
+        public PhotosRepository(DataContext context) : base(context) { }
         public async Task<Photo> GetMainPhotoForUser(int userId)
         {
             var mainPhoto = await DataContext.Photos

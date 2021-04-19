@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Group } from 'src/app/_models/group';
 import { ActivatedRoute, Data, ParamMap } from '@angular/router';
 import { MatchPlayed } from 'src/app/_models/matchPlayed.enum';
-import { MatTabGroup } from '@angular/material';
 import { User } from 'src/app/_models/user';
 import { GroupsService } from 'src/app/_services/groups.service';
 import { MatchService } from 'src/app/_services/match.service';
 import { MembershipStatus } from 'src/app/_models/MembershipStatus.enum';
 import { Role } from 'src/app/_models/role.enum';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-group-detail',

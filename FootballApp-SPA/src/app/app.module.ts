@@ -27,6 +27,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatInputModule,
+  MatListModule,
+  MatRadioModule,
 } from '@angular/material';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -59,6 +61,7 @@ import { CreateMatchComponent } from './content-page/group-detail/create-match/c
 import { UpcomingMatchComponent } from './content-page/upcoming-matches/upcoming-match/upcoming-match.component';
 import { UpcomingMatchesComponent } from './content-page/upcoming-matches/upcoming-matches.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CreateChatModalComponent } from './modals/create-chat-modal/create-chat-modal.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +74,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     GroupsComponent,
     GroupsListComponent,
     CreateGroupComponent,
+    CreateChatModalComponent,
     UserDetailComponent,
     UserProfileComponent,
     UserLatestMatchesComponent,
@@ -114,6 +118,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatListModule,
+    MatRadioModule,
     FormsModule,
     NgxMaterialTimepickerModule,
     NgCircleProgressModule.forRoot({
@@ -140,7 +146,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
       multi: true,
     },
   ],
-  entryComponents: [ConfirmationDialogComponent],
+  entryComponents: [ConfirmationDialogComponent, CreateChatModalComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

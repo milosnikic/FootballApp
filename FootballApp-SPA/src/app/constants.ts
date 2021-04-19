@@ -9,3 +9,8 @@ export enum FriendRequestStatus {
   Accepted,
   NotAccepted,
 }
+
+export enum ChatType {
+  Private,
+  Public,
+}

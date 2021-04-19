@@ -1,18 +1,28 @@
 <!-- Side navigation -->
 <div class="sidenav">
-    <span class="sidenav-info">Users info</span>  
-    <a [routerLink]="['/app/dashboard']" routerLinkActive="selected"><i class="fas fa-chart-line"></i> Dashboard</a>
-    <a [routerLink]="['/app/users']" routerLinkActive="selected"><i class="fa fa-users"></i> Users</a>
-    <!-- TODO: Phase 2 -->
-    <!-- <a [routerLink]="['/app/messages']" routerLinkActive="selected"  ><i class="fa fa-envelope"></i> Messages</a> -->
-    <a id="no-style" style="cursor: default;"><i id="no-style" class="fa fa-envelope text-muted"></i> <span class="text-muted">Messages</span></a>
-    <span class="sidenav-info">Users groups</span>
-    <a [routerLink]="['/app/groups']" routerLinkActive="selected"><i class="fa fa-layer-group"></i> Groups</a>
-    <span class="sidenav-info">Matches</span>
-    <a [routerLink]="['/app/upcoming-matches']" routerLinkActive="selected"><i class="far fa-futbol"></i> Upcoming matches</a>
-    <!-- TODO: Phase 2 -->
-    <!-- <a [routerLink]="['/app/match-history']" routerLinkActive="selected"><i class="fas fa-history"></i> Match history</a> -->
-    <a id="no-style" style="cursor: default;"><i id="no-style" class="fas fa-history text-muted"></i> <span class="text-muted">Match history</span></a>
-    <p class="version">v1.0.0 © Miloš Nikić</p>
-  </div>
-  <!-- <router-outlet></router-outlet> -->
+  <span class="sidenav-info">Users info</span>
+  <a [routerLink]="['/app/dashboard']" routerLinkActive="selected"
+    ><i class="fas fa-chart-line"></i> Dashboard</a
+  >
+  <a [routerLink]="['/app/users']" routerLinkActive="selected"
+    ><i class="fa fa-users"></i> Users</a
+  >
+  <a [routerLink]="['/app/messages']" routerLinkActive="selected"
+    ><i class="fa fa-envelope"></i> Messages</a
+  >
+  <span class="sidenav-info">Users groups</span>
+  <a [routerLink]="['/app/groups']" routerLinkActive="selected"
+    ><i class="fa fa-layer-group"></i> Groups</a
+  >
+  <span class="sidenav-info">Matches</span>
+  <a [routerLink]="['/app/upcoming-matches']" routerLinkActive="selected"
+    ><i class="far fa-futbol"></i> Upcoming matches</a
+  >
+  <!-- TODO: Phase 2 -->
+  <!-- <a [routerLink]="['/app/match-history']" routerLinkActive="selected"><i class="fas fa-history"></i> Match history</a> -->
+  <a id="no-style" style="cursor: default"
+    ><i id="no-style" class="fas fa-history text-muted"></i>
+    <span class="text-muted">Match history</span></a
+  >
+  <p class="version">v1.0.0 © Miloš Nikić</p>
+</div>

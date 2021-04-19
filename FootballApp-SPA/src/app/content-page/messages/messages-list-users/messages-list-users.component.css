@@ -8,19 +8,20 @@
   border-bottom: 1px solid #d1d5da;
   cursor: pointer;
   background-color: white;
+  min-width: 100%;
 }
 
 .active {
   border-left: 5px solid #205efa;
-  transition: .3s;
+  transition: 0.1s;
   outline: none;
 }
 
-button:focus{
+button:focus {
   outline: none;
 }
 
-button{
+button {
   border: none;
 }
 

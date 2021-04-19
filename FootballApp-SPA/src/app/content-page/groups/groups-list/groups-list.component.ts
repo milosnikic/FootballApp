@@ -4,8 +4,8 @@ import { MembershipStatus } from 'src/app/_models/MembershipStatus.enum';
 import { GroupsService } from 'src/app/_services/groups.service';
 import { LocalStorageService } from 'src/app/_services/local-storage.service';
 import { NotifyService } from 'src/app/_services/notify.service';
-import { MatDialogRef, MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-groups-list',

@@ -17,7 +17,7 @@ import { LandingPageState } from "../constants";
 export class RegisterComponent implements OnInit {
   cities: City[];
   countries: Country[];
-  state = LandingPageState.Register;
+  state = LandingPageState.Login;
   LandingPageState = LandingPageState;
   registerForm: FormGroup;
   loginForm: FormGroup;

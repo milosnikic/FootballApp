@@ -1,60 +1,121 @@
 <div class="card">
-  <div class="card-body">
+  <div 
+    class="card-body"
+    #chatScroll
+    style="min-height: 650px; max-height: 650px; overflow: scroll; padding-bottom: 0px;"
+  >
     <div *ngIf="messages?.length === 0">
       <p>No messages yet... say hi by using the message box below</p>
     </div>
 
     <ul class="chat">
-      <li *ngFor="let message of messages">
+      <li *ngFor="let message of messages" style="list-style-type: none">
         <!-- to them -->
-        <div *ngIf="message.senderId == recipientId">
+        <div *ngIf="message?.sender?.id !== recipientId" style="height: 65px">
           <span class="chat-img float-left">
-            <img src="../../../../assets/mn.jpg" alt="kicni" class="rounded-circle">
+            <a style="color: black; cursor: pointer">
+              <img
+                *ngIf="message?.sender?.mainPhoto; else defaultImage"
+                src="data:image/JPEG;base64,{{ message?.sender?.mainPhoto }}"
+                alt="User profile picture"
+                class="rounded-circle"
+                width="35px"
+              />
+              <ng-template #defaultImage>
+                <img
+                  *ngIf="!message?.sender?.mainPhoto"
+                  src="{{
+                    message?.sender?.gender === 'Male'
+                      ? '../assets/male-default.jpg'
+                      : '../assets/female-default.jpg'
+                  }}"
+                  alt=""
+                  class="rounded-circle"
+                  width="35px"
+                />
+              </ng-template>
+            </a>
           </span>
-          <div class="chat-body">
-            <div class="header">
-              <strong class="primary-font">kicni</strong>
+          <div>
+            <div>
+              <a style="color: black; cursor: pointer">
+                <strong class="primary-font pl-2">{{
+                  message?.sender?.username
+                }}</strong>
+              </a>
               <small class="text-muted float-right">
-                <span class="fa fa-clock-o">21 min ago</span>
+                <i class="far fa-clock"></i> {{ message?.messageSent | timeAgo }}
               </small>
             </div>
-            <p>{{message.content}}</p>
+            <p class="pl-2">{{ message?.content }}</p>
           </div>
         </div>
         <!-- to me -->
-        <div *ngIf="">
+        <div *ngIf="message?.sender?.id === recipientId" style="height: 65px">
           <span class="chat-img float-right">
-            <img src="../../../../assets/mn.jpg" alt="kicni" class="rounded-circle">
+            <a style="color: black; cursor: pointer">
+              <img
+                *ngIf="message?.sender?.mainPhoto; else defaultImage"
+                src="data:image/JPEG;base64,{{ message?.sender?.mainPhoto }}"
+                alt="User profile picture"
+                class="rounded-circle"
+                width="35px"
+              />
+              <ng-template #defaultImage>
+                <img
+                  *ngIf="!message?.sender?.mainPhoto"
+                  src="{{
+                    message?.sender?.gender === 'Male'
+                      ? '../assets/male-default.jpg'
+                      : '../assets/female-default.jpg'
+                  }}"
+                  alt=""
+                  class="rounded-circle"
+                  width="35px"
+                />
+              </ng-template>
+            </a>
           </span>
-          <div class="chat-body">
-            <div class="header">
+          <div>
+            <div>
               <small class="text-muted">
-                <span class="fa fa-clock-o">21 min ago</span>
-                <span *ngIf="!message.isRead" class="text-danger">(unread)</span>
-                <span *ngIf="message.isRead" class="text-success">(Read 5 mins ago)</span>
+                <i class="far fa-clock"></i> {{ message?.messageSent | timeAgo }}
               </small>
-              <strong class="primary-font float-right">kicni</strong>
+              <a style="color: black; cursor: pointer">
+                <strong class="primary-font float-right pr-2">{{
+                  message?.sender?.username
+                }}</strong>
+              </a>
             </div>
-            <p>{{message.content}}</p>
+            <p class="pr-2 float-right">{{ message?.content }}</p>
           </div>
         </div>
       </li>
     </ul>
-
-
   </div>
   <div class="card-footer">
-    <form #messageForm="ngForm" (ngSubmit)="messageForm.valid">
-      <div class="input-group">
-        <input type="text" 
-          name="content"
-          required
-          class="form-control input-sm"
-          placeholder="send a private message">
-        <div class="input-group-append">
-          <button class="btn btn-primary" [disabled]="!messageForm.valid">Send</button>
-        </div>
+    <div class="input-group">
+      <input
+        id="message-input"
+        type="text"
+        name="content"
+        required
+        class="form-control input-sm"
+        placeholder="Send a private message..."
+        [(ngModel)]="messageContent"
+        autocomplete="off"
+        (keyup.enter)="sendMessage()"
+      />
+      <div class="input-group-append">
+        <button
+          id="message-button"
+          class="btn btn-primary"
+          (click)="sendMessage()"
+          [disabled]="!messageContent"
+        >
+          Send
+        </button>
       </div>
-    </form>
+    </div>
   </div>
 </div>

@@ -48,7 +48,7 @@ namespace FootballApp.API.Data
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-
+            
             await DataContext.Users.AddAsync(user);
             
             return user;

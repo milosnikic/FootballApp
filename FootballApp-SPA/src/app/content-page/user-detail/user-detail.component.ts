@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, OnChanges } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { MatTabGroup } from '@angular/material';
 import { UserService } from 'src/app/_services/user.service';
 import { LocalStorageService } from 'src/app/_services/local-storage.service';
 import { CommentsService } from 'src/app/_services/comments.service';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-user-detail',
