@@ -1,0 +1,18 @@
+version: "3.4"
+
+services: 
+    ng-app-service:
+        image: ng.app.dev.image
+        container_name: ng.app.dev.container
+        build: 
+            context: .
+            dockerfile: development.dockerfile
+        environment: 
+            NODE_ENV: development
+        volumes: 
+            - "./:/usr/share/app"
+            - /app/node_modules/
+        ports: 
+            - 4200:80
+        command: ["ng", "serve", "--host=0.0.0.0", "--watch", "--poll=2000"]
+        

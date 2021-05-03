@@ -1,0 +1,139 @@
+{
+    // Use IntelliSense to find out which attributes exist for C# debugging
+    // Use hover for the description of the existing attributes
+    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+    "version": "0.2.0",
+    "compounds": [
+      {
+        "name": "Launch API & UI (Live Watch)",
+        "configurations": ["UI Launch", "API Launch (Live Watch)"]
+      },
+      {
+        "name": "Launch API & UI (Docker)",
+        "configurations": ["UI Launch (Docker)", "API Launch (Docker)"]
+      }
+    ],
+    "configurations": [
+      {
+        "name": "UI Launch",
+        "type": "chrome",
+        "request": "launch",
+        "preLaunchTask": "ng serve dev local",
+        "url": "http://localhost:4200/#",
+        "webRoot": "${workspaceFolder}/ng-app",
+        "sourceMapPathOverrides": {
+          "webpack:/*": "${webRoot}/*",
+          "/./*": "${webRoot}/*",
+          "/src/*": "${webRoot}/*",
+          "/*": "*",
+          "/./~/*": "${webRoot}/node_modules/*"
+        }
+      },
+      {
+        "name": "API Launch",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        // If you have changed target frameworks, make sure to update the program path.
+        "program": "${workspaceFolder}/CoreApi/bin/Debug/netcoreapp2.2/CoreApi.dll",
+        "args": [],
+        "cwd": "${workspaceFolder}/CoreApi",
+        "stopAtEntry": false,
+        // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+        "serverReadyAction": {
+          "action": "openExternally",
+          "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"
+        },
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "sourceFileMap": {
+          "/Views": "${workspaceFolder}/CoreApi/Views"
+        }
+      },
+      {
+        "name": "API Launch (Live Watch)",
+        "type": "DotNetAutoAttach",
+        "request": "launch",
+        "args": [],
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
+      },
+      {
+        "name": "API Attach",
+        "type": "coreclr",
+        "request": "attach",
+        "processId": "${command:pickProcess}"
+      },
+      {
+        "type": "chrome",
+        "request": "launch",
+        "preLaunchTask": "serve ui dev docker",
+        "postDebugTask": "remove ui dev docker container",
+        "name": "UI Launch (Docker)",
+        "url": "http://localhost:4200",
+        "webRoot": "${workspaceFolder}/ng-app",
+        "sourceMapPathOverrides": {
+          "webpack:/*": "${webRoot}/*",
+          "/./*": "${webRoot}/*",
+          "/src/*": "${webRoot}/*",
+          "/*": "*",
+          "/./~/*": "${webRoot}/node_modules/*"
+        }
+      },
+      {
+        "name": "API Launch (Docker)",
+        "type": "docker-coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "dockerBuild": {
+          "dockerfile": "${workspaceFolder}/CoreApi/.docker/development.dockerfile",
+          "context": "${workspaceFolder}/CoreApi",
+          "target": "DEV"
+        },
+        "appProject": "${workspaceFolder}/CoreApi/CoreApi.csproj",
+        "dockerRun": {
+          "ports": [
+            {
+              "hostPort": "5001",
+              "containerPort": "80"
+            }
+          ],
+          "volumes": [{ "localPath": "${workspaceFolder}/CoreApi/", "containerPath": "/src" }]
+        }
+      },
+      {
+        "name": "UI E2E Test",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder}/ng-app/node_modules/protractor/bin/protractor",
+        "protocol": "inspector",
+        "args": ["${workspaceFolder}/ng-app/e2e/protractor.conf.js"]
+      },
+      {
+        "name": "API Launch (watch)",
+        "type": "DotNetAutoAttach",
+        "request": "launch",
+        "args": [],
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
+      },
+      {
+        "name": "UI Test",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:9876/debug.html",
+        "webRoot": "${workspaceFolder}/ng-app",
+        "sourceMaps": true,
+        "sourceMapPathOverrides": {
+          "webpack:/*": "${webRoot}/*",
+          "/./*": "${webRoot}/*",
+          "/src/*": "${webRoot}/*",
+          "/*": "*",
+          "/./~/*": "${webRoot}/node_modules/*"
+        }
+      }
+    ]
+  }

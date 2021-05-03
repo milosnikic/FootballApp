@@ -1,0 +1,113 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "ng serve dev local",
+        "type": "npm",
+        "script": "serve-ui-dev-local",
+        "isBackground": true,
+        "presentation": {
+          "focus": true,
+          "panel": "dedicated"
+        },
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": {
+          "owner": "typescript",
+          "source": "ts",
+          "applyTo": "closedDocuments",
+          "fileLocation": ["relative", "${cwd}"],
+          "pattern": "$tsc",
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": {
+              "regexp": "(.*?)"
+            },
+            "endsPattern": {
+              "regexp": "Compiled |Failed to compile."
+            }
+          }
+        }
+      },
+      {
+        "label": "serve ui dev docker",
+        "type": "npm",
+        "script": "serve-ui-dev-docker",
+        "isBackground": true,
+        "presentation": {
+          "focus": true,
+          "panel": "dedicated"
+        },
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": {
+          "owner": "typescript",
+          "source": "ts",
+          "applyTo": "closedDocuments",
+          "fileLocation": ["relative", "${cwd}"],
+          "pattern": "$tsc",
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": {
+              "regexp": "(.*?)"
+            },
+            "endsPattern": {
+              "regexp": "Compiled |Failed to compile."
+            }
+          }
+        }
+      },
+      {
+        "label": "remove ui dev docker container",
+        "type": "npm",
+        "script": "remove-ui-dev-docker-container"
+      },
+      {
+        "label": "build",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+          "build",
+          "${workspaceFolder}/CoreApi/CoreApi.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "watch",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+          "watch",
+          "--project",
+          "${workspaceFolder}/CoreApi/CoreApi.csproj",
+          "run",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "publish",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+          "publish",
+          "${workspaceFolder}/CoreApi/CoreApi.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "Build Api Docker",
+        "type": "npm",
+        "script": "serve-api-dev-docker"
+      }
+    ]
+  }

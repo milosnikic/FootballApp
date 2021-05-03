@@ -1,0 +1,57 @@
+{
+    "name": "vscode-workflow",
+    "version": "1.0.0",
+    "description": "Fullstack app to demonstrate end to end workflow of Angular and ASP Net Core app inside VS Code.",
+    "main": "index.js",
+    "keywords": [
+      "vscode",
+      "angular",
+      "aspnetcore",
+      ".net",
+      "angular-cli",
+      "workflow",
+      "vscode-workflow"
+    ],
+    "author": "Saurabh Palatkar",
+    "license": "MIT",
+    "husky": {
+      "hooks": {
+        "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+        "pre-commit": "lint-staged",
+        "post-commit": "git update-index --again"
+      }
+    },
+    "lint-staged": {
+      "ng-app/src/**/*.ts": [
+        "npm run fix-ng-lint",
+        "git add"
+      ],
+      "*.{html,scss,md,css}": [
+        "npm run fix-formatting",
+        "git add"
+      ]
+    },
+    "scripts": {
+      "serve-ui-dev-local": "cd ng-app &&  ng serve",
+      "serve-api-dev-local": "cd CoreApi && dotnet run",
+      "serve-app-dev-local": "concurrently \"npm:serve-ui-dev-local\" \"npm:serve-api-dev-local\"",
+      "serve-ui-dev-docker": "cd ng-app && npm run docker-serve-dev",
+      "remove-ui-dev-docker-container": "docker rm -f ng.app.dev.container",
+      "serve-api-dev-docker": "docker-compose -f CoreApi/docker-compose.development.yml up --build -d",
+      "serve-app-dev-docker": "concurrently \"npm:serve-api-dev-docker\" \"npm:serve-ui-dev-docker\"",
+      "serve-ui-prod-docker": "cd ng-app && npm run docker-serve-prod",
+      "serve-api-prod-docker": "docker-compose -f CoreApi/docker-compose.production.yml up --build -d",
+      "serve-app-prod-docker": "concurrently \"npm:serve-api-prod-docker\" \"npm:serve-ui-prod-docker\"",
+      "fix-formatting": "prettier --config ./ng-app/.prettierrc --write \"{,!(node_modules|dist|build|coverage)/**/}*.{ts,html,scss,md,css}\"",
+      "fix-ng-lint": "cd ng-app && ng-lint-staged lint --fix --"
+    },
+    "devDependencies": {
+      "@commitlint/cli": "^8.1.0",
+      "@commitlint/config-conventional": "^8.1.0",
+      "concurrently": "^4.1.2",
+      "husky": "^3.0.5",
+      "lint-staged": "^9.2.5",
+      "ng-lint-staged": "^0.1.6",
+      "prettier": "^1.18.2"
+    }
+  }

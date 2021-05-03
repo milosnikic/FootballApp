@@ -147,7 +147,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(["/app/dashboard"]);
       },
       (err) => {
-        this.notifyService.showError();
+        this.notifyService.showError(err);
       }
     );
   }

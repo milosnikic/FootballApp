@@ -29,14 +29,14 @@ namespace FootballApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(GetConnectionString()));
             services.AddCors();
             services.AddMvc()
                 .AddJsonOptions(opt =>
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            
+
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsersRepository, UsersRepository>();
@@ -58,6 +58,21 @@ namespace FootballApp.API
                         ValidateAudience = false
                     };
                 });
+        }
+
+        /// <summary>
+        /// Method is used to get connection string for docker
+        /// </summary>
+        /// <returns>Connection string</returns>
+        private string GetConnectionString()
+        {
+            var server = Configuration["DBServer"] ?? "localhost";
+            var port = Configuration["DBPort"] ?? "1433";
+            var user = Configuration["DBUser"] ?? "SA";
+            var password = Configuration["DBPassword"] ?? "Pa$$w0rd2019";
+            var database = Configuration["Database"] ?? "FootballApp";
+
+            return $"Server={server}, {port}; Initial Catalog={database};User ID={user};Password={password}";
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
