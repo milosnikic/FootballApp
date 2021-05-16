@@ -67,20 +67,22 @@ export class MessagesDisplayContentComponent implements OnInit {
   }
 
   public sendMessage() {
-    this.chatService.sendMessage(this.messageContent, this.chatId).subscribe(
-      (res) => {
-        if (res.key) {
-          this.messages.push(
-            this.createNewMessage(this.messageContent, this.sender, new Date())
-          );
-          this.messageContent = "";
-          this.scrollToBottom();
+    if (this.messageContent) {
+      this.chatService.sendMessage(this.messageContent, this.chatId).subscribe(
+        (res) => {
+          if (res.key) {
+            this.messages.push(
+              this.createNewMessage(this.messageContent, this.sender, new Date())
+            );
+            this.messageContent = "";
+            this.scrollToBottom();
+          }
+        },
+        (err) => {
+          this.notify.showError("Error sending message");
         }
-      },
-      (err) => {
-        this.notify.showError("Error sending message");
-      }
-    );
+      );
+    }
   }
   private createNewMessage(
     content: string,
