@@ -40,5 +40,6 @@ namespace FootballApp.API.Models
         public ICollection<MatchStatus> MatchStatuses { get; set; }
         public ICollection<Message> Messages { get; set; }
         public ICollection<ChatUser> Chats { get; set; }
+        public ICollection<TeamMember> TeamMembers { get; set; }
     }
 }

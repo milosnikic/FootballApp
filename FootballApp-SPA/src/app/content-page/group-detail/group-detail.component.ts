@@ -8,6 +8,7 @@ import { MatchService } from 'src/app/_services/match.service';
 import { MembershipStatus } from 'src/app/_models/MembershipStatus.enum';
 import { Role } from 'src/app/_models/role.enum';
 import { MatTabGroup } from '@angular/material/tabs';
+import { MembershipInformation } from 'src/app/_models/membershipInformation';
 
 @Component({
   selector: 'app-group-detail',
@@ -25,8 +26,7 @@ export class GroupDetailComponent implements OnInit {
   upcomingMatches: any[];
   groupId: number;
   group: any;
-  // TODO: add membership model
-  membershipInfo: any;
+  membershipInfo: MembershipInformation;
   MembershipStatus = MembershipStatus;
   Role = Role;
 

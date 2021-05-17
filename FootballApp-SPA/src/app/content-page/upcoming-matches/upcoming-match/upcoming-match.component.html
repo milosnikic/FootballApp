@@ -1,4 +1,7 @@
-<h1 style="display: inline;">Upcoming match - <h2 style="display: inline;">{{match?.name}}</h2></h1>
+<h1 style="display: inline">
+  Upcoming match -
+  <h2 style="display: inline">{{ match?.name }}</h2>
+</h1>
 <!-- <button class="btn btn-outline-primary float-right" (click)="goBack()">Go back</button> -->
 <hr />
 <div class="container-fluid">
@@ -6,18 +9,20 @@
     <div class="col-md-3">
       <h3>📢</h3>
       <h3>Match is going to be played</h3>
-      <p class="text">{{match?.location}}, {{match?.country}} - {{match?.city}}</p>
+      <p class="text">
+        {{ match?.location }}, {{ match?.country }} - {{ match?.city }}
+      </p>
     </div>
     <div class="col-md-3">
       <h3>🕗</h3>
       <h3>Playing date</h3>
-      <p class="text">{{match?.datePlaying | date:'dd.MM.yyyy.'}}</p>
-      <p class="text">{{match?.datePlaying | date:'HH:mm'}}</p>
+      <p class="text">{{ match?.datePlaying | date: "dd.MM.yyyy." }}</p>
+      <p class="text">{{ match?.datePlaying | date: "HH:mm" }}</p>
     </div>
     <div class="col-md-3">
       <h3>🏃‍♂️</h3>
       <h3>Number of players playing</h3>
-      <p class="text">{{match?.numberOfPlayers}}</p>
+      <p class="text">{{ match?.numberOfPlayers }}</p>
     </div>
     <!-- Hide for this phase -->
     <div *ngIf="false" class="col-md-3">
@@ -25,13 +30,36 @@
       <h3>Price</h3>
       <p class="text">100 RSD / per person</p>
     </div>
+    <div
+      *ngIf="
+        membershipInfo !== null &&
+        (membershipInfo?.role === Role.Admin ||
+          membershipInfo?.role === Role.Owner)
+      "
+      class="col-md-3"
+    >
+      <button type="button" class="mt-4 btn btn-outline-primary" (click)="organizeMatch()">
+        Organize match
+      </button>
+    </div>
   </div>
   <hr />
   <div class="row">
     <!-- Here should be displayed number of users and buttons -->
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
-      <h3 [ngClass]="getCapacityClass()">Users confirmed: {{ match?.numberOfConfirmedPlayers }}/{{match?.numberOfPlayers}}</h3>
+      <h3
+        *ngIf="match?.numberOfConfirmedPlayers !== match?.numberOfPlayers"
+        [ngClass]="getCapacityClass()"
+      >
+        Users confirmed: {{ match?.numberOfConfirmedPlayers }}/{{
+          match?.numberOfPlayers
+        }}
+      </h3>
+      <h3 *ngIf="match?.numberOfConfirmedPlayers === match?.numberOfPlayers">
+        There is enough players for organizing this match. Therefore match will
+        be played.
+      </h3>
     </div>
     <div class="col-md-4">
       <button
@@ -49,11 +77,11 @@
         Confirm
       </button>
       <button
-      *ngIf="!isChecked && isConfirmed"
-      class="btn btn-success ml-4 mr-4 float-right"
-      disabled
-      >      
-       Confirmed! 
+        *ngIf="!isChecked && isConfirmed"
+        class="btn btn-success ml-4 mr-4 float-right"
+        disabled
+      >
+        Confirmed!
       </button>
       <button
         *ngIf="!isConfirmed && !isChecked"
@@ -63,16 +91,18 @@
         <i class="fas fa-plus"></i> Check in
       </button>
     </div>
-    <!-- Row for users -->
-    <div *ngIf="users?.length > 0; else noUsers" class="col-md-12 mt-4">
-      <app-group-user-box
-        *ngFor="let user of users"
-        [user]="user"
-        [matchStatus]="user?.matchStatus"
-      ></app-group-user-box>
-    </div>
-    <ng-template #noUsers>
-      <h2>No applied or checked in users for this match.</h2>
-    </ng-template>
+    <ng-container *ngIf="selectedSection === UpcomingMachSection.AppliedUsers">
+      <div *ngIf="users?.length > 0; else noUsers" class="col-md-12 mt-4">
+        <h4>Players applied or confirmed:</h4>
+        <app-group-user-box
+          *ngFor="let user of users"
+          [user]="user"
+          [matchStatus]="user?.matchStatus"
+        ></app-group-user-box>
+      </div>
+      <ng-template #noUsers>
+        <h2>No applied or checked in users for this match.</h2>
+      </ng-template>
+    </ng-container>
   </div>
 </div>

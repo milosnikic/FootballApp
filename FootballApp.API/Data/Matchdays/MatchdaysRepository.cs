@@ -24,6 +24,7 @@ namespace FootballApp.API.Data.Matchdays
                                         .Include(m => m.MatchStatuses)
                                         .ThenInclude(m => m.User)
                                         .ThenInclude(u => u.Photos)
+                                        .Include(m => m.Group)
                                         .FirstOrDefaultAsync(m => m.Id == matchId);
             return match;
         }

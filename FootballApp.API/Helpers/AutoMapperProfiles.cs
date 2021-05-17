@@ -485,6 +485,13 @@ namespace FootballApp.API.Helpers
                     {
                         opt.MapFrom(src => src.MatchStatuses.Select(m => m.User));
                     }
+                )
+                .ForMember(
+                    dest => dest.GroupId,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Id);
+                    }
                 );
 
             CreateMap<MessageToSendDto, Message>()

@@ -4,13 +4,14 @@
     <ProjectGuid>97604D8F-950D-4AC4-94BE-18FDEDDDA111</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\"/>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App"/>
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.0"/>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1"/>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4"/>
+    <PackageReference Include="Bogus" Version="33.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
 </Project>

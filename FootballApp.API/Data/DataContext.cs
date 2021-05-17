@@ -26,9 +26,10 @@ namespace FootballApp.API.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<ChatUser> ChatUsers { get; set; }
         public DbSet<Chat> Chats { get; set; }
-
-
-
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<MatchPlayed> MatchPlayeds { get; set; }
+        public DbSet<TeamMemberStatistic> TeamMemberStatistics { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Locations
@@ -162,6 +163,30 @@ namespace FootballApp.API.Data
             // Chat user fluent api
             modelBuilder.Entity<ChatUser>()
                 .HasKey(x => new { x.UserId, x.ChatId });
+
+            // Matchplayed fluent api
+            modelBuilder.Entity<MatchPlayed>()
+                .HasOne<Team>(h => h.Home)
+                .WithMany(t => t.HomeMatches)
+                .HasForeignKey(h => h.HomeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<MatchPlayed>()
+                .HasOne<Team>(a => a.Away)
+                .WithMany(t => t.AwayMatches)
+                .HasForeignKey(a => a.AwayId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Team member fluent api
+            modelBuilder.Entity<TeamMember>()
+                .Property(x => x.Position)
+                .IsRequired(false);
+            
+            // Team fluent api
+            modelBuilder.Entity<Team>()
+                .Property(x => x.Name)
+                .HasMaxLength(30)
+                .IsRequired(false);
         }
     }
 }
