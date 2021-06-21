@@ -2,22 +2,20 @@
   <button *ngFor="let chat of chats" class="user" (click)="onChatClick(chat)" appSetActive>
     <img
       *ngIf="chat?.photo; else defaultImage"
-      style="width: 55px"
       src="data:image/JPEG;base64,{{ chat?.photo }}"
       alt="User profile picture"
-      class="rounded-circle"
+      class="rounded-circle user-img"
     />
     <ng-template #defaultImage>
       <img
         *ngIf="!chat?.photo"
-        style="width: 55px"
         src="{{
           chat?.gender === 'Male'
             ? '../assets/male-default.jpg'
             : '../assets/female-default.jpg'
         }}"
         alt=""
-        class="rounded-circle"
+        class="rounded-circle user-img"
       />
     </ng-template>
     <h4 class="float-left text-muted pt-2">{{ chat.name }}</h4>

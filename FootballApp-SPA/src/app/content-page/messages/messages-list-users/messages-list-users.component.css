@@ -35,3 +35,11 @@ h4 {
   padding-left: 10px;
   display: inline-block;
 }
+
+.user-img {
+  cursor: pointer;
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 50%;
+}

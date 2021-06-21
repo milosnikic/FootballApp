@@ -381,9 +381,13 @@ namespace FootballApp.API.Migrations
 
                     b.Property<int?>("Position");
 
+                    b.Property<int>("TeamId");
+
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
 
                     b.HasIndex("UserId");
 
@@ -406,11 +410,15 @@ namespace FootballApp.API.Migrations
 
                     b.Property<double>("Rating");
 
+                    b.Property<int?>("TeamId");
+
                     b.Property<int>("TeamMemberId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MatchPlayedId");
+
+                    b.HasIndex("TeamId");
 
                     b.HasIndex("TeamMemberId");
 
@@ -666,6 +674,11 @@ namespace FootballApp.API.Migrations
 
             modelBuilder.Entity("FootballApp.API.Models.TeamMember", b =>
                 {
+                    b.HasOne("FootballApp.API.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("FootballApp.API.Models.User", "User")
                         .WithMany("TeamMembers")
                         .HasForeignKey("UserId")
@@ -678,6 +691,10 @@ namespace FootballApp.API.Migrations
                         .WithMany("TeamMemberStatistics")
                         .HasForeignKey("MatchPlayedId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FootballApp.API.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId");
 
                     b.HasOne("FootballApp.API.Models.TeamMember", "TeamMember")
                         .WithMany("TeamMemberStatistics")

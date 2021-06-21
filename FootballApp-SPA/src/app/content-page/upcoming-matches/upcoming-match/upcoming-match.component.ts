@@ -3,11 +3,11 @@ import { MatchStatus } from "src/app/_models/matchStatus.enum";
 import { MatchService } from "src/app/_services/match.service";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { NotifyService } from "src/app/_services/notify.service";
-import { first } from "rxjs/operators";
 import { GroupsService } from "src/app/_services/groups.service";
 import { MembershipStatus } from "src/app/_models/MembershipStatus.enum";
 import { MembershipInformation } from "src/app/_models/membershipInformation";
 import { Role } from "src/app/_models/role.enum";
+import { DisplayMode } from "./organize-users/organize-users.component";
 
 @Component({
   selector: "app-upcoming-match",
@@ -29,6 +29,7 @@ export class UpcomingMatchComponent implements OnInit {
   Role = Role;
   selectedSection: UpcomingMatchSection;
   UpcomingMachSection = UpcomingMatchSection;
+  DisplayMode = DisplayMode
 
   constructor(
     private matchService: MatchService,
@@ -145,11 +146,15 @@ export class UpcomingMatchComponent implements OnInit {
   }
 
   public organizeMatch(): void {
-    this.selectedSection = UpcomingMatchSection.OrganizeUserByTeam;
+    this.selectedSection = UpcomingMatchSection.OrganizeUsersByTeam;
+  }
+
+  public viewAppliedUsers(): void {
+    this.selectedSection = UpcomingMatchSection.AppliedUsers;
   }
 }
 
 export enum UpcomingMatchSection {
   AppliedUsers,
-  OrganizeUserByTeam,
+  OrganizeUsersByTeam,
 }

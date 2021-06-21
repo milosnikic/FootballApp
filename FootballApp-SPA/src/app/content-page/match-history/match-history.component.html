@@ -2,7 +2,7 @@
 <hr />
 <div class="container-fluid">
   <div class="row">
-    <table style="width:100%">
+    <table style="width: 100%">
       <tr>
         <th>Place</th>
         <th>Date</th>
@@ -11,53 +11,18 @@
         <th>Away</th>
         <th>Go to Match Page</th>
       </tr>
-      <tr class="match">
-        <td>Belgrade</td>
-        <td>21.2.2019.</td>
-        <td>Win</td>
-        <td>Jelovac</td>
-        <td>NBG</td>
-        <td class="match-page"><i class="fas fa-caret-right"></i></td>
-      </tr>
-      <tr class="match">
-        <td>Belgrade</td>
-        <td>21.2.2019.</td>
-        <td>Win</td>
-        <td>Jelovac</td>
-        <td>NBG</td>
-        <td class="match-page"><i class="fas fa-caret-right"></i></td>
-      </tr>
-      <tr class="match">
-        <td>Belgrade</td>
-        <td>21.2.2019.</td>
-        <td>Win</td>
-        <td>Jelovac</td>
-        <td>NBG</td>
-        <td class="match-page"><i class="fas fa-caret-right"></i></td>
-      </tr>
-      <tr class="match">
-        <td>Belgrade</td>
-        <td>21.2.2019.</td>
-        <td>Win</td>
-        <td>Jelovac</td>
-        <td>NBG</td>
-        <td class="match-page"><i class="fas fa-caret-right"></i></td>
-      </tr>
-      <tr class="match">
-        <td>Belgrade</td>
-        <td>21.2.2019.</td>
-        <td>Win</td>
-        <td>Jelovac</td>
-        <td>NBG</td>
-        <td class="match-page"><i class="fas fa-caret-right"></i></td>
-      </tr>
-      <tr class="match">
-        <td>Belgrade</td>
-        <td>21.2.2019.</td>
-        <td>Win</td>
-        <td>Jelovac</td>
-        <td>NBG</td>
-        <td class="match-page"><i class="fas fa-caret-right"></i></td>
+      <tr *ngFor="let match of matchHistory" class="match">
+        <td>{{ match?.place }}</td>
+        <td>{{ match?.datePlayed | date: "dd.MM.yyyy. HH:mm" }}</td>
+        <td [ngStyle]="getResultStyle(match?.result)">{{ match?.result }}</td>
+        <td>{{ match?.homeName }}</td>
+        <td>{{ match?.awayName }}</td>
+        <td
+          class="match-page"
+          [routerLink]="['/app', 'match-played', match?.id]"
+        >
+          <i class="fas fa-caret-right"></i>
+        </td>
       </tr>
     </table>
   </div>

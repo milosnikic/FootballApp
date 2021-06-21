@@ -218,5 +218,40 @@ namespace FootballApp.API.Controllers
             var matchStatus = await _unitOfWork.MatchStatuses.GetMatchStatusById(userId, matchId);
             return Ok(_mapper.Map<MatchStatusToReturnDto>(matchStatus));
         }
+
+        [HttpPost]
+        [Route("organize-match")]
+        public async Task<IActionResult> OrganizeMatch(OrganizeMatchDto organizeMatchDto)
+        {
+            return Ok(await _unitOfWork.Matchdays.OrganizeMatchPlayed(organizeMatchDto));
+        }
+
+        [HttpGet]
+        [Route("organized-match/{matchdayId}")]
+        public async Task<IActionResult> GetOrganizedMatchInformation(int matchdayId)
+        {
+            return Ok(await _unitOfWork.Matchdays.GetOrganizedMatchInformation(matchdayId));
+        }
+
+        [HttpGet]
+        [Route("match-history/{userId}")]
+        public async Task<IActionResult> GetMatchHistoryForUser(int userId)
+        {
+            return Ok(await _unitOfWork.Matchdays.GetMatchHistoryForUser(userId));
+        }
+
+        [HttpGet]
+        [Route("match-history-group/{groupId}")]
+        public async Task<IActionResult> GetMatchHistoryForGroup(int groupId)
+        {
+            return Ok(await _unitOfWork.Matchdays.GetMatchHistoryForGroup(groupId));
+        }
+
+        [HttpGet]
+        [Route("latest-five-matches/{userId}")]
+        public async Task<IActionResult> GetLatestFiveMatchesForUser(int userId)
+        {
+            return Ok(await _unitOfWork.Matchdays.GetLatestFiveMatchesForUser(userId));
+        }
     }
 }

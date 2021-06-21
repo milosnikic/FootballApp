@@ -1,5 +1,6 @@
 import { Group } from './group';
 import { Photo } from './photo';
+import { Statistics } from './statistics';
 
 export class User {
     id: number;
@@ -21,4 +22,5 @@ export class User {
     isPowerUser: boolean;
     numberOfGroupsCreated: number;
     flag: string;
+    statistics: Statistics
 }

@@ -11,5 +11,7 @@ namespace FootballApp.API.Models
         public TeamMember TeamMember { get; set; }
         public int MatchPlayedId { get; set; }
         public MatchPlayed MatchPlayed { get; set; }
+        public Team Team { get; set; }
+        public int? TeamId { get; set; }
     }
 }

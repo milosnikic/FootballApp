@@ -4,31 +4,38 @@
   <div class="row mt-4">
     <div class="col-md-3">
       <h3>Location played</h3>
-      <p class="text">Jelovac, Serbia - Belgrade</p>
+      <p class="text">{{ getMatchPlayedLocation() }}</p>
     </div>
     <div class="col-md-3">
       <h3>Home</h3>
-      <p class="text">⚽ Milos Nikic</p>
-      <p class="text">⚽ Ivan Ivanovic</p>
+      <p *ngFor="let scorer of upperSection?.homeScorers" class="text">⚽ {{scorer.name}} {{ scorer.goals > 1 ? scorer.goals + 'x' : scorer.goals }}</p>
     </div>
     <div class="col-md-3">
       <h3>Result</h3>
-      <p style="font-size: larger;">2:1</p>
+      <p style="font-size: larger">
+        {{upperSection?.homeGoals}} : {{upperSection?.awayGoals}}
+      </p>
     </div>
     <div class="col-md-3">
       <h3>Away</h3>
-      <p class="text">⚽ Jovan Jovanovic</p>
+      <p *ngFor="let scorer of upperSection?.awayScorers" class="text">⚽ {{scorer.name}} {{ scorer.goals > 1 ? scorer.goals + 'x' : scorer.goals }}</p>
     </div>
   </div>
-  <hr>
+  <hr />
   <div class="row">
     <div class="col-md-6">
       <h2 class="text-center">Home team</h2>
-      <app-group-user-box *ngFor="let user of homePlayers" [user]="user"></app-group-user-box>
+      <app-group-user-box
+        *ngFor="let user of homeTeam"
+        [user]="user"
+      ></app-group-user-box>
     </div>
     <div class="col-md-6">
       <h2 class="text-center">Away team</h2>
-      <app-group-user-box *ngFor="let user of awayPlayers" [user]="user"></app-group-user-box>
+      <app-group-user-box
+        *ngFor="let user of awayTeam"
+        [user]="user"
+      ></app-group-user-box>
     </div>
   </div>
 </div>

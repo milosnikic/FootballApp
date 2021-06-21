@@ -11,5 +11,6 @@ namespace FootballApp.API.Data
         void GainAchievement(GainedAchievement gainedAchievement);
         Task<ICollection<Visit>> GetLatestFiveVisitorsForUser(int userId);
         Task<ICollection<GainedAchievement>> GetAllAchievementsForUser(int userId);
+        Task<ICollection<User>> GetUsers();
     }
 }

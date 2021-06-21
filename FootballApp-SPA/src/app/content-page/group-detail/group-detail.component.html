@@ -31,10 +31,8 @@
             [matches]="upcomingMatches"
           ></app-group-matches>
         </mat-tab>
-        <!-- TODO: Phase 2 -->
         <mat-tab
           [disabled]="
-            true ||
             membershipInfo === null ||
             membershipInfo?.membershipStatus !== MembershipStatus.Accepted
           "

@@ -3,134 +3,86 @@
     <div class="col-md-4">
       <h2>Average results in last 5 matches</h2>
     </div>
-    <div class="col-md-8" style="padding-top:5px">
-      <span class="avg"><strong>Goals:</strong> {{(1 + 3 + 4 + 3 + 7)/5}}</span>
-      <span class="avg"><strong>Assists:</strong> {{(2 + 3 + 2 + 3 + 4)/5}}</span>
-      <span class="avg"><strong>Rating:</strong> {{(7.2 + 6.8 + 8.1 + 8.5 + 7)/5 | number:'1.2'}} </span>
+    <div class="col-md-8" style="padding-top: 5px">
+      <span class="avg"
+        ><strong>Goals:</strong> {{ averageGoals | number: "1.2" }}</span
+      >
+      <span class="avg"
+        ><strong>Assists:</strong> {{ averageAssists | number: "1.2" }}</span
+      >
+      <span class="avg"
+        ><strong>Rating:</strong> {{ averageRating | number: "1.2" }}
+      </span>
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-md-3" >
-      <a href="" class="match-link">
+    <div class="col-md-3">
+      <a *ngFor="let match of firstMatches" [routerLink]="['/app', 'match-played', match?.id]" target="_blank" class="match-link">
         <div class="match">
-          <div class="match-header">
-            7.1.2020. 20h Jelovac
-          </div>
+          <div class="match-header">{{ match?.datePlayed | date:'dd.MM.yyyy.'}} {{match?.place}}</div>
           <div class="match-result">
-            <p style="color: rgb(39, 170, 39);">Win</p>
+            <p [ngStyle]="getResultStyle(match?.result)">{{ match?.result }}</p>
           </div>
           <div class="match-content">
-            <div class="match-item" style="border-top: 1px solid #d1d5da;">
+            <div class="match-item" style="border-top: 1px solid #d1d5da">
               <div class="match-item-left">goals</div>
-              <div class="match-item-right">1</div>
+              <div class="match-item-right">{{ match?.goals }}</div>
             </div>
             <div class="match-item">
               <div class="match-item-left">assists</div>
-              <div class="match-item-right">2</div>
+              <div class="match-item-right">{{ match?.assists }}</div>
             </div>
             <div class="match-item">
               <div class="match-item-left">rating</div>
-              <div class="match-item-right">7.2</div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a href="" class="match-link">
-        <div class="match">
-          <div class="match-header">
-            7.1.2020. 20h Jelovac
-          </div>
-          <div class="match-result">
-            <p style="color: rgb(209, 25, 25);">lose</p>
-          </div>
-          <div class="match-content">
-            <div class="match-item" style="border-top: 1px solid #d1d5da;">
-              <div class="match-item-left">goals</div>
-              <div class="match-item-right">4</div>
-            </div>
-            <div class="match-item">
-              <div class="match-item-left">assists</div>
-              <div class="match-item-right">3</div>
-            </div>
-            <div class="match-item">
-              <div class="match-item-left">rating</div>
-              <div class="match-item-right">7.2</div>
+              <div class="match-item-right">{{ match?.rating }}</div>
             </div>
           </div>
         </div>
       </a>
     </div>
-    <div class="col-md-3" >
-      <a href="" class="match-link">
+    <div *ngIf="thirdMatch" class="col-md-3">
+      <a [routerLink]="['/app', 'match-played', thirdMatch?.id]" target="_blank" class="match-link">
         <div class="match center">
-          <div class="match-header">
-            7.1.2020. 20h Jelovac
-          </div>
+          <div class="match-header">{{ thirdMatch?.datePlayed | date:'dd.MM.yyyy.'}} {{thirdMatch?.place}}</div>
           <div class="match-result">
-            <p style="color: rgb(39, 170, 39);">Win</p>
+            <p [ngStyle]="getResultStyle(thirdMatch?.result)">{{ thirdMatch?.result }}</p>
           </div>
           <div class="match-content">
-            <div class="match-item" style="border-top: 1px solid #d1d5da;">
+            <div class="match-item" style="border-top: 1px solid #d1d5da">
               <div class="match-item-left">goals</div>
-              <div class="match-item-right">3</div>
+              <div class="match-item-right">{{ thirdMatch?.goals }}</div>
             </div>
             <div class="match-item">
               <div class="match-item-left">assists</div>
-              <div class="match-item-right">2</div>
+              <div class="match-item-right">{{ thirdMatch?.assists }}</div>
             </div>
             <div class="match-item">
               <div class="match-item-left">rating</div>
-              <div class="match-item-right">7.2</div>
+              <div class="match-item-right">{{ thirdMatch?.rating }}</div>
             </div>
           </div>
         </div>
       </a>
     </div>
-    <div class="col-md-3" >
-      <a href="" class="match-link">
+    <div class="col-md-3">
+      <a *ngFor="let match of lastMatches" [routerLink]="['/app', 'match-played', match?.id]" target="_blank" class="match-link">
         <div class="match">
-          <div class="match-header">
-            7.1.2020. 20h Jelovac
-          </div>
+          <div class="match-header">{{ match?.datePlayed | date:'dd.MM.yyyy.'}} {{match?.place}}</div>
           <div class="match-result">
-            <p style="color: rgb(209, 25, 25);">lose</p>
+            <p [ngStyle]="getResultStyle(match?.result)">{{ match?.result }}</p>
           </div>
           <div class="match-content">
-            <div class="match-item" style="border-top: 1px solid #d1d5da;">
+            <div class="match-item" style="border-top: 1px solid #d1d5da">
               <div class="match-item-left">goals</div>
-              <div class="match-item-right">3</div>
+              <div class="match-item-right">{{ match?.goals }}</div>
             </div>
             <div class="match-item">
               <div class="match-item-left">assists</div>
-              <div class="match-item-right">3</div>
+              <div class="match-item-right">{{ match?.assists }}</div>
             </div>
             <div class="match-item">
               <div class="match-item-left">rating</div>
-              <div class="match-item-right">7.2</div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a href="" class="match-link">
-        <div class="match">
-          <div class="match-header">
-            7.1.2020. 20h Jelovac
-          </div>
-          <div class="match-result">
-            <p style="color: rgb(39, 170, 39);">Win</p>
-          </div>
-          <div class="match-content">
-            <div class="match-item" style="border-top: 1px solid #d1d5da;">
-              <div class="match-item-left">goals</div>
-              <div class="match-item-right">7</div>
-            </div>
-            <div class="match-item">
-              <div class="match-item-left">assists</div>
-              <div class="match-item-right">4</div>
-            </div>
-            <div class="match-item">
-              <div class="match-item-left">rating</div>
-              <div class="match-item-right">7.2</div>
+              <div class="match-item-right">{{ match?.rating }}</div>
             </div>
           </div>
         </div>

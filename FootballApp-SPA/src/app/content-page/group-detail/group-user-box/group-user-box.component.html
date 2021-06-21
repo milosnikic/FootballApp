@@ -5,7 +5,7 @@
     checked: matchStatus === MatchStatus.Checked
   }"
 >
-  <div>
+  <div id="user-row">
     <img
       [routerLink]="['/app','users', user?.id]"
       src="{{  user?.mainPhoto ? ('data:image/JPEG;base64,'+user?.mainPhoto?.image) : '../../../../assets/male-default.jpg'}}"
@@ -31,6 +31,9 @@
     </button>
     <div *ngIf="matchStatus === MatchStatus.Checked" style="color: yellow;margin-left: 80px;"><i class="fas fa-question-circle"></i> Checked</div>
     <div *ngIf="matchStatus === MatchStatus.Confirmed" style="color: greenyellow;margin-left: 80px;"><i class="fas fa-check-circle"></i> Confirmed</div>
+    <span (click)="selectPlayer(user)">
+      <i *ngIf="selectPlayerVisible" class="fas fa-2x fa-arrow-circle-right float-right mt-2 select-player"></i>
+    </span>
     <small class="date-joined">Joined {{ user?.created | date:'dd.MM.yyyy.' }}</small>
   </div>
 </mat-card>

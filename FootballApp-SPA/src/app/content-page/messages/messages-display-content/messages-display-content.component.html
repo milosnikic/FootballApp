@@ -18,8 +18,7 @@
                 *ngIf="message?.sender?.mainPhoto; else defaultImage"
                 src="data:image/JPEG;base64,{{ message?.sender?.mainPhoto }}"
                 alt="User profile picture"
-                class="rounded-circle"
-                width="35px"
+                class="rounded-circle user-img"
               />
               <ng-template #defaultImage>
                 <img
@@ -30,8 +29,7 @@
                       : '../assets/female-default.jpg'
                   }}"
                   alt=""
-                  class="rounded-circle"
-                  width="35px"
+                  class="rounded-circle user-img"
                 />
               </ng-template>
             </a>
@@ -58,8 +56,7 @@
                 *ngIf="message?.sender?.mainPhoto; else defaultImage"
                 src="data:image/JPEG;base64,{{ message?.sender?.mainPhoto }}"
                 alt="User profile picture"
-                class="rounded-circle"
-                width="35px"
+                class="rounded-circle user-img"
               />
               <ng-template #defaultImage>
                 <img
@@ -70,8 +67,7 @@
                       : '../assets/female-default.jpg'
                   }}"
                   alt=""
-                  class="rounded-circle"
-                  width="35px"
+                  class="rounded-circle user-img"
                 />
               </ng-template>
             </a>

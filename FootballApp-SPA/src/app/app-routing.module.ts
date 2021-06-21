@@ -30,6 +30,7 @@ const appRoutes: Route[] = [
         {path: 'upcoming-matches', component: UpcomingMatchesComponent, data: {title: 'Upcoming Matches'}},
         {path: 'upcoming-matches/:matchId', component: UpcomingMatchComponent, data: {title: 'Upcoming match'}},
         {path: 'match-history', component: MatchHistoryComponent, data: {title: 'Match History'}},
+        {path: 'match-played/:matchdayId', component: PlayedMatchComponent, data: {title: 'Match played'}},
     ]},
     {path: 'home', component: RegisterComponent},
     {path: '', redirectTo: 'home', pathMatch: 'full'},

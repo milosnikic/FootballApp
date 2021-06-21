@@ -1,4 +1,5 @@
 using FootballApp.API.Models;
+using FootballApp.API.Models.Views;
 using Microsoft.EntityFrameworkCore;
 
 namespace FootballApp.API.Data
@@ -187,6 +188,15 @@ namespace FootballApp.API.Data
                 .Property(x => x.Name)
                 .HasMaxLength(30)
                 .IsRequired(false);
+
+            // Organized match information view 
+            modelBuilder.Query<OrganizedMatchInformationView>();
+            // Match history view
+            modelBuilder.Query<MatchHistoryView>();
+            // Group match history view
+            modelBuilder.Query<GroupMatchHistoryView>();
+            // Latest five matches view
+            modelBuilder.Query<LatestFiveMatchesView>();
         }
     }
 }

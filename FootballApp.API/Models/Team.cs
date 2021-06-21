@@ -9,5 +9,6 @@ namespace FootballApp.API.Models
         public Matchday Matchday { get; set; }
         public ICollection<MatchPlayed> HomeMatches { get; set; }
         public ICollection<MatchPlayed> AwayMatches { get; set; }
+        public ICollection<TeamMember> TeamMembers { get; set; }
     }
 }

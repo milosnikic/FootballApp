@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { User } from 'src/app/_models/user';
-import { MatchStatus } from 'src/app/_models/matchStatus.enum';
-import { GroupsService } from 'src/app/_services/groups.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { NotifyService } from 'src/app/_services/notify.service';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { User } from "src/app/_models/user";
+import { MatchStatus } from "src/app/_models/matchStatus.enum";
+import { GroupsService } from "src/app/_services/groups.service";
+import { ActivatedRoute, ParamMap } from "@angular/router";
+import { NotifyService } from "src/app/_services/notify.service";
 
 @Component({
-  selector: 'app-group-user-box',
-  templateUrl: './group-user-box.component.html',
-  styleUrls: ['./group-user-box.component.css'],
+  selector: "app-group-user-box",
+  templateUrl: "./group-user-box.component.html",
+  styleUrls: ["./group-user-box.component.css"],
 })
 export class GroupUserBoxComponent implements OnInit {
   groupId: number;
@@ -17,6 +17,8 @@ export class GroupUserBoxComponent implements OnInit {
   @Input() deleteVisible: boolean = false;
   @Input() pendingRequest: boolean = false;
   @Input() matchStatus: MatchStatus;
+  @Input() selectPlayerVisible: boolean = false;
+  @Output() selectedPlayer = new EventEmitter<any>();
   MatchStatus = MatchStatus;
 
   constructor(
@@ -27,7 +29,7 @@ export class GroupUserBoxComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((data: ParamMap) => {
-      this.groupId = +data.get('groupId');
+      this.groupId = +data.get("groupId");
     });
   }
 
@@ -61,5 +63,9 @@ export class GroupUserBoxComponent implements OnInit {
         this.notifyService.showError(err.error);
       }
     );
+  }
+
+  public selectPlayer(user: any): void {
+    this.selectedPlayer.emit(this.user);
   }
 }

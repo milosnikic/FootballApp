@@ -29,6 +29,7 @@ import {
   MatInputModule,
   MatListModule,
   MatRadioModule,
+  MatButtonModule,
 } from '@angular/material';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -62,6 +63,7 @@ import { UpcomingMatchComponent } from './content-page/upcoming-matches/upcoming
 import { UpcomingMatchesComponent } from './content-page/upcoming-matches/upcoming-matches.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CreateChatModalComponent } from './modals/create-chat-modal/create-chat-modal.component';
+import { OrganizeUsersComponent } from './content-page/upcoming-matches/upcoming-match/organize-users/organize-users.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +103,7 @@ import { CreateChatModalComponent } from './modals/create-chat-modal/create-chat
     UpcomingMatchComponent,
     UpcomingMatchesComponent,
     PlayedMatchComponent,
+    OrganizeUsersComponent,
     SetActiveDirective,
     TimeAgoPipe,
     NotFoundComponent,
@@ -120,6 +123,7 @@ import { CreateChatModalComponent } from './modals/create-chat-modal/create-chat
     MatInputModule,
     MatListModule,
     MatRadioModule,
+    MatButtonModule,
     FormsModule,
     NgxMaterialTimepickerModule,
     NgCircleProgressModule.forRoot({
