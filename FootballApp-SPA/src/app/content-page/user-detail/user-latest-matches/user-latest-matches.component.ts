@@ -30,7 +30,7 @@ export class UserLatestMatchesComponent implements OnInit {
           if (res.length > 2) {
             this.thirdMatch = res[2];
             if (res.length > 3) {
-              this.lastMatches = res.slice(2, 2);
+              this.lastMatches = res.slice(3);
             }
           }
         }
