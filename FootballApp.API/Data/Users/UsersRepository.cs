@@ -80,6 +80,13 @@ namespace FootballApp.API.Data.Users
             return achievements;
         }
 
+        public async Task<ICollection<User>> GetUsers()
+        {
+            var users = await DataContext.Users.Include(u => u.Photos).ToListAsync();
+
+            return users;
+        }
+
         public DataContext DataContext
         {
             get { return Context as DataContext; } 

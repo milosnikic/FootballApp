@@ -2,18 +2,6 @@ using System;
 
 namespace FootballApp.API.Models
 {
-    public enum Role
-    {
-        Admin,
-        Owner,
-        Member
-    }
-    public enum MembershipStatus
-    {
-        NotMember,
-        Sent,
-        Accepted
-    }
     public class Membership
     {
         public Membership()

@@ -238,6 +238,31 @@ namespace FootballApp.API.Migrations
                     b.ToTable("Matchdays");
                 });
 
+            modelBuilder.Entity("FootballApp.API.Models.MatchPlayed", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AwayGoals");
+
+                    b.Property<int>("AwayId");
+
+                    b.Property<DateTime>("DatePlayed");
+
+                    b.Property<int>("HomeGoals");
+
+                    b.Property<int>("HomeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AwayId");
+
+                    b.HasIndex("HomeId");
+
+                    b.ToTable("MatchPlayeds");
+                });
+
             modelBuilder.Entity("FootballApp.API.Models.MatchStatus", b =>
                 {
                     b.Property<int>("UserId");
@@ -328,6 +353,76 @@ namespace FootballApp.API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Photos");
+                });
+
+            modelBuilder.Entity("FootballApp.API.Models.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("MatchdayId");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatchdayId");
+
+                    b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("FootballApp.API.Models.TeamMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Position");
+
+                    b.Property<int>("TeamId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TeamMembers");
+                });
+
+            modelBuilder.Entity("FootballApp.API.Models.TeamMemberStatistic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Assists");
+
+                    b.Property<int>("Goals");
+
+                    b.Property<int>("MatchPlayedId");
+
+                    b.Property<int>("MinutesPlayed");
+
+                    b.Property<double>("Rating");
+
+                    b.Property<int?>("TeamId");
+
+                    b.Property<int>("TeamMemberId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatchPlayedId");
+
+                    b.HasIndex("TeamId");
+
+                    b.HasIndex("TeamMemberId");
+
+                    b.ToTable("TeamMemberStatistics");
                 });
 
             modelBuilder.Entity("FootballApp.API.Models.User", b =>
@@ -510,6 +605,19 @@ namespace FootballApp.API.Migrations
                         .HasForeignKey("LocationId");
                 });
 
+            modelBuilder.Entity("FootballApp.API.Models.MatchPlayed", b =>
+                {
+                    b.HasOne("FootballApp.API.Models.Team", "Away")
+                        .WithMany("AwayMatches")
+                        .HasForeignKey("AwayId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("FootballApp.API.Models.Team", "Home")
+                        .WithMany("HomeMatches")
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("FootballApp.API.Models.MatchStatus", b =>
                 {
                     b.HasOne("FootballApp.API.Models.Matchday", "Matchday")
@@ -554,6 +662,43 @@ namespace FootballApp.API.Migrations
                     b.HasOne("FootballApp.API.Models.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FootballApp.API.Models.Team", b =>
+                {
+                    b.HasOne("FootballApp.API.Models.Matchday", "Matchday")
+                        .WithMany("Teams")
+                        .HasForeignKey("MatchdayId");
+                });
+
+            modelBuilder.Entity("FootballApp.API.Models.TeamMember", b =>
+                {
+                    b.HasOne("FootballApp.API.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FootballApp.API.Models.User", "User")
+                        .WithMany("TeamMembers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FootballApp.API.Models.TeamMemberStatistic", b =>
+                {
+                    b.HasOne("FootballApp.API.Models.MatchPlayed", "MatchPlayed")
+                        .WithMany("TeamMemberStatistics")
+                        .HasForeignKey("MatchPlayedId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FootballApp.API.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId");
+
+                    b.HasOne("FootballApp.API.Models.TeamMember", "TeamMember")
+                        .WithMany("TeamMemberStatistics")
+                        .HasForeignKey("TeamMemberId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

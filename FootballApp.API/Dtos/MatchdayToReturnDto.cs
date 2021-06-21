@@ -13,6 +13,7 @@ namespace FootballApp.API.Dtos
         public int NumberOfPlayers { get; set; }
         public int NumberOfConfirmedPlayers { get; set; }
         public DateTime DatePlaying { get; set; }
+        public int GroupId { get; set; }
         public ICollection<UserForDisplayDto> AppliedUsers { get; set; }
     }
 }

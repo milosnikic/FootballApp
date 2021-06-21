@@ -1,14 +1,18 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { MatchStatus } from 'src/app/_models/matchStatus.enum';
-import { MatchService } from 'src/app/_services/match.service';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { NotifyService } from 'src/app/_services/notify.service';
-import { first } from 'rxjs/operators';
+import { Component, OnInit, EventEmitter } from "@angular/core";
+import { MatchStatus } from "src/app/_models/matchStatus.enum";
+import { MatchService } from "src/app/_services/match.service";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
+import { NotifyService } from "src/app/_services/notify.service";
+import { GroupsService } from "src/app/_services/groups.service";
+import { MembershipStatus } from "src/app/_models/MembershipStatus.enum";
+import { MembershipInformation } from "src/app/_models/membershipInformation";
+import { Role } from "src/app/_models/role.enum";
+import { DisplayMode } from "./organize-users/organize-users.component";
 
 @Component({
-  selector: 'app-upcoming-match',
-  templateUrl: './upcoming-match.component.html',
-  styleUrls: ['./upcoming-match.component.css'],
+  selector: "app-upcoming-match",
+  templateUrl: "./upcoming-match.component.html",
+  styleUrls: ["./upcoming-match.component.css"],
 })
 export class UpcomingMatchComponent implements OnInit {
   isChecked;
@@ -20,23 +24,38 @@ export class UpcomingMatchComponent implements OnInit {
   match: any;
   matchId: number;
   upcomingMatches = new EventEmitter<number>();
+  membershipInfo: MembershipInformation;
+  MembershipStatus = MembershipStatus;
+  Role = Role;
+  selectedSection: UpcomingMatchSection;
+  UpcomingMachSection = UpcomingMatchSection;
+  DisplayMode = DisplayMode
 
   constructor(
     private matchService: MatchService,
     private route: ActivatedRoute,
     private notifyService: NotifyService,
-    private router: Router
+    private router: Router,
+    private groupService: GroupsService
   ) {}
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    this.selectedSection = UpcomingMatchSection.AppliedUsers;
+    this.user = JSON.parse(localStorage.getItem("user"));
     this.route.paramMap.subscribe((data: ParamMap) => {
-      this.matchId = +data.get('matchId');
-      this.groupId = +data.get('groupId');
+      this.matchId = +data.get("matchId");
       this.matchService
         .getUpcomingMatchInfo(this.matchId)
         .subscribe((res: any) => {
           this.match = res;
+          this.groupId = this.match.groupId;
+          if (this.groupId) {
+            this.groupService
+              .getMembershipInformation(this.groupId, this.user.id)
+              .subscribe((res: any) => {
+                this.membershipInfo = res;
+              });
+          }
           this.users = this.match.appliedUsers;
         });
       this.matchService
@@ -47,7 +66,6 @@ export class UpcomingMatchComponent implements OnInit {
           this.isConfirmed = res !== null ? res.confirmed : false;
         });
     });
-    
   }
 
   checkIn() {
@@ -73,15 +91,16 @@ export class UpcomingMatchComponent implements OnInit {
       (res: any) => {
         if (res.key) {
           this.notifyService.showSuccess(
-            'Successfully confirmed participation!'
+            "Successfully confirmed participation!"
           );
           this.isChecked = false;
           this.isConfirmed = true;
-          this.users.find(u => u.firstname === this.user.firstname)
-          .matchStatus = MatchStatus.Confirmed;
+          this.users.find(
+            (u) => u.firstname === this.user.firstname
+          ).matchStatus = MatchStatus.Confirmed;
           this.match.numberOfConfirmedPlayers++;
         } else {
-          this.notifyService.showError('Problem confirming participation!');
+          this.notifyService.showError("Problem confirming participation!");
         }
       },
       (err) => {
@@ -95,12 +114,12 @@ export class UpcomingMatchComponent implements OnInit {
     this.matchService.giveUp(this.user.id, this.matchId).subscribe(
       (res: any) => {
         if (res.key) {
-          this.notifyService.showSuccess('Successfully gave up match!');
+          this.notifyService.showSuccess("Successfully gave up match!");
           this.users = this.users.filter(
             (u) => u.firstname !== this.user.firstname
           );
         } else {
-          this.notifyService.showError('Problem giving up a match!');
+          this.notifyService.showError("Problem giving up a match!");
         }
       },
       (err) => {
@@ -111,18 +130,31 @@ export class UpcomingMatchComponent implements OnInit {
 
   getCapacityClass() {
     if (this.users.length === 0) {
-      return 'zero-capacity';
+      return "zero-capacity";
     } else if (this.users.length < 5) {
-      return 'low-capacity';
+      return "low-capacity";
     } else if (this.users.length < 8) {
-      return 'moderate-capacity';
+      return "moderate-capacity";
     } else if (this.users.length < 11) {
-      return 'high-capacity';
+      return "high-capacity";
     }
-    return 'full-capacity';
+    return "full-capacity";
   }
 
   goBack() {
-    this.router.navigate(['../..'], { relativeTo: this.route });
+    this.router.navigate(["../.."], { relativeTo: this.route });
   }
+
+  public organizeMatch(): void {
+    this.selectedSection = UpcomingMatchSection.OrganizeUsersByTeam;
+  }
+
+  public viewAppliedUsers(): void {
+    this.selectedSection = UpcomingMatchSection.AppliedUsers;
+  }
+}
+
+export enum UpcomingMatchSection {
+  AppliedUsers,
+  OrganizeUsersByTeam,
 }

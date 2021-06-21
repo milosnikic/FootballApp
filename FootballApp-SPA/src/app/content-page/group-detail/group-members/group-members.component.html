@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row mt-4">
-    <div class="col-md-6" style="max-height: 100vh;">
+    <div class="col-md-6" style="max-height: 100vh; overflow: auto">
       <app-group-user-box
         *ngFor="let user of groupMembers"
         [user]="user"
@@ -10,12 +10,13 @@
     <div class="col-md-1"></div>
     <div class="col-md-4">
       <mat-card
+        style="max-height: 650px; min-height: 650px"
         *ngIf="!!selectedUser; else noSelectedUser"
-        class="example-card"
       >
         <img
           *ngIf="selectedUser?.mainPhoto; else defaultImage"
           mat-card-image
+          style="max-height: 350px; object-fit: cover; min-height: 350px"
           src="data:image/JPEG;base64,{{ selectedUser?.mainPhoto?.image }}"
           alt="User profile picture"
         />
@@ -23,6 +24,7 @@
           <img
             mat-card-image
             *ngIf="!selectedUser?.mainPhoto"
+            style="max-height: 350px; object-fit: cover; min-height: 350px"
             src="{{
               selectedUser?.gender === 'Male'
                 ? '../assets/male-default.jpg'
@@ -46,11 +48,11 @@
           <div class="col-md-6">
             <h2>Latest form</h2>
             <h4>
-              <span style="color: greenyellow;">W </span
-              ><span style="color: greenyellow;">W </span
-              ><span style="color: greenyellow;">W </span
-              ><span style="color: greenyellow;">W </span>
-              <span style="color: red;">L </span>
+              <span
+                [ngStyle]="getFormColor(match)"
+                *ngFor="let match of userForm"
+                >{{ match }}
+              </span>
             </h4>
             <button
               [routerLink]="['/app/users', selectedUser.id]"

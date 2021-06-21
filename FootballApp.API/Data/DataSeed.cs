@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bogus;
 using FootballApp.API.Models;
 
 namespace FootballApp.API.Data
@@ -81,7 +82,7 @@ namespace FootballApp.API.Data
                 _context.SaveChanges();
             }
 
-            if (!_context.Users.Any())
+            if (!_context.Users.Any() || _context.Users.Count() < 10)
             {
                 var users = new List<User>
                             {
@@ -98,6 +99,9 @@ namespace FootballApp.API.Data
                                            Email = "snezana.nikic@gmail.com", DateOfBirth = new DateTime(1986,3,10), Created = DateTime.Now, IsActive = true,
                                            Gender = Gender.Female, LastActive = null},
                             };
+
+                AddRandomUsers(users);
+
                 string password = "Test123*";
                 foreach (var user in users)
                 {
@@ -110,7 +114,30 @@ namespace FootballApp.API.Data
 
                 _context.SaveChanges();
             }
+        }
 
+        private void AddRandomUsers(List<User> users)
+        {
+            Randomizer.Seed = new Random(8675309);
+            var cities = _context.Cities.ToList();
+            var countries = _context.Countries.ToList();
+
+            for (int i = 0; i < 100; i++)
+            {
+                var randomUser = new Faker<CommonUser>()
+                    .RuleFor(u => u.Firstname, f => f.Person.FirstName)
+                    .RuleFor(u => u.Lastname, f => f.Person.LastName)
+                    .RuleFor(u => u.Username, f => f.Person.UserName)
+                    .RuleFor(u => u.City, f => f.PickRandom(cities))
+                    .RuleFor(u => u.Country, f => f.PickRandom(countries))
+                    .RuleFor(u => u.Email, f => f.Person.Email)
+                    .RuleFor(u => u.DateOfBirth, f => f.Person.DateOfBirth)
+                    .RuleFor(u => u.Created, DateTime.Now)
+                    .RuleFor(u => u.Gender, f => f.PickRandom<Gender>())
+                    .RuleFor(u => u.IsActive, true);
+
+                users.Add(randomUser.Generate());
+            }
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

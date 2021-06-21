@@ -1,0 +1,240 @@
+<h2 class="text-center mb-4">
+  {{ getHomeGoals() }} ({{ homeTeam.name }}) : {{ getAwayGoals() }} ({{
+    awayTeam.name
+  }})
+</h2>
+<div class="row" *ngIf="displayMode === DisplayMode.OrganizeMatchPlayers">
+  <div class="col-md-4">
+    <h3 class="pl-3 mb-2 pt-3">Choose player for team</h3>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="team-name">
+      <input
+        matInput
+        placeholder="Home team name"
+        [(ngModel)]="homeTeam.name"
+      />
+    </mat-form-field>
+  </div>
+  <div class="col-md-4">
+    <mat-form-field class="team-name">
+      <input
+        matInput
+        placeholder="Away team name"
+        [(ngModel)]="awayTeam.name"
+      />
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5" style="max-height: 550px; overflow-y: scroll">
+    <!-- Displays list of users -->
+    <ng-container *ngIf="displayMode === DisplayMode.OrganizeMatchPlayers">
+      <app-group-user-box
+        *ngFor="let user of users"
+        [user]="user"
+        [selectPlayerVisible]="true"
+        (selectedPlayer)="selectPlayer($event)"
+      ></app-group-user-box>
+    </ng-container>
+    <ng-container *ngIf="displayMode === DisplayMode.DisplayMatchPlayers">
+      <!-- Add component that displayes match statistic and for selected player  -->
+    </ng-container>
+  </div>
+  <div
+    class="col-md-4"
+    *ngIf="displayMode === DisplayMode.OrganizeMatchPlayers"
+  >
+    <!-- Logic for adding players -->
+    <span *ngIf="selectedPlayer; else noPlayerSelected"
+      >Selected player
+      <strong
+        >{{ selectedPlayer.firstname }} {{ selectedPlayer.lastname }}</strong
+      >
+      <span class="text-muted">({{ selectedPlayer.username }})</span>
+      <span
+        matTooltip="Remove selected player"
+        class="mr-4 pl-4"
+        style="cursor: pointer"
+        (click)="removeSelectedPlayer()"
+        ><i class="fas fa-times" style="color: red"></i
+      ></span>
+    </span>
+    <ng-template #noPlayerSelected>
+      Please select player to add to team
+    </ng-template>
+    <form [formGroup]="playerStatisticsForm">
+      <mat-form-field class="statistics-input">
+        <input
+          type="number"
+          matInput
+          placeholder="Goals scored"
+          formControlName="goals"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="playerStatisticsForm.hasError('min')">
+          Goals must be greater than <strong>0</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="statistics-input">
+        <input
+          type="number"
+          matInput
+          placeholder="Goals assisted"
+          formControlName="assists"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="playerStatisticsForm.hasError('min')">
+          Assists must be greater than <strong>0</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="statistics-input">
+        <input
+          type="number"
+          matInput
+          placeholder="Minutes played"
+          formControlName="minutesPlayed"
+          [errorStateMatcher]="matcher"
+        />
+        <mat-error *ngIf="playerStatisticsForm.hasError('min')">
+          Minutes played must be greater than <strong>0</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <div>
+      <button
+        mat-stroked-button
+        [disabled]="!selectedPlayer || homeTeam.players.length >= 5"
+        class="mt-4"
+        (click)="addPlayerToTeam('home', true)"
+      >
+        Add to {{ homeTeam.name }}
+      </button>
+      <button
+        mat-stroked-button
+        [disabled]="!selectedPlayer || awayTeam.players.length >= 5"
+        class="mt-4 ml-4"
+        (click)="addPlayerToTeam('away', true)"
+      >
+        Add to {{ awayTeam.name }}
+      </button>
+    </div>
+    <div class="mt-4">
+      <!-- Replacement player -->
+      <span *ngIf="playerToRemoveOrSwitch"
+        >Selected player for replacement
+        <strong
+          >{{ playerToRemoveOrSwitch.firstname }}
+          {{ playerToRemoveOrSwitch.lastname }}</strong
+        >
+        <span class="text-muted">({{ playerToRemoveOrSwitch.username }})</span>
+        <span
+          matTooltip="Remove selected player"
+          class="mr-4 pl-4"
+          style="cursor: pointer"
+          (click)="removePlayerFromTeam(playerToRemoveOrSwitch)"
+          ><i class="fas fa-times" style="color: red"></i
+        ></span>
+      </span>
+      <button
+        class="mt-4"
+        *ngIf="playerToRemoveOrSwitch && organizedPlayersCount > 1"
+        mat-stroked-button
+        (click)="isSwitchActivated = true"
+      >
+        Switch player with
+      </button>
+    </div>
+    <button
+      *ngIf="users.length === 0 && !isMatchOrganized"
+      type="button"
+      class="btn btn-success mb-4"
+      (click)="confirmTeams()"
+    >
+      Confirm teams
+    </button>
+  </div>
+  <div class="col-md-3 pitch-container">
+    <img
+      src="../../../../../assets/footballapp/football-pitch.jpg"
+      alt=""
+      class="float-right"
+    />
+    <div
+      *ngFor="let player of homeTeam.players; let i = index"
+      matTooltip="{{ player.username }} G: {{ player?.statistics?.goals }} A: {{
+        player?.statistics?.assists
+      }} MP: {{ player?.statistics?.minutesPlayed }}"
+      class="team1-player{{ i + 1 }}"
+      [ngClass]="{
+        blob:
+          playerToRemoveOrSwitch &&
+          isSwitchActivated &&
+          playerToRemoveOrSwitch.username !== player.username
+      }"
+      style="cursor: pointer"
+      (click)="selectPlayerToRemoveOrSwitch(player, 'home')"
+    >
+      <a style="color: black; cursor: pointer">
+        <img
+          *ngIf="player?.mainPhoto; else defaultImage"
+          src="data:image/JPEG;base64,{{ player?.mainPhoto?.image }}"
+          alt="User profile picture"
+          class="rounded-circle user-img"
+        />
+        <ng-template #defaultImage>
+          <img
+            *ngIf="!player?.mainPhoto"
+            src="{{
+              player?.gender === 'Male'
+                ? '../assets/male-default.jpg'
+                : '../assets/female-default.jpg'
+            }}"
+            alt=""
+            class="rounded-circle user-img"
+          />
+        </ng-template>
+      </a>
+    </div>
+
+    <div
+      *ngFor="let player of awayTeam.players; let i = index"
+      matTooltip="{{ player.username }} G: {{ player?.statistics?.goals }} A: {{
+        player?.statistics?.assists
+      }} MP: {{ player?.statistics?.minutesPlayed }}"
+      class="team2-player{{ i + 1 }}"
+      [ngClass]="{
+        blob:
+          playerToRemoveOrSwitch &&
+          isSwitchActivated &&
+          playerToRemoveOrSwitch.username !== player.username
+      }"
+      style="cursor: pointer"
+      (click)="selectPlayerToRemoveOrSwitch(player, 'away')"
+    >
+      <a style="color: black; cursor: pointer">
+        <img
+          *ngIf="player?.mainPhoto; else defaultImage"
+          src="data:image/JPEG;base64,{{ player?.mainPhoto?.image }}"
+          alt="User profile picture"
+          class="rounded-circle user-img"
+        />
+        <ng-template #defaultImage>
+          <img
+            *ngIf="!player?.mainPhoto"
+            src="{{
+              player?.gender === 'Male'
+                ? '../assets/male-default.jpg'
+                : '../assets/female-default.jpg'
+            }}"
+            alt=""
+            class="rounded-circle user-img"
+          />
+        </ng-template>
+      </a>
+    </div>
+
+    <div class="top-right">{{ homeTeam.name }}</div>
+    <div class="bottom-right">{{ awayTeam.name }}</div>
+  </div>
+</div>

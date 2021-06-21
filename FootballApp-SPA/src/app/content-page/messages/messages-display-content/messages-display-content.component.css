@@ -1,3 +1,11 @@
 .chat-body {
   padding-left: 30px;
 }
+
+.user-img {
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+  border-radius: 50%;
+}

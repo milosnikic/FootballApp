@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map, first } from "rxjs/operators";
 import { MatchStatus } from "../_models/matchStatus.enum";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -38,7 +39,9 @@ export class MatchService {
   }
 
   getUpcomingMatchesApplicableForUser(userId: number) {
-    return this.http.get(this.baseUrl + `/upcoming-matches-applicable?userId=${userId}`);
+    return this.http.get(
+      this.baseUrl + `/upcoming-matches-applicable?userId=${userId}`
+    );
   }
 
   getUserMatchStatus(matchId: number, userId: number) {
@@ -68,6 +71,26 @@ export class MatchService {
       this.baseUrl + `/${matchId}/give-up?userId=${userId}`,
       {}
     );
+  }
+
+  public organizeMatch(data: any) {
+    return this.http.post(this.baseUrl + `/organize-match`, data);
+  }
+
+  public getOrganizedMatchInformation(matchdayId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/organized-match/${matchdayId}`);
+  }
+
+  public getMatchHistoryForUser(userId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/match-history/${userId}`);
+  }
+  
+  public getMatchHistoryForGroup(groupId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/match-history-group/${groupId}`);
+  }
+
+  public getLatestFiveMatchesForUser(userId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/latest-five-matches/${userId}`);
   }
 
   private mapMatchStatus(confirmed: boolean, checked: boolean) {

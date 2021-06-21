@@ -84,6 +84,8 @@ namespace FootballApp.API.Data.Groups
                                               .ThenInclude(m => m.User)
                                               .ThenInclude(u => u.Photos)
                                               .FirstOrDefaultAsync();
+
+
             return group;
         }
 

@@ -15,6 +15,9 @@ h3:active {
 .user-img {
   cursor: pointer;
   width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .name {
@@ -38,4 +41,13 @@ mat-card.checked {
 
 mat-card.confirmed {
   border: 1px solid greenyellow;
+}
+
+.select-player {
+  opacity: 0%;
+}
+
+#user-row:hover .select-player {
+  opacity: 70%;
+  cursor: pointer;
 }

@@ -11,8 +11,7 @@
           </ng-template>
         <app-user-profile [userId]="userId" [editable]="editable" (editProfile)="changeTab($event)"></app-user-profile>
         </mat-tab>
-        <!-- TODO: Phase 2 -->
-        <mat-tab disabled>
+        <mat-tab>
           <ng-template mat-tab-label>
             Latest 5 Matches
             <i class="fas ml-2 fa-trophy"></i>

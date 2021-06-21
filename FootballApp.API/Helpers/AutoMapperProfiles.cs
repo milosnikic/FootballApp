@@ -2,6 +2,7 @@ using System.Linq;
 using AutoMapper;
 using FootballApp.API.Dtos;
 using FootballApp.API.Models;
+using FootballApp.API.Models.Views;
 
 namespace FootballApp.API.Helpers
 {
@@ -485,6 +486,13 @@ namespace FootballApp.API.Helpers
                     {
                         opt.MapFrom(src => src.MatchStatuses.Select(m => m.User));
                     }
+                )
+                .ForMember(
+                    dest => dest.GroupId,
+                    opt => 
+                    {
+                        opt.MapFrom(src => src.Group.Id);
+                    }
                 );
 
             CreateMap<MessageToSendDto, Message>()
@@ -509,7 +517,6 @@ namespace FootballApp.API.Helpers
                         opt.MapFrom(src => src.Messages.LastOrDefault().MessageSent);
                     }
                 );
-
         }
     }
 }

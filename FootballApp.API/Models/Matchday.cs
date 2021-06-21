@@ -14,5 +14,6 @@ namespace FootballApp.API.Models
         public Location Location { get; set; }
         public Group Group { get; set; }
         public ICollection<MatchStatus> MatchStatuses { get; set; }
+        public ICollection<Team> Teams { get; set; }
     }
 }

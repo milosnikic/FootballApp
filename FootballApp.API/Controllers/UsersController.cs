@@ -72,7 +72,7 @@ namespace FootballApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _unitOfWork.Users.GetAll();
+            var users = await _unitOfWork.Users.GetUsers();
 
             var usersToReturn = _mapper.Map<ICollection<UserToReturnDto>>(users);
             return Ok(usersToReturn);
