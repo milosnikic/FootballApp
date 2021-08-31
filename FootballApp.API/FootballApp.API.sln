@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballApp.API", "FootballApp.API.csproj", "{97604D8F-950D-4AC4-94BE-18FDEDDDA111}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballAppTests", "..\FootballAppTests\FootballAppTests.csproj", "{B77042A7-33E4-4E16-AD2A-64411AD39F90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{97604D8F-950D-4AC4-94BE-18FDEDDDA111}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97604D8F-950D-4AC4-94BE-18FDEDDDA111}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97604D8F-950D-4AC4-94BE-18FDEDDDA111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B77042A7-33E4-4E16-AD2A-64411AD39F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B77042A7-33E4-4E16-AD2A-64411AD39F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B77042A7-33E4-4E16-AD2A-64411AD39F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B77042A7-33E4-4E16-AD2A-64411AD39F90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

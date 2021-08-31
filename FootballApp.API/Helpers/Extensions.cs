@@ -38,6 +38,11 @@ namespace FootballApp.API.Helpers
         }
 
         public static int CalculateAge(this DateTime date){
+            if (date.Year > DateTime.Now.Year)
+            {
+                return -1;
+            }
+
             int age = DateTime.Now.Year - date.Year;
             if(date.AddYears(age) > DateTime.Today){
                 age--;
