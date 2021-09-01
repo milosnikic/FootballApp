@@ -2,8 +2,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data.UnitOfWork;
-using FootballApp.API.Dtos;
-using FootballApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,22 +19,6 @@ namespace FootballApp.API.Controllers
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-
-        // [HttpPost("send-message")]
-        // public async Task<IActionResult> SendMessage(MessageToSendDto messageToSendDto)
-        // {
-        //     if (messageToSendDto.SenderId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-        //         return Unauthorized();
-
-        //     var messageToAdd = _mapper.Map<Message>(messageToSendDto);
-        //     var response = await _unitOfWork.Messages.SendMessage(messageToAdd);
-        //     if (response.Key) 
-        //     {
-        //         await _unitOfWork.Complete();
-        //     }
-
-        //     return Ok(response);
-        // }
 
         [HttpPost("read-message")]
         public async Task<IActionResult> ReadMessage(int messageId, int chatId, int userId)

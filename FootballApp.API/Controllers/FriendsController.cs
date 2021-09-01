@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
-using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
+using FootballApp.API.Services.Friends;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,12 +12,10 @@ namespace FootballApp.API.Controllers
     [Route("api/[controller]")]
     public class FriendsController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public FriendsController(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IFriendsService _friendsService;
+        public FriendsController(IFriendsService friendsService)
         {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            _friendsService = friendsService;
         }
 
         [HttpGet("{userId}")]
@@ -28,7 +24,7 @@ namespace FootballApp.API.Controllers
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            return Ok(_mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.GetAllFriendsForUser(userId)));
+            return Ok(await _friendsService.GetAllFriendsForUser(userId));
         }
 
         [HttpGet("pending-requests/{userId}")]
@@ -37,7 +33,7 @@ namespace FootballApp.API.Controllers
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            return Ok(_mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.PendingFriendRequests(userId)));
+            return Ok(await _friendsService.PendingFriendRequests(userId));
         }
 
         [HttpGet("sent-requests/{userId}")]
@@ -46,7 +42,7 @@ namespace FootballApp.API.Controllers
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            return Ok(_mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.SentFriendRequests(userId)));
+            return Ok(await _friendsService.SentFriendRequests(userId));
         }
 
         [HttpPost("send-request")]
@@ -55,13 +51,7 @@ namespace FootballApp.API.Controllers
             if (friendRequestDto.SenderId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var response = await _unitOfWork.Friends.SendFriendRequest(friendRequestDto);
-            if (response.Key)
-            {
-                await _unitOfWork.Complete();
-            }
-
-            return Ok(response);
+            return Ok(await _friendsService.SendFriendRequest(friendRequestDto));
         }
 
         [HttpPost("accept-request")]
@@ -70,13 +60,7 @@ namespace FootballApp.API.Controllers
             if (friendRequestDto.ReceiverId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var response = await _unitOfWork.Friends.AcceptFriendRequest(friendRequestDto);
-            if (response.Key)
-            {
-                await _unitOfWork.Complete();
-            }
-
-            return Ok(response);
+            return Ok(await _friendsService.AcceptFriendRequest(friendRequestDto));
         }
 
         [HttpDelete("delete-request")]
@@ -86,13 +70,7 @@ namespace FootballApp.API.Controllers
                && friendRequestDto.ReceiverId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var response = await _unitOfWork.Friends.DeleteFriendRequest(friendRequestDto);
-            if (response.Key)
-            {
-                await _unitOfWork.Complete();
-            }
-
-            return Ok(response);
+            return Ok(await _friendsService.DeleteFriendRequest(friendRequestDto));
         }
 
         [HttpGet("explore/{userId}")]
@@ -101,10 +79,7 @@ namespace FootballApp.API.Controllers
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var users = await _unitOfWork.Friends.GetAllExploreUsers(userId);
-
-            var usersToReturn = _mapper.Map<ICollection<ExploreUserDto>>(users);
-            return Ok(usersToReturn);
+            return Ok(await _friendsService.GetAllExploreUsers(userId));
         }
     }
 }

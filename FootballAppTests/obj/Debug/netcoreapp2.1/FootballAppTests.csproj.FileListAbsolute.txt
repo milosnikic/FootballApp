@@ -11,10 +11,10 @@ E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\bin\Debug\netcoreapp2.1\Foot
 E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\bin\Debug\netcoreapp2.1\FootballAppTests.pdb
 E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\bin\Debug\netcoreapp2.1\FootballApp.API.dll
 E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\bin\Debug\netcoreapp2.1\FootballApp.API.pdb
-E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\obj\Debug\netcoreapp2.1\FootballAppTests.csproj.AssemblyReference.cache
 E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\obj\Debug\netcoreapp2.1\FootballAppTests.csproj.CoreCompileInputs.cache
 E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\obj\Debug\netcoreapp2.1\FootballAppTests.AssemblyInfoInputs.cache
 E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\obj\Debug\netcoreapp2.1\FootballAppTests.AssemblyInfo.cs
 E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\obj\Debug\netcoreapp2.1\FootballAppTests.csproj.CopyComplete
 E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\obj\Debug\netcoreapp2.1\FootballAppTests.dll
 E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\obj\Debug\netcoreapp2.1\FootballAppTests.pdb
+E:\Podaci\Milos\Dotnet\FootballApp\FootballAppTests\obj\Debug\netcoreapp2.1\FootballAppTests.csprojAssemblyReference.cache

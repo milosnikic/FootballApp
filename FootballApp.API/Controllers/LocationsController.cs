@@ -1,9 +1,6 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
-using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
-using FootballApp.API.Models;
+using FootballApp.API.Services.Locations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,85 +11,31 @@ namespace FootballApp.API.Controllers
     [Route("api/[controller]")]
     public class LocationsController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public LocationsController(IUnitOfWork unitOfWork,
-                                   IMapper mapper)
+        private readonly ILocationsService _locationsService;
+        public LocationsController(ILocationsService locationsService)
         {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-
+            _locationsService = locationsService;
         }
 
         [HttpPost]
         [Route("new")]
         public async Task<IActionResult> AddLocation(LocationToAddDto location)
         {
-            var city = await _unitOfWork.Cities.GetById(location.CityId);
-            var country = await _unitOfWork.Countries.GetById(location.CountryId);
-            if (city == null)
-            {
-                return BadRequest("City does not exist");
-            }
-
-            if(country == null)
-            {
-                return BadRequest("Country does not exist");
-            }
-
-            var locationToAdd = _mapper.Map<Location>(location);
-            locationToAdd.City = city;
-            locationToAdd.Country = country;
-
-            _unitOfWork.Locations.Add(locationToAdd);
-
-            if (await _unitOfWork.Complete())
-            {
-                // TODO: Comment all Repository and Controller methods
-                //       Move messages to constants!
-                return Ok(new KeyValuePair<bool, string>(true, "Location created successfully!"));
-            }
-            return BadRequest("Problem creating location");
+            return Ok(await _locationsService.AddLocation(location));
         }
 
         [HttpPost]
         [Route("country")]
         public async Task<IActionResult> AddCountry(string name)
         {
-            if (!await _unitOfWork.Countries.Exists(name)) 
-            {
-                return BadRequest("Country already exists.");
-            }
-            var country = new Country { Name = name };
-             _unitOfWork.Countries.Add(country);
-
-            if(await _unitOfWork.Complete())
-            {
-                return Ok(new KeyValuePair<bool, string>(true, "Country added successfully."));
-            }
-            return BadRequest("Problem creating country");
+            return Ok(await _locationsService.AddCountry(name));
         }
 
         [HttpPost]
         [Route("city")]
         public async Task<IActionResult> AddCity(CityForCreationDto city)
         {
-            var country = await _unitOfWork.Countries.GetById(city.CountryId);
-            if(country == null)
-            {
-                return BadRequest("Invalid country selected.");
-            }
-
-            var cityToAdd = _mapper.Map<City>(city);
-            cityToAdd.Country = country;
-            _unitOfWork.Cities.Add(cityToAdd);
-
-            if(await _unitOfWork.Complete())
-            {
-                return Ok(new KeyValuePair<bool, string>(true, "City added successfully."));
-            }
-
-            return BadRequest("Problem creating city");
+            return Ok(await _locationsService.AddCity(city));
         }
 
 
@@ -100,8 +43,7 @@ namespace FootballApp.API.Controllers
         [Route("all")]
         public async Task<IActionResult> GetAllLocations()
         {
-            var locations = await _unitOfWork.Locations.GetAllLocationsWithInclude();
-            return Ok(_mapper.Map<ICollection<LocationToReturnDto>>(locations));
+            return Ok(await _locationsService.GetAllLocations());
         }
 
 
@@ -110,8 +52,7 @@ namespace FootballApp.API.Controllers
         [Route("all-countries")]
         public async Task<IActionResult> GetAllCountriesWithCities()
         {
-            var countries = await _unitOfWork.Countries.GetAllCountriesWithCities();
-            return Ok(_mapper.Map<ICollection<CountryToReturnDto>>(countries));
+            return Ok(await _locationsService.GetAllCountriesWithCities());
         }
 
         [HttpGet]
@@ -119,8 +60,7 @@ namespace FootballApp.API.Controllers
         [Route("country-cities/{id}")]
         public async Task<IActionResult> GetAllCitiesForCountry(int id)
         {
-            var cities = await _unitOfWork.Cities.GetAllCitiesForCountry(id);
-            return Ok(_mapper.Map<ICollection<CityToReturnDto>>(cities));
+            return Ok(await _locationsService.GetAllCitiesForCountry(id));
         }
     }
 }

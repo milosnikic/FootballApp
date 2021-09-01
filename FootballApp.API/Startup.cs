@@ -7,6 +7,16 @@ using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Data.Users;
 using FootballApp.API.Helpers;
 using FootballApp.API.Hubs;
+using FootballApp.API.Services;
+using FootballApp.API.Services.Auth;
+using FootballApp.API.Services.Chat;
+using FootballApp.API.Services.Comments;
+using FootballApp.API.Services.Friends;
+using FootballApp.API.Services.Groups;
+using FootballApp.API.Services.Locations;
+using FootballApp.API.Services.Matches;
+using FootballApp.API.Services.Photos;
+using FootballApp.API.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,13 +46,8 @@ namespace FootballApp.API
                 .AddJsonOptions(opt =>
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-
-            services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
-            services.AddScoped<IGroupsRepository, GroupsRepository>();
-            services.AddScoped<IPhotosRepository, PhotosRepository>();
+            RegisterRepositories(services);
+            RegisterServices(services);
             services.AddTransient<DataSeed>();
             services.AddAutoMapper();
             services.AddSwaggerDocumentation();
@@ -60,6 +65,28 @@ namespace FootballApp.API
                         ValidateAudience = false
                     };
                 });
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IPhotosService, PhotosService>();
+            services.AddScoped<IMatchesService, MatchesService>();
+            services.AddScoped<ILocationsService, LocationsService>();
+            services.AddScoped<IGroupsService, GroupsService>();
+            services.AddScoped<IFriendsService, FriendsService>();
+            services.AddScoped<ICommentsService, CommentsService>();
+            services.AddScoped<IChatsService, ChatsService>();
+            services.AddScoped<IAuthsService, AuthsService>();
+        }
+
+        private static void RegisterRepositories(IServiceCollection services)
+        {
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IGroupsRepository, GroupsRepository>();
+            services.AddScoped<IPhotosRepository, PhotosRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
