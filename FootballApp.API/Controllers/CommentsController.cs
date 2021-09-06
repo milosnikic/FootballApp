@@ -1,9 +1,9 @@
-using System.Security.Claims;
-using System.Threading.Tasks;
 using FootballApp.API.Dtos;
 using FootballApp.API.Services.Comments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Controllers
 {
@@ -33,7 +33,7 @@ namespace FootballApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCommentForUser(int userId, CommentForCreationDto commentForCreationDto)
         {
-            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
             return Ok(await _commentsService.PostCommentForUser(userId, commentForCreationDto));

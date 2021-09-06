@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Services.Friends
 {
@@ -42,7 +42,7 @@ namespace FootballApp.API.Services.Friends
         {
             var users = await _unitOfWork.Friends.GetAllExploreUsers(userId);
 
-            return  _mapper.Map<ICollection<ExploreUserDto>>(users);
+            return _mapper.Map<ICollection<ExploreUserDto>>(users);
         }
 
         public async Task<IEnumerable<ExploreUserDto>> GetAllFriendsForUser(int userId)

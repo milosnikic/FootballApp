@@ -1,9 +1,9 @@
-using System.Security.Claims;
-using System.Threading.Tasks;
 using FootballApp.API.Dtos;
 using FootballApp.API.Services.Groups;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Controllers
 {
@@ -23,7 +23,7 @@ namespace FootballApp.API.Controllers
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
-            
+
             var group = await _groupsService.GetGroup(id, userId);
             if (group != null)
                 return Ok(group);
@@ -76,7 +76,7 @@ namespace FootballApp.API.Controllers
             var groups = await _groupsService.GetAllCreatedGroups(userId);
             if (groups != null)
                 return Ok(groups);
-            
+
             return Unauthorized();
         }
 
@@ -113,7 +113,7 @@ namespace FootballApp.API.Controllers
         [HttpDelete]
         [Route("reject/{groupId}")]
         public async Task<IActionResult> RejectUser(int groupId, int userId)
-        {   
+        {
             // We only check that we are logged in
             // TODO: add check if user is admin or owner in order to 
             //       accept or reject user

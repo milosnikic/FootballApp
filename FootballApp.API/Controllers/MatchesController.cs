@@ -1,9 +1,9 @@
-using System.Security.Claims;
-using System.Threading.Tasks;
 using FootballApp.API.Dtos;
 using FootballApp.API.Services.Matches;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Controllers
 {

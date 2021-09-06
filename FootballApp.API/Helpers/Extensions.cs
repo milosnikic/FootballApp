@@ -1,7 +1,7 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System;
 
 
 namespace FootballApp.API.Helpers
@@ -37,14 +37,16 @@ namespace FootballApp.API.Helpers
             return app;
         }
 
-        public static int CalculateAge(this DateTime date){
+        public static int CalculateAge(this DateTime date)
+        {
             if (date.Year > DateTime.Now.Year)
             {
                 return -1;
             }
 
             int age = DateTime.Now.Year - date.Year;
-            if(date.AddYears(age) > DateTime.Today){
+            if (date.AddYears(age) > DateTime.Today)
+            {
                 age--;
             }
             return age;

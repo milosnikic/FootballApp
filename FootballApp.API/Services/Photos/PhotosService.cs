@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
 using FootballApp.API.Helpers;
 using FootballApp.API.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Services.Photos
 {
@@ -42,7 +42,7 @@ namespace FootballApp.API.Services.Photos
             var photo = await _unitOfWork.Photos.GetById(photoId);
             if (photo == null)
                 return new KeyValuePair<bool, string>(false, "Specified photo doesn't exist.");
-            
+
             // Check if user has profile photo
             // If does change it to not be profile
             var mainPhoto = await _unitOfWork.Photos.GetMainPhotoForUser(userId);
@@ -77,7 +77,7 @@ namespace FootballApp.API.Services.Photos
                     // Check if photo that is going to be uploaded is main profile photo
                     // If it is, we have to find current main photo, and change it to not be main
                     var currentMainPhoto = await _unitOfWork.Photos.GetMainPhotoForUser(userId);
-                    if(photo.IsMain && currentMainPhoto != null)
+                    if (photo.IsMain && currentMainPhoto != null)
                     {
                         currentMainPhoto.IsMain = false;
                     }

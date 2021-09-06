@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
 using FootballApp.API.Models;
 using FootballApp.API.Models.Views;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Services.Matches
 {
@@ -54,13 +54,13 @@ namespace FootballApp.API.Services.Matches
             var match = await _unitOfWork.Matchdays.GetById(matchId);
             if (match == null)
             {
-                return new KeyValuePair<bool, string> (false, "Specified match doesn't exist!");
+                return new KeyValuePair<bool, string>(false, "Specified match doesn't exist!");
             }
 
             var matchStatus = await _unitOfWork.MatchStatuses.GetMatchStatusById(userId, matchId);
             if (matchStatus == null)
             {
-                return new KeyValuePair<bool, string> (false, "You are not checked in for match.");
+                return new KeyValuePair<bool, string>(false, "You are not checked in for match.");
             }
             matchStatus.Checked = false;
             matchStatus.Confirmed = true;
@@ -78,7 +78,7 @@ namespace FootballApp.API.Services.Matches
             var group = await _unitOfWork.Groups.GetById(matchdayForCreation.GroupId);
             if (group == null)
             {
-                return new KeyValuePair<bool, string>(false,"Specified group doesn't exist.");
+                return new KeyValuePair<bool, string>(false, "Specified group doesn't exist.");
             }
 
             var membership = await _unitOfWork.Memberships.GetMembershipById(userId, group.Id);
@@ -155,7 +155,7 @@ namespace FootballApp.API.Services.Matches
             {
                 return _mapper.Map<ICollection<MatchdayForDisplayDto>>(await _unitOfWork.Matchdays.GetUpcomingMatchesForUser(userId));
             }
-            
+
             return new List<MatchdayForDisplayDto>();
         }
 
@@ -195,7 +195,7 @@ namespace FootballApp.API.Services.Matches
             return new KeyValuePair<bool, string>(false, "Couldn't give up for match!");
         }
 
-        public async Task<KeyValuePair<bool,string>> OrganizeMatch(OrganizeMatchDto organizeMatchDto)
+        public async Task<KeyValuePair<bool, string>> OrganizeMatch(OrganizeMatchDto organizeMatchDto)
         {
             return await _unitOfWork.Matchdays.OrganizeMatchPlayed(organizeMatchDto);
         }

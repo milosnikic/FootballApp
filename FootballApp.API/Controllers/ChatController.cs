@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using AutoMapper;
-using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
-using FootballApp.API.Hubs;
-using FootballApp.API.Models;
 using FootballApp.API.Services.Chat;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Controllers
 {
@@ -59,7 +52,7 @@ namespace FootballApp.API.Controllers
             {
                 return Unauthorized();
             }
-            
+
             return Ok(await _chatsService.GetPrivateChats(userId));
         }
 

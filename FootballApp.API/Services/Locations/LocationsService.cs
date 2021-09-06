@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
 using FootballApp.API.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Services.Locations
 {
@@ -21,7 +21,7 @@ namespace FootballApp.API.Services.Locations
         public async Task<KeyValuePair<bool, string>> AddCity(CityForCreationDto city)
         {
             var country = await _unitOfWork.Countries.GetById(city.CountryId);
-            if(country == null)
+            if (country == null)
             {
                 return new KeyValuePair<bool, string>(false, "Invalid country selected.");
             }
@@ -30,7 +30,7 @@ namespace FootballApp.API.Services.Locations
             cityToAdd.Country = country;
             _unitOfWork.Cities.Add(cityToAdd);
 
-            if(await _unitOfWork.Complete())
+            if (await _unitOfWork.Complete())
             {
                 return new KeyValuePair<bool, string>(true, "City added successfully.");
             }
@@ -40,15 +40,15 @@ namespace FootballApp.API.Services.Locations
 
         public async Task<KeyValuePair<bool, string>> AddCountry(string name)
         {
-            if (!await _unitOfWork.Countries.Exists(name)) 
+            if (!await _unitOfWork.Countries.Exists(name))
             {
                 return new KeyValuePair<bool, string>(false, "Country already exists.");
             }
-            
-            var country = new Country { Name = name };
-             _unitOfWork.Countries.Add(country);
 
-            if(await _unitOfWork.Complete())
+            var country = new Country { Name = name };
+            _unitOfWork.Countries.Add(country);
+
+            if (await _unitOfWork.Complete())
             {
                 return new KeyValuePair<bool, string>(true, "Country added successfully.");
             }
@@ -65,7 +65,7 @@ namespace FootballApp.API.Services.Locations
                 return new KeyValuePair<bool, string>(false, "City does not exist");
             }
 
-            if(country == null)
+            if (country == null)
             {
                 return new KeyValuePair<bool, string>(false, "Country does not exist");
             }

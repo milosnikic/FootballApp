@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
 using FootballApp.API.Models;
 using FootballApp.API.Services.Users;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Services
 {
@@ -28,6 +28,7 @@ namespace FootballApp.API.Services
             {
                 return new KeyValuePair<bool, string>(false, "Not valid achievement!");
             }
+
             var gainedAchievement = await _unitOfWork.Achievements.GetGainedAchievement(userId, gainedAchievementForCreationDto.Value);
             if (gainedAchievement != null)
             {
@@ -50,12 +51,12 @@ namespace FootballApp.API.Services
             return new KeyValuePair<bool, string>(false, "Problem gaining achievement!");
         }
 
-        public async Task<IEnumerable<Achievement>> GetAllAchievements()
+        public async Task<ICollection<Achievement>> GetAllAchievements()
         {
             return await _unitOfWork.Achievements.GetAll();
         }
 
-        public async Task<IEnumerable<GainedAchievementToReturnDto>> GetAllAchievementsForUser(int userId)
+        public async Task<ICollection<GainedAchievementToReturnDto>> GetAllAchievementsForUser(int userId)
         {
             var achievements = await _unitOfWork.Users
                                           .GetAllAchievementsForUser(userId);
@@ -63,14 +64,14 @@ namespace FootballApp.API.Services
             return _mapper.Map<ICollection<GainedAchievementToReturnDto>>(achievements);
         }
 
-        public async Task<IEnumerable<UserToReturnDto>> GetAllUsers()
+        public async Task<ICollection<UserToReturnDto>> GetAllUsers()
         {
             var users = await _unitOfWork.Users.GetUsers();
 
             return _mapper.Map<ICollection<UserToReturnDto>>(users);
         }
 
-        public async Task<IEnumerable<VisitToReturnDto>> GetLatestFiveVisitorsForUser(int userId)
+        public async Task<ICollection<VisitToReturnDto>> GetLatestFiveVisitorsForUser(int userId)
         {
             var visitors = await _unitOfWork.Users.GetLatestFiveVisitorsForUser(userId);
 

@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using FootballApp.API.Data.UnitOfWork;
 using FootballApp.API.Dtos;
 using FootballApp.API.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Services.Comments
 {
@@ -27,8 +27,8 @@ namespace FootballApp.API.Services.Comments
         {
             var comment = _mapper.Map<Comment>(commentForCreationDto);
             _unitOfWork.Comments.Add(comment);
-            
-            if(await _unitOfWork.Complete())
+
+            if (await _unitOfWork.Complete())
                 return new KeyValuePair<bool, string>(true, "Comment added successfully!");
 
             return new KeyValuePair<bool, string>(false, "Problem adding comment!");

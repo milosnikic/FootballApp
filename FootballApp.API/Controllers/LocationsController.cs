@@ -1,8 +1,8 @@
-using System.Threading.Tasks;
 using FootballApp.API.Dtos;
 using FootballApp.API.Services.Locations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace FootballApp.API.Controllers
 {
