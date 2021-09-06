@@ -20,7 +20,7 @@ namespace FootballApp.API.Services.Photos
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<PhotoToReturnDto>> GetAllPhotosForUser(int userId)
+        public async Task<ICollection<PhotoToReturnDto>> GetAllPhotosForUser(int userId)
         {
             var photos = await _unitOfWork.Photos.GetAllPhotosForUser(userId);
 

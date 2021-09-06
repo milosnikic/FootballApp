@@ -38,19 +38,19 @@ namespace FootballApp.API.Services.Friends
             return response;
         }
 
-        public async Task<IEnumerable<ExploreUserDto>> GetAllExploreUsers(int userId)
+        public async Task<ICollection<ExploreUserDto>> GetAllExploreUsers(int userId)
         {
             var users = await _unitOfWork.Friends.GetAllExploreUsers(userId);
 
             return _mapper.Map<ICollection<ExploreUserDto>>(users);
         }
 
-        public async Task<IEnumerable<ExploreUserDto>> GetAllFriendsForUser(int userId)
+        public async Task<ICollection<ExploreUserDto>> GetAllFriendsForUser(int userId)
         {
             return _mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.GetAllFriendsForUser(userId));
         }
 
-        public async Task<IEnumerable<ExploreUserDto>> PendingFriendRequests(int userId)
+        public async Task<ICollection<ExploreUserDto>> PendingFriendRequests(int userId)
         {
             return _mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.PendingFriendRequests(userId));
         }
@@ -66,7 +66,7 @@ namespace FootballApp.API.Services.Friends
             return response;
         }
 
-        public async Task<IEnumerable<ExploreUserDto>> SentFriendRequests(int userId)
+        public async Task<ICollection<ExploreUserDto>> SentFriendRequests(int userId)
         {
             return _mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.SentFriendRequests(userId));
         }

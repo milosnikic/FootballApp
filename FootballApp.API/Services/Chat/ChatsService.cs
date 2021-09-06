@@ -53,15 +53,15 @@ namespace FootballApp.API.Services.Chat
             return response;
         }
 
-        public async Task<IEnumerable<UserToReturnMiniDto>> GetAvailableUsers(int userId)
+        public async Task<ICollection<UserToReturnMiniDto>> GetAvailableUsers(int userId)
         {
-            return _mapper.Map<IEnumerable<UserToReturnMiniDto>>(await _unitOfWork.Chats
+            return _mapper.Map<ICollection<UserToReturnMiniDto>>(await _unitOfWork.Chats
                                                                                      .GetAvailableUsers(userId));
         }
 
-        public async Task<IEnumerable<ChatToReturnDto>> GetPrivateChats(int userId)
+        public async Task<ICollection<ChatToReturnDto>> GetPrivateChats(int userId)
         {
-            return _mapper.Map<IEnumerable<ChatToReturnDto>>(await _unitOfWork.Chats.GetPrivateChats(userId));
+            return _mapper.Map<ICollection<ChatToReturnDto>>(await _unitOfWork.Chats.GetPrivateChats(userId));
         }
 
         public async Task JoinRoom(string connectionId, string roomId)

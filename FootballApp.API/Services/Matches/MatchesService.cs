@@ -113,22 +113,22 @@ namespace FootballApp.API.Services.Matches
             return new KeyValuePair<bool, string>(false, "Matchday has not been created.");
         }
 
-        public async Task<IEnumerable<LatestFiveMatchesView>> GetLatestFiveMatchesForUser(int userId)
+        public async Task<ICollection<LatestFiveMatchesView>> GetLatestFiveMatchesForUser(int userId)
         {
             return await _unitOfWork.Matchdays.GetLatestFiveMatchesForUser(userId);
         }
 
-        public async Task<IEnumerable<GroupMatchHistoryView>> GetMatchHistoryForGroup(int groupId)
+        public async Task<ICollection<GroupMatchHistoryView>> GetMatchHistoryForGroup(int groupId)
         {
             return await _unitOfWork.Matchdays.GetMatchHistoryForGroup(groupId);
         }
 
-        public async Task<IEnumerable<MatchHistoryView>> GetMatchHistoryForUser(int userId)
+        public async Task<ICollection<MatchHistoryView>> GetMatchHistoryForUser(int userId)
         {
             return await _unitOfWork.Matchdays.GetMatchHistoryForUser(userId);
         }
 
-        public async Task<IEnumerable<OrganizedMatchInformationView>> GetOrganizedMatchInformation(int matchdayId)
+        public async Task<ICollection<OrganizedMatchInformationView>> GetOrganizedMatchInformation(int matchdayId)
         {
             return await _unitOfWork.Matchdays.GetOrganizedMatchInformation(matchdayId);
         }
@@ -138,17 +138,17 @@ namespace FootballApp.API.Services.Matches
             return _mapper.Map<MatchdayToReturnDto>(await _unitOfWork.Matchdays.GetMatchdayWithAdditionalInformation(matchId));
         }
 
-        public async Task<IEnumerable<MatchdayToReturnDto>> GetUpcomingMatchesApplicableForUser(int userId)
+        public async Task<ICollection<MatchdayToReturnDto>> GetUpcomingMatchesApplicableForUser(int userId)
         {
             return _mapper.Map<ICollection<MatchdayToReturnDto>>(await _unitOfWork.Matchdays.GetUpcomingMatchesApplicableForUser(userId));
         }
 
-        public async Task<IEnumerable<MatchdayToReturnDto>> GetUpcomingMatchesForGroup(int groupId)
+        public async Task<ICollection<MatchdayToReturnDto>> GetUpcomingMatchesForGroup(int groupId)
         {
             return _mapper.Map<ICollection<MatchdayToReturnDto>>(await _unitOfWork.Matchdays.GetUpcomingMatchesForGroup(groupId));
         }
 
-        public async Task<IEnumerable<MatchdayForDisplayDto>> GetUpcomingMatchesForUser(int userId)
+        public async Task<ICollection<MatchdayForDisplayDto>> GetUpcomingMatchesForUser(int userId)
         {
             var user = await _unitOfWork.Users.GetUserByIdWithAdditionalInformation(userId);
             if (user != null)

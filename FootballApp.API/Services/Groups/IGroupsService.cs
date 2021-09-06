@@ -7,11 +7,11 @@ namespace FootballApp.API.Services.Groups
     public interface IGroupsService
     {
         Task<DetailGroupToReturnDto> GetGroup(int id, int userId);
-        Task<IEnumerable<GroupToReturnDto>> GetGroupsForUser(int userId);
-        Task<IEnumerable<GroupToReturnDto>> GetFavoriteGroupsForUser(int userId);
+        Task<ICollection<GroupToReturnDto>> GetGroupsForUser(int userId);
+        Task<ICollection<GroupToReturnDto>> GetFavoriteGroupsForUser(int userId);
         Task<KeyValuePair<bool, string>> CreateGroup(int userId, GroupForCreationDto group);
-        Task<IEnumerable<GroupToReturnDto>> GetAllGroups(int userId);
-        Task<IEnumerable<GroupToReturnDto>> GetAllCreatedGroups(int userId);
+        Task<ICollection<GroupToReturnDto>> GetAllGroups(int userId);
+        Task<ICollection<GroupToReturnDto>> GetAllCreatedGroups(int userId);
         Task<KeyValuePair<bool, string>> LeaveGroup(int groupId, int userId);
         Task<KeyValuePair<bool, string>> RequestJoinGroup(int groupId, int userId);
         Task<KeyValuePair<bool, string>> AcceptUser(int groupId, int userId);

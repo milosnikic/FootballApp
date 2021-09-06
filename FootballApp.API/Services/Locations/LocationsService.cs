@@ -86,19 +86,19 @@ namespace FootballApp.API.Services.Locations
             return new KeyValuePair<bool, string>(false, "Problem creating location");
         }
 
-        public async Task<IEnumerable<CityToReturnDto>> GetAllCitiesForCountry(int id)
+        public async Task<ICollection<CityToReturnDto>> GetAllCitiesForCountry(int id)
         {
             var cities = await _unitOfWork.Cities.GetAllCitiesForCountry(id);
             return _mapper.Map<ICollection<CityToReturnDto>>(cities);
         }
 
-        public async Task<IEnumerable<CountryToReturnDto>> GetAllCountriesWithCities()
+        public async Task<ICollection<CountryToReturnDto>> GetAllCountriesWithCities()
         {
             var countries = await _unitOfWork.Countries.GetAllCountriesWithCities();
             return _mapper.Map<ICollection<CountryToReturnDto>>(countries);
         }
 
-        public async Task<IEnumerable<LocationToReturnDto>> GetAllLocations()
+        public async Task<ICollection<LocationToReturnDto>> GetAllLocations()
         {
             var locations = await _unitOfWork.Locations.GetAllLocationsWithInclude();
             return _mapper.Map<ICollection<LocationToReturnDto>>(locations);

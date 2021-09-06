@@ -120,7 +120,7 @@ namespace FootballApp.API.Services.Groups
             return new KeyValuePair<bool, string>(false, "Something went wrong!");
         }
 
-        public async Task<IEnumerable<GroupToReturnDto>> GetAllCreatedGroups(int userId)
+        public async Task<ICollection<GroupToReturnDto>> GetAllCreatedGroups(int userId)
         {
             var user = await _unitOfWork.Users.GetUserByIdWithAdditionalInformation(userId);
             if (!(user is PowerUser))
@@ -133,13 +133,13 @@ namespace FootballApp.API.Services.Groups
             return _mapper.Map<ICollection<GroupToReturnDto>>(createdGroups);
         }
 
-        public async Task<IEnumerable<GroupToReturnDto>> GetAllGroups(int userId)
+        public async Task<ICollection<GroupToReturnDto>> GetAllGroups(int userId)
         {
             var groups = await _unitOfWork.Groups.GetAllGroupsWithInclude(userId);
             return _mapper.Map<ICollection<GroupToReturnDto>>(groups);
         }
 
-        public async Task<IEnumerable<GroupToReturnDto>> GetFavoriteGroupsForUser(int userId)
+        public async Task<ICollection<GroupToReturnDto>> GetFavoriteGroupsForUser(int userId)
         {
             var groups = await _unitOfWork.Groups.GetFavoriteGroupsForUser(userId);
 
@@ -156,7 +156,7 @@ namespace FootballApp.API.Services.Groups
             return _mapper.Map<DetailGroupToReturnDto>(groupFromRepo);
         }
 
-        public async Task<IEnumerable<GroupToReturnDto>> GetGroupsForUser(int userId)
+        public async Task<ICollection<GroupToReturnDto>> GetGroupsForUser(int userId)
         {
             var groups = await _unitOfWork.Groups.GetGroupsForUser(userId);
 
