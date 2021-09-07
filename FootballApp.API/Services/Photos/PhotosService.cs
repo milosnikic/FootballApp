@@ -60,7 +60,6 @@ namespace FootballApp.API.Services.Photos
         {
             var image = photoForCreationDto.File;
 
-
             if (ImageValidator.ImageExtensionValidation(image)
                 && ImageValidator.ImageSizeValidation(image)
                 && ImageValidator.ImageSignatureValidation(image))

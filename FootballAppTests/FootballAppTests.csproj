@@ -20,4 +20,8 @@
     <ProjectReference Include="..\FootballApp.API\FootballApp.API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+
 </Project>

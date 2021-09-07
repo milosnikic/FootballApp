@@ -152,8 +152,6 @@ namespace FootballAppTests.ServiceTests
             Assert.Equal("Already have gained that achievement!", response.Value);
         }
 
-
-
         [Fact]
         public async Task GetAllAchievements_ShouldReturnTwoInList()
         {
@@ -355,24 +353,304 @@ namespace FootballAppTests.ServiceTests
         }
 
         [Fact]
-        public async Task GetUser_ShouldNot()
+        public async Task GetUser_ShouldNotReturnUser()
+        {
+            // Arrange
+            _unitOfWorkMock.Setup(x => x.Users.GetUserByIdWithAdditionalInformation(It.IsAny<int>()))
+                    .ReturnsAsync(() => null);
+            // Act
+            var result = await _sut.GetUser(It.IsAny<int>());
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task GetUser_ShouldReturnUser()
         {
             // Arrange
             var userId = 1;
-            var userFirstname = "Milos";
-            var userLastname = "Nikic";
-            User user = new PowerUser()
+            var firstname = "Jelena";
+            var lastname = "Ralevic";
+            var user = new PowerUser()
             {
                 Id = userId,
-                Firstname = userFirstname,
-                Lastname = userLastname
+                Firstname = firstname,
+                Lastname = lastname
             };
 
-            _unitOfWorkMock.Setup(x => x.Users.GetUserByIdWithAdditionalInformation(It.IsAny<int>()))
+            var userToReturnDto = new UserToReturnDto()
+            {
+                Id = userId,
+                Firstname = firstname,
+                Lastname = lastname
+            };
+
+            _unitOfWorkMock.Setup(x => x.Users.GetUserByIdWithAdditionalInformation(userId))
                     .ReturnsAsync(user);
+
+            _mapperMock.Setup(x => x.Map<UserToReturnDto>(It.IsAny<PowerUser>()))
+                    .Returns(userToReturnDto);
             // Act
-            
+            var result = await _sut.GetUser(userId);
+
             // Assert
+            Assert.Equal(userId, result.Id);
+            Assert.Equal(firstname, result.Firstname);
+            Assert.Equal(lastname, result.Lastname);
+        }
+
+        [Fact]
+        public async Task UpdateUser_ShouldNotUpdate_WhenUserDoesNotExist()
+        {
+            // Arrange
+            var responseMessage = "Specified user doesn't exist.";
+            _unitOfWorkMock.Setup(x => x.Users.GetById(It.IsAny<int>()))
+                    .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _sut.UpdateUser(It.IsAny<int>(), It.IsAny<UserToUpdateDto>());
+
+            // Assert
+            Assert.Equal(responseMessage, result.Value);
+        }
+
+        [Fact]
+        public async Task UpdateUser_ShouldNotUpdate_WhenCountryIsInvalid()
+        {
+            // Arrange
+            var responseMessage = "Specified country or city doesn't exist!";
+            var userId = 1;
+            var firstname = "Jelena";
+            var lastname = "Ralevic";
+            var countryId = 2;
+            var cityId = 3;
+
+            var user = new PowerUser()
+            { 
+                Id = userId,
+                Firstname = firstname,
+                Lastname = lastname
+            };
+
+            var userToUpdateDto = new UserToUpdateDto()
+            {
+                Country = countryId,
+                City = cityId
+            };
+
+            _unitOfWorkMock.Setup(x => x.Users.GetById(It.IsAny<int>()))
+                    .ReturnsAsync(user);
+
+            _unitOfWorkMock.Setup(x => x.Countries.GetCountryWithCities(countryId))
+                    .ReturnsAsync(() => null);
+
+            _unitOfWorkMock.Setup(x => x.Cities.GetCityById(cityId, countryId))
+                    .ReturnsAsync(It.IsAny<City>());
+            // Act
+            var result = await _sut.UpdateUser(userId, userToUpdateDto);
+
+            // Assert
+            Assert.Equal(responseMessage, result.Value);
+        }
+
+        [Fact]
+        public async Task UpdateUser_ShouldNotUpdate_WhenCityIsInvalid()
+        {
+            // Arrange
+            var responseMessage = "Specified country or city doesn't exist!";
+            var userId = 1;
+            var firstname = "Jelena";
+            var lastname = "Ralevic";
+            var countryId = 2;
+            var cityId = 3;
+
+            var user = new PowerUser()
+            {
+                Id = userId,
+                Firstname = firstname,
+                Lastname = lastname
+            };
+
+            var userToUpdateDto = new UserToUpdateDto()
+            {
+                Country = countryId,
+                City = cityId
+            };
+
+            _unitOfWorkMock.Setup(x => x.Users.GetById(It.IsAny<int>()))
+                    .ReturnsAsync(user);
+
+            _unitOfWorkMock.Setup(x => x.Countries.GetCountryWithCities(countryId))
+                    .ReturnsAsync(It.IsAny<Country>());
+
+            _unitOfWorkMock.Setup(x => x.Cities.GetCityById(cityId, countryId))
+                    .ReturnsAsync(() => null);
+            // Act
+            var result = await _sut.UpdateUser(userId, userToUpdateDto);
+
+            // Assert
+            Assert.Equal(responseMessage, result.Value);
+        }
+
+        [Fact]
+        public async Task UpdateUser_ShouldNotUpdate_WhenItIsNotSaved()
+        {
+            // Arrange
+            var responseMessage = "User can't be updated.";
+            var userId = 1;
+            var firstname = "Jelena";
+            var lastname = "Ralevic";
+            var countryId = 2;
+            var cityId = 3;
+
+            var user = new PowerUser()
+            {
+                Id = userId,
+                Firstname = firstname,
+                Lastname = lastname
+            };
+
+            var userToUpdateDto = new UserToUpdateDto()
+            {
+                Country = countryId,
+                City = cityId
+            };
+
+            var city = new City()
+            {
+                Id = cityId,
+                Name = "Beograd",
+                CountryId = countryId,
+            };
+
+            var country = new Country()
+            { 
+                Id = countryId,
+                Name = "Srbija",
+                Cities = new List<City>()
+                {
+                    city
+                }
+            };
+
+            _unitOfWorkMock.Setup(x => x.Users.GetById(It.IsAny<int>()))
+                    .ReturnsAsync(user);
+
+            _unitOfWorkMock.Setup(x => x.Countries.GetCountryWithCities(countryId))
+                    .ReturnsAsync(country);
+
+            _unitOfWorkMock.Setup(x => x.Cities.GetCityById(cityId, countryId))
+                    .ReturnsAsync(city);
+
+            _unitOfWorkMock.Setup(x => x.Complete())
+                    .ReturnsAsync(false);
+            // Act
+            var result = await _sut.UpdateUser(userId, userToUpdateDto);
+
+            // Assert
+            Assert.Equal(responseMessage, result.Value);
+        }
+
+        [Fact]
+        public async Task UpdateUser_ShouldUpdate()
+        {
+            // Arrange
+            var responseMessage = "User successfully updated.";
+            var userId = 1;
+            var firstname = "Jelena";
+            var lastname = "Ralevic";
+            var countryId = 2;
+            var cityId = 3;
+
+            var user = new PowerUser()
+            {
+                Id = userId,
+                Firstname = firstname,
+                Lastname = lastname
+            };
+
+            var userToUpdateDto = new UserToUpdateDto()
+            {
+                Country = countryId,
+                City = cityId
+            };
+
+            var city = new City()
+            {
+                Id = cityId,
+                Name = "Beograd",
+                CountryId = countryId,
+            };
+
+            var country = new Country()
+            {
+                Id = countryId,
+                Name = "Srbija",
+                Cities = new List<City>()
+                {
+                    city
+                }
+            };
+
+            _unitOfWorkMock.Setup(x => x.Users.GetById(It.IsAny<int>()))
+                    .ReturnsAsync(user);
+
+            _unitOfWorkMock.Setup(x => x.Countries.GetCountryWithCities(countryId))
+                    .ReturnsAsync(country);
+
+            _unitOfWorkMock.Setup(x => x.Cities.GetCityById(cityId, countryId))
+                    .ReturnsAsync(city);
+
+            _unitOfWorkMock.Setup(x => x.Complete())
+                    .ReturnsAsync(true);
+            // Act
+            var result = await _sut.UpdateUser(userId, userToUpdateDto);
+
+            // Assert
+            Assert.Equal(responseMessage, result.Value);
+        }
+
+        [Fact]
+        public async Task VisitUser_ShouldNotVisit_WhenItIsNotSaved()
+        {
+            // Arrange
+             var responseMessage = "Problem with visiting user!";
+
+            _mapperMock.Setup(x => x.Map<Visit>(It.IsAny<VisitUserDto>()))
+                    .Returns(new Visit());
+
+            _unitOfWorkMock.Setup(x => x.Users.VisitUser(It.IsAny<Visit>()))
+                    .Verifiable();
+
+            _unitOfWorkMock.Setup(x => x.Complete())
+                    .ReturnsAsync(false);
+            // Act
+            var result = await _sut.VisitUser(It.IsAny<VisitUserDto>());
+
+            // Assert
+            Assert.Equal(responseMessage, result.Value);
+        }
+
+        [Fact]
+        public async Task VisitUser_ShouldVisit()
+        {
+            // Arrange
+            var responseMessage = "User successfully visited!";
+
+            _mapperMock.Setup(x => x.Map<Visit>(It.IsAny<VisitUserDto>()))
+                    .Returns(new Visit());
+
+            _unitOfWorkMock.Setup(x => x.Users.VisitUser(It.IsAny<Visit>()))
+                    .Verifiable();
+
+            _unitOfWorkMock.Setup(x => x.Complete())
+                    .ReturnsAsync(true);
+            // Act
+            var result = await _sut.VisitUser(It.IsAny<VisitUserDto>());
+
+            // Assert
+            Assert.Equal(responseMessage, result.Value);
         }
     }
 }
