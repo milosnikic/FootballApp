@@ -302,7 +302,11 @@ namespace FootballAppTests.ServiceTests
                     DatePlayed = datePlayed,
                     Goals = 0,
                     HomeName = "Test",
-                    AwayName = "Test"
+                    AwayName = "Test",
+                    Assists = 1,
+                    Place = "Test",
+                    Rating = 10,
+                    Result = "1 - 0"
                 }
             };
             _unitOfWorkMock.Setup(x => x.Matchdays.GetLatestFiveMatchesForUser(It.IsAny<int>()))
@@ -316,6 +320,13 @@ namespace FootballAppTests.ServiceTests
             Assert.NotNull(firstMatch);
             Assert.Equal(datePlayed, firstMatch.DatePlayed);
             Assert.Equal(1, firstMatch.Id);
+            Assert.Equal(0, firstMatch.Goals);
+            Assert.Equal("Test", firstMatch.HomeName);
+            Assert.Equal("Test", firstMatch.AwayName);
+            Assert.Equal(1, firstMatch.Assists);
+            Assert.Equal(10, firstMatch.Rating);
+            Assert.Equal("Test", firstMatch.Place);
+            Assert.Equal("1 - 0", firstMatch.Result);
         }
 
         [Fact]

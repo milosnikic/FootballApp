@@ -40,7 +40,7 @@ namespace FootballApp.API.Services.Locations
 
         public async Task<KeyValuePair<bool, string>> AddCountry(string name)
         {
-            if (!await _unitOfWork.Countries.Exists(name))
+            if (await _unitOfWork.Countries.Exists(name))
             {
                 return new KeyValuePair<bool, string>(false, "Country already exists.");
             }
@@ -59,12 +59,12 @@ namespace FootballApp.API.Services.Locations
         public async Task<KeyValuePair<bool, string>> AddLocation(LocationToAddDto location)
         {
             var city = await _unitOfWork.Cities.GetById(location.CityId);
-            var country = await _unitOfWork.Countries.GetById(location.CountryId);
             if (city == null)
             {
                 return new KeyValuePair<bool, string>(false, "City does not exist");
             }
 
+            var country = await _unitOfWork.Countries.GetById(location.CountryId);
             if (country == null)
             {
                 return new KeyValuePair<bool, string>(false, "Country does not exist");

@@ -37,6 +37,16 @@ namespace FootballApp.API.Services.Friends
 
             return response;
         }
+        public async Task<KeyValuePair<bool, string>> SendFriendRequest(FriendRequestDto friendRequestDto)
+        {
+            var response = await _unitOfWork.Friends.SendFriendRequest(friendRequestDto);
+            if (response.Key)
+            {
+                await _unitOfWork.Complete();
+            }
+
+            return response;
+        }
 
         public async Task<ICollection<ExploreUserDto>> GetAllExploreUsers(int userId)
         {
@@ -55,16 +65,6 @@ namespace FootballApp.API.Services.Friends
             return _mapper.Map<ICollection<ExploreUserDto>>(await _unitOfWork.Friends.PendingFriendRequests(userId));
         }
 
-        public async Task<KeyValuePair<bool, string>> SendFriendRequest(FriendRequestDto friendRequestDto)
-        {
-            var response = await _unitOfWork.Friends.SendFriendRequest(friendRequestDto);
-            if (response.Key)
-            {
-                await _unitOfWork.Complete();
-            }
-
-            return response;
-        }
 
         public async Task<ICollection<ExploreUserDto>> SentFriendRequests(int userId)
         {
