@@ -16,7 +16,6 @@ namespace FootballApp.API.Data
         {
             Context = context;
             _entities = context.Set<T>();
-
         }
 
         public void Add(T entity)

@@ -73,8 +73,8 @@ namespace FootballApp.API.Services.Groups
 
             if (group.Image != null)
             {
-                if (ImageValidator.ImageExtensionValidation(group.Image)
-                && ImageValidator.ImageSizeValidation(group.Image)
+                if (ImageValidator.ImageExtensionValidation(group.Image.FileName)
+                && ImageValidator.ImageSizeValidation(group.Image.Length)
                 && ImageValidator.ImageSignatureValidation(group.Image))
                 {
                     using (var memoryStream = new MemoryStream())

@@ -60,8 +60,8 @@ namespace FootballApp.API.Services.Photos
         {
             var image = photoForCreationDto.File;
 
-            if (ImageValidator.ImageExtensionValidation(image)
-                && ImageValidator.ImageSizeValidation(image)
+            if (ImageValidator.ImageExtensionValidation(image.FileName)
+                && ImageValidator.ImageSizeValidation(image.Length)
                 && ImageValidator.ImageSignatureValidation(image))
             {
                 using (var memoryStream = new MemoryStream())
@@ -88,6 +88,7 @@ namespace FootballApp.API.Services.Photos
                     }
                 }
             }
+            
             return null;
         }
     }

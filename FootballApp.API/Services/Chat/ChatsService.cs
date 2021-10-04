@@ -31,7 +31,7 @@ namespace FootballApp.API.Services.Chat
 
         public async Task<KeyValuePair<bool, string>> CreateGroupChat(string name, int ownerId)
         {
-             var response = await _unitOfWork.Chats.CreateGroupChat(name, ownerId);
+            var response = await _unitOfWork.Chats.CreateGroupChat(name, ownerId);
 
             if (response.Key)
             {
