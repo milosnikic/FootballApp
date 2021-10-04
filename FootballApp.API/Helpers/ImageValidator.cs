@@ -12,23 +12,23 @@ namespace FootballApp.API.Helpers
         /// <summary>
         /// This method checks if there is image and if image size is less than 10MB.
         /// </summary>
-        /// <param name="image">Image file to be checked.</param>
+        /// <param name="length">Image file lenght to be checked.</param>
         /// <returns>True if image size is valid.</returns>
-        public static bool ImageSizeValidation(IFormFile image)
+        public static bool ImageSizeValidation(long length)
         {
-            return image.Length > 0 && image.Length < 10485760;
+            return length > 0 && length < 10485760;
         }
 
         /// <summary>
         /// This method checks if file extension is allowed.
         /// </summary>
-        /// <param name="image">Image file to be checked.</param>
+        /// <param name="filename">Image filename to be checked.</param>
         /// <returns>True if image extension is in allowed values.</returns>
-        public static bool ImageExtensionValidation(IFormFile image)
+        public static bool ImageExtensionValidation(string filename)
         {
             string[] permittedExtensions = { ".png", ".jpeg", ".jpg" };
 
-            var ext = Path.GetExtension(image.FileName).ToLowerInvariant();
+            var ext = Path.GetExtension(filename).ToLowerInvariant();
 
             return !string.IsNullOrEmpty(ext) && permittedExtensions.Contains(ext);
         }
@@ -81,8 +81,8 @@ namespace FootballApp.API.Helpers
                 using (var memoryStream = new MemoryStream())
                 {
                     if (image != null &&
-                        ImageValidator.ImageSizeValidation(image) &&
-                        ImageValidator.ImageExtensionValidation(image) &&
+                        ImageValidator.ImageSizeValidation(image.Length) &&
+                        ImageValidator.ImageExtensionValidation(image.FileName) &&
                         ImageValidator.ImageSignatureValidation(image))
                     {
                         await image.CopyToAsync(memoryStream);

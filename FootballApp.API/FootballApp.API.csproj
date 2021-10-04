@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ProjectGuid>97604D8F-950D-4AC4-94BE-18FDEDDDA111</ProjectGuid>
+    <StartupObject></StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />
