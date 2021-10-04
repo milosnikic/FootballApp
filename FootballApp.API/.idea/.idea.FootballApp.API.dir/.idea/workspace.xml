@@ -4,21 +4,58 @@
     <projectFile>FootballApp.API.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4004304f-5541-4363-9a07-4da47b043765" name="Default Changelist" comment="" />
+    <list default="true" id="4004304f-5541-4363-9a07-4da47b043765" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../FootballAppTests/ExtensionsTests/ImageValidatorTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Repository/Repository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Repository/Repository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helpers/ImageValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/ImageValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Chat/ChatsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Chat/ChatsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Groups/GroupsService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Groups/GroupsService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/Photos/PhotosService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/Photos/PhotosService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../FootballAppTests/FootballAppTests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../FootballAppTests/FootballAppTests.csproj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Data/Matchdays/MatchdaysRepository.cs" />
     </changedPaths>
   </component>
+  <component name="ProjectId" id="1z0qqDPGPUOhEYNcRXJQgeOA8B6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4004304f-5541-4363-9a07-4da47b043765" name="Default Changelist" comment="" />
+      <created>1633295553872</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1633295553872</updated>
+      <workItem from="1633295570759" duration="18000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
 </project>
