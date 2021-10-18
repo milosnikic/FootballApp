@@ -37,7 +37,10 @@ export class PlayerStatisticsErrorStateMatcher implements ErrorStateMatcher {
 export class OrganizeUsersComponent implements OnInit {
   @Input() displayMode: DisplayMode;
   DisplayMode = DisplayMode;
-  @Input() users: any = [];
+  _users: any;
+  @Input() set users(value: any) {
+    this._users = value.filter(x => x.matchStatus === 1);
+  }
   selectedPlayer: any;
   playerToRemoveOrSwitch: any;
   switchPlayer: any;
@@ -168,7 +171,7 @@ export class OrganizeUsersComponent implements OnInit {
   }
 
   private removeSelectedPlayerFromList(): void {
-    this.users = this.users.filter(
+    this._users = this._users.filter(
       (u) => u.username !== this.selectedPlayer.username
     );
   }
@@ -246,7 +249,7 @@ export class OrganizeUsersComponent implements OnInit {
       this.awayTeam.players = this.awayTeam.players.filter(
         (u) => u.username !== playerToRemoveOrSwitch.username
       );
-      this.users.unshift(playerToRemoveOrSwitch);
+      this._users.unshift(playerToRemoveOrSwitch);
     }
     this.removePlayerToRemoveOrSwitch();
     this.isSwitchActivated = false;
@@ -267,6 +270,8 @@ export class OrganizeUsersComponent implements OnInit {
       (res: any) => {
         if (res.key) {
           this.notify.showSuccess("Match has been successfully organized!");
+        } else {
+          this.notify.showError(res.value);
         }
       },
       (err) => {

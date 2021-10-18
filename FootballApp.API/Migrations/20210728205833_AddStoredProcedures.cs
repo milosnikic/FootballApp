@@ -47,7 +47,7 @@ namespace FootballApp.API.Migrations
                                                     ON t.matchdayid = md.id
                                             LEFT JOIN MatchPlayeds mp
                                                     ON t.Id = mp.HomeId or t.Id = mp.AwayId
-                                    WHERE  md.groupid = 1
+                                    WHERE  md.groupid = @GroupId
                                     GROUP  BY md.id,
                                                 md.NAME,
                                                 md.description,
@@ -312,6 +312,10 @@ AS
                     AND mp.homeid IS NULL THEN 'LOSE'
                WHEN mp.homegoals > mp.awaygoals
                     AND mp.homeid IS NOT NULL THEN 'WIN'
+			   WHEN mp.AwayGoals > mp.HomeGoals
+					AND mp.AwayId IS NULL THEN 'LOSE'
+			   WHEN mp.AwayGoals > mp.HomeGoals
+					AND mp.AwayId IS NOT NULL THEN 'WIN'
                WHEN mp.homegoals = mp.awaygoals THEN 'DRAW'
              END                            AS Result,
              HomeName,

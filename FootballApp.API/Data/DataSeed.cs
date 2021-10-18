@@ -48,7 +48,8 @@ namespace FootballApp.API.Data
                                 new Country { Name = "Croatia", Flag = "../../../../assets/cro.png" },
                                 new Country { Name = "Montenegro", Flag = "../../../../assets/mne.png" }
                             };
-                _context.AddRange(countries);
+                _context.Countries.AddRange(countries);
+                _context.SaveChanges();
 
                 var cities = new List<City>
                             {
@@ -78,7 +79,7 @@ namespace FootballApp.API.Data
                             };
 
 
-                _context.AddRange(cities);
+                _context.Cities.AddRange(cities);
                 _context.SaveChanges();
             }
 

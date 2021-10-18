@@ -31,7 +31,7 @@
     <!-- Displays list of users -->
     <ng-container *ngIf="displayMode === DisplayMode.OrganizeMatchPlayers">
       <app-group-user-box
-        *ngFor="let user of users"
+        *ngFor="let user of _users"
         [user]="user"
         [selectPlayerVisible]="true"
         (selectedPlayer)="selectPlayer($event)"
@@ -146,7 +146,7 @@
       </button>
     </div>
     <button
-      *ngIf="users.length === 0 && !isMatchOrganized"
+      *ngIf="_users.length === 0 && !isMatchOrganized"
       type="button"
       class="btn btn-success mb-4"
       (click)="confirmTeams()"
