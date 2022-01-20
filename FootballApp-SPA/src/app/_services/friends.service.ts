@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { environment } from "src/environments/environment";
 import { User } from "../_models/user";
 
 @Injectable({
   providedIn: "root",
 })
 export class FriendsService {
-  private baseUrl: string = "http://localhost:5000/api/friends";
+  private baseUrl: string = `${environment.apiUrl}/api/friends`;
   private readonly exploreUsersSource = new Subject<User[]>();
   private readonly friendsSource = new Subject<User[]>();
   private readonly pendingRequestsSource = new Subject<User[]>();

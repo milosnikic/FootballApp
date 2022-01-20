@@ -1,5 +1,5 @@
 *.pdf
-*.doc*
+*.docx
 master_documentation
 .sonarqube
 .scannerwork

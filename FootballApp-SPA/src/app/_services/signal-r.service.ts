@@ -2,13 +2,14 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { HubConnection, HubConnectionBuilder } from "@aspnet/signalr";
 import { Observable, Subject } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class SignalRService {
-  private hubUrl: string = "http://localhost:5000/chatHub";
-  private controllerUrl: string = "http://localhost:5000/api/chat";
+  private hubUrl: string = `${environment.apiUrl}/chatHub`;
+  private controllerUrl: string = `${environment.apiUrl}/api/chat`;
   private readonly messageReceivedSource = new Subject<any>();
   public messageReceived$ = this.messageReceivedSource.asObservable();
 

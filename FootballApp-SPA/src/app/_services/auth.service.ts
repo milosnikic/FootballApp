@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { User } from '../_models/user';
 export class AuthService {
   // TODO: Anytime in future
   //       Refactor code to use user observable...
-  baseUrl = 'http://localhost:5000/api/auth';
+  baseUrl = `${environment.apiUrl}api/auth`;
   helper = new JwtHelperService();
   constructor(private http: HttpClient,
               private localStorage: LocalStorageService) {}

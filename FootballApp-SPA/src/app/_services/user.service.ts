@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  baseUrl: string = 'http://localhost:5000/api/users';
+  baseUrl: string = `${environment.apiUrl}/api/users`;
 
   constructor(
     private http: HttpClient,

@@ -1,13 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 import { UserToChat } from "../_models/userToChat";
 
 @Injectable({
   providedIn: "root",
 })
 export class MessagesService {
-  private baseUrl: string = "http://localhost:5000/api/chat";
+  private baseUrl: string = `${environment.apiUrl}/api/chat`;
   constructor(private http: HttpClient) {}
 
   /**

@@ -2,12 +2,13 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { Group } from "../_models/group";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class GroupsService {
-  baseUrl: string = "http://localhost:5000/api/groups";
+  baseUrl: string = `${environment.apiUrl}/api/groups"`
   private allGroups = new Subject<Group[]>();
   private usersGroups = new Subject<Group[]>();
   private usersFavoriteGroups = new Subject<Group[]>();

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PhotosService {
-  baseUrl: string = 'http://localhost:5000/api/photos';
+  baseUrl: string = `${environment.apiUrl}/api/photos`;
 
   constructor(private http: HttpClient,
               private localStorage: LocalStorageService) { }
