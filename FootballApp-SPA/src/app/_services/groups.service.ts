@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
   providedIn: "root",
 })
 export class GroupsService {
-  baseUrl: string = `${environment.apiUrl}/api/groups"`
+  baseUrl: string = `${environment.apiUrl}/api/groups`
   private allGroups = new Subject<Group[]>();
   private usersGroups = new Subject<Group[]>();
   private usersFavoriteGroups = new Subject<Group[]>();

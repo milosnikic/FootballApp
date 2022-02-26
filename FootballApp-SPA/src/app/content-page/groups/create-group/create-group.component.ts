@@ -89,6 +89,7 @@ export class CreateGroupComponent implements OnInit {
         this.notifyService.showSuccess(res.value);
         // Switch to first tab
         this.mainTab.emit(0);
+        this.createGroupForm.reset();
       } else {
         this.notifyService.showError(res.value);
       }

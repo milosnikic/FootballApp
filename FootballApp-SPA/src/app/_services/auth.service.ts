@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   // TODO: Anytime in future
   //       Refactor code to use user observable...
-  baseUrl = `${environment.apiUrl}api/auth`;
+  baseUrl = `${environment.apiUrl}/api/auth`;
   helper = new JwtHelperService();
   constructor(private http: HttpClient,
               private localStorage: LocalStorageService) {}
